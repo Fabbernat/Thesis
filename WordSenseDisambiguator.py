@@ -2,7 +2,7 @@
 
 import re
 import mynltk
-import matplotlib.pyplot as plt
+import os
 from typing import Set, Optional, Dict
 
 class WordSenseDisambiguator:
@@ -65,7 +65,52 @@ similarity = len({"a"}) / len({"for", "a", "in", "the", "long", "on", "Broadway"
            = 0.14
 return "YES" if similarity > 0 else "NO"
 '''
+
+def read_WiC_dataset(base_path: str):
+    """
+        Reads the WiC dataset from the given base directory and returns a structured dictionary.
+
+        :param base_path: The root directory containing the WiC dataset.
+        :return: A dictionary with 'train', 'dev', and 'test' datasets.
+    """
+    datasets = ["train", "dev", "test"]
+    data_structure = {}
+
+    for dataset in datasets:
+        data_file = os.path.join(base_path, dataset, f"{dataset}.data.txt")
+        gold_file = os.path.join(base_path, dataset, f"{dataset}.gold.txt")
+
+        if not os.path.exists(data_file) or not os.path.exists(gold_file):
+            print(f"Skipping {dataset}: Missing files")
+            continue
+
+        entries = []
+        with open(data_file, "r", encoding="utf-8") as df, open(gold_file, "r", encoding="utf-8") as gf:
+            for line, label in zip(df, gf):
+                parts = line.strip().split("\t")
+                if len(parts) < 3:
+                    print(f"Skipping invalid line in {data_file}: {line}")
+                    continue
+
+                word, sentence1, sentence2 = parts[:3]
+                label = label.strip()
+                entries.append({
+                    "word": word,
+                    "sentence1": sentence1,
+                    "sentence2": sentence2,
+                    "label": label
+                })
+
+        data_structure[dataset] = entries
+
+    return data_structure
+
 def use_model(synonyms):
+    """
+        passes the database
+    :param synonyms:
+    :return:
+    """
     model = WordSenseDisambiguator()
     correct_answers_count = 0
     total_questions = 0
@@ -101,25 +146,19 @@ def use_model(synonyms):
 
     print(f'accuracy = {correct_answers_count / len(questions)}')
 
-def plot_results(results: Dict[str, tuple], accuracy: float):
-    """Plots the results using matplotlib."""
-    labels = list(results.keys())
-    predictions = [1 if pred == exp else 0 for pred, exp in results.values()]
 
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.barh(labels, predictions, color=['green' if p else 'red' for p in predictions])
+def main():
+    # Run the model with no synonyms
+    print('"dumb" algorithm implemented by Fabbernat:')
+    use_model(None)
+    print('\nnltk wordnet algorithm:')
+    use_model(mynltk.synonyms)
 
-    ax.set_xlabel("Prediction Correctness")
-    ax.set_ylabel("Questions")
-    ax.set_title(f"Word Sense Disambiguation Accuracy: {accuracy:.2%}")
-    ax.set_yticks(range(len(labels)))
-    ax.set_yticklabels(labels, fontsize=8)
+    base_dir = r"C:\Users\Bernát\Downloads\WiC_dataset"
+    wic_data = read_WiC_dataset(base_dir)
 
-    plt.tight_layout()
-    plt.show()
+    # Print a sample
+    print(wic_data["train"][:2])
 
-# Run the model with no synonyms
-print('"dumb" algorithm implemented by Fabbernat:')
-use_model(None)
-print('\nnltk wordnet algorithm:')
-use_model(mynltk.synonyms)
+if __name__ == '__main__':
+    main()
