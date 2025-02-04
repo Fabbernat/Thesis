@@ -2,9 +2,10 @@
 # https://pilehvar.github.io/wic/
 import os
 import re
-from typing import Set, Optional, Dict, List
+from typing import Set, Optional, Dict, List, Tuple
 
 import mynltk
+
 
 
 class WordSenseDisambiguator:
@@ -208,11 +209,18 @@ def main():
     questions = {}
 
     processed_data = process_wic_data(wic_data)
+    print(processed_data)
     for row in processed_data.values():
-        for entry in row.values():
-            for word, sentence_a, sentence_b, label in row:
-                built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
-                questions[built_sentence] = 'YES' if label == 'T' else 'NO'
+        print(row)
+        # for entry in row.values():
+        #     entry : Tuple[str, str, str, str] = entry
+        #     assert isinstance(entry, tuple) and len(entry) == 4
+        word = row['word']
+        sentence_a = row['sentence_a']
+        sentence_b = row['sentence_b']
+        label = row['label']
+        built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
+        questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
     use_model(mynltk.synonyms, wsd_model, questions)
 
