@@ -242,15 +242,15 @@ def main():
 
     base_dir = r'C:\WiC_dataset'
     train_data = read_wic_dataset(base_dir, r'train\train.data.txt')
-    train_gold = read_wic_dataset(base_dir, r'train\train.gold.txt')
+    train_gold = read_gold_labels(base_dir, r'train\train.gold.txt')
     dev_data = read_wic_dataset(base_dir, r'dev\dev.data.txt')
-    dev_gold = read_wic_dataset(base_dir, r'dev\dev.gold.txt')
+    dev_gold = read_gold_labels(base_dir, r'dev\dev.gold.txt')
     test_data = read_wic_dataset(base_dir, r'test\test.data.txt')
-    test_gold = read_wic_dataset(base_dir, r'test\test.gold.txt')
+    test_gold = read_gold_labels(base_dir, r'test\test.gold.txt')
 
     wic_data_unformatted = train_data + train_gold + dev_data + dev_gold + test_data + test_gold
 
-    wic_data = load_wic_data(str(wic_data_unformatted))
+    wic_data = load_wic_data(base_dir)
     questions = {}
 
     processed_data = process_wic_data(wic_data)
