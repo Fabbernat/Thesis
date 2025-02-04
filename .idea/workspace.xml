@@ -193,7 +193,7 @@
       <workItem from="1738504921088" duration="2567000" />
       <workItem from="1738619284542" duration="2358000" />
       <workItem from="1738624836928" duration="12766000" />
-      <workItem from="1738684972539" duration="1737000" />
+      <workItem from="1738684972539" duration="2051000" />
     </task>
     <task id="LOCAL-00001" summary="Érzésre ez a kód (szinte) minden mondatpárra YES-szel tér vissza. A mondatfeldolgozó függvényed szerintem nem kezeli az olyan mondatokat, mint pl. &quot;I went to the bank located at the river bank&quot;, vagyis amikor a target szó (bank) több alkalommal szerepel. A szinomímák használatát amúgy nem teljesen így gondoltam, ahogy használod. Mindenesetre hogy legyen valami konkrét cél a félév végére, tegyük akkor a kurzus sikeres teljesítését és ennek a szakdolgozati témának a folytatását annak függvényévé, hogy péntek délig el tudsz-e készíteni egy olyan módszert, ami legalább 0.55-ös accuracy-t ér el a teljes WiC adatbázison kiértékelve. A kiértékelést elvégző kód mellett küldd majd el a módszerhez tartozó tévesztési mátrixot (azt a kétszer kettes mátrixot, ami összefoglalja, hogy a predikált és az elvárt címkék mennyiségének az együttállása hogy alakult). Ha kell még hint arról, hogy mi az a tévesztési mátrix, akkor olvasd el ezt: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html">
       <option name="closed" value="true" />
