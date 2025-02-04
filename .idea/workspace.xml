@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2dc14d1d-b19e-4b42-8018-fcd73b748445" name="Changes" comment="C:\Users\Bernát\PycharmProjects\Peternity\.venv\Scripts\python.exe C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py &#10;WordNet is already downloaded.&#10;Bank definition: Synset('bank.n.01')&#10;Bank synonyms:&#10;bank.n.01 sloping land (especially the slope beside a body of water)&#10;Bank synonyms:&#10;depository_financial_institution.n.01 a financial institution that accepts deposits and channels the money into lending activities&#10;Bank synonyms:&#10;bank.n.03 a long ridge or pile&#10;Bank synonyms:&#10;bank.n.04 an arrangement of similar objects in a row or in tiers&#10;Bank synonyms:&#10;bank.n.05 a supply or stock held in reserve for future use (especially in emergencies)&#10;Bank synonyms:&#10;bank.n.06 the funds held by a gambling house or the dealer in some gambling games&#10;Bank synonyms:&#10;bank.n.07 a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force&#10;Bank synonyms:&#10;savings_bank.n.02 a container (usually with a slot in the top) for keeping money at home&#10;Bank synonyms:&#10;bank.n.09 a building in which the business of banking transacted&#10;Bank synonyms:&#10;bank.n.10 a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)&#10;Bank synonyms:&#10;bank.v.01 tip laterally&#10;Bank synonyms:&#10;bank.v.02 enclose with a bank&#10;Bank synonyms:&#10;bank.v.03 do business with a bank or keep an account at a bank&#10;Bank synonyms:&#10;bank.v.04 act as the banker in a game or in gambling&#10;Bank synonyms:&#10;bank.v.05 be in the banking business&#10;Bank synonyms:&#10;deposit.v.02 put into a bank account&#10;Bank synonyms:&#10;bank.v.07 cover with ashes so to control the rate of burning&#10;Bank synonyms:&#10;trust.v.01 have confidence or faith in&#10;&#10;End of bank synonyms. Continuing... &#10;&#10;{'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}}&#10;{'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}&#10;Sentence: &quot;Does the word &quot;invasion&quot; mean the same thing in sentences &quot;An invasion of bees .&quot; and &quot;An invasion of mobile phones .&quot;?&quot;&#10;Did the model predict correctly? YES&#10;accuracy = 0.9999900000999989&#10;1 correct answer(s) out of 1 answers.&#10;&#10;Process finished with exit code 0" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Fabbernat&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Fabbernat/Peternity/&quot;,
+    &quot;accountId&quot;: &quot;7d0d04c9-02dd-42a0-bbd8-8b34bd36d799&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2sOqQFH1k9slqBTf6SCWYRkwViG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.AskAi.executor&quot;: &quot;Run&quot;,
+    &quot;Python.WordSenseDisambiguator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mynltk (1).executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Bernát/PycharmProjects/Peternity&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/Bernát/PycharmProjects/Peternity/WordSenseDisambiguator.py&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Bernát\PycharmProjects\Peternity" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.WordSenseDisambiguator">
+    <configuration name="AskAi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Peternity" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AskAi.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="WordSenseDisambiguator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Peternity" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WordSenseDisambiguator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="mynltk (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Peternity" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mynltk.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="mynltk" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Peternity" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Bernát\PycharmProjects\Peternity\mynltk.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.WordSenseDisambiguator" />
+        <item itemvalue="Python.AskAi" />
+        <item itemvalue="Python.mynltk (1)" />
+        <item itemvalue="Python.mynltk" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
+        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2dc14d1d-b19e-4b42-8018-fcd73b748445" name="Changes" comment="" />
+      <created>1738336951878</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738336951878</updated>
+      <workItem from="1738336953047" duration="654000" />
+      <workItem from="1738497790200" duration="1474000" />
+      <workItem from="1738504921088" duration="2567000" />
+      <workItem from="1738619284542" duration="2358000" />
+      <workItem from="1738624836928" duration="12766000" />
+      <workItem from="1738684972539" duration="1737000" />
+    </task>
+    <task id="LOCAL-00001" summary="Érzésre ez a kód (szinte) minden mondatpárra YES-szel tér vissza. A mondatfeldolgozó függvényed szerintem nem kezeli az olyan mondatokat, mint pl. &quot;I went to the bank located at the river bank&quot;, vagyis amikor a target szó (bank) több alkalommal szerepel. A szinomímák használatát amúgy nem teljesen így gondoltam, ahogy használod. Mindenesetre hogy legyen valami konkrét cél a félév végére, tegyük akkor a kurzus sikeres teljesítését és ennek a szakdolgozati témának a folytatását annak függvényévé, hogy péntek délig el tudsz-e készíteni egy olyan módszert, ami legalább 0.55-ös accuracy-t ér el a teljes WiC adatbázison kiértékelve. A kiértékelést elvégző kód mellett küldd majd el a módszerhez tartozó tévesztési mátrixot (azt a kétszer kettes mátrixot, ami összefoglalja, hogy a predikált és az elvárt címkék mennyiségének az együttállása hogy alakult). Ha kell még hint arról, hogy mi az a tévesztési mátrix, akkor olvasd el ezt: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html">
+      <option name="closed" value="true" />
+      <created>1738619419773</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738619419773</updated>
+    </task>
+    <task id="LOCAL-00002" summary="delete plot and matplotlib">
+      <option name="closed" value="true" />
+      <created>1738624563208</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738624563208</updated>
+    </task>
+    <task id="LOCAL-00003" summary="C:\Users\Bernát\PycharmProjects\Peternity\.venv\Scripts\python.exe C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py &#10;WordNet is already downloaded.&#10;Bank definition: Synset('bank.n.01')&#10;Bank synonyms:&#10;bank.n.01 sloping land (especially the slope beside a body of water)&#10;Bank synonyms:&#10;depository_financial_institution.n.01 a financial institution that accepts deposits and channels the money into lending activities&#10;Bank synonyms:&#10;bank.n.03 a long ridge or pile&#10;Bank synonyms:&#10;bank.n.04 an arrangement of similar objects in a row or in tiers&#10;Bank synonyms:&#10;bank.n.05 a supply or stock held in reserve for future use (especially in emergencies)&#10;Bank synonyms:&#10;bank.n.06 the funds held by a gambling house or the dealer in some gambling games&#10;Bank synonyms:&#10;bank.n.07 a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force&#10;Bank synonyms:&#10;savings_bank.n.02 a container (usually with a slot in the top) for keeping money at home&#10;Bank synonyms:&#10;bank.n.09 a building in which the business of banking transacted&#10;Bank synonyms:&#10;bank.n.10 a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)&#10;Bank synonyms:&#10;bank.v.01 tip laterally&#10;Bank synonyms:&#10;bank.v.02 enclose with a bank&#10;Bank synonyms:&#10;bank.v.03 do business with a bank or keep an account at a bank&#10;Bank synonyms:&#10;bank.v.04 act as the banker in a game or in gambling&#10;Bank synonyms:&#10;bank.v.05 be in the banking business&#10;Bank synonyms:&#10;deposit.v.02 put into a bank account&#10;Bank synonyms:&#10;bank.v.07 cover with ashes so to control the rate of burning&#10;Bank synonyms:&#10;trust.v.01 have confidence or faith in&#10;&#10;End of bank synonyms. Continuing... &#10;&#10;Traceback (most recent call last):&#10;  File &quot;C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py&quot;, line 225, in &lt;module&gt;&#10;    main()&#10;  File &quot;C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py&quot;, line 213, in main&#10;    word = entry[&quot;word&quot;]&#10;           ~~~~~^^^^^^^^&#10;TypeError: string indices must be integers, not 'str'&#10;&#10;Process finished with exit code 1">
+      <option name="closed" value="true" />
+      <created>1738677090231</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1738677090231</updated>
+    </task>
+    <task id="LOCAL-00004" summary="C:\Users\Bernát\PycharmProjects\Peternity\.venv\Scripts\python.exe C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py &#10;WordNet is already downloaded.&#10;Bank definition: Synset('bank.n.01')&#10;Bank synonyms:&#10;bank.n.01 sloping land (especially the slope beside a body of water)&#10;Bank synonyms:&#10;depository_financial_institution.n.01 a financial institution that accepts deposits and channels the money into lending activities&#10;Bank synonyms:&#10;bank.n.03 a long ridge or pile&#10;Bank synonyms:&#10;bank.n.04 an arrangement of similar objects in a row or in tiers&#10;Bank synonyms:&#10;bank.n.05 a supply or stock held in reserve for future use (especially in emergencies)&#10;Bank synonyms:&#10;bank.n.06 the funds held by a gambling house or the dealer in some gambling games&#10;Bank synonyms:&#10;bank.n.07 a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force&#10;Bank synonyms:&#10;savings_bank.n.02 a container (usually with a slot in the top) for keeping money at home&#10;Bank synonyms:&#10;bank.n.09 a building in which the business of banking transacted&#10;Bank synonyms:&#10;bank.n.10 a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)&#10;Bank synonyms:&#10;bank.v.01 tip laterally&#10;Bank synonyms:&#10;bank.v.02 enclose with a bank&#10;Bank synonyms:&#10;bank.v.03 do business with a bank or keep an account at a bank&#10;Bank synonyms:&#10;bank.v.04 act as the banker in a game or in gambling&#10;Bank synonyms:&#10;bank.v.05 be in the banking business&#10;Bank synonyms:&#10;deposit.v.02 put into a bank account&#10;Bank synonyms:&#10;bank.v.07 cover with ashes so to control the rate of burning&#10;Bank synonyms:&#10;trust.v.01 have confidence or faith in&#10;&#10;End of bank synonyms. Continuing... &#10;&#10;{'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}}&#10;{'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}&#10;Sentence: &quot;Does the word &quot;invasion&quot; mean the same thing in sentences &quot;An invasion of bees .&quot; and &quot;An invasion of mobile phones .&quot;?&quot;&#10;Did the model predict correctly? YES&#10;accuracy = 0.9999900000999989&#10;1 correct answer(s) out of 1 answers.&#10;&#10;Process finished with exit code 0">
+      <option name="closed" value="true" />
+      <created>1738686293226</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738686293226</updated>
+    </task>
+    <task id="LOCAL-00005" summary="C:\Users\Bernát\PycharmProjects\Peternity\.venv\Scripts\python.exe C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py &#10;WordNet is already downloaded.&#10;Bank definition: Synset('bank.n.01')&#10;Bank synonyms:&#10;bank.n.01 sloping land (especially the slope beside a body of water)&#10;Bank synonyms:&#10;depository_financial_institution.n.01 a financial institution that accepts deposits and channels the money into lending activities&#10;Bank synonyms:&#10;bank.n.03 a long ridge or pile&#10;Bank synonyms:&#10;bank.n.04 an arrangement of similar objects in a row or in tiers&#10;Bank synonyms:&#10;bank.n.05 a supply or stock held in reserve for future use (especially in emergencies)&#10;Bank synonyms:&#10;bank.n.06 the funds held by a gambling house or the dealer in some gambling games&#10;Bank synonyms:&#10;bank.n.07 a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force&#10;Bank synonyms:&#10;savings_bank.n.02 a container (usually with a slot in the top) for keeping money at home&#10;Bank synonyms:&#10;bank.n.09 a building in which the business of banking transacted&#10;Bank synonyms:&#10;bank.n.10 a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)&#10;Bank synonyms:&#10;bank.v.01 tip laterally&#10;Bank synonyms:&#10;bank.v.02 enclose with a bank&#10;Bank synonyms:&#10;bank.v.03 do business with a bank or keep an account at a bank&#10;Bank synonyms:&#10;bank.v.04 act as the banker in a game or in gambling&#10;Bank synonyms:&#10;bank.v.05 be in the banking business&#10;Bank synonyms:&#10;deposit.v.02 put into a bank account&#10;Bank synonyms:&#10;bank.v.07 cover with ashes so to control the rate of burning&#10;Bank synonyms:&#10;trust.v.01 have confidence or faith in&#10;&#10;End of bank synonyms. Continuing... &#10;&#10;{'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}}&#10;{'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}&#10;Sentence: &quot;Does the word &quot;invasion&quot; mean the same thing in sentences &quot;An invasion of bees .&quot; and &quot;An invasion of mobile phones .&quot;?&quot;&#10;Did the model predict correctly? YES&#10;accuracy = 0.9999900000999989&#10;1 correct answer(s) out of 1 answers.&#10;&#10;Process finished with exit code 0">
+      <option name="closed" value="true" />
+      <created>1738686393442</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738686393442</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Érzésre ez a kód (szinte) minden mondatpárra YES-szel tér vissza. A mondatfeldolgozó függvényed szerintem nem kezeli az olyan mondatokat, mint pl. &quot;I went to the bank located at the river bank&quot;, vagyis amikor a target szó (bank) több alkalommal szerepel. A szinomímák használatát amúgy nem teljesen így gondoltam, ahogy használod. Mindenesetre hogy legyen valami konkrét cél a félév végére, tegyük akkor a kurzus sikeres teljesítését és ennek a szakdolgozati témának a folytatását annak függvényévé, hogy péntek délig el tudsz-e készíteni egy olyan módszert, ami legalább 0.55-ös accuracy-t ér el a teljes WiC adatbázison kiértékelve. A kiértékelést elvégző kód mellett küldd majd el a módszerhez tartozó tévesztési mátrixot (azt a kétszer kettes mátrixot, ami összefoglalja, hogy a predikált és az elvárt címkék mennyiségének az együttállása hogy alakult). Ha kell még hint arról, hogy mi az a tévesztési mátrix, akkor olvasd el ezt: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html" />
+    <MESSAGE value="delete plot and matplotlib" />
+    <MESSAGE value="C:\Users\Bernát\PycharmProjects\Peternity\.venv\Scripts\python.exe C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py &#10;WordNet is already downloaded.&#10;Bank definition: Synset('bank.n.01')&#10;Bank synonyms:&#10;bank.n.01 sloping land (especially the slope beside a body of water)&#10;Bank synonyms:&#10;depository_financial_institution.n.01 a financial institution that accepts deposits and channels the money into lending activities&#10;Bank synonyms:&#10;bank.n.03 a long ridge or pile&#10;Bank synonyms:&#10;bank.n.04 an arrangement of similar objects in a row or in tiers&#10;Bank synonyms:&#10;bank.n.05 a supply or stock held in reserve for future use (especially in emergencies)&#10;Bank synonyms:&#10;bank.n.06 the funds held by a gambling house or the dealer in some gambling games&#10;Bank synonyms:&#10;bank.n.07 a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force&#10;Bank synonyms:&#10;savings_bank.n.02 a container (usually with a slot in the top) for keeping money at home&#10;Bank synonyms:&#10;bank.n.09 a building in which the business of banking transacted&#10;Bank synonyms:&#10;bank.n.10 a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)&#10;Bank synonyms:&#10;bank.v.01 tip laterally&#10;Bank synonyms:&#10;bank.v.02 enclose with a bank&#10;Bank synonyms:&#10;bank.v.03 do business with a bank or keep an account at a bank&#10;Bank synonyms:&#10;bank.v.04 act as the banker in a game or in gambling&#10;Bank synonyms:&#10;bank.v.05 be in the banking business&#10;Bank synonyms:&#10;deposit.v.02 put into a bank account&#10;Bank synonyms:&#10;bank.v.07 cover with ashes so to control the rate of burning&#10;Bank synonyms:&#10;trust.v.01 have confidence or faith in&#10;&#10;End of bank synonyms. Continuing... &#10;&#10;Traceback (most recent call last):&#10;  File &quot;C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py&quot;, line 225, in &lt;module&gt;&#10;    main()&#10;  File &quot;C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py&quot;, line 213, in main&#10;    word = entry[&quot;word&quot;]&#10;           ~~~~~^^^^^^^^&#10;TypeError: string indices must be integers, not 'str'&#10;&#10;Process finished with exit code 1" />
+    <MESSAGE value="C:\Users\Bernát\PycharmProjects\Peternity\.venv\Scripts\python.exe C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py &#10;WordNet is already downloaded.&#10;Bank definition: Synset('bank.n.01')&#10;Bank synonyms:&#10;bank.n.01 sloping land (especially the slope beside a body of water)&#10;Bank synonyms:&#10;depository_financial_institution.n.01 a financial institution that accepts deposits and channels the money into lending activities&#10;Bank synonyms:&#10;bank.n.03 a long ridge or pile&#10;Bank synonyms:&#10;bank.n.04 an arrangement of similar objects in a row or in tiers&#10;Bank synonyms:&#10;bank.n.05 a supply or stock held in reserve for future use (especially in emergencies)&#10;Bank synonyms:&#10;bank.n.06 the funds held by a gambling house or the dealer in some gambling games&#10;Bank synonyms:&#10;bank.n.07 a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force&#10;Bank synonyms:&#10;savings_bank.n.02 a container (usually with a slot in the top) for keeping money at home&#10;Bank synonyms:&#10;bank.n.09 a building in which the business of banking transacted&#10;Bank synonyms:&#10;bank.n.10 a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)&#10;Bank synonyms:&#10;bank.v.01 tip laterally&#10;Bank synonyms:&#10;bank.v.02 enclose with a bank&#10;Bank synonyms:&#10;bank.v.03 do business with a bank or keep an account at a bank&#10;Bank synonyms:&#10;bank.v.04 act as the banker in a game or in gambling&#10;Bank synonyms:&#10;bank.v.05 be in the banking business&#10;Bank synonyms:&#10;deposit.v.02 put into a bank account&#10;Bank synonyms:&#10;bank.v.07 cover with ashes so to control the rate of burning&#10;Bank synonyms:&#10;trust.v.01 have confidence or faith in&#10;&#10;End of bank synonyms. Continuing... &#10;&#10;{'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}}&#10;{'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}&#10;Sentence: &quot;Does the word &quot;invasion&quot; mean the same thing in sentences &quot;An invasion of bees .&quot; and &quot;An invasion of mobile phones .&quot;?&quot;&#10;Did the model predict correctly? YES&#10;accuracy = 0.9999900000999989&#10;1 correct answer(s) out of 1 answers.&#10;&#10;Process finished with exit code 0" />
+    <option name="LAST_COMMIT_MESSAGE" value="C:\Users\Bernát\PycharmProjects\Peternity\.venv\Scripts\python.exe C:\Users\Bernát\PycharmProjects\Peternity\WordSenseDisambiguator.py &#10;WordNet is already downloaded.&#10;Bank definition: Synset('bank.n.01')&#10;Bank synonyms:&#10;bank.n.01 sloping land (especially the slope beside a body of water)&#10;Bank synonyms:&#10;depository_financial_institution.n.01 a financial institution that accepts deposits and channels the money into lending activities&#10;Bank synonyms:&#10;bank.n.03 a long ridge or pile&#10;Bank synonyms:&#10;bank.n.04 an arrangement of similar objects in a row or in tiers&#10;Bank synonyms:&#10;bank.n.05 a supply or stock held in reserve for future use (especially in emergencies)&#10;Bank synonyms:&#10;bank.n.06 the funds held by a gambling house or the dealer in some gambling games&#10;Bank synonyms:&#10;bank.n.07 a slope in the turn of a road or track; the outside is higher than the inside in order to reduce the effects of centrifugal force&#10;Bank synonyms:&#10;savings_bank.n.02 a container (usually with a slot in the top) for keeping money at home&#10;Bank synonyms:&#10;bank.n.09 a building in which the business of banking transacted&#10;Bank synonyms:&#10;bank.n.10 a flight maneuver; aircraft tips laterally about its longitudinal axis (especially in turning)&#10;Bank synonyms:&#10;bank.v.01 tip laterally&#10;Bank synonyms:&#10;bank.v.02 enclose with a bank&#10;Bank synonyms:&#10;bank.v.03 do business with a bank or keep an account at a bank&#10;Bank synonyms:&#10;bank.v.04 act as the banker in a game or in gambling&#10;Bank synonyms:&#10;bank.v.05 be in the banking business&#10;Bank synonyms:&#10;deposit.v.02 put into a bank account&#10;Bank synonyms:&#10;bank.v.07 cover with ashes so to control the rate of burning&#10;Bank synonyms:&#10;trust.v.01 have confidence or faith in&#10;&#10;End of bank synonyms. Continuing... &#10;&#10;{'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}}&#10;{'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}&#10;Sentence: &quot;Does the word &quot;invasion&quot; mean the same thing in sentences &quot;An invasion of bees .&quot; and &quot;An invasion of mobile phones .&quot;?&quot;&#10;Did the model predict correctly? YES&#10;accuracy = 0.9999900000999989&#10;1 correct answer(s) out of 1 answers.&#10;&#10;Process finished with exit code 0" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Peternity$AskAi.coverage" NAME="AskAi Coverage Results" MODIFIED="1738679763210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Peternity$main.coverage" NAME="main Coverage Results" MODIFIED="1738337084666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Peternity$mynltk__1_.coverage" NAME="mynltk (1) Coverage Results" MODIFIED="1738663312849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Peternity$WordSenseDisambiguator.coverage" NAME="WordSenseDisambiguator Coverage Results" MODIFIED="1738686044953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
