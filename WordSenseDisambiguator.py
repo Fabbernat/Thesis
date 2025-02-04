@@ -1,9 +1,11 @@
 # Word Sense Disambiguation module
-
-import re
-import mynltk
+# https://pilehvar.github.io/wic/
 import os
-from typing import Set, Optional, Dict
+import re
+from typing import Set, Optional, Dict, List
+
+import mynltk
+
 
 class WordSenseDisambiguator:
 
@@ -66,12 +68,13 @@ similarity = len({"a"}) / len({"for", "a", "in", "the", "long", "on", "Broadway"
 return "YES" if similarity > 0 else "NO"
 '''
 
-def read_WiC_dataset(base_path: str):
-    """
-        Reads the WiC dataset from the given base directory and returns a structured dictionary.
 
-        :param base_path: The root directory containing the WiC dataset.
-        :return: A dictionary with 'train', 'dev', and 'test' datasets.
+def read_wic_dataset(base_path: str):
+    """
+    Reads the WiC dataset from the given base directory and returns a structured dictionary.
+
+    :param base_path: The root directory containing the WiC dataset.
+    :return: A dictionary with 'train', 'dev', and 'test' datasets.
     """
     datasets = ["train", "dev", "test"]
     data_structure = {}
@@ -88,55 +91,99 @@ def read_WiC_dataset(base_path: str):
         with open(data_file, "r", encoding="utf-8") as df, open(gold_file, "r", encoding="utf-8") as gf:
             for line, label in zip(df, gf):
                 parts = line.strip().split("\t")
-                if len(parts) < 3:
+                if len(parts) < 5:
                     print(f"Skipping invalid line in {data_file}: {line}")
                     continue
 
-                word, sentence1, sentence2 = parts[:3]
-                label = label.strip()
+                word, pos, index, sentence_a, sentence_b = parts[:5]
+                label = label.strip()  # Read corresponding label
+
                 entries.append({
                     "word": word,
-                    "sentence1": sentence1,
-                    "sentence2": sentence2,
+                    "pos": pos,
+                    "index": index,
+                    "sentence_a": sentence_a,
+                    "sentence_b": sentence_b,
                     "label": label
                 })
 
         data_structure[dataset] = entries
 
-    return data_structure
+        return data_structure
 
-def use_model(synonyms):
-    """
-        passes the database
-    :param synonyms:
-    :return:
-    """
-    model = WordSenseDisambiguator()
-    correct_answers_count = 0
-    total_questions = 0
-    results = {}
 
-# hardcoded add
+def process_wic_data(wic_data: Dict[str, List[Dict[str, str]]]) -> dict[str, dict[str, str]]:
+    """
+    Processes the WIC data read from
+    and builds sentences for evaluation.
+    """
+    questions = {} # Dictionary to hold data for each split
+    if wic_data:
+        for split in wic_data:  # Iterate through 'train', 'dev', 'test' splits
+            split_data = {} # Dict to hold rows of data
+            for row in wic_data[split]:
+                word = row['word']
+                sentence_a = row['sentence_a']
+                sentence_b = row['sentence_b']
+                label = row['label']
+
+                split_data['word'] = word
+                split_data['sentence_a'] = sentence_a
+                split_data['sentence_b'] = sentence_b
+                split_data['label'] = label
+            questions[split] = split_data
+    return questions
+
+
+
+def sample_questions(model):
+    """
+
+    :param model:
+    :return: questions
+    """
+    # hardcoded add
     questions: Dict[str, str] = {
         'Does the word "run" mean the same thing in sentences "I went for a run in the park." and "The play had a long run on Broadway."?': 'NO',
         'Does the word "defeat" mean the same thing in sentences "It was a narrow defeat." and "The army\'s only defeat."?': 'NO',
         'Does the word "bank" mean the same thing in sentences "Bank on your good education." and "The pilot had to bank the aircraft."?': 'YES'
     }
 
-# modular add
+    # modular add
+    # 1
     word = 'penetration'
     sentence_a = 'The penetration of upper management by women .'
     sentence_b = 'Any penetration , however slight , is sufficient to complete the offense .'
 
     built_sentence = model.build_sentence(word, sentence_a, sentence_b)
+
     questions[built_sentence] = 'NO'
 
+    # 2
     word = 'penetrate'
     sentence_a = 'The hikers did not manage to penetrate the dense forest .'
     sentence_b = 'She was penetrated with sorrow .'
 
     built_sentence = model.build_sentence(word, sentence_a, sentence_b)
+
     questions[built_sentence] = 'YES'
+
+    return questions
+
+
+def use_model(synonyms, model, questions):
+    """
+        passes the database
+    :param questions:
+    :param model:
+    :param synonyms:
+    :return:
+    """
+
+    correct_answers_count = 0
+    total_questions = 0
+    results = {}
+
     for key, value in questions.items():
         model_answer = model.process_question(key, synonyms)
         correct_answers_count += (model_answer == value)
@@ -144,21 +191,35 @@ def use_model(synonyms):
         print(f'Sentence: "{key}"')
         print(f'Did the model predict correctly? {answer}')
 
-    print(f'accuracy = {correct_answers_count / len(questions)}')
+    print(f'accuracy = {correct_answers_count / (len(questions) + 1e-5)}')
+    print(f'{correct_answers_count} correct answer(s) out of {len(questions)} answers.')
 
 
 def main():
+    wsd_model = WordSenseDisambiguator()
     # Run the model with no synonyms
-    print('"dumb" algorithm implemented by Fabbernat:')
-    use_model(None)
-    print('\nnltk wordnet algorithm:')
-    use_model(mynltk.synonyms)
+    # print('"dumb" algorithm implemented by Fabbernat:')
+    # use_model(None, wsd_model, sample_questions(wsd_model))
+    # print('\nnltk wordnet algorithm:')
+    # use_model(mynltk.synonyms, wsd_model, sample_questions(wsd_model))
 
     base_dir = r"C:\Users\Bernát\Downloads\WiC_dataset"
-    wic_data = read_WiC_dataset(base_dir)
+    wic_data: dict[str, list[dict[str, str]]] | None = read_wic_dataset(base_dir)
+    questions = {}
 
-    # Print a sample
-    print(wic_data["train"][:2])
+    processed_data = process_wic_data(wic_data)
+    for row in processed_data.values():
+        for entry in row.values():
+            word = entry["word"]
+            sentence_a = entry["sentence_a"]
+            sentence_b = entry["sentence_b"]
+            label = entry["label"]
+
+            built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
+            questions[built_sentence] = 'YES' if label == 'T' else 'NO'
+
+    use_model(mynltk.synonyms, wsd_model, questions)
+
 
 if __name__ == '__main__':
     main()
