@@ -4,7 +4,7 @@ import os
 import re
 from typing import Set, Optional, Dict, List
 
-import mynltk
+import my_nltk
 
 
 class WordSenseDisambiguator:
@@ -16,8 +16,8 @@ class WordSenseDisambiguator:
 
         if word in words:
             index = words.index(word)
-            left_context = words[max(0, index - 2): index]  # Get up to 2 words before
-            right_context = words[index + 1: index + 3]  # Get up to 2 words after
+            left_context = words[max(0, index - 5): index]  # Get up to 5 words before
+            right_context = words[index + 1: index + 5]  # Get up to 5 words after
             context.update(left_context + right_context)
 
         if synonyms:
@@ -235,20 +235,15 @@ def load_wic_data(base_dir: str) -> Dict[str, List[Dict[str, str]]]:
 def main():
     wsd_model = WordSenseDisambiguator()
     # Run the model with no synonyms
-    # print('"dumb" algorithm implemented by Fabbernat:')
-    # use_model(None, wsd_model, sample_questions(wsd_model))
-    # print('\nnltk wordnet algorithm:')
-    # use_model(mynltk.synonyms, wsd_model, sample_questions(wsd_model))
+    print
+    print('"dumb" algorithm implemented by Fabbernat:')
+    use_model(None, wsd_model, sample_questions(wsd_model))
+
+    print()
+    print('nltk wordnet algorithm:')
+    use_model(my_nltk.synonyms, wsd_model, sample_questions(wsd_model))
 
     base_dir = r'C:\WiC_dataset'
-    # train_data = read_wic_dataset(base_dir, r'train\train.data.txt')
-    # train_gold = read_gold_labels(base_dir, r'train\train.gold.txt')
-    # dev_data = read_wic_dataset(base_dir, r'dev\dev.data.txt')
-    # dev_gold = read_gold_labels(base_dir, r'dev\dev.gold.txt')
-    # test_data = read_wic_dataset(base_dir, r'test\test.data.txt')
-    # test_gold = read_gold_labels(base_dir, r'test\test.gold.txt')
-    #
-    # wic_data_unformatted = train_data + train_gold + dev_data + dev_gold + test_data + test_gold
 
     wic_data = load_wic_data(base_dir)
     questions = {}
@@ -267,7 +262,7 @@ def main():
         built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
         questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
-        use_model(mynltk.synonyms, wsd_model, questions)
+        use_model(my_nltk.synonyms, wsd_model, questions)
 
 
 if __name__ == '__main__':

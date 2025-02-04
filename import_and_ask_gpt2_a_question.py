@@ -11,7 +11,6 @@ model = AutoModelForCausalLM.from_pretrained('gpt2')
 tokenizer.pad_token = tokenizer.eos_token
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-print(f"Using device: {device}")
 
 model = model.to(device)
 
