@@ -2,10 +2,9 @@
 # https://pilehvar.github.io/wic/
 import os
 import re
-from typing import Set, Optional, Dict, List, Tuple
+from typing import Set, Optional, Dict, List
 
 import mynltk
-
 
 
 class WordSenseDisambiguator:
@@ -70,58 +69,54 @@ return "YES" if similarity > 0 else "NO"
 '''
 
 
-def read_wic_dataset(base_path: str):
+def read_wic_dataset(base_path: str, file_specific_path):
     """
     Reads the WiC dataset from the given base directory and returns a structured dictionary.
 
     :param base_path: The root directory containing the WiC dataset.
+    :? : ?
     :return: A dictionary with 'train', 'dev', and 'test' datasets.
     """
-    datasets = ["train", "dev", "test"]
-    data_structure = {}
+    full_path = os.path.join(base_path, file_specific_path)
 
-    for dataset in datasets:
-        data_file = os.path.join(base_path, dataset, f"{dataset}.data.txt")
-        gold_file = os.path.join(base_path, dataset, f"{dataset}.gold.txt")
+    entries = []
 
-        if not os.path.exists(data_file) or not os.path.exists(gold_file):
-            print(f"Skipping {dataset}: Missing files")
-            continue
+    if not os.path.exists(full_path):
+        print(f"Skipping: {full_path} (file not found)")
+        return entries
 
-        entries = []
-        with open(data_file, "r", encoding="utf-8") as df, open(gold_file, "r", encoding="utf-8") as gf:
-            for line, label in zip(df, gf):
-                parts = line.strip().split("\t")
-                if len(parts) < 5:
-                    print(f"Skipping invalid line in {data_file}: {line}")
-                    continue
+    with open(full_path, "r", encoding="utf-8") as f:
+        for line in f:
+            parts = line.strip().split("\t")
+            if len(parts) < 5:
+                print(f"Skipping invalid line in {file_specific_path}: {line}")
+                continue
 
-                word, pos, index, sentence_a, sentence_b = parts[:5]
-                label = label.strip()  # Read corresponding label
+            word, pos, index, sentence_a, sentence_b = parts[:5]
+            entries.append({
+                "word": word,
+                "pos": pos,
+                "index": index,
+                "sentence_a": sentence_a,
+                "sentence_b": sentence_b
+            })
+    return entries
 
-                entries.append({
-                    "word": word,
-                    "pos": pos,
-                    "index": index,
-                    "sentence_a": sentence_a,
-                    "sentence_b": sentence_b,
-                    "label": label
-                })
-
-        data_structure[dataset] = entries
-
-        return data_structure
 
 
 def process_wic_data(wic_data: Dict[str, List[Dict[str, str]]]) -> dict[str, dict[str, str]]:
     """
     Processes the WIC data read from
     and builds sentences for evaluation.
+    :wic_data: contains train, dev and test sets
+    :rtype: object
     """
-    questions = {} # Dictionary to hold data for each split
+    questions = {}  # Dictionary to hold data for each split
     if wic_data:
+        i = 0
         for split in wic_data:  # Iterate through 'train', 'dev', 'test' splits
-            split_data = {} # Dict to hold rows of data
+            split_data = {}  # Dict to hold rows of data
+            i += 1
             for row in wic_data[split]:
                 word = row['word']
                 sentence_a = row['sentence_a']
@@ -132,9 +127,10 @@ def process_wic_data(wic_data: Dict[str, List[Dict[str, str]]]) -> dict[str, dic
                 split_data['sentence_a'] = sentence_a
                 split_data['sentence_b'] = sentence_b
                 split_data['label'] = label
+
+            print('BEGIN\n\n', split, '\n\nEND')
             questions[split] = split_data
     return questions
-
 
 
 def sample_questions(model):
@@ -196,6 +192,46 @@ def use_model(synonyms, model, questions):
     print(f'{correct_answers_count} correct answer(s) out of {len(questions)} answers.')
 
 
+def read_gold_labels(base_path: str, file_specific_path: str) -> List[str]:
+    """
+    Reads a gold label file and returns a list of labels.
+    """
+    full_path = os.path.join(base_path, file_specific_path)
+    labels = []
+
+    if not os.path.exists(full_path):
+        print(f"Skipping: {full_path} (file not found)")
+        return labels
+
+    with open(full_path, "r", encoding="utf-8") as f:
+        labels = [line.strip() for line in f]
+    return labels
+
+
+def load_wic_data(base_dir: str) -> Dict[str, List[Dict[str, str]]]:
+    """
+    Loads all WiC dataset files into a structured dictionary.
+
+    :param base_dir: The root directory containing the WiC dataset.
+    :return: A dictionary with 'train', 'dev', and 'test' datasets.
+    """
+    dataset_splits = ["train", "dev", "test"]
+    wic_data: Dict[str, List[Dict[str, str]]] = {}
+
+    for split in dataset_splits:
+        data = read_wic_dataset(base_dir, f"{split}/{split}.data.txt")
+        gold_labels = read_gold_labels(base_dir, f"{split}/{split}.gold.txt")
+
+        if len(data) == len(gold_labels):
+            for i, entry in enumerate(data):
+                entry["label"] = gold_labels[i]
+        else:
+            print(f"Warning: Mismatched data and label count for {split}")
+
+        wic_data[split] = data
+
+    return wic_data
+
 def main():
     wsd_model = WordSenseDisambiguator()
     # Run the model with no synonyms
@@ -204,8 +240,17 @@ def main():
     # print('\nnltk wordnet algorithm:')
     # use_model(mynltk.synonyms, wsd_model, sample_questions(wsd_model))
 
-    base_dir = r"C:\Users\Bernát\Downloads\WiC_dataset"
-    wic_data: dict[str, list[dict[str, str]]] | None = read_wic_dataset(base_dir)
+    base_dir = r'C:\WiC_dataset'
+    train_data = read_wic_dataset(base_dir, r'train\train.data.txt')
+    train_gold = read_wic_dataset(base_dir, r'train\train.gold.txt')
+    dev_data = read_wic_dataset(base_dir, r'dev\dev.data.txt')
+    dev_gold = read_wic_dataset(base_dir, r'dev\dev.gold.txt')
+    test_data = read_wic_dataset(base_dir, r'test\test.data.txt')
+    test_gold = read_wic_dataset(base_dir, r'test\test.gold.txt')
+
+    wic_data_unformatted = train_data + train_gold + dev_data + dev_gold + test_data + test_gold
+
+    wic_data = load_wic_data(str(wic_data_unformatted))
     questions = {}
 
     processed_data = process_wic_data(wic_data)
@@ -215,14 +260,14 @@ def main():
         # for entry in row.values():
         #     entry : Tuple[str, str, str, str] = entry
         #     assert isinstance(entry, tuple) and len(entry) == 4
-        word = row['word']
-        sentence_a = row['sentence_a']
-        sentence_b = row['sentence_b']
-        label = row['label']
+        word = row.get('word')
+        sentence_a = row.get('sentence_a')
+        sentence_b = row.get('sentence_b')
+        label = row.get('label')
         built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
         questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
-    use_model(mynltk.synonyms, wsd_model, questions)
+        use_model(mynltk.synonyms, wsd_model, questions)
 
 
 if __name__ == '__main__':
