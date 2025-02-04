@@ -210,13 +210,9 @@ def main():
     processed_data = process_wic_data(wic_data)
     for row in processed_data.values():
         for entry in row.values():
-            word = entry["word"]
-            sentence_a = entry["sentence_a"]
-            sentence_b = entry["sentence_b"]
-            label = entry["label"]
-
-            built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
-            questions[built_sentence] = 'YES' if label == 'T' else 'NO'
+            for word, sentence_a, sentence_b, label in row:
+                built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
+                questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
     use_model(mynltk.synonyms, wsd_model, questions)
 
