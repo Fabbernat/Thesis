@@ -63,9 +63,9 @@ def evaluate(similarities, labels, threshold=0.5):
 
 if __name__ == "__main__":
     # Paths to WiC dataset files
-    base_path = "C:/WiC_dataset/train"
-    data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
+    base_path = "C:/WiC_dataset/test"
+    data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
