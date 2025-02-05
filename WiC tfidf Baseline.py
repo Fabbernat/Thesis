@@ -42,7 +42,7 @@ def load_wic_data(data_path, gold_path):
 
 def compute_similarity(data):
     """Computes cosine similarity between sentence pairs using TF-IDF."""
-    vectorizer = TfidfVectorizer(lowercase=True)
+    vectorizer = TfidfVectorizer(lowercase=True, stop_words="english")
     similarities = []
 
     for word, pos, index1, index2, sentence1, sentence2 in data:
