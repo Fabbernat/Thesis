@@ -1,10 +1,15 @@
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import confusion_matrix
 
-import ResultPrinter
-import my_nltk
-from WordSenseDisambiguator import load_wic_data, process_wic_data, build_sentence
-from import_and_ask_gpt2_a_question import wsd_model
-
+import WiCTfidfBaseline
+import WordSenseDisambiguator
+from WordSenseDisambiguator import load_wic_data
 y_true = [
 'F',
 'F',
@@ -5440,23 +5445,39 @@ y_true = [
 base_dir = r'C:\WiC_dataset'
 
 wic_data = load_wic_data(base_dir)
-questions = {}
-
-processed_data = process_wic_data(wic_data)
-print(processed_data)
-for row in processed_data.values():
-    print(row)
-    word = row.get('word')
-    sentence_a = row.get('sentence_a')
-    sentence_b = row.get('sentence_b')
-    pos = row.get('label')
-    built_sentence = build_sentence(word, pos, index1=0, index2=0, sentence_a, sentence_b)
-    questions[built_sentence] = 'YES' if pos == 'T' else 'NO'
-
-    ResultPrinter.print_results(my_nltk.synonyms, wsd_model, questions)
-
 
 y_pred = [0, 0, 2, 2, 0, 2]
 cm = confusion_matrix(y_true, y_pred)
 
 print(cm)
+
+
+def plot_confusion_matrix(tn, fp, fn, tp):
+    """Plots a confusion matrix."""
+    matrix = np.array([[tp, fp], [fn, tn]])
+    labels = ["TP", "FP", "FN", "TN"]
+
+    plt.figure(figsize=(5, 4))
+    sns.heatmap(matrix, annot=True, fmt="d", cmap="Blues", xticklabels=["Actual 1", "Actual 0"],
+                yticklabels=["Pred 1", "Pred 0"])
+    plt.title("Confusion Matrix")
+    plt.xlabel("Actual Label")
+    plt.ylabel("Predicted Label")
+    plt.show()
+
+if __name__ == "__main__":
+    # Paths to WiC dataset files
+    base_path = "C:/WiC_dataset/test"
+    data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
+
+    # Load data and compute similarities
+    data, labels = WiCTfidfBaseline.load_wic_data(data_file, gold_file)
+    similarities = WiCTfidfBaseline.compute_similarity(data)
+    accuracy, correct_answers_count = WiCTfidfBaseline.evaluate(similarities, labels)
+    tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+
+
+    print(f"Confusion Matrix: TP={tp}, FP={fp}, FN={fn}, TN={tn}")
+
+    plot_confusion_matrix(tn, fp, fn, tp)
