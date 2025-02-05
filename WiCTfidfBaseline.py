@@ -18,22 +18,23 @@ def load_wic_data(data_path, gold_path):
         for line, label in zip(f_data, f_gold):
             parts = line.strip().split('\t')  # Word, POS, index, sentence1, sentence2
             word, pos, index, sentence_a, sentence_b = parts
-            try:
-                index1, index2 = map(int, index.split('-'))  # Extract integer indices
-            except ValueError:
-                continue  # Skip lines with incorrect index format
 
             '''
-                make a python parser program that gets a variable and returns 2 integers: index1 and index2
+                This parser try-catch tries to convert  index1 and index2, the two, likely string variables to integers
                 each sentence can be as long as 99 words.
                 Their format:
-                
+
                 1-1
                 6-7
                 0-5
                 14-8
                 etc...
             '''
+            try:
+                index1, index2 = map(int, index.split('-'))  # Extract integer indices
+            except ValueError:
+                continue  # Skip lines with incorrect index format
+
             gold.append(label.strip())
             data.append((word, pos, index1, index2, sentence_a, sentence_b))
 
@@ -42,22 +43,33 @@ def load_wic_data(data_path, gold_path):
 
 def compute_similarity(data):
     """Computes cosine similarity between sentence pairs using TF-IDF."""
-    vectorizer = TfidfVectorizer(lowercase=True)
-    similarities = []
 
+    # vectorizer: optional configs: stop_words="english"
+    vectorizer = TfidfVectorizer(lowercase=True, stop_words="english",
+                                 ngram_range=(1, 2), max_df=0.9, min_df=2,
+                                 sublinear_tf=True)
+
+    # Precompute vocabulary using all sentences
+    all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in (sentence_a, sentence_b)]
+    vectorizer.fit(all_sentences)
+
+    similarities = []
     for word, pos, index1, index2, sentence1, sentence2 in data:
-        vectors = vectorizer.fit_transform([sentence1, sentence2])
+        vectors = vectorizer.transform([sentence1, sentence2])
         sim = cosine_similarity(vectors[0], vectors[1])[0][0]
         similarities.append(sim)
 
     return np.array(similarities)
 
 
-def evaluate(similarities, labels, threshold=0.5):
+def evaluate(similarities, labels, threshold=0.44, return_predictions=False):
     """Evaluates accuracy based on a threshold for similarity."""
     predictions = ['T' if sim > threshold else 'F' for sim in similarities]
     correct_answers_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
     accuracy = correct_answers_count / len(labels)
+
+    if return_predictions:
+        return accuracy, correct_answers_count, predictions
     return accuracy, correct_answers_count
 
 

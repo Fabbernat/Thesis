@@ -1,15 +1,12 @@
 import os
-import numpy as np
-import pandas as pd
+
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import confusion_matrix
 
 import WiCTfidfBaseline
-import WordSenseDisambiguator
-from WordSenseDisambiguator import load_wic_data
+
 y_true = [
 'F',
 'F',
@@ -5442,15 +5439,6 @@ y_true = [
 
 ]
 
-base_dir = r'C:\WiC_dataset'
-
-wic_data = load_wic_data(base_dir)
-
-y_pred = [0, 0, 2, 2, 0, 2]
-cm = confusion_matrix(y_true, y_pred)
-
-print(cm)
-
 
 def plot_confusion_matrix(tn, fp, fn, tp):
     """Plots a confusion matrix."""
@@ -5465,6 +5453,22 @@ def plot_confusion_matrix(tn, fp, fn, tp):
     plt.ylabel("Predicted Label")
     plt.show()
 
+def seaborn_plot_confusion_matrix():
+    sns.heatmap(cm,
+                annot=True,
+                fmt='g',
+                xticklabels=['Dog', 'Not Dog'],
+                yticklabels=['Dog', 'Not Dog'])
+    plt.ylabel('Actual', fontsize=13)
+    plt.title('Confusion Matrix', fontsize=17, pad=20)
+    plt.gca().xaxis.set_label_position('top')
+    plt.xlabel('Prediction', fontsize=13)
+    plt.gca().xaxis.tick_top()
+
+    plt.gca().figure.subplots_adjust(bottom=0.2)
+    plt.gca().figure.text(0.5, 0.05, 'Prediction', ha='center', fontsize=13)
+    plt.show()
+
 if __name__ == "__main__":
     # Paths to WiC dataset files
     base_path = "C:/WiC_dataset/test"
@@ -5474,9 +5478,15 @@ if __name__ == "__main__":
     # Load data and compute similarities
     data, labels = WiCTfidfBaseline.load_wic_data(data_file, gold_file)
     similarities = WiCTfidfBaseline.compute_similarity(data)
-    accuracy, correct_answers_count = WiCTfidfBaseline.evaluate(similarities, labels)
-    tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
 
+    # Evaluate model and get predictions
+    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline.evaluate(similarities, labels, return_predictions=True)
+
+    # Confusion matrix calculation
+
+    assert len(y_true) == len(y_pred)
+    cm = confusion_matrix(y_true, y_pred, labels=['T', 'F'])
+    tp, fp, fn, tn = cm.ravel()
 
     print(f"Confusion Matrix: TP={tp}, FP={fp}, FN={fn}, TN={tn}")
 
