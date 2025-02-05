@@ -42,7 +42,7 @@ def load_wic_data(data_path, gold_path):
 
 def compute_similarity(data):
     """Computes cosine similarity between sentence pairs using TF-IDF."""
-    vectorizer = TfidfVectorizer()
+    vectorizer = TfidfVectorizer(lowercase=True)
     similarities = []
 
     for word, pos, index1, index2, sentence1, sentence2 in data:
@@ -55,7 +55,7 @@ def compute_similarity(data):
 
 def evaluate(similarities, labels, threshold=0.5):
     """Evaluates accuracy based on a threshold for similarity."""
-    predictions = ['YES' if sim > threshold else 'NO' for sim in similarities]
+    predictions = ['T' if sim > threshold else 'F' for sim in similarities]
     accuracy = np.mean([pred == true_label for pred, true_label in zip(predictions, labels)])
     return accuracy
 
