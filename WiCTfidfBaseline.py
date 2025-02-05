@@ -1,9 +1,47 @@
+from nltk.wsd import lesk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet as wn
+import nltk
+
+# nltk.download("wordnet")
+# nltk.download("omw-1.4")
+# nltk.download("punkt")
+
+
+def get_disambiguated_synonyms(word, sentence):
+    """Uses Word Sense Disambiguation (WSD) to get only relevant synonyms for a word in context."""
+    sense = lesk(word_tokenize(sentence), word)  # Get the best sense for the word in this sentence
+    if sense:
+        return {lemma.name().replace("_", " ") for lemma in sense.lemmas()}  # Return synonyms for that sense only
+    return set()
+
+
+def expand_sentence_with_wsd(sentence, target_word):
+    """Expands a sentence by adding only contextually relevant synonyms."""
+    words = sentence.split()
+    expanded_words = []
+
+    for word in words:
+        if word == target_word:  # Only expand the target word
+            synonyms = get_disambiguated_synonyms(word, sentence)
+            if synonyms:
+                expanded_words.append(word + " " + " ".join(synonyms))
+            else:
+                expanded_words.append(word)
+        else:
+            expanded_words.append(word)
+
+    return " ".join(expanded_words)
+
+
 import os
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+
+# import NltkHandler
 
 def load_wic_data(data_path, gold_path):
     """
@@ -35,6 +73,17 @@ def load_wic_data(data_path, gold_path):
             except ValueError:
                 continue  # Skip lines with incorrect index format
 
+            # Expand sentences with synonyms
+            # sentence_a = NltkHandler.expand_with_synonyms(sentence_a)
+            # sentence_b = NltkHandler.expand_with_synonyms(sentence_b)
+
+            # Highlight target word for better feature extraction
+            # sentence_a = sentence_a.replace(word, word + " " + word)
+            # sentence_b = sentence_b.replace(word, word + " " + word)
+
+            # sentence_a = expand_sentence_with_wsd(sentence_a, word)
+            # sentence_b = expand_sentence_with_wsd(sentence_b, word)
+
             gold.append(label.strip())
             data.append((word, pos, index1, index2, sentence_a, sentence_b))
 
@@ -45,9 +94,11 @@ def compute_similarity(data):
     """Computes cosine similarity between sentence pairs using TF-IDF."""
 
     # vectorizer: optional configs: stop_words="english"
-    vectorizer = TfidfVectorizer(lowercase=True, stop_words="english",
-                                 ngram_range=(1, 2), max_df=0.9, min_df=2,
-                                 sublinear_tf=True)
+    # max_df 0.1-0.9 does not change much
+    vectorizer = TfidfVectorizer(lowercase=True,
+                                 ngram_range=(1, 3),
+                                 max_df=0.9, min_df=2,
+                                 sublinear_tf=True, norm='l2')
 
     # Precompute vocabulary using all sentences
     all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in (sentence_a, sentence_b)]
@@ -62,7 +113,7 @@ def compute_similarity(data):
     return np.array(similarities)
 
 
-def evaluate(similarities, labels, threshold=0.44, return_predictions=False):
+def evaluate(similarities, labels, threshold=0.450, return_predictions=False):
     """Evaluates accuracy based on a threshold for similarity."""
     predictions = ['T' if sim > threshold else 'F' for sim in similarities]
     correct_answers_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
@@ -75,9 +126,9 @@ def evaluate(similarities, labels, threshold=0.44, return_predictions=False):
 
 if __name__ == "__main__":
     # Paths to WiC dataset files
-    base_path = "C:/WiC_dataset/test"
-    data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
+    base_path = "C:/WiC_dataset/dev"
+    data_file = os.path.normpath(os.path.join(base_path, "dev.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, "dev.gold.txt"))
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)

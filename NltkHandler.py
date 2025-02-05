@@ -37,11 +37,30 @@ else:
 word = 'bank'
 synonyms = wn.synsets(word)
 
-print(f'Bank definition: {synonyms[0]}')
 for syn in synonyms:
     print('Bank synonyms:')
-    print(syn.name(), syn.definition())
+    print(f'name: {syn.name()}, definition: {syn.definition()}')
 
 print()
 print('End of bank synonyms. Continuing... \n')
 
+def get_synonyms(word):
+    """Returns a set of synonyms for a given word using WordNet."""
+    synonyms = set()
+    for syn in wn.synsets(word):
+        for lemma in syn.lemmas():
+            synonyms.add(lemma.name().replace('_', ' '))  # Convert underscores to spaces
+    return synonyms
+
+
+def expand_with_synonyms(sentence):
+    """Expands a sentence by adding synonyms for each word."""
+    words = sentence.split()
+    expanded_words = []
+    for word in words:
+        synonyms = get_synonyms(word)
+        if synonyms:
+            expanded_words.append(word + " " + " ".join(synonyms))
+        else:
+            expanded_words.append(word)
+    return " ".join(expanded_words)
