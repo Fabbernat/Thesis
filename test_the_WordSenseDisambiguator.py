@@ -1,4 +1,3 @@
-from WordSenseDisambiguator import WordSenseDisambiguator
+import WordSenseDisambiguator
 
-wsd = WordSenseDisambiguator()
-build_sentence()
+WordSenseDisambiguator.build_sentence('','',0,0,'','')
