@@ -5,7 +5,7 @@ import re
 from typing import Set, Optional, Dict, List
 
 import ResultPrinter
-import my_nltk
+import NltkHandler
 
 
 def build_sentence_simple(self, word: str, sentence_a: str, sentence_b: str) -> str:
@@ -236,7 +236,7 @@ def main():
 
     print()
     print('nltk wordnet algorithm:')
-    ResultPrinter.print_results(my_nltk.synonyms, wsd_model, sample_questions(wsd_model))
+    ResultPrinter.print_results(NltkHandler.synonyms, wsd_model, sample_questions(wsd_model))
 
     base_dir = r'C:\WiC_dataset'
 
@@ -257,7 +257,7 @@ def main():
         built_sentence = build_sentence(word, sentence_a, sentence_b)
         questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
-        ResultPrinter.print_results(my_nltk.synonyms, wsd_model, questions)
+        ResultPrinter.print_results(NltkHandler.synonyms, wsd_model, questions)
 
 
 if __name__ == '__main__':
