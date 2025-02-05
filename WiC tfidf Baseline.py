@@ -56,8 +56,9 @@ def compute_similarity(data):
 def evaluate(similarities, labels, threshold=0.5):
     """Evaluates accuracy based on a threshold for similarity."""
     predictions = ['T' if sim > threshold else 'F' for sim in similarities]
-    accuracy = np.mean([pred == true_label for pred, true_label in zip(predictions, labels)])
-    return accuracy
+    correct_answers_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
+    accuracy = correct_answers_count / len(labels)
+    return accuracy, correct_answers_count
 
 
 if __name__ == "__main__":
@@ -71,5 +72,6 @@ if __name__ == "__main__":
     similarities = compute_similarity(data)
 
     # Evaluate model
-    accuracy = evaluate(similarities, labels)
-    print(f"Baseline accuracy: {accuracy:.2%}")
+    accuracy, correct_answers_count = evaluate(similarities, labels)
+    print(f"Baseline accuracy: {accuracy:.3%}")
+    print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
