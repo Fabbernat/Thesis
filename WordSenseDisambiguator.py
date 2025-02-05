@@ -4,51 +4,68 @@ import os
 import re
 from typing import Set, Optional, Dict, List
 
+import ResultPrinter
 import my_nltk
 
 
-class WordSenseDisambiguator:
+def build_sentence_simple(self, word: str, sentence_a: str, sentence_b: str) -> str:
+    """Builds a structured question from word and sentences."""
+    return f'Does the word "{word}" mean the same thing in sentences "{sentence_a}" and "{sentence_b}"?'
 
-    def get_word_context(self, word: str, sentence: str, synonyms: Optional[Set[str]] = None) -> Set[str]:
-        """Returns surrounding words of the target word in a sentence, optionally including synonyms."""
-        words = sentence.split()
-        context = set()
 
-        if word in words:
-            index = words.index(word)
-            left_context = words[max(0, index - 5): index]  # Get up to 5 words before
-            right_context = words[index + 1: index + 5]  # Get up to 5 words after
-            context.update(left_context + right_context)
+def build_sentence(word: str, pos: str, index1, index2, sentence_a: str, sentence_b: str) -> str | bool:
+    try:
+        index1 = int(index1)
+        index2 = int(index2)
+    except Exception | TypeError:
+        return False
+    if pos == 'V':
+        part_of_speech = 'verb'
+    else:
+        part_of_speech = 'noun'
+    """Builds a structured question from word and sentences."""
+    return f'Does the word "{word}" mean the same thing in sentence "{sentence_a}" -  at position {index1} - and in sentence"{sentence_b}" - at position {index2} - ? The word "{word}" is a {part_of_speech} in both sentences.'
 
-        if synonyms:
-            context.update(synonyms)
 
-        return context
+def get_word_context(word: str, sentence: str, synonyms: Optional[Set[str]] = None) -> Set[str]:
+    """Returns surrounding words of the target word in a sentence, optionally including synonyms."""
+    words = sentence.split()
+    context = set()
 
-    def determine_word_similarity(self, word: str, sentence_a: str, sentence_b: str,
-                                  synonyms: Optional[Set[str]]) -> str:
-        """Determines if the word has the same meaning in two different sentences based on context similarity."""
-        context_a = self.get_word_context(word, sentence_a, synonyms)
-        context_b = self.get_word_context(word, sentence_b, synonyms)
+    if word in words:
+        index = words.index(word)
+        left_context = words[max(0, index - 5): index]  # Get up to 5 words before
+        right_context = words[index + 1: index + 5]  # Get up to 5 words after
+        context.update(left_context + right_context)
 
-        similarity = len(context_a & context_b) / (len(context_a | context_b) + 1e-5)  # Avoid division by zero
+    if synonyms:
+        context.update(synonyms)
 
-        return "YES" if similarity > 0 else "NO"
+    return context
 
-    def process_question(self, question: str, synonyms: Optional[Set[str]]) -> str:
-        """Extracts components from the formatted question and determines the answer."""
-        pattern = r'Does the word "(.+?)" mean the same thing in sentences "(.+?)" and "(.+?)"\?'
-        match = re.match(pattern, question)
 
-        if not match:
-            return "Invalid question format"
+def determine_word_similarity(word: str, sentence_a: str, sentence_b: str,
+                              synonyms: Optional[Set[str]]) -> str:
+    """Determines if the word has the same meaning in two different sentences based on context similarity."""
+    context_a = get_word_context(word, sentence_a, synonyms)
+    context_b = get_word_context(word, sentence_b, synonyms)
 
-        word, sentence_a, sentence_b = match.groups()
-        return self.determine_word_similarity(word, sentence_a, sentence_b, synonyms)
+    similarity = len(context_a & context_b) / (len(context_a | context_b) + 1e-5)  # Avoid division by zero
 
-    def build_sentence(self, word: str, sentence_a: str, sentence_b: str) -> str:
-        """Builds a structured question from word and sentences."""
-        return f'Does the word "{word}" mean the same thing in sentences "{sentence_a}" and "{sentence_b}"?'
+    return "YES" if similarity > 0 else "NO"
+
+
+def process_question(question: str, synonyms: Optional[Set[str]]) -> str:
+    """Extracts components from the formatted question and determines the answer."""
+    pattern = r'Does the word "(.+?)" mean the same thing in sentences "(.+?)" and "(.+?)"\?'
+    match = re.match(pattern, question)
+
+    if not match:
+        return "Invalid question format"
+
+    word, sentence_a, sentence_b = match.groups()
+    return determine_word_similarity(word, sentence_a, sentence_b, synonyms)
+
 
 
 # Example usage:
@@ -168,28 +185,7 @@ def sample_questions(model):
     return questions
 
 
-def use_model(synonyms, model, questions):
-    """
-        passes the database
-    :param questions:
-    :param model:
-    :param synonyms:
-    :return:
-    """
 
-    correct_answers_count = 0
-    total_questions = 0
-    results = {}
-
-    for key, value in questions.items():
-        model_answer = model.process_question(key, synonyms)
-        correct_answers_count += (model_answer == value)
-        answer = 'YES' if model_answer == value else 'NO'
-        print(f'Sentence: "{key}"')
-        print(f'Did the model predict correctly? {answer}')
-
-    print(f'accuracy = {correct_answers_count / (len(questions) + 1e-5)}')
-    print(f'{correct_answers_count} correct answer(s) out of {len(questions)} answers.')
 
 
 def read_gold_labels(base_path: str, file_specific_path: str) -> List[str]:
@@ -233,15 +229,14 @@ def load_wic_data(base_dir: str) -> Dict[str, List[Dict[str, str]]]:
     return wic_data
 
 def main():
-    wsd_model = WordSenseDisambiguator()
     # Run the model with no synonyms
-    print
+    print()
     print('"dumb" algorithm implemented by Fabbernat:')
-    use_model(None, wsd_model, sample_questions(wsd_model))
+    ResultPrinter.print_results(None, wsd_model, sample_questions(wsd_model))
 
     print()
     print('nltk wordnet algorithm:')
-    use_model(my_nltk.synonyms, wsd_model, sample_questions(wsd_model))
+    ResultPrinter.print_results(my_nltk.synonyms, wsd_model, sample_questions(wsd_model))
 
     base_dir = r'C:\WiC_dataset'
 
@@ -259,11 +254,13 @@ def main():
         sentence_a = row.get('sentence_a')
         sentence_b = row.get('sentence_b')
         label = row.get('label')
-        built_sentence = wsd_model.build_sentence(word, sentence_a, sentence_b)
+        built_sentence = build_sentence(word, sentence_a, sentence_b)
         questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
-        use_model(my_nltk.synonyms, wsd_model, questions)
+        ResultPrinter.print_results(my_nltk.synonyms, wsd_model, questions)
 
 
 if __name__ == '__main__':
     main()
+
+
