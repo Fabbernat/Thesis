@@ -73,3 +73,4 @@ if __name__ == "__main__":
     # Evaluate model
     accuracy = evaluate(similarities, labels)
     print(f"Baseline accuracy: {accuracy:.2%}")
+    print(f'{correct_answers_count} correct answer(s) out of {len(labels)} answers.')
