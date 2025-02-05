@@ -8,7 +8,6 @@ def print_results(synonyms, model, questions):
     """
 
     correct_answers_count = 0
-    total_questions = 0
     results = {}
 
     for key, value in questions.items():
@@ -18,5 +17,6 @@ def print_results(synonyms, model, questions):
         print(f'Sentence: "{key}"')
         print(f'Did the model predict correctly? {answer}')
 
-    print(f'accuracy = {correct_answers_count / (len(questions) + 1e-5)}')
+    if len(questions) > 0:
+        print(f'accuracy = {correct_answers_count / len(questions)}')
     print(f'{correct_answers_count} correct answer(s) out of {len(questions)} answers.')
