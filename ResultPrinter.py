@@ -1,8 +1,10 @@
-def print_results(synonyms, model, questions):
+from WordSenseDisambiguator import process_question
+
+
+def print_results(synonyms, questions):
     """
         passes the database
     :param questions:
-    :param model:
     :param synonyms:
     :return:
     """
@@ -11,7 +13,7 @@ def print_results(synonyms, model, questions):
     results = {}
 
     for key, value in questions.items():
-        model_answer = model.process_question(key, synonyms)
+        model_answer = process_question(key, synonyms)
         correct_answers_count += (model_answer == value)
         answer = 'YES' if model_answer == value else 'NO'
         print(f'Sentence: "{key}"')

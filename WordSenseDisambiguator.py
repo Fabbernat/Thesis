@@ -150,7 +150,7 @@ def process_wic_data(wic_data: Dict[str, List[Dict[str, str]]]) -> dict[str, dic
     return questions
 
 
-def sample_questions(model):
+def sample_questions():
     """
 
     :param model:
@@ -169,7 +169,7 @@ def sample_questions(model):
     sentence_a = 'The penetration of upper management by women .'
     sentence_b = 'Any penetration , however slight , is sufficient to complete the offense .'
 
-    built_sentence = model.build_sentence(word, sentence_a, sentence_b)
+    built_sentence = build_sentence(word, sentence_a, sentence_b)
 
     questions[built_sentence] = 'NO'
 
@@ -178,7 +178,7 @@ def sample_questions(model):
     sentence_a = 'The hikers did not manage to penetrate the dense forest .'
     sentence_b = 'She was penetrated with sorrow .'
 
-    built_sentence = model.build_sentence(word, sentence_a, sentence_b)
+    built_sentence = build_sentence(word, sentence_a, sentence_b)
 
     questions[built_sentence] = 'YES'
 
@@ -232,11 +232,11 @@ def main():
     # Run the model with no synonyms
     print()
     print('"dumb" algorithm implemented by Fabbernat:')
-    ResultPrinter.print_results(None, wsd_model, sample_questions(wsd_model))
+    ResultPrinter.print_results(None, sample_questions())
 
     print()
     print('nltk wordnet algorithm:')
-    ResultPrinter.print_results(NltkHandler.synonyms, wsd_model, sample_questions(wsd_model))
+    ResultPrinter.print_results(NltkHandler.synonyms, sample_questions())
 
     base_dir = r'C:\WiC_dataset'
 
@@ -257,7 +257,7 @@ def main():
         built_sentence = build_sentence(word, sentence_a, sentence_b)
         questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
-        ResultPrinter.print_results(NltkHandler.synonyms, wsd_model, questions)
+        ResultPrinter.print_results(NltkHandler.synonyms, questions)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-from WordSenseDisambiguator import sample_questions, WordSenseDisambiguator
+from WordSenseDisambiguator import sample_questions
 
 # 1
 import torch
@@ -15,8 +15,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = model.to(device)
 
 # 2
-wsd_model = WordSenseDisambiguator()
-input_text = sample_questions(wsd_model)
+input_text = sample_questions()
 input_ids = tokenizer.encode(input_text, return_tensors='pt').to(device)
 
 print(input_ids, "\n")
