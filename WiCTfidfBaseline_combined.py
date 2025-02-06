@@ -3,6 +3,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import wordnet as wn
 import nltk
 
+
 # nltk.download("wordnet")
 # nltk.download("omw-1.4")
 # nltk.download("punkt")
@@ -43,10 +44,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # import NltkHandler
 
-def normalize_negations(sentence):
-    """Replaces contractions like n't with 'not' for better word sense disambiguation."""
-    sentence = sentence.replace("n't", " not")  # Convert "didn't" to "did not"
+def normalize(sentence):
+    """Replaces contractions for better word sense disambiguation."""
+    sentence = sentence.replace(" 's", "'s")
     return sentence
+
 
 def load_wic_data(data_path, gold_path):
     """
@@ -89,8 +91,8 @@ def load_wic_data(data_path, gold_path):
             # sentence_a = expand_sentence_with_wsd(sentence_a, word)
             # sentence_b = expand_sentence_with_wsd(sentence_b, word)
 
-            # sentence_a = normalize_negations(sentence_a)
-            # sentence_b = normalize_negations(sentence_b)
+            # sentence_a = normalize(sentence_a)
+            # sentence_b = normalize(sentence_b)
 
             gold.append(label.strip())
             data.append((word, pos, index1, index2, sentence_a, sentence_b))
@@ -121,7 +123,7 @@ def compute_similarity(data):
     return np.array(similarities)
 
 
-def evaluate(similarities, labels, data, threshold=0.450, return_predictions=False, verbose=False):
+def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False):
     """
         Evaluates accuracy based on a threshold for similarity.
 
@@ -133,7 +135,8 @@ def evaluate(similarities, labels, data, threshold=0.450, return_predictions=Fal
 
     if verbose:
         print("\nFalse Positives (Predicted T but should be F):")
-        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(zip(predictions, labels, similarities, data)):
+        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
+                zip(predictions, labels, similarities, data)):
             if pred == 'T' and true_label == 'F':
                 print(f"Index {i}: Similarity = {sim:.3f}")
                 print(f"Word: {word}")
@@ -142,7 +145,8 @@ def evaluate(similarities, labels, data, threshold=0.450, return_predictions=Fal
                 print("-" * 80)
 
         print("\nTrue Negatives (Predicted F and was correct):")
-        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(zip(predictions, labels, similarities, data)):
+        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
+                zip(predictions, labels, similarities, data)):
             if pred == 'F' and true_label == 'F':
                 print(f"Index {i}: Similarity = {sim:.3f}")
                 print(f"Word: {word}")
@@ -154,17 +158,39 @@ def evaluate(similarities, labels, data, threshold=0.450, return_predictions=Fal
         return accuracy, correct_answers_count, predictions
     return accuracy, correct_answers_count
 
+
 if __name__ == "__main__":
-    # Paths to WiC dataset files
+    # Paths to all 6 WiC dataset files
     base_path = "C:/WiC_dataset/dev"
-    data_file = os.path.normpath(os.path.join(base_path, "dev.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "dev.gold.txt"))
+    dev_data_file = os.path.normpath(os.path.join(base_path, "dev.data.txt"))
+    dev_gold_file = os.path.normpath(os.path.join(base_path, "dev.gold.txt"))
+
+    base_path = "C:/WiC_dataset/test"
+    test_data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
+    test_gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
+
+    base_path = "C:/WiC_dataset/train"
+    train_data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
+    train_gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
 
     # Load data and compute similarities
-    data, labels = load_wic_data(data_file, gold_file)
-    similarities = compute_similarity(data)
+    dev_data, dev_labels = load_wic_data(dev_data_file, dev_gold_file)
+    dev_similarities = compute_similarity(dev_data)
 
-    # Evaluate model
-    accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
-    print(f"Baseline accuracy: {accuracy:.3%}")
-    print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
+    test_data, test_labels = load_wic_data(test_data_file, test_gold_file)
+    test_similarities = compute_similarity(test_data)
+
+    train_data, train_labels = load_wic_data(train_data_file, train_gold_file)
+    train_similarities = compute_similarity(train_data)
+
+    # Combine all datasets into a single dataset
+    all_similarities = np.concatenate([dev_similarities, test_similarities, train_similarities])
+    all_labels = dev_labels + test_labels + train_labels
+    all_data = dev_data + test_data + train_data
+
+    # Evaluate overall accuracy
+    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, verbose=True)
+
+    # Print overall results
+    print(f"Overall accuracy: {overall_accuracy:.3%}")
+    print(f"{overall_correct_answers_count} correct answer(s) out of {len(all_labels)} answers.")
