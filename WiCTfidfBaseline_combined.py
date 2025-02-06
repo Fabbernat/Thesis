@@ -106,8 +106,8 @@ def compute_similarity(data):
     # vectorizer: optional configs: stop_words="english"
     # max_df 0.1-0.9 does not change much
     vectorizer = TfidfVectorizer(lowercase=True,
-                                 ngram_range=(1, 3),
-                                 max_df=0.9, min_df=2,
+                                 ngram_range=(0, 1),
+                                 max_df=0.95, min_df=2,
                                  sublinear_tf=True, norm='l2')
 
     # Precompute vocabulary using all sentences
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     all_data = dev_data + test_data + train_data
 
     # Evaluate overall accuracy
-    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, verbose=True)
+    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, verbose=False)
 
     # Print overall results
     print(f"Overall accuracy: {overall_accuracy:.3%}")
