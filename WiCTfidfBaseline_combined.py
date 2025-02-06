@@ -23,11 +23,18 @@ def optimize_threshold(similarities, labels):
 
     return best_threshold
 
+
 def get_disambiguated_synonyms(word, sentence):
-    """Uses Word Sense Disambiguation (WSD) to get only relevant synonyms for a word in context."""
-    sense = lesk(word_tokenize(sentence), word)  # Get the best sense for the word in this sentence
+    """Uses advanced Word Sense Disambiguation to get only relevant synonyms for a word in context."""
+    sense = lesk(word_tokenize(sentence), word)
+
     if sense:
-        return {lemma.name().replace("_", " ") for lemma in sense.lemmas()}  # Return synonyms for that sense only
+        synonyms = {lemma.name().replace("_", " ") for lemma in sense.lemmas()}
+        # Prioritize synonyms based on semantic similarity
+        ranked_synonyms = sorted(synonyms, key=lambda s: wn.synsets(s)[0].wup_similarity(sense) if wn.synsets(s) else 0,
+                                 reverse=True)
+        return set(ranked_synonyms[:2])  # Return top 2 most relevant synonyms
+
     return set()
 
 
@@ -204,7 +211,7 @@ if __name__ == "__main__":
 
     best_threshold = optimize_threshold(all_similarities, all_labels)
     # Evaluate overall accuracy
-    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, threshold=best_threshold, verbose=False)
+    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, threshold=best_threshold, verbose=True)
 
     # Print overall results
     print(f"Overall accuracy: {overall_accuracy:.3%}")
