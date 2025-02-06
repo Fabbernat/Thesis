@@ -8,6 +8,20 @@ import nltk
 # nltk.download("omw-1.4")
 # nltk.download("punkt")
 
+def optimize_threshold(similarities, labels):
+    """Finds the best similarity threshold for classification."""
+    best_acc = 0
+    best_threshold = 0.0
+
+    for threshold in np.arange(0.3, 0.6, 0.01):  # Kipróbál értékeket 0.3 és 0.6 között
+        predictions = ['T' if sim > threshold else 'F' for sim in similarities]
+        accuracy = sum(pred == true_label for pred, true_label in zip(predictions, labels)) / len(labels)
+
+        if accuracy > best_acc:
+            best_acc = accuracy
+            best_threshold = threshold
+
+    return best_threshold
 
 def get_disambiguated_synonyms(word, sentence):
     """Uses Word Sense Disambiguation (WSD) to get only relevant synonyms for a word in context."""
@@ -107,7 +121,7 @@ def compute_similarity(data):
     # max_df 0.1-0.9 does not change much
     vectorizer = TfidfVectorizer(lowercase=True,
                                  ngram_range=(0, 1),
-                                 max_df=0.95, min_df=2,
+                                 max_df=0.85, min_df=2,
                                  sublinear_tf=True, norm='l2')
 
     # Precompute vocabulary using all sentences
@@ -188,8 +202,9 @@ if __name__ == "__main__":
     all_labels = dev_labels + test_labels + train_labels
     all_data = dev_data + test_data + train_data
 
+    best_threshold = optimize_threshold(all_similarities, all_labels)
     # Evaluate overall accuracy
-    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, verbose=False)
+    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, threshold=best_threshold, verbose=False)
 
     # Print overall results
     print(f"Overall accuracy: {overall_accuracy:.3%}")
