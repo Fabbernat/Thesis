@@ -8,6 +8,34 @@ import nltk
 # nltk.download("omw-1.4")
 # nltk.download("punkt")
 
+from nltk.corpus import wordnet as wn
+from sentence_transformers import SentenceTransformer, util
+
+# Load a sentence embedding model (e.g., all-MiniLM)
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+
+def get_best_sense(word, sentence):
+    """Uses sentence embeddings to disambiguate word senses."""
+    synsets = wn.synsets(word)
+    if not synsets:
+        return None
+
+    sentence_embedding = model.encode(sentence, convert_to_tensor=True)
+    best_sense = max(synsets, key=lambda sense:
+                     util.pytorch_cos_sim(sentence_embedding, model.encode(sense.definition(), convert_to_tensor=True)).item())
+
+    return best_sense
+
+def get_disambiguated_synonyms(word, sentence):
+    """
+        Gets synonyms only for the most relevant sense of the word.
+        Uses advanced Word Sense Disambiguation to get only relevant synonyms for a word in context.
+    """
+    sense = get_best_sense(word, sentence)
+    if sense:
+        return {lemma.name().replace("_", " ") for lemma in sense.lemmas()}
+    return set()
+
 def optimize_threshold(similarities, labels):
     """Finds the best similarity threshold for classification."""
     best_acc = 0
@@ -23,19 +51,6 @@ def optimize_threshold(similarities, labels):
 
     return best_threshold
 
-
-def get_disambiguated_synonyms(word, sentence):
-    """Uses advanced Word Sense Disambiguation to get only relevant synonyms for a word in context."""
-    sense = lesk(word_tokenize(sentence), word)
-
-    if sense:
-        synonyms = {lemma.name().replace("_", " ") for lemma in sense.lemmas()}
-        # Prioritize synonyms based on semantic similarity
-        ranked_synonyms = sorted(synonyms, key=lambda s: wn.synsets(s)[0].wup_similarity(sense) if wn.synsets(s) else 0,
-                                 reverse=True)
-        return set(ranked_synonyms[:2])  # Return top 2 most relevant synonyms
-
-    return set()
 
 
 def expand_sentence_with_wsd(sentence, target_word):
@@ -128,8 +143,10 @@ def compute_similarity(data):
     # max_df 0.1-0.9 does not change much
     vectorizer = TfidfVectorizer(lowercase=True,
                                  ngram_range=(0, 1),
-                                 max_df=0.85, min_df=2,
-                                 sublinear_tf=True, norm='l2')
+                                 max_df=0.85,
+                                 min_df=2,
+                                 sublinear_tf=True,
+                                 norm='l2')
 
     # Precompute vocabulary using all sentences
     all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in (sentence_a, sentence_b)]
@@ -143,6 +160,25 @@ def compute_similarity(data):
 
     return np.array(similarities)
 
+def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50)):
+    """Evaluates accuracy, adding a gray zone for uncertain cases."""
+    predictions = []
+    uncertain_cases = 0
+
+    for sim in similarities:
+        if sim > threshold:
+            predictions.append('T')
+        elif gray_zone[0] <= sim <= gray_zone[1]:
+            predictions.append('U')  # Uncertain
+            uncertain_cases += 1
+        else:
+            predictions.append('F')
+
+    correct_answers = sum(pred == true_label or pred == 'U' for pred, true_label in zip(predictions, labels))
+    accuracy = correct_answers / len(labels)
+
+    print(f"Uncertain cases: {uncertain_cases}/{len(labels)} ({(uncertain_cases/len(labels)):.2%})")
+    return accuracy, correct_answers, predictions
 
 def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False):
     """
@@ -180,7 +216,7 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
     return accuracy, correct_answers_count
 
 
-if __name__ == "__main__":
+def main():
     # Paths to all 6 WiC dataset files
     base_path = "C:/WiC_dataset/dev"
     dev_data_file = os.path.normpath(os.path.join(base_path, "dev.data.txt"))
@@ -216,3 +252,6 @@ if __name__ == "__main__":
     # Print overall results
     print(f"Overall accuracy: {overall_accuracy:.3%}")
     print(f"{overall_correct_answers_count} correct answer(s) out of {len(all_labels)} answers.")
+
+if __name__ == "__main__":
+    main()
