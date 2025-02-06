@@ -121,11 +121,11 @@ def compute_similarity(data):
     return np.array(similarities)
 
 
-def evaluate(similarities, labels, threshold=0.450, return_predictions=False, verbose=False):
+def evaluate(similarities, labels, data, threshold=0.450, return_predictions=False, verbose=False):
     """
         Evaluates accuracy based on a threshold for similarity.
 
-        If verbose=True, prints false positives and true negatives.
+        If verbose=True, prints false positives, true negatives, and relevant sentences.
     """
     predictions = ['T' if sim > threshold else 'F' for sim in similarities]
     correct_answers_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
@@ -133,19 +133,26 @@ def evaluate(similarities, labels, threshold=0.450, return_predictions=False, ve
 
     if verbose:
         print("\nFalse Positives (Predicted T but should be F):")
-        for i, (pred, true_label, sim) in enumerate(zip(predictions, labels, similarities)):
+        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(zip(predictions, labels, similarities, data)):
             if pred == 'T' and true_label == 'F':
                 print(f"Index {i}: Similarity = {sim:.3f}")
+                print(f"Word: {word}")
+                print(f"Sentence A: {sentence_a}")
+                print(f"Sentence B: {sentence_b}")
+                print("-" * 80)
 
         print("\nTrue Negatives (Predicted F and was correct):")
-        for i, (pred, true_label, sim) in enumerate(zip(predictions, labels, similarities)):
+        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(zip(predictions, labels, similarities, data)):
             if pred == 'F' and true_label == 'F':
                 print(f"Index {i}: Similarity = {sim:.3f}")
+                print(f"Word: {word}")
+                print(f"Sentence A: {sentence_a}")
+                print(f"Sentence B: {sentence_b}")
+                print("-" * 80)
 
     if return_predictions:
         return accuracy, correct_answers_count, predictions
     return accuracy, correct_answers_count
-
 
 if __name__ == "__main__":
     # Paths to WiC dataset files
@@ -158,6 +165,6 @@ if __name__ == "__main__":
     similarities = compute_similarity(data)
 
     # Evaluate model
-    accuracy, correct_answers_count = evaluate(similarities, labels, verbose=True)
+    accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
     print(f"Baseline accuracy: {accuracy:.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
