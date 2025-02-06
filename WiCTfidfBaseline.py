@@ -43,6 +43,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # import NltkHandler
 
+def normalize_negations(sentence):
+    """Replaces contractions like n't with 'not' for better word sense disambiguation."""
+    sentence = sentence.replace("n't", " not")  # Convert "didn't" to "did not"
+    return sentence
+
 def load_wic_data(data_path, gold_path):
     """
         Loads the WiC dataset and its gold into a structured format.
@@ -84,6 +89,9 @@ def load_wic_data(data_path, gold_path):
             # sentence_a = expand_sentence_with_wsd(sentence_a, word)
             # sentence_b = expand_sentence_with_wsd(sentence_b, word)
 
+            # sentence_a = normalize_negations(sentence_a)
+            # sentence_b = normalize_negations(sentence_b)
+
             gold.append(label.strip())
             data.append((word, pos, index1, index2, sentence_a, sentence_b))
 
@@ -113,11 +121,26 @@ def compute_similarity(data):
     return np.array(similarities)
 
 
-def evaluate(similarities, labels, threshold=0.450, return_predictions=False):
-    """Evaluates accuracy based on a threshold for similarity."""
+def evaluate(similarities, labels, threshold=0.450, return_predictions=False, verbose=False):
+    """
+        Evaluates accuracy based on a threshold for similarity.
+
+        If verbose=True, prints false positives and true negatives.
+    """
     predictions = ['T' if sim > threshold else 'F' for sim in similarities]
     correct_answers_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
     accuracy = correct_answers_count / len(labels)
+
+    if verbose:
+        print("\nFalse Positives (Predicted T but should be F):")
+        for i, (pred, true_label, sim) in enumerate(zip(predictions, labels, similarities)):
+            if pred == 'T' and true_label == 'F':
+                print(f"Index {i}: Similarity = {sim:.3f}")
+
+        print("\nTrue Negatives (Predicted F and was correct):")
+        for i, (pred, true_label, sim) in enumerate(zip(predictions, labels, similarities)):
+            if pred == 'F' and true_label == 'F':
+                print(f"Index {i}: Similarity = {sim:.3f}")
 
     if return_predictions:
         return accuracy, correct_answers_count, predictions
@@ -135,6 +158,6 @@ if __name__ == "__main__":
     similarities = compute_similarity(data)
 
     # Evaluate model
-    accuracy, correct_answers_count = evaluate(similarities, labels)
+    accuracy, correct_answers_count = evaluate(similarities, labels, verbose=True)
     print(f"Baseline accuracy: {accuracy:.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
