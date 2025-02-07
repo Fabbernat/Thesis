@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     # Load data and compute similarities
     data, labels = WiCTfidfBaseline.load_wic_data(data_file, gold_file)
-    similarities = WiCTfidfBaseline.compute_similarity(data)
+    similarities = WiCTfidfBaseline.compute_sentence_similarity(data)
 
     # Evaluate model and get predictions
     accuracy, correct_answers_count, y_pred = WiCTfidfBaseline.evaluate(similarities, labels, return_predictions=True)

@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-import WiCTfidfBaseline
+import WiCTfidfBaseline_combined
 from dev_y_true import dev_y_true
 
 
@@ -57,11 +57,11 @@ if __name__ == "__main__":
     gold_file = os.path.normpath(os.path.join(base_path, "dev.gold.txt"))
 
     # Load data and compute similarities
-    data, labels = WiCTfidfBaseline.load_wic_data(data_file, gold_file)
-    similarities = WiCTfidfBaseline.compute_similarity(data)
+    data, labels = WiCTfidfBaseline_combined.load_wic_data(data_file, gold_file)
+    similarities = WiCTfidfBaseline_combined.compute_sentence_similarity(data)
 
     # Evaluate model and get predictions
-    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline.evaluate(similarities, labels, return_predictions=True)
+    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate(similarities, labels, data, return_predictions=True)
 
     # Confusion matrix calculation
 

@@ -1,5 +1,4 @@
 import os
-import NltkHandler
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -7,15 +6,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 
-NltkHandler.download_wordnet_if_needed()
+# Download necessary NLTK resources (uncomment if needed)
+# import nltk
+# nltk.download("wordnet")
 # nltk.download("omw-1.4")
 # nltk.download("punkt")
 
-from nltk.corpus import wordnet as wn
-from sentence_transformers import SentenceTransformer, util
+# Load sentence embedding model
+SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 # Load a sentence embedding model (e.g., all-MiniLM)
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 
 def get_best_sense(word, sentence):
@@ -24,9 +24,9 @@ def get_best_sense(word, sentence):
     if not synsets:
         return None
 
-    sentence_embedding = model.encode(sentence, convert_to_tensor=True)
+    sentence_embedding = SENTENCE_EMBEDDING_MODEL.encode(sentence, convert_to_tensor=True)
     best_sense = max(synsets, key=lambda sense:
-    util.pytorch_cos_sim(sentence_embedding, model.encode(sense.definition(), convert_to_tensor=True)).item())
+        util.pytorch_cos_sim(sentence_embedding, SENTENCE_EMBEDDING_MODEL.encode(sense.definition(), convert_to_tensor=True)).item())
 
     return best_sense
 
@@ -44,15 +44,15 @@ def get_disambiguated_synonyms(word, sentence):
 
 def optimize_threshold(similarities, labels):
     """Finds the best similarity threshold for classification."""
-    best_acc = 0
+    best_accuracy = 0
     best_threshold = 0.0
 
     for threshold in np.arange(0.3, 0.6, 0.01):  # Kipróbál értékeket 0.3 és 0.6 között
         predictions = ['T' if sim > threshold else 'F' for sim in similarities]
         accuracy = sum(pred == true_label for pred, true_label in zip(predictions, labels)) / len(labels)
 
-        if accuracy > best_acc:
-            best_acc = accuracy
+        if accuracy > best_accuracy:
+            best_accuracy = accuracy
             best_threshold = threshold
 
     return best_threshold
@@ -66,29 +66,17 @@ def expand_sentence_with_wsd(sentence, target_word):
     for word in words:
         if word == target_word:  # Only expand the target word
             synonyms = get_disambiguated_synonyms(word, sentence)
-            if synonyms:
-                expanded_words.append(word + " " + " ".join(synonyms))
-            else:
-                expanded_words.append(word)
+            expanded_words.append(word + " " + " ".join(synonyms) if synonyms else word)
         else:
             expanded_words.append(word)
 
     return " ".join(expanded_words)
 
 
-import os
-import numpy as np
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
-
-# import NltkHandler
-
-def normalize(sentence):
+def normalize_sentence(sentence):
     """Replaces contractions for better word sense disambiguation."""
-    sentence = sentence.replace(" 's", "'s")
-    return sentence
+    return sentence.replace(" 's", "'s")  # Example normalization
+
 
 
 def load_wic_data(data_path, gold_path):
@@ -121,19 +109,17 @@ def load_wic_data(data_path, gold_path):
             except ValueError:
                 continue  # Skip lines with incorrect index format
 
-            # Expand sentences with synonyms
             # sentence_a = NltkHandler.expand_with_synonyms(sentence_a)
             # sentence_b = NltkHandler.expand_with_synonyms(sentence_b)
 
-            # Highlight target word for better feature extraction
             # sentence_a = sentence_a.replace(word, word + " " + word)
             # sentence_b = sentence_b.replace(word, word + " " + word)
 
             # sentence_a = expand_sentence_with_wsd(sentence_a, word)
             # sentence_b = expand_sentence_with_wsd(sentence_b, word)
 
-            # sentence_a = normalize(sentence_a)
-            # sentence_b = normalize(sentence_b)
+            # sentence_a = normalize_sentence(sentence_a)
+            # sentence_b = normalize_sentence(sentence_b)
 
             gold.append(label.strip())
             data.append((word, pos, index1, index2, sentence_a, sentence_b))
@@ -141,10 +127,9 @@ def load_wic_data(data_path, gold_path):
     return data, gold
 
 
-def compute_similarity(data):
+def compute_sentence_similarity(data):
     """Computes cosine similarity between sentence pairs using TF-IDF."""
 
-    # vectorizer: optional configs: stop_words="english"
     # max_df 0.1-0.9 does not change much
     vectorizer = TfidfVectorizer(lowercase=True,
                                  ngram_range=(0, 1),
@@ -158,7 +143,7 @@ def compute_similarity(data):
     vectorizer.fit(all_sentences)
 
     similarities = []
-    for word, pos, index1, index2, sentence1, sentence2 in data:
+    for _, _, _, _, sentence1, sentence2 in data:
         vectors = vectorizer.transform([sentence1, sentence2])
         sim = cosine_similarity(vectors[0], vectors[1])[0][0]
         similarities.append(sim)
@@ -180,114 +165,87 @@ def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_
         else:
             predictions.append('F')
 
-    correct_answers = sum(pred == true_label or pred == 'U' for pred, true_label in zip(predictions, labels))
-    accuracy = correct_answers / len(labels)
+    correct_predictions = sum(pred == true_label or pred == 'U' for pred, true_label in zip(predictions, labels))
+    accuracy = correct_predictions / len(labels)
 
     if verbose:
-        print("\nFalse Positives (Predicted T but should be F):")
-        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
-                zip(predictions, labels, similarities, data)):
-            if pred == 'T' and true_label == 'F':
-                print(f"Index {i}: Similarity = {sim:.3f}")
-                print(f"Word: {word}")
-                print(f"Sentence A: {sentence_a}")
-                print(f"Sentence B: {sentence_b}")
-                print("-" * 80)
-
-        print("\nTrue Negatives (Predicted F and was correct):")
-        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
-                zip(predictions, labels, similarities, data)):
-            if pred == 'F' and true_label == 'F':
-                print(f"Index {i}: Similarity = {sim:.3f}")
-                print(f"Word: {word}")
-                print(f"Sentence A: {sentence_a}")
-                print(f"Sentence B: {sentence_b}")
-                print("-" * 80)
+        print_evaluation_details(predictions, labels, similarities, data, "False Positives", 'T', 'F')
+        print_evaluation_details(predictions, labels, similarities, data, "True Negatives", 'F', 'F')
 
     print(f"Uncertain cases: {uncertain_cases}/{len(labels)} ({(uncertain_cases / len(labels)):.2%})")
-    return accuracy, correct_answers, predictions
+    return accuracy, correct_predictions, predictions
+
+
+def print_evaluation_details(predictions, labels, similarities, data, title, predicted_label, true_label):
+    """Helper function to print evaluation details."""
+    print(f"\n{title}:")
+    for i, (pred, true, sim, (word, _, _, _, sentence_a, sentence_b)) in enumerate(
+            zip(predictions, labels, similarities, data)):
+        if pred == predicted_label and true == true_label:
+            print(f"Index {i}: Similarity = {sim:.3f}")
+            print(f"Word: {word}")
+            print(f"Sentence A: {sentence_a}")
+            print(f"Sentence B: {sentence_b}")
+            print("-" * 80)
 
 
 def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False):
-    """
-        Evaluates accuracy based on a threshold for similarity.
+        """
+            Evaluates accuracy based on similarity threshold.
+            :param similarities:
+            :param labels:
+            :param data:
+            :param threshold:
+            :param return_predictions:
+            :param verbose: If verbose=True, prints false positives, true negatives, and relevant sentences.
+            :return:
+        """
+        predictions = ['T' if sim > threshold else 'F' for sim in similarities]
+        correct_predictions_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
+        accuracy = correct_predictions_count / len(labels)
 
-        If verbose=True, prints false positives, true negatives, and relevant sentences.
-    """
-    predictions = ['T' if sim > threshold else 'F' for sim in similarities]
-    correct_answers_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
-    accuracy = correct_answers_count / len(labels)
+        if verbose:
+            print_evaluation_details(predictions, labels, similarities, data, "False Positives", 'T', 'F')
+            print_evaluation_details(predictions, labels, similarities, data, "True Negatives", 'F', 'F')
 
-    if verbose:
-        print("\nFalse Positives (Predicted T but should be F):")
-        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
-                zip(predictions, labels, similarities, data)):
-            if pred == 'T' and true_label == 'F':
-                print(f"Index {i}: Similarity = {sim:.3f}")
-                print(f"Word: {word}")
-                print(f"Sentence A: {sentence_a}")
-                print(f"Sentence B: {sentence_b}")
-                print("-" * 80)
-
-        print("\nTrue Negatives (Predicted F and was correct):")
-        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
-                zip(predictions, labels, similarities, data)):
-            if pred == 'F' and true_label == 'F':
-                print(f"Index {i}: Similarity = {sim:.3f}")
-                print(f"Word: {word}")
-                print(f"Sentence A: {sentence_a}")
-                print(f"Sentence B: {sentence_b}")
-                print("-" * 80)
-
-    if return_predictions:
-        return accuracy, correct_answers_count, predictions
-    return accuracy, correct_answers_count
+        if return_predictions:
+            return accuracy, correct_predictions_count, predictions
+        return accuracy, correct_predictions_count
 
 
 def main():
     # Paths to all 6 WiC dataset files
-    base_path = "C:/WiC_dataset/dev"
-    dev_data_file = os.path.normpath(os.path.join(base_path, "dev.data.txt"))
-    dev_gold_file = os.path.normpath(os.path.join(base_path, "dev.gold.txt"))
+    data_paths = {
+        "dev": ("C:/WiC_dataset/dev/dev.data.txt", "C:/WiC_dataset/dev/dev.gold.txt"),
+        "test": ("C:/WiC_dataset/test/test.data.txt", "C:/WiC_dataset/test/test.gold.txt"),
+        "train": ("C:/WiC_dataset/train/train.data.txt", "C:/WiC_dataset/train/train.gold.txt"),
+    }
 
-    base_path = "C:/WiC_dataset/test"
-    test_data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
-    test_gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
+    all_data = []
+    all_labels = []
+    all_similarities = []
 
-    base_path = "C:/WiC_dataset/train"
-    train_data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
-    train_gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
+    for dataset_name, (data_file, gold_file) in data_paths.items():
+        data, labels = load_wic_data(data_file, gold_file)
+        similarities = compute_sentence_similarity(data)
 
-    # Load data and compute similarities
-    dev_data, dev_labels = load_wic_data(dev_data_file, dev_gold_file)
-    dev_similarities = compute_similarity(dev_data)
+        all_data.extend(data)
+        all_labels.extend(labels)
+        all_similarities.extend(similarities)
 
-    test_data, test_labels = load_wic_data(test_data_file, test_gold_file)
-    test_similarities = compute_similarity(test_data)
-
-    train_data, train_labels = load_wic_data(train_data_file, train_gold_file)
-    train_similarities = compute_similarity(train_data)
-
-    # Combine all datasets into a single dataset
-    all_similarities = np.concatenate([dev_similarities, test_similarities, train_similarities])
-    all_labels = dev_labels + test_labels + train_labels
-    all_data = dev_data + test_data + train_data
+    all_similarities = np.array(all_similarities)  # Convert to numpy array
 
     best_threshold = optimize_threshold(all_similarities, all_labels)
 
-    # ✅ **Evaluate with Uncertainty**
-    overall_accuracy, overall_correct_answers, predictions = evaluate_with_uncertainty(
-        similarities=all_similarities,
-        labels=all_labels,
-        data=all_data,
-        threshold=best_threshold,  # Using optimized threshold
-        gray_zone=(0.00, 1.00),
+    overall_accuracy, overall_correct_answers, _ = evaluate_with_uncertainty(
+        all_similarities, all_labels, all_data, threshold=best_threshold,
+        gray_zone=(0.00, 1.00),  # Effectively no gray zone for this evaluation
         verbose=True
     )
 
-    # Print overall results
     print(f"Overall accuracy: {overall_accuracy:.3%}")
     print(f"{overall_correct_answers} correct answer(s) out of {len(all_labels)} total answers.")
+
 
 
 if __name__ == "__main__":
