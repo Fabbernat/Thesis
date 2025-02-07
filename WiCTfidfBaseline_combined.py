@@ -1,10 +1,13 @@
-from nltk.wsd import lesk
-from nltk.tokenize import word_tokenize
+import os
+import NltkHandler
+import numpy as np
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
-import nltk
+from sentence_transformers import SentenceTransformer, util
 
-
-# nltk.download("wordnet")
+NltkHandler.download_wordnet_if_needed()
 # nltk.download("omw-1.4")
 # nltk.download("punkt")
 
@@ -14,6 +17,7 @@ from sentence_transformers import SentenceTransformer, util
 # Load a sentence embedding model (e.g., all-MiniLM)
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
+
 def get_best_sense(word, sentence):
     """Uses sentence embeddings to disambiguate word senses."""
     synsets = wn.synsets(word)
@@ -22,9 +26,10 @@ def get_best_sense(word, sentence):
 
     sentence_embedding = model.encode(sentence, convert_to_tensor=True)
     best_sense = max(synsets, key=lambda sense:
-                     util.pytorch_cos_sim(sentence_embedding, model.encode(sense.definition(), convert_to_tensor=True)).item())
+    util.pytorch_cos_sim(sentence_embedding, model.encode(sense.definition(), convert_to_tensor=True)).item())
 
     return best_sense
+
 
 def get_disambiguated_synonyms(word, sentence):
     """
@@ -35,6 +40,7 @@ def get_disambiguated_synonyms(word, sentence):
     if sense:
         return {lemma.name().replace("_", " ") for lemma in sense.lemmas()}
     return set()
+
 
 def optimize_threshold(similarities, labels):
     """Finds the best similarity threshold for classification."""
@@ -50,7 +56,6 @@ def optimize_threshold(similarities, labels):
             best_threshold = threshold
 
     return best_threshold
-
 
 
 def expand_sentence_with_wsd(sentence, target_word):
@@ -160,7 +165,8 @@ def compute_similarity(data):
 
     return np.array(similarities)
 
-def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50)):
+
+def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50), verbose=False):
     """Evaluates accuracy, adding a gray zone for uncertain cases."""
     predictions = []
     uncertain_cases = 0
@@ -177,8 +183,30 @@ def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_
     correct_answers = sum(pred == true_label or pred == 'U' for pred, true_label in zip(predictions, labels))
     accuracy = correct_answers / len(labels)
 
-    print(f"Uncertain cases: {uncertain_cases}/{len(labels)} ({(uncertain_cases/len(labels)):.2%})")
+    if verbose:
+        print("\nFalse Positives (Predicted T but should be F):")
+        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
+                zip(predictions, labels, similarities, data)):
+            if pred == 'T' and true_label == 'F':
+                print(f"Index {i}: Similarity = {sim:.3f}")
+                print(f"Word: {word}")
+                print(f"Sentence A: {sentence_a}")
+                print(f"Sentence B: {sentence_b}")
+                print("-" * 80)
+
+        print("\nTrue Negatives (Predicted F and was correct):")
+        for i, (pred, true_label, sim, (word, pos, index1, index2, sentence_a, sentence_b)) in enumerate(
+                zip(predictions, labels, similarities, data)):
+            if pred == 'F' and true_label == 'F':
+                print(f"Index {i}: Similarity = {sim:.3f}")
+                print(f"Word: {word}")
+                print(f"Sentence A: {sentence_a}")
+                print(f"Sentence B: {sentence_b}")
+                print("-" * 80)
+
+    print(f"Uncertain cases: {uncertain_cases}/{len(labels)} ({(uncertain_cases / len(labels)):.2%})")
     return accuracy, correct_answers, predictions
+
 
 def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False):
     """
@@ -246,12 +274,21 @@ def main():
     all_data = dev_data + test_data + train_data
 
     best_threshold = optimize_threshold(all_similarities, all_labels)
-    # Evaluate overall accuracy
-    overall_accuracy, overall_correct_answers_count = evaluate(all_similarities, all_labels, all_data, threshold=best_threshold, verbose=True)
+
+    # ✅ **Evaluate with Uncertainty**
+    overall_accuracy, overall_correct_answers, predictions = evaluate_with_uncertainty(
+        similarities=all_similarities,
+        labels=all_labels,
+        data=all_data,
+        threshold=best_threshold,  # Using optimized threshold
+        gray_zone=(0.00, 1.00),
+        verbose=True
+    )
 
     # Print overall results
     print(f"Overall accuracy: {overall_accuracy:.3%}")
-    print(f"{overall_correct_answers_count} correct answer(s) out of {len(all_labels)} answers.")
+    print(f"{overall_correct_answers} correct answer(s) out of {len(all_labels)} total answers.")
+
 
 if __name__ == "__main__":
     main()
