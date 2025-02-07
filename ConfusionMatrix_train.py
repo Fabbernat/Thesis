@@ -4,8 +4,8 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-import WiCTfidfBaseline_combined
-from dev_y_true import dev_y_true
+import WiCTfidfBaseline
+from y_true_train import y_true_train
 
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
@@ -52,22 +52,22 @@ def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
 
 if __name__ == "__main__":
     # Paths to WiC dataset files
-    base_path = "C:/WiC_dataset/dev"
-    data_file = os.path.normpath(os.path.join(base_path, "dev.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "dev.gold.txt"))
+    base_path = "C:/WiC_dataset/train"
+    data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
 
     # Load data and compute similarities
-    data, labels = WiCTfidfBaseline_combined.load_wic_data(data_file, gold_file)
-    similarities = WiCTfidfBaseline_combined.compute_sentence_similarity(data)
+    data, labels = WiCTfidfBaseline.load_wic_data(data_file, gold_file)
+    similarities = WiCTfidfBaseline.compute_sentence_similarity(data)
 
     # Evaluate model and get predictions
-    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate(similarities, labels, data, return_predictions=True)
+    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline.evaluate(similarities, labels, return_predictions=True)
 
     # Confusion matrix calculation
 
     # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
-    assert len(dev_y_true) == len(y_pred)
-    cm = confusion_matrix(dev_y_true, y_pred, labels=['T', 'F'])
+    assert len(y_true_train) == len(y_pred)
+    cm = confusion_matrix(y_true_train, y_pred, labels=['T', 'F'])
 
     # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
     tp, fp, fn, tn = cm.ravel()
