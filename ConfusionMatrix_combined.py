@@ -40,6 +40,12 @@ def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
 def main():
     """Main function to compute confusion matrix and plot it."""
 
+    #region uncertain evaluate
+
+    #endregion
+
+    #region normal evaluate
+
     # Paths to all 6 WiC dataset files
     data_paths = {
         "dev": ("C:/WiC_dataset/dev/dev.data.txt", "C:/WiC_dataset/dev/dev.gold.txt"),
@@ -51,7 +57,6 @@ def main():
     all_labels = []
     all_similarities = []
 
-    # Load data and compute similarities
     for dataset_name, (data_file, gold_file) in data_paths.items():
         data, labels = WiCTfidfBaseline_combined.load_wic_data(data_file, gold_file)
         similarities = WiCTfidfBaseline_combined.compute_sentence_similarity(data)
@@ -60,28 +65,25 @@ def main():
         all_labels.extend(labels)
         all_similarities.extend(similarities)
 
-    # Convert similarities to numpy array
-    all_similarities = np.array(all_similarities)
 
-    # Get the best threshold
-    best_threshold = WiCTfidfBaseline_combined.optimize_threshold(all_similarities, all_labels)
+    # Evaluate model and get predictions
+    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate(data=all_data, similarities=all_similarities, labels=all_labels, return_predictions=True, verbose=False)
 
-    # Get predictions
-    _, _, y_pred_combined = WiCTfidfBaseline_combined.evaluate_with_uncertainty(
-        all_similarities, all_labels, all_data, threshold=best_threshold
-    )
+    # Confusion matrix calculation
 
-    # Compute confusion matrix
-    cm = confusion_matrix(y_true_combined, y_pred_combined, labels=['T', 'F'])
+    # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
+    assert len(y_true_combined) == len(y_pred)
+    cm = confusion_matrix(y_true_combined, y_pred, labels=['T', 'F'])
 
-    # Extract values
-    tn, fp, fn, tp = cm.ravel()
+    print('shape: ', cm.shape) # Should be (2,2)
+    # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
+    tp, fp, fn, tn = cm.ravel()
 
-    print(f"Confusion Matrix: TN={tn}, FP={fp}, FN={fn}, TP={tp}")
+    print(f"Confusion Matrix: TP={tp}, FP={fp}, FN={fn}, TN={tn}")
 
-    # Plot the confusion matrix
     matplotlib_plot_confusion_matrix(tn, fp, fn, tp)
 
+    # endregion
 
 if __name__ == "__main__":
     main()
