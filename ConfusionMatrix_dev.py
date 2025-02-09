@@ -5,7 +5,7 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
 import WiCTfidfBaseline_combined
-from dev_y_true import dev_y_true
+from y_true_dev import dev_y_true
 
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     similarities = WiCTfidfBaseline_combined.compute_sentence_similarity(data)
 
     # Evaluate model and get predictions
-    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate_with_uncertainty(similarities, labels, data, return_predictions=True)
+    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate_with_uncertainty(similarities, labels, data)
 
     # Confusion matrix calculation
 

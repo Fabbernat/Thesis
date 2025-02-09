@@ -6,6 +6,7 @@ from sklearn.metrics import confusion_matrix
 import WiCTfidfBaseline_combined
 from y_true_combined import y_true_combined
 
+QUICK_EVALUATE = False
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
     """Plots a labeled confusion matrix using Matplotlib and Seaborn."""
@@ -40,50 +41,92 @@ def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
 def main():
     """Main function to compute confusion matrix and plot it."""
 
-    #region uncertain evaluate
+    if QUICK_EVALUATE:
+        # region normal evaluate
 
-    #endregion
+        # Paths to all 6 WiC dataset files
+        data_paths = {
+            "dev": ("C:/WiC_dataset/dev/dev.data.txt", "C:/WiC_dataset/dev/dev.gold.txt"),
+            "test": ("C:/WiC_dataset/test/test.data.txt", "C:/WiC_dataset/test/test.gold.txt"),
+            "train": ("C:/WiC_dataset/train/train.data.txt", "C:/WiC_dataset/train/train.gold.txt"),
+        }
 
-    #region normal evaluate
+        all_data = []
+        all_labels = []
+        all_similarities = []
 
-    # Paths to all 6 WiC dataset files
-    data_paths = {
-        "dev": ("C:/WiC_dataset/dev/dev.data.txt", "C:/WiC_dataset/dev/dev.gold.txt"),
-        "test": ("C:/WiC_dataset/test/test.data.txt", "C:/WiC_dataset/test/test.gold.txt"),
-        "train": ("C:/WiC_dataset/train/train.data.txt", "C:/WiC_dataset/train/train.gold.txt"),
-    }
+        for dataset_name, (data_file, gold_file) in data_paths.items():
+            data, labels = WiCTfidfBaseline_combined.load_wic_data(data_file, gold_file)
+            similarities = WiCTfidfBaseline_combined.compute_sentence_similarity(data)
 
-    all_data = []
-    all_labels = []
-    all_similarities = []
+            all_data.extend(data)
+            all_labels.extend(labels)
+            all_similarities.extend(similarities)
 
-    for dataset_name, (data_file, gold_file) in data_paths.items():
-        data, labels = WiCTfidfBaseline_combined.load_wic_data(data_file, gold_file)
-        similarities = WiCTfidfBaseline_combined.compute_sentence_similarity(data)
+        # Evaluate model and get predictions
+        accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate(data=all_data,
+                                                                                     similarities=all_similarities,
+                                                                                     labels=all_labels,
+                                                                                     return_predictions=True,
+                                                                                     verbose=False)
 
-        all_data.extend(data)
-        all_labels.extend(labels)
-        all_similarities.extend(similarities)
+        # Confusion matrix calculation
+
+        # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
+        assert len(y_true_combined) == len(y_pred)
+        cm = confusion_matrix(y_true_combined, y_pred, labels=['T', 'F'])
+
+        print('shape: ', cm.shape)  # Should be (2,2)
+        # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
+        tp, fp, fn, tn = cm.ravel()
+
+        print(f"Confusion Matrix: TP={tp}, FP={fp}, FN={fn}, TN={tn}")
+
+        matplotlib_plot_confusion_matrix(tn, fp, fn, tp)
+
+        # endregion
+    else:
+        #region uncertain evaluate
+        data_paths = {
+            "dev": ("C:/WiC_dataset/dev/dev.data.txt", "C:/WiC_dataset/dev/dev.gold.txt"),
+            "test": ("C:/WiC_dataset/test/test.data.txt", "C:/WiC_dataset/test/test.gold.txt"),
+            "train": ("C:/WiC_dataset/train/train.data.txt", "C:/WiC_dataset/train/train.gold.txt"),
+        }
+
+        all_data = []
+        all_labels = []
+        all_similarities = []
+
+        for dataset_name, (data_file, gold_file) in data_paths.items():
+            data, labels = WiCTfidfBaseline_combined.load_wic_data(data_file, gold_file)
+            similarities = WiCTfidfBaseline_combined.compute_sentence_similarity(data)
+
+            all_data.extend(data)
+            all_labels.extend(labels)
+            all_similarities.extend(similarities)
+
+        # Evaluate model and get predictions
+        accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate_with_uncertainty(data=all_data,
+                                                                                     similarities=all_similarities,
+                                                                                     labels=all_labels,
+                                                                                     verbose=False)
+
+        # Confusion matrix calculation
+
+        # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
+        assert len(y_true_combined) == len(y_pred)
+        cm = confusion_matrix(y_true_combined, y_pred, labels=['T', 'F'])
+
+        print('shape: ', cm.shape)  # Should be (2,2)
+        # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
+        tp, fp, fn, tn = cm.ravel()
+
+        print(f"Confusion Matrix: TP={tp}, FP={fp}, FN={fn}, TN={tn}")
+
+        matplotlib_plot_confusion_matrix(tn, fp, fn, tp)
+        #endregion
 
 
-    # Evaluate model and get predictions
-    accuracy, correct_answers_count, y_pred = WiCTfidfBaseline_combined.evaluate(data=all_data, similarities=all_similarities, labels=all_labels, return_predictions=True, verbose=False)
-
-    # Confusion matrix calculation
-
-    # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
-    assert len(y_true_combined) == len(y_pred)
-    cm = confusion_matrix(y_true_combined, y_pred, labels=['T', 'F'])
-
-    print('shape: ', cm.shape) # Should be (2,2)
-    # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
-    tp, fp, fn, tn = cm.ravel()
-
-    print(f"Confusion Matrix: TP={tp}, FP={fp}, FN={fn}, TN={tn}")
-
-    matplotlib_plot_confusion_matrix(tn, fp, fn, tp)
-
-    # endregion
 
 if __name__ == "__main__":
     main()

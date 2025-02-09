@@ -38,7 +38,7 @@ def get_disambiguated_synonyms(word, sentence):
     """
     sense = get_best_sense(word, sentence)
     if sense:
-        return {lemma.name().replace("_", " ") for lemma in sense.lemmas()}
+        return {lemma.name().replace("_", " ") for lemma in sense.lemmas()}  # Return synonyms for that sense only
     return set()
 
 
@@ -78,6 +78,10 @@ def normalize_sentence(sentence):
     return sentence.replace(" 's", "'s")  # Example normalization
 
 
+def normalize_negations(sentence):
+    """Replaces contractions like n't with 'not' for better word sense disambiguation."""
+    sentence = sentence.replace("n't", "not")
+    return sentence
 
 def load_wic_data(data_path, gold_path):
     """
@@ -109,9 +113,11 @@ def load_wic_data(data_path, gold_path):
             except ValueError:
                 continue  # Skip lines with incorrect index format
 
+            # Expand sentences with synonyms
             # sentence_a = NltkHandler.expand_with_synonyms(sentence_a)
             # sentence_b = NltkHandler.expand_with_synonyms(sentence_b)
 
+            # Highlight target word for better feature extraction
             # sentence_a = sentence_a.replace(word, word + " " + word)
             # sentence_b = sentence_b.replace(word, word + " " + word)
 

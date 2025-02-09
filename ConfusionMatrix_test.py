@@ -4,8 +4,8 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-import WiCTfidfBaseline
-from test_y_true import test_y_true
+import WiCTfidfBaseline_combined
+from y_true_test import test_y_true
 
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
