@@ -177,8 +177,10 @@ def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_
     accuracy = correct_predictions / len(labels)
 
     if verbose:
+        # Print False Positives (predicted True when actually False)
         print_evaluation_details(predictions, labels, similarities, data, "False Positives", 'T', 'F')
-        print_evaluation_details(predictions, labels, similarities, data, "True Negatives", 'F', 'F')
+        # Print False Negatives (predicted False when actually True)
+        print_evaluation_details(predictions, labels, similarities, data, "False Negatives", 'F', 'T')
 
     print(f"Uncertain cases: {uncertain_cases}/{len(labels)} ({(uncertain_cases / len(labels)):.2%})")
     return accuracy, correct_predictions, predictions
@@ -213,8 +215,10 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
         accuracy = correct_predictions_count / len(labels)
 
         if verbose:
+            # Print False Positives (predicted True when actually False)
             print_evaluation_details(predictions, labels, similarities, data, "False Positives", 'T', 'F')
-            print_evaluation_details(predictions, labels, similarities, data, "True Negatives", 'F', 'F')
+            # Print False Negatives (predicted False when actually True)
+            print_evaluation_details(predictions, labels, similarities, data, "False Negatives", 'F', 'T')
 
         if return_predictions:
             return accuracy, correct_predictions_count, predictions
