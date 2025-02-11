@@ -140,16 +140,18 @@ def compute_sentence_similarity(data):
 
     # max_df 0.1-0.9 does not change much
     vectorizer = TfidfVectorizer(lowercase=True,
-                                 ngram_range=(1, 3),
-                                 max_df=0.9, min_df=2,
-                                 sublinear_tf=True, norm='l2')
+                                 ngram_range=(0, 1),
+                                 max_df=0.85,
+                                 min_df=2,
+                                 sublinear_tf=True,
+                                 norm='l2')
 
     # Precompute vocabulary using all sentences
     all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in (sentence_a, sentence_b)]
     vectorizer.fit(all_sentences)
 
     similarities = []
-    for word, pos, index1, index2, sentence1, sentence2 in data:
+    for _, _, _, _, sentence1, sentence2 in data:
         vectors = vectorizer.transform([sentence1, sentence2])
         sim = cosine_similarity(vectors[0], vectors[1])[0][0]
         similarities.append(sim)
@@ -218,11 +220,13 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
             return accuracy, correct_predictions_count, predictions
         return accuracy, correct_predictions_count
 
-if __name__ == "__main__":
+
+def main():
     # Paths to WiC dataset files
     base_path = "C:/WiC_dataset/train"
     data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
     gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
+
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
@@ -232,3 +236,6 @@ if __name__ == "__main__":
     accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
     print(f"Baseline accuracy: {accuracy:.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
+
+if __name__ == "__main__":
+    main()
