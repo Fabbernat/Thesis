@@ -40,13 +40,9 @@ train_years = [1901, 1901, 1901, 1901, 1902, 1903, 1903, 1904, 1905, 1905, 1906,
 
 # Preprocessing function
 def preprocess_text(text):
-    # Convert to lowercase
     text = text.lower()
-    # Remove special characters and numbers
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
-
+    text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
     text = re.sub(r'\s+', ' ', text)
-
     return text.strip()
 
 # Preprocess all texts

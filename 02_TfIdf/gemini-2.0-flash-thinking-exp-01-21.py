@@ -1,21 +1,24 @@
-import re
-
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import cross_val_score, StratifiedKFold
-from collections import Counter
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import StratifiedKFold
+import re
 
-# Training data (Plot, Year)
-train_text = [
+data = [
 
-    """A bartender is working at a saloon, serving drinks to customers. After he fills a stereotypically Irish man's bucket with beer, Carrie Nation and her followers burst inside. They assault the Irish man, pulling his hat over his eyes and then dumping the beer over his head. The group then begin wrecking the bar, smashing the fixtures, mirrors, and breaking the cash register. The bartender then sprays seltzer water in Nation's face before a group of policemen appear and order everybody to leave.[1]""",
+        """A bartender is working at a saloon, serving drinks to customers. After he fills a stereotypically Irish man's bucket with beer, Carrie Nation and her followers burst inside. They assault the Irish man, pulling his hat over his eyes and then dumping the beer over his head. The group then begin wrecking the bar, smashing the fixtures, mirrors, and breaking the cash register. The bartender then sprays seltzer water in Nation's face before a group of policemen appear and order everybody to leave.[1]""",
 
-    "The moon, painted with a smiling face hangs over a park at night. A young couple walking past a fence learn on a railing and look up. The moon smiles. They embrace, and the moon's smile gets bigger. They then sit down on a bench by a tree. The moon's view is blocked, causing him to frown. In the last scene, the man fans the woman with his hat because the moon has left the sky and is perched over her shoulder to see everything better.""",
 
-    """The film, just over a minute long, is composed of two shots. In the first, a girl sits at the base of an altar or tomb, her face hidden from the camera. At the center of the altar, a viewing portal displays the portraits of three U.S. Presidents—Abraham Lincoln, James A. Garfield, and William McKinley—each victims of assassination. In the second shot, which runs just over eight seconds long, an assassin kneels feet of Lady Justice.""",
+        "The moon, painted with a smiling face hangs over a park at night. A young couple walking past a fence learn on a railing and look up. The moon smiles. They embrace, and the moon's smile gets bigger. They then sit down on a bench by a tree. The moon's view is blocked, causing him to frown. In the last scene, the man fans the woman with his hat because the moon has left the sky and is perched over her shoulder to see everything better.""",
+
+
+        """The film, just over a minute long, is composed of two shots. In the first, a girl sits at the base of an altar or tomb, her face hidden from the camera. At the center of the altar, a viewing portal displays the portraits of three U.S. Presidents—Abraham Lincoln, James A. Garfield, and William McKinley—each victims of assassination. In the second shot, which runs just over eight seconds long, an assassin kneels feet of Lady Justice.""",
+
 
     """Lasting just 61 seconds and consisting of two shots, the first shot is set in a wood during winter. The actor representing then vice-president Theodore Roosevelt enthusiastically hurries down a hillside towards a tree in the foreground. He falls once, but rights himself and cocks his rifle. Two other men, bearing signs reading ""His Photographer"" and ""His Press Agent"" respectively, follow him into the shot; the photographer sets up his camera. ""Teddy"" aims his rifle upward at the tree and fells what appears to be a common house cat, which he then proceeds to stab. ""Teddy"" holds his prize aloft, and the press agent takes notes. The second shot is taken in a slightly different part of the wood, on a path. ""Teddy"" rides the path on his horse towards the camera and out to the left of the shot, followed closely by the press agent and photographer, still dutifully holding their signs.""",
 
@@ -31,48 +34,87 @@ train_text = [
 
 train_years = [1901, 1901, 1901, 1901, 1902, 1903, 1903, 1904, 1905, 1905, 1906, 1906]
 
-
 # Preprocessing function
 def preprocess_text(text):
     text = text.lower()
-    text = re.sub(r'\[\d+\]', '', text)  # Remove citation markers
-    text = re.sub(r'[^\w\s]', '', text)  # Remove punctuation
-    text = re.sub(r'\d+', '', text)  # Remove numbers
+    text = re.sub(r'\[\d+\]', '', text) # Remove citation markers like [1]
+    text = re.sub(r'[^\w\s]', '', text) # Remove punctuation
+    text = re.sub(r'\d+', '', text) # Remove numbers
     return text
 
-
 # Preprocess the text data
-processed_data = [preprocess_text(text) for text in train_text]
+processed_data = [preprocess_text(text) for text in data]
+
+# Encode the labels (years) - although in this case, years are already numerical, encoding might be useful if you were dealing with categorical labels
+label_encoder = LabelEncoder()
+encoded_labels = label_encoder.fit_transform(train_years)
+
+# Split data into training and testing sets (for final evaluation - optional for now, focus on cross-validation)
+# X_train_text, X_test_text, y_train, y_test = train_test_split(processed_data, encoded_labels, test_size=0.2, random_state=42, stratify=encoded_labels)
+X_train_text = processed_data
+y_train = encoded_labels
+X_test_text = None # Set test data to None as we are focusing on cross-validation on the entire dataset for now
+y_test = None
 
 # TF-IDF Vectorization
-tfidf_vectorizer = TfidfVectorizer(max_features=1000, ngram_range=(1, 2), stop_words='english')
-X_train_tfidf = tfidf_vectorizer.fit_transform(processed_data)
+tfidf_vectorizer = TfidfVectorizer(max_features=1000, ngram_range=(1, 2), stop_words='english') # Added stop_words and ngram_range
 
-# Labels
-y_train = np.array(train_years)
+# Logistic Regression Classifier
+logreg_classifier = LogisticRegression(random_state=42, solver='liblinear', C=1.0) # Added solver and C for potential tuning
 
-# Models
-logreg_classifier = LogisticRegression(random_state=42, solver='liblinear', C=1.0)
-rf_classifier = RandomForestClassifier(random_state=42, n_estimators=100, max_depth=10)
-X_train, X_test, y_train, y_test = train_test_split(X_train_tfidf, y_train, test_size=0.2, random_state=42)
+# RandomForest Classifier
+rf_classifier = RandomForestClassifier(random_state=42, n_estimators=100, max_depth=10) # Example RandomForest - parameters can be tuned
 
-print(X_train_tfidf.shape, y_train.shape)
+# Pipeline for TF-IDF and Logistic Regression
+pipeline_logreg = Pipeline([
+    ('tfidf', tfidf_vectorizer),
+    ('clf', logreg_classifier)
+])
 
-logreg_classifier.fit(X_train, y_train)
-print(f"Train accuracy: {logreg_classifier.score(X_train, y_train):.4f}")
-print(f"Test accuracy: {logreg_classifier.score(X_test, y_test):.4f}")
+# Pipeline for TF-IDF and Random Forest
+pipeline_rf = Pipeline([
+    ('tfidf', tfidf_vectorizer),
+    ('clf', rf_classifier)
+])
 
-print("Checking class dispersion: ",Counter(y_train))
-
-# Cross-validation
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
+# --- Model Evaluation using Cross-Validation ---
 print("Cross-validation scores (Logistic Regression):")
-cv_scores_logreg = cross_val_score(logreg_classifier, X_train_tfidf, y_train, cv=cv)
+cv_scores_logreg = cross_val_score(pipeline_logreg, X_train_text, y_train, cv=StratifiedKFold(n_splits=5)) # StratifiedKFold for class balance
+cv_scores_rf = cross_val_score(pipeline_rf, X_train_text, y_train, cv=StratifiedKFold(n_splits=5)) # StratifiedKFold for class balance
 print(cv_scores_logreg)
 print(f"Mean CV Accuracy (Logistic Regression): {np.mean(cv_scores_logreg):.4f}")
 
 print("\nCross-validation scores (Random Forest):")
-cv_scores_rf = cross_val_score(rf_classifier, X_train_tfidf, y_train, cv=cv)
+cv_scores_rf = cross_val_score(pipeline_rf, X_train_text, y_train, cv=StratifiedKFold(n_splits=5)) # StratifiedKFold for class balance
 print(cv_scores_rf)
 print(f"Mean CV Accuracy (Random Forest): {np.mean(cv_scores_rf):.4f}")
+
+# --- Model Training on Full Training Data ---
+pipeline_logreg.fit(X_train_text, y_train)
+pipeline_rf.fit(X_train_text, y_train)
+
+# --- Model Evaluation on Test Data --- (Optional, but good practice)
+if X_test_text is not None: # Check if test data exists before evaluating
+    y_pred_logreg = pipeline_logreg.predict(X_test_text)
+    y_pred_rf = pipeline_rf.predict(X_test_text)
+
+    print("\n--- Logistic Regression Performance on Test Set ---")
+    print(f"Accuracy (Logistic Regression): {accuracy_score(y_test, y_pred_logreg):.4f}")
+    print("Classification Report (Logistic Regression):\n", classification_report(y_test, y_pred_logreg, target_names=label_encoder.inverse_transform(np.unique(y_train)))) # Added target_names
+
+    print("\n--- Random Forest Performance on Test Set ---")
+    print(f"Accuracy (Random Forest): {accuracy_score(y_test, y_pred_rf):.4f}")
+    print("Classification Report (Random Forest):\n", classification_report(y_test, y_pred_rf, target_names=label_encoder.inverse_transform(np.unique(y_train)))) # Added target_names
+
+
+print("\n--- Suggestions for Improvement ---")
+print("- **Hyperparameter Tuning:**  Experiment with different parameters for TF-IDF (e.g., `ngram_range`, `max_df`, `min_df`) and the classifiers (Logistic Regression: `C`, `penalty`; RandomForest: `n_estimators`, `max_depth`, `min_samples_split`). Use GridSearchCV or RandomizedSearchCV for systematic tuning.")
+print("- **Feature Engineering:** Consider adding more features.  For example:")
+print("    - **Text Length:**  Longer descriptions might correlate with certain years.")
+print("    - **Word Count:** Similar to text length.")
+print("    - **Presence of Specific Keywords:**  Certain words might be more common in descriptions from specific eras.")
+print("- **More Data:**  The dataset is very small. Increasing the training data significantly would likely improve performance.")
+print("- **Different Models:** Explore other classification models like Support Vector Machines (SVM), Naive Bayes, or Gradient Boosting algorithms (e.g., XGBoost, LightGBM).")
+print("- **Stemming/Lemmatization:** Apply stemming or lemmatization during preprocessing to reduce words to their root form, which can improve TF-IDF effectiveness.")
+print("- **Handling Class Imbalance:** If some years are much more frequent than others in a larger dataset, consider techniques to handle class imbalance (e.g., SMOTE, class weights in classifiers).")
+print("- **Error Analysis:** Look at the classification report and identify which years are being misclassified most often. Analyze the descriptions of those misclassified examples to understand why and potentially improve preprocessing or features.")
