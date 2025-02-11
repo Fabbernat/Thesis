@@ -51,7 +51,7 @@ def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
     plt.show()
 
 
-if __name__ == "__main__":
+def main():
     # Paths to WiC dataset files
     base_path = "C:/WiC_dataset/test"
     data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
@@ -77,3 +77,6 @@ if __name__ == "__main__":
 
     matplotlib_plot_confusion_matrix(tn, fp, fn, tp)
     seaborn_plot_confusion_matrix(tn, fp, fn, tp)
+
+if __name__ == "__main__":
+    main()
