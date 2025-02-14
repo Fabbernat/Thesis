@@ -75,16 +75,6 @@ def expand_sentence_with_wsd(sentence, target_word):
     return " ".join(expanded_words)
 
 
-def normalize_sentence(sentence):
-    """Replaces contractions for better word sense disambiguation."""
-    return sentence.replace(" 's", "'s")  # Example normalization
-
-
-def normalize_negations(sentence):
-    """Replaces contractions like n't with 'not' for better word sense disambiguation."""
-    sentence = sentence.replace("n't", "not")
-    return sentence
-
 def load_wic_data(data_path, gold_path):
     """
         Loads the WiC dataset and its gold into a structured format.
