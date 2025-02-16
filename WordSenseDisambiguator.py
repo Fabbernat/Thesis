@@ -5,7 +5,6 @@ import re
 from typing import Set, Optional, Dict, List
 
 import ResultPrinter
-import NltkHandler
 
 
 def build_sentence_simple(self, word: str, sentence_a: str, sentence_b: str) -> str:
