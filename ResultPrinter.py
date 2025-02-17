@@ -1,4 +1,4 @@
-from WordSenseDisambiguator import process_question
+from modules.WordSenseDisambiguator import process_question
 
 
 def print_results(synonyms, questions):

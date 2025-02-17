@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-import WiCTfidfBaseline_combined
+import wic_tfidf_baseline_combined
 from y_true_train import y_true_train
 
 

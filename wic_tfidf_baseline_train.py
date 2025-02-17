@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 
-from WiCTfidfBaseline_combined import compute_sentence_similarity
+from wic_tfidf_baseline_combined import compute_sentence_similarity
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk
@@ -74,16 +74,6 @@ def expand_sentence_with_wsd(sentence, target_word):
 
     return " ".join(expanded_words)
 
-
-def normalize_sentence(sentence):
-    """Replaces contractions for better word sense disambiguation."""
-    return sentence.replace(" 's", "'s")  # Example normalization
-
-
-def normalize_negations(sentence):
-    """Replaces contractions like n't with 'not' for better word sense disambiguation."""
-    sentence = sentence.replace("n't", "not")
-    return sentence
 
 def load_wic_data(data_path, gold_path):
     """
@@ -215,10 +205,8 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
         accuracy = correct_predictions_count / len(labels)
 
         if verbose:
-            # Print False Positives (predicted True when actually False)
             print_evaluation_details(predictions, labels, similarities, data, "False Positives", 'T', 'F')
-            # Print False Negatives (predicted False when actually True)
-            print_evaluation_details(predictions, labels, similarities, data, "False Negatives", 'F', 'T')
+            print_evaluation_details(predictions, labels, similarities, data, "True Negatives", 'F', 'F')
 
         if return_predictions:
             return accuracy, correct_predictions_count, predictions
@@ -227,9 +215,9 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 def main():
     # Paths to WiC dataset files
-    base_path = "C:/WiC_dataset/test"
-    data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
+    base_path = "C:/WiC_dataset/train"
+    data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
 
 
     # Load data and compute similarities
@@ -238,7 +226,12 @@ def main():
 
     # Evaluate model
     accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
-    print(f"Baseline accuracy: {accuracy:.3%}")
+    print(f"Baseline accuracy (pontosság): {accuracy:.3%}")
+
+    # Önmagában nem elég, ha kiválasztjuk azt az egyet, amiben biztosak vagyunk, az össszes többire meg ugyanazt a választ adjuk, akkor ugyan elég magas a precision, de nem megyünk vele sokra.
+    print(f"Precision (precizitás): {precision:.3%}")
+    print(f"Recall (fedés): {recall:.3%}")
+    print(f"Weighted average of precision and recall (A precizitás és a fedés súlyozott átlaga: {weighted_average(precision, recall):.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
 
 if __name__ == "__main__":

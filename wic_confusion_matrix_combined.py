@@ -3,7 +3,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 
-import WiCTfidfBaseline_combined
+import wic_tfidf_baseline_combined
 from y_true_combined import y_true_combined
 
 QUICK_EVALUATE = False

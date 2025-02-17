@@ -4,7 +4,7 @@ import math
 import numpy as np
 from multiprocessing import Pool, cpu_count
 
-import WordSenseDisambiguator
+from modules import WordSenseDisambiguator
 from WiCTfidfBaseline import load_wic_data
 
 """

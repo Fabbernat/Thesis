@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 
-from WiCTfidfBaseline_combined import compute_sentence_similarity
+from wic_tfidf_baseline_combined import compute_sentence_similarity
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk

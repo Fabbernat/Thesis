@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 
-from WiCTfidfBaseline_combined import compute_sentence_similarity
+from wic_tfidf_baseline_combined import compute_sentence_similarity
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk
@@ -74,6 +74,16 @@ def expand_sentence_with_wsd(sentence, target_word):
 
     return " ".join(expanded_words)
 
+
+def normalize_sentence(sentence):
+    """Replaces contractions for better word sense disambiguation."""
+    return sentence.replace(" 's", "'s")  # Example normalization
+
+
+def normalize_negations(sentence):
+    """Replaces contractions like n't with 'not' for better word sense disambiguation."""
+    sentence = sentence.replace("n't", "not")
+    return sentence
 
 def load_wic_data(data_path, gold_path):
     """
@@ -205,8 +215,10 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
         accuracy = correct_predictions_count / len(labels)
 
         if verbose:
+            # Print False Positives (predicted True when actually False)
             print_evaluation_details(predictions, labels, similarities, data, "False Positives", 'T', 'F')
-            print_evaluation_details(predictions, labels, similarities, data, "True Negatives", 'F', 'F')
+            # Print False Negatives (predicted False when actually True)
+            print_evaluation_details(predictions, labels, similarities, data, "False Negatives", 'F', 'T')
 
         if return_predictions:
             return accuracy, correct_predictions_count, predictions
@@ -215,9 +227,9 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 def main():
     # Paths to WiC dataset files
-    base_path = "C:/WiC_dataset/train"
-    data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
+    base_path = "C:/WiC_dataset/test"
+    data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
 
 
     # Load data and compute similarities

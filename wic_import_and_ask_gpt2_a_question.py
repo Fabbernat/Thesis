@@ -1,4 +1,4 @@
-from WordSenseDisambiguator import sample_questions
+from modules.WordSenseDisambiguator import sample_questions
 
 # 1
 import torch
