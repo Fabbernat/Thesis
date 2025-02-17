@@ -1,7 +1,11 @@
+import os
 from typing import List, Tuple, Optional
 from dataclasses import dataclass
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
+
+from wic_tfidf_baseline_train import load_wic_data, compute_sentence_similarity, print_evaluation_details
+
 
 @dataclass
 class EvaluationMetrics:
@@ -98,3 +102,5 @@ def main():
 
     # Evaluate model with all metrics
     metrics = evaluate(similarities, labels, data, verbose=True)
+
+main()
