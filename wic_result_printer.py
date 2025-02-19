@@ -2,15 +2,7 @@ from modules.WordSenseDisambiguator import process_question
 
 
 def print_results(synonyms, questions):
-    """
-        passes the database
-    :param questions:
-    :param synonyms:
-    :return:
-    """
-
     correct_answers_count = 0
-    results = {}
 
     for key, value in questions.items():
         model_answer = process_question(key, synonyms)
