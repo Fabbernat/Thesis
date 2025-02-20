@@ -5,7 +5,10 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
 import wic_confusion_matrix_combined
-import wic_tfidf_baseline_combined
+import config
+import similarity
+import combined
+import evaluation
 from y_true_train import y_true_train
 
 
@@ -58,17 +61,15 @@ if __name__ == "__main__":
     gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
 
     # Load data and compute similarities
-    data, labels = wic_confusion_matrix_combined.load_wic_data(data_file, gold_file)
-    similarities = wic_confusion_matrix_combined.compute_sentence_similarity(data)
+    data, labels = config.load_wic_data(data_file, gold_file)
+    similarities = similarity.compute_sentence_similarity(data)
 
-    # Evaluate model and get predictions
-    accuracy, correct_answers_count, y_pred = wic_confusion_matrix_combined.evaluate_with_uncertainty(similarities, labels, data)
+    EvaluationMetrics = combined.evaluate(similarities, labels, data) # EvaluationMetrics should contain accuracy, correct_answers_count, y_pred
 
-    # Confusion matrix calculation
 
     # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
-    assert len(y_true_train) == len(y_pred)
-    cm = confusion_matrix(y_true_train, y_pred, labels=['T', 'F'])
+    assert len(y_true_train) == EvaluationMetrics.total_predictions
+    cm = confusion_matrix(y_true_train, EvaluationMetrics.correct_predictions, labels=['T', 'F'])
 
     # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
     tp, fp, fn, tn = cm.ravel()

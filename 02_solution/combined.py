@@ -15,13 +15,11 @@ class EvaluationMetrics:
     recall: float
     f1_score: float
     correct_predictions: int
+    incorrect_predictions: int
     total_predictions: int
 
 
-def calculate_metrics(
-        predictions: List[str],
-        labels: List[str]
-) -> EvaluationMetrics:
+def calculate_metrics(predictions: List[str], labels: List[str]) -> EvaluationMetrics:
     """
     Calculate evaluation metrics for WiC classification.
 
@@ -30,7 +28,7 @@ def calculate_metrics(
         labels: List of true labels ('T' or 'F')
 
     Returns:
-        EvaluationMetrics object containing accuracy, precision, recall, etc.
+        EvaluationMetrics object containing accuracy, precision, recall, f1_score, correct_predictions and total_predictions.
     """
     correct_predictions = sum(p == t for p, t in zip(predictions, labels))
     precision, recall, f1, _ = precision_recall_fscore_support(
@@ -46,6 +44,7 @@ def calculate_metrics(
         recall=recall,
         f1_score=f1,
         correct_predictions=correct_predictions,
+        incorrect_predictions=len(labels) - correct_predictions,
         total_predictions=len(labels)
     )
 
@@ -103,4 +102,5 @@ def main():
     # Evaluate model with all metrics
     metrics = evaluate(similarities, labels, data, verbose=True)
 
-main()
+if __name__ == '__main__':
+    main()
