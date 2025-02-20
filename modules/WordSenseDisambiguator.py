@@ -4,7 +4,7 @@ import os
 import re
 from typing import Set, Optional, Dict, List
 
-import ResultPrinter
+import wic_result_printer
 from modules import wic_nltk_handler
 
 

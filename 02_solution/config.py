@@ -1,13 +1,15 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from PATH import BASE_PATH
+
 
 @dataclass
 class Config:
     """Configuration for WiC classification."""
-    base_path: Path = Path("C:/WiC_dataset/train")
-    data_file: Path = base_path / "train.data.txt"
-    gold_file: Path = base_path / "train.gold.txt"
+    base_path: Path = Path(BASE_PATH)
+    data_file: Path = base_path / "train/train.data.txt"
+    gold_file: Path = base_path / "train/train.gold.txt"
     model_name: str = 'sentence-transformers/all-MiniLM-L6-v2'
     similarity_threshold: float = 0.449
     gray_zone: tuple = (0.40, 0.50)
