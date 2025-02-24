@@ -8,7 +8,7 @@ import wic_result_printer
 from modules import wic_nltk_handler
 
 
-def build_sentence_simple(self, word: str, sentence_a: str, sentence_b: str) -> str:
+def build_sentence_simple(word: str, sentence_a: str, sentence_b: str) -> str:
     """Builds a structured question from word and sentences."""
     return f'Does the word "{word}" mean the same thing in sentences "{sentence_a}" and "{sentence_b}"?'
 
@@ -166,10 +166,11 @@ def sample_questions():
     # modular add
     # 1
     word = 'penetration'
+
     sentence_a = 'The penetration of upper management by women .'
     sentence_b = 'Any penetration , however slight , is sufficient to complete the offense .'
 
-    built_sentence = build_sentence(word, sentence_a, sentence_b)
+    built_sentence = build_sentence_simple(word, sentence_a, sentence_b)
 
     questions[built_sentence] = 'NO'
 
@@ -178,7 +179,7 @@ def sample_questions():
     sentence_a = 'The hikers did not manage to penetrate the dense forest .'
     sentence_b = 'She was penetrated with sorrow .'
 
-    built_sentence = build_sentence(word, sentence_a, sentence_b)
+    built_sentence = build_sentence_simple(word, sentence_a, sentence_b)
 
     questions[built_sentence] = 'YES'
 
@@ -232,11 +233,11 @@ def main():
     # Run the model with no synonyms
     print()
     print('"dumb" algorithm implemented by Fabbernat:')
-    ResultPrinter.print_results(None, sample_questions())
+    wic_result_printer.print_results(None, sample_questions())
 
     print()
     print('nltk wordnet algorithm:')
-    ResultPrinter.print_results(wic_nltk_handler.synonyms, sample_questions())
+    wic_result_printer.print_results(wic_nltk_handler.synonyms, sample_questions())
 
     base_dir = r'C:\WiC_dataset'
 
@@ -254,10 +255,10 @@ def main():
         sentence_a = row.get('sentence_a')
         sentence_b = row.get('sentence_b')
         label = row.get('label')
-        built_sentence = build_sentence(word, sentence_a, sentence_b)
+        built_sentence = build_sentence_simple(word, sentence_a, sentence_b)
         questions[built_sentence] = 'YES' if label == 'T' else 'NO'
 
-        ResultPrinter.print_results(wic_nltk_handler.synonyms, questions)
+        wic_result_printer.print_results(wic_nltk_handler.synonyms, questions)
 
 
 if __name__ == '__main__':

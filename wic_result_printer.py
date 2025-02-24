@@ -1,4 +1,5 @@
 from modules.WordSenseDisambiguator import process_question
+from wic_sentence_normalizer import make_sentence_human_readable
 
 
 def print_results(synonyms, questions):
@@ -8,7 +9,10 @@ def print_results(synonyms, questions):
         model_answer = process_question(key, synonyms)
         correct_answers_count += (model_answer == value)
         answer = 'YES' if model_answer == value else 'NO'
+        key = make_sentence_human_readable(key)
         print(f'Sentence: "{key}"')
+        print('model answer:', model_answer)
+        print('actual answer:', value)
         print(f'Did the model predict correctly? {answer}')
 
     if len(questions) > 0:

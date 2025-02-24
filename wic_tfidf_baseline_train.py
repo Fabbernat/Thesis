@@ -74,7 +74,6 @@ def expand_sentence_with_wsd(sentence, target_word):
 
     return " ".join(expanded_words)
 
-
 def load_wic_data(data_path, gold_path):
     """
         Loads the WiC dataset and its gold into a structured format.
@@ -205,8 +204,10 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
         accuracy = correct_predictions_count / len(labels)
 
         if verbose:
+            # Print False Positives (predicted True when actually False)
             print_evaluation_details(predictions, labels, similarities, data, "False Positives", 'T', 'F')
-            print_evaluation_details(predictions, labels, similarities, data, "True Negatives", 'F', 'F')
+            # Print False Negatives (predicted False when actually True)
+            print_evaluation_details(predictions, labels, similarities, data, "False Negatives", 'F', 'T')
 
         if return_predictions:
             return accuracy, correct_predictions_count, predictions
@@ -214,24 +215,16 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 
 def main():
-    # Paths to WiC dataset files
     base_path = "C:/WiC_dataset/train"
     data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
     gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
 
 
-    # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
     similarities = compute_sentence_similarity(data)
 
-    # Evaluate model
     accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
-    print(f"Baseline accuracy (pontosság): {accuracy:.3%}")
-
-    # Önmagában nem elég, ha kiválasztjuk azt az egyet, amiben biztosak vagyunk, az össszes többire meg ugyanazt a választ adjuk, akkor ugyan elég magas a precision, de nem megyünk vele sokra.
-    print(f"Precision (precizitás): {precision:.3%}")
-    print(f"Recall (fedés): {recall:.3%}")
-    print(f"Weighted average of precision and recall (A precizitás és a fedés súlyozott átlaga: {weighted_average(precision, recall):.3%}")
+    print(f"Baseline accuracy: {accuracy:.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
 
 if __name__ == "__main__":
