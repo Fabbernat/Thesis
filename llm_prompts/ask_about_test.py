@@ -43,4 +43,5 @@ human_readable_questions: Dict[str, str] = {
     'Does the word "cure" mean the same thing in sentences "Cure meats." and "Cure hay."?': 'Yes',
 }
 
+print('Answer with Yes or No!')
 print(*human_readable_questions.keys(), sep='\n')
