@@ -1,5 +1,5 @@
 from modules.WordSenseDisambiguator import process_question
-from wic_sentence_normalizer import make_sentence_human_readable
+from modules.wic_sentence_normalizer import make_sentence_human_readable
 
 
 def print_results(synonyms, questions):
