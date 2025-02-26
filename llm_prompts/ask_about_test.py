@@ -50,5 +50,5 @@ explain = False
 if explain:
     with_explanation = ' with explanation'
 
-print(f'Answer all {len(selected_questions)} with Yes or No{with_explanation}!')
+print(f'Answer all {len(selected_questions)} questions with Yes or No{with_explanation}!')
 print(*human_readable_questions_short.keys(), sep='\n')
