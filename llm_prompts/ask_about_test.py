@@ -21,7 +21,24 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "reveal" mean the same thing in sentences "The actress won\'t reveal how old she is." and "He revealed the children found."?': 'No',
     'Does the word "presence" mean the same thing in sentences "I\'m convinced that there was a presence in that building that I can\'t explain, which led to my heroic actions." and "She blushed in his presence."?': 'No',
     'Does the word "relax" mean the same thing in sentences "Don\'t relax your efforts now." and "The rules relaxed after the new director arrived."?': 'No',
+    'Does the word "parity" mean the same thing in sentences "Parity is often used to check the integrity of transmitted data." and "The parity of the mother must be considered."?': 'Unknown',
+    'Does the word "raise" mean the same thing in sentences "To raise a wall, or a heap of stones." and "Raise a barn."?': 'Unknown',
+    'Does the word "suspend" mean the same thing in sentences "Suspend the particles." and "The prison sentence was suspended."?': 'Unknown',
     'Does the word "amass" mean the same thing in sentences "To amass a treasure or a fortune." and "She is amassing a lot of data for her thesis."?': 'No',
+    'Does the word "term" mean the same thing in sentences "A healthy baby born at full term." and "He learned many medical terms."?': 'Unknown',
+    'Does the word "leash" mean the same thing in sentences "He\'s always gotten a long leash." and "Kept a tight leash on his emotions."?': 'Unknown',
+    'Does the word "conversion" mean the same thing in sentences "The conversion of equations." and "His conversion to the Catholic faith."?': 'Unknown',
+    'Does the word "making" mean the same thing in sentences "The making of measurements." and "It was already in the making."?': 'Unknown',
+    'Does the word "set" mean the same thing in sentences "Before the set of sun." and "They played two sets of tennis after dinner."?': 'Unknown',
+    'Does the word "mate" mean the same thing in sentences "He lost the mate to his shoe." and "Camels hate leaving their mates."?': 'Unknown',
+    'Does the word "expression" mean the same thing in sentences "They stared at the newcomer with a puzzled expression." and "His manner of expression showed how much he cared."?': 'Unknown',
+
+
+
+
+
+
+
     'Does the word "abort" mean the same thing in sentences "I wasted a year of my life working on an abort." and "He sent a short message requesting an abort due to extreme winds in the area."?': 'No',
     'Does the word "administer" mean the same thing in sentences "Administer critical remarks to everyone present." and "She administers the funds."?': 'No',
     'Does the word "allowance" mean the same thing in sentences "He objected to the allowance of smoking in the dining room." and "A child\'s allowance should not be too generous."?': 'No',
@@ -38,9 +55,12 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "contact" mean the same thing in sentences "Litmus paper turns red on contact with an acid." and "He used his business contacts to get an introduction to the governor."?': 'No',
     'Does the word "conversion" mean the same thing in sentences "The conversion of equations." and "His conversion to the Catholic faith."?': 'No',
     'Does the word "cure" mean the same thing in sentences "Cure meats." and "Cure hay."?': 'Yes',
+
+
 }
 
-#TODO
+# 'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+# TODO
 human_readable_questions_long = {}
 human_readable_questions_full = {}
 
