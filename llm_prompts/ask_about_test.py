@@ -32,12 +32,23 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "set" mean the same thing in sentences "Before the set of sun." and "They played two sets of tennis after dinner."?': 'Unknown',
     'Does the word "mate" mean the same thing in sentences "He lost the mate to his shoe." and "Camels hate leaving their mates."?': 'Unknown',
     'Does the word "expression" mean the same thing in sentences "They stared at the newcomer with a puzzled expression." and "His manner of expression showed how much he cared."?': 'Unknown',
-
-
-
-
-
-
+    'Does the word "rim" mean the same thing in sentences "Rim a hat." and "Sugar rimmed the dessert plate."?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
+    'Does the word "" mean the same thing in sentences "" and ""?': 'Unknown',
 
     'Does the word "abort" mean the same thing in sentences "I wasted a year of my life working on an abort." and "He sent a short message requesting an abort due to extreme winds in the area."?': 'No',
     'Does the word "administer" mean the same thing in sentences "Administer critical remarks to everyone present." and "She administers the funds."?': 'No',
@@ -53,9 +64,7 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "chiromance" mean the same thing in sentences "She refused to chiromance my fate." and "The Gypsies chiromanced."?': 'Yes',
     'Does the word "conduct" mean the same thing in sentences "You cannot conduct business like this." and "To conduct the affairs of a kingdom."?': 'Yes',
     'Does the word "contact" mean the same thing in sentences "Litmus paper turns red on contact with an acid." and "He used his business contacts to get an introduction to the governor."?': 'No',
-    'Does the word "conversion" mean the same thing in sentences "The conversion of equations." and "His conversion to the Catholic faith."?': 'No',
     'Does the word "cure" mean the same thing in sentences "Cure meats." and "Cure hay."?': 'Yes',
-
 
 }
 
