@@ -1,7 +1,20 @@
 def make_sentence_human_readable(sentence):
-        """Replaces contractions for better readability both for humans and for chatbots."""
-        sentence = sentence.replace(" 's", "'s")
-        sentence = sentence.replace(" ,", ",")
-        sentence = sentence.replace(" .", ".")
-        sentence = sentence.replace("n't", "not")
-        return sentence
+    """Replaces contractions for better readability both for humans and for chatbots."""
+    sentence = sentence.replace(" 's", "'s")
+    sentence = sentence.replace(" ,", ",")
+    sentence = sentence.replace(" .", ".")
+    # Uppercase
+    sentence = sentence.replace("Do n't", "Don't")
+    sentence = sentence.replace("Wo n't", "Won't")
+    sentence = sentence.replace("Ca n't", "Can't")
+
+    # Lowercase
+    sentence = sentence.replace("do n't", "don't")
+    sentence = sentence.replace("wo n't", "won't")
+    sentence = sentence.replace("ca n't", "can't")
+    sentence = sentence.replace(" n't", "not")
+    return sentence
+
+
+print(make_sentence_human_readable(
+    "We had to swim for 20 minutes to reach the shore .	A big fish was swimming in the tank . Do n't fire until you see the whites of their eyes .	The gun fired ."))
