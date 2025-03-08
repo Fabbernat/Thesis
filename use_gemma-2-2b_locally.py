@@ -2,7 +2,7 @@ import torch
 from transformers import pipeline
 
 # Windows
-model_path = fr'E:\\codes\\gemma22b_it\\gemma-2-2b-it'
+model_path = r'C:\codes\gemma22b\gemma-2-2b-it'
 
 pipe = pipeline(
     'text-generation',
