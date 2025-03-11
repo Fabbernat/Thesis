@@ -6,8 +6,7 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "hook" mean the same thing in sentences "Hook a fish." and "He hooked a snake accidentally."?': 'Yes',
     'Does the word "recreation" mean the same thing in sentences "For recreation he wrote poetry." and "Drug abuse is often regarded as a form of recreation."?': 'Yes',
     'Does the word "domesticity" mean the same thing in sentences "Making a hobby of domesticity." and "A royal family living in unpretentious domesticity."?': 'No',
-    'Does the word "acquisition" mean the same thing in sentences "The child's acquisition of language." and "
-    That graphite tennis racquet is quite an acquisition."?': 'No',
+    'Does the word "acquisition" mean the same thing in sentences "The child\'s acquisition of language." and "That graphite tennis racquet is quite an acquisition."?': 'No',
                                                          'Does the word "meeting" mean the same thing in sentences "There was no meeting of minds." and "The meeting elected a chairperson."?': 'No',
     'Does the word "nude" mean the same thing in sentences "They swam in the nude." and "The marketing rule "nude sells" spread from verbal to visual mainstream media."?': 'No',
     'Does the word "mark" mean the same thing in sentences "He left an indelible mark on the American theater." and "It was in London that he made his mark."?': 'Yes',
@@ -15,11 +14,9 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "inclination" mean the same thing in sentences "The alkaline inclination of the local waters." and "An inclination of his head indicated his agreement."?': 'No',
     'Does the word "glaze" mean the same thing in sentences "Glaze the bread with eggwhite." and "The potter glazed the dishes."?': 'Yes',
     'Does the word "piggyback" mean the same thing in sentences "An amendment to piggyback the current law." and "He piggybacked her child so she could see the show."?': 'No',
-    'Does the word "pick" mean the same thing in sentences "To pick rags." and "Don't always pick on your
-    little brother."?': 'No',
+    'Does the word "pick" mean the same thing in sentences "To pick rags." and "Don\'t always pick on your little brother."?': 'No',
                    'Does the word "belabor" mean the same thing in sentences "Belabor the obvious." and "She was belabored by her fellow students."?': 'No',
-    'Does the word "tear" mean the same thing in sentences "He took the manuscript in both hands and gave it a mighty tear." and "There were big tears rolling down Lisa's
-    cheeks."?': 'Yes',
+    'Does the word "tear" mean the same thing in sentences "He took the manuscript in both hands and gave it a mighty tear." and "There were big tears rolling down Lisa\'s cheeks."?': 'Yes',
            'Does the word "kill" mean the same thing in sentences "Kill the engine." and "He killed the ball."?': 'No',
 'Does the word "lecture" mean the same thing in sentences "Did you ever lecture at Harvard?" and "She lectured to the class about her travels."?': 'No',
 'Does the word "forge" mean the same thing in sentences "We decided to forge ahead with our plans." and "He forged ahead."?': 'Yes',
@@ -28,39 +25,12 @@ human_readable_questions_short: Dict[str, str] = {
 'Does the word "risk" mean the same thing in sentences "I cannot risk smoking." and "Why risk your life?"?': 'Yes',
 'Does the word "chemistry" mean the same thing in sentences "The chemistry of indigo." and "The chemistry of iron."?': 'Yes',
 
-'Does the word "char" mean the same thing in sentences "Among other native delicacies, they give you fresh char." and "I had to scrub the kitchen today, because the char couldn'
-t
-come.
-"?': 'Unknown',
+'Does the word "char" mean the same thing in sentences "Among other native delicacies, they give you fresh char." and "I had to scrub the kitchen today, because the char couldn\'t come."?': 'Unknown',
 'Does the word "response" mean the same thing in sentences "This situation developed in response to events in Africa." and "His responses have slowed with age."?': 'Unknown',
-'Does the word "excuse" mean the same thing in sentences "That thing is a poor excuse for a gingerbread man. Hasn'
-t
-anyone
-taught
-you
-how
-to
-bake?" and "
-He
-'s a sorry excuse of a doctor."?': 'Unknown',
+'Does the word "excuse" mean the same thing in sentences "That thing is a poor excuse for a gingerbread man. Hasn\'t anyone taught you how to bake?" and "He\'s a sorry excuse of a doctor."?': 'Unknown',
 'Does the word "bondage" mean the same thing in sentences "He sought release from his bondage to Satan." and "A self freed from the bondage of time."?': 'Unknown',
 'Does the word "catch" mean the same thing in sentences "The catch was only 10 fish." and "He shared his catch with the others."?': 'Unknown',
-'Does the word "shadiness" mean the same thing in sentences "There'
-s
-too
-much
-shadiness
-to
-take
-good
-photographs.
-" and "
-The
-shadiness
-of
-their
-transactions.
-"?': 'Unknown',
+'Does the word "shadiness" mean the same thing in sentences "There\'s too much shadiness to take good photographs." and "The shadiness of their transactions."?': 'Unknown',
 'Does the word "passage" mean the same thing in sentences "The outward passage took 10 days." and "She struggled to play the difficult passages."?': 'Unknown',
 'Does the word "daughter" mean the same thing in sentences "I already have a son, so I would like to have a daughter." and "Her daughter cared for her in her old age."?': 'Unknown',
 'Does the word "hold" mean the same thing in sentences "Please hold a table at Maxim\'s." and "Hold a table for us at 7:00."?': 'Unknown',
@@ -78,17 +48,7 @@ transactions.
 'Does the word "play" mean the same thing in sentences "They gave full play to the artist\'s talent." and "It was all done in play."?': 'Unknown',
 'Does the word "brush" mean the same thing in sentences "She gave her hair a quick brush." and "The dentist recommended two brushes a day."?': 'Unknown',
 'Does the word "rise" mean the same thing in sentences "They asked for a 10% rise in rates." and "The rising of the Holy Ghost."?': 'Unknown',
-'Does the word "studio" mean the same thing in sentences "His studio was cramped when he began as an artist." and "You don'
-t
-need
-a
-studio
-to
-make
-a
-passport
-photograph.
-"?': 'Unknown',
+'Does the word "studio" mean the same thing in sentences "His studio was cramped when he began as an artist." and "You don\'t need a studio to make a passport photograph."?': 'Unknown',
 'Does the word "cushion" mean the same thing in sentences "To cushion a blow." and "Cushion the blow."?': 'Unknown',
 'Does the word "plenty" mean the same thing in sentences "There was plenty of food for everyone." and "It must have cost plenty."?': 'Unknown',
 'Does the word "look" mean the same thing in sentences "A look of triumph." and "His look was fixed on her eyes."?': 'Unknown',
