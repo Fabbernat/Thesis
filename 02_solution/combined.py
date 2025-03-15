@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
+from PATH import BASE_PATH
 from wic_tfidf_baseline_train import load_wic_data, compute_sentence_similarity, print_evaluation_details
 
 
@@ -91,9 +92,9 @@ def evaluate(
 
 def main():
     # Paths to WiC dataset files
-    base_path = "C:/WiC_dataset/train"
-    data_file = os.path.join(base_path, "train.data.txt")
-    gold_file = os.path.join(base_path, "train.gold.txt")
+    base_path = BASE_PATH
+    data_file = os.path.join(base_path, "train/train.data.txt")
+    gold_file = os.path.join(base_path, "train/train.gold.txt")
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)

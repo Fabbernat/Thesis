@@ -4,12 +4,12 @@ from nltk.corpus import wordnet as wn
 def download_wordnet_if_needed():
     """Downloads WordNet if it hasn't been downloaded already."""
     try:
-        from nltk.corpus import wordnet  # Try importing WordNet first
+        from nltk.corpus import wordnet
         # If the import succeeds, WordNet is likely already downloaded.
-        # You can optionally test if a specific WordNet function works:
+
         wordnet.synsets('car') # A quick test
         print("WordNet is already downloaded.")
-        return True # Indicate success
+        return True
 
     except LookupError: # If the import fails, it's not downloaded
         print("WordNet is not found. Downloading...")
