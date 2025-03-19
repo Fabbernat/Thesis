@@ -4,7 +4,6 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-import wic_confusion_matrix_combined
 import config
 import similarity
 import combined
