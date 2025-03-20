@@ -1,6 +1,12 @@
 def make_sentence_human_readable(sentence):
     """Replaces contractions for better readability both for humans and for chatbots."""
-    sentence = sentence.replace(" 's", "'s")
+    sentence = sentence.replace(" 's", "\'s")
+    sentence = sentence.replace("'t", "\'t")
+    sentence = sentence.replace("'ve", "\'ve")
+    sentence = sentence.replace("'ll", "\'ll")
+    sentence = sentence.replace("'d", "\'d")
+    sentence = sentence.replace("'re", "\'re")
+    sentence = sentence.replace("'s", "\'s")
     sentence = sentence.replace(" ,", ",")
     sentence = sentence.replace(" .", ".")
     # Uppercase
