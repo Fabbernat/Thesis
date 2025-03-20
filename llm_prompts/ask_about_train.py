@@ -16,8 +16,6 @@ def print_prompt():
     print(*human_readable_questions_full.keys(), sep='\n')
 
 
-
-
 ''' SAMPLE
 
 # 'Does the word "" mean the same thing in sentences "" and ""?': 'Yes',
