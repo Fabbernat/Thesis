@@ -1,5 +1,7 @@
 from typing import Dict
 
+# Define which dataset you want to work with
+actual_working_dataset = 'test'
 
 def print_prompt():
     # `short` contains first 60 sentence pairs, `full` contains all of them.
@@ -13,8 +15,16 @@ def print_prompt():
         with_reasoning = ' with reasoning'
 
     print(f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!')
-    print(*human_readable_questions_short.keys(), sep='\n')
+    print(*human_readable_questions_full.keys(), sep='\n')
 
+def write_prompt_to_file():
+    selected_questions = human_readable_questions_full
+    explain = True
+    with_reasoning = " with reasoning" if explain else ""
+    prompt = f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!\n'
+    prompt += '\n'.join(human_readable_questions_full.keys())
+    with open(f'{actual_working_dataset}_llm_question_prompt.txt', 'w', encoding='utf-8') as file:
+        file.write(prompt)
 
 human_readable_questions_short: Dict[str, str] = {
     'Does the word "defeat" mean the same thing in sentences "It was a narrow defeat." and "The army\'s only defeat."?': 'Yes',
@@ -1508,3 +1518,4 @@ human_readable_questions_full: Dict[str, str] = {
 }
 
 print_prompt()
+write_prompt_to_file()
