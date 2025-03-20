@@ -2,7 +2,7 @@ import wic_sentence_normalizer
 import re
 
 # Define which dataset you want to work with
-actual_working_dataset = 'test'
+actual_working_dataset = 'dev'
 
 # Read the .txt files
 with open(f'{actual_working_dataset}.data.txt', 'r', encoding='utf-8') as data_file, \
@@ -14,14 +14,24 @@ with open(f'{actual_working_dataset}.data.txt', 'r', encoding='utf-8') as data_f
 if len(data_lines) != len(gold_lines):
     raise ValueError("Mismatch between data lines and gold labels")
 
+
+def make_sentence_human_readable(sentence):
+    """Replaces contractions for better readability both for humans and for language models."""
+    sentence = sentence.replace(" 's", "\'s")
+    sentence = sentence.replace("'", "\\'")  # Escape all single quotes
+    sentence = sentence.replace(" ,", ",")
+    sentence = sentence.replace(" .", ".")
+    return sentence
+
+
 # Process the data
 data = []
 for line, label in zip(data_lines, gold_lines):
     parts = line.strip().split('\t')
     if len(parts) == 5:  # Ensure data integrity
         word, pos, freq, sentence1, sentence2 = parts
-        sentence1 = wic_sentence_normalizer.make_sentence_human_readable(sentence1)
-        sentence2 = wic_sentence_normalizer.make_sentence_human_readable(sentence2)
+        sentence1 = make_sentence_human_readable(sentence1)
+        sentence2 = make_sentence_human_readable(sentence2)
         answer = 'Yes' if label.strip() == 'T' else 'No'
         formatted = f"r'Does the word \"{word}\" mean the same thing in sentences \"{sentence1}\" and \"{sentence2}\"?': '{answer}',"
         data.append(formatted)
@@ -32,13 +42,6 @@ with open(f'formatted_{actual_working_dataset}_dataset.txt', 'w', encoding='utf-
 
 print("Data formatting complete. Check 'formatted_data.txt'.")
 
-def make_sentence_human_readable(sentence):
-    """Replaces contractions for better readability both for humans and for chatbots."""
-    sentence = sentence.replace(" 's", "\'s")
-    sentence = sentence.replace("'", "\\'")  # Escape all single quotes
-    sentence = sentence.replace(" ,", ",")
-    sentence = sentence.replace(" .", ".")
-    return sentence
 
 # Example
 print(make_sentence_human_readable(

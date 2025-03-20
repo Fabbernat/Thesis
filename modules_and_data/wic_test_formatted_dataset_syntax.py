@@ -1,3 +1,4 @@
+test_dict = {
 r'Does the word "defeat" mean the same thing in sentences "It was a narrow defeat." and "The army\'s only defeat."?': 'Yes',
 r'Does the word "groom" mean the same thing in sentences "Groom the dogs." and "Sheila groomed the horse."?': 'Yes',
 r'Does the word "penetration" mean the same thing in sentences "The penetration of upper management by women." and "Any penetration, however slight, is sufficient to complete the offense."?': 'Yes',
@@ -1398,3 +1399,4 @@ r'Does the word "extent" mean the same thing in sentences "An orchard of conside
 r'Does the word "stress" mean the same thing in sentences "Stress is a vasoconstrictor." and "He put the stress on the wrong syllable."?': 'No',
 r'Does the word "build" mean the same thing in sentences "Build a modern nation." and "Build a million-dollar business."?': 'Yes',
 r'Does the word "exchange" mean the same thing in sentences "Exchange employees between branches of the company." and "Exchange prisoners."?': 'Yes',
+}
