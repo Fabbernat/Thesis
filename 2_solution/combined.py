@@ -1,11 +1,11 @@
 import os
-from typing import List, Tuple, Optional
+from typing import List, Tuple
 from dataclasses import dataclass
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
 from PATH import BASE_PATH
-from wic_tfidf_baseline_train import load_wic_data, compute_sentence_similarity, print_evaluation_details
+from wic_tfidf_baseline_test import load_wic_data, compute_sentence_similarity, print_evaluation_details
 
 
 @dataclass

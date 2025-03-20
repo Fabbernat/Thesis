@@ -1,7 +1,7 @@
 from typing import List, Tuple
 import numpy as np
 
-from wic_tfidf_baseline_train import print_evaluation_details
+from wic_tfidf_baseline_test import print_evaluation_details
 from metrics import EvaluationMetrics, calculate_metrics
 
 

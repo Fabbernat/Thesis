@@ -1,4 +1,3 @@
-from modules.WordSenseDisambiguator import process_question
 from modules.wic_sentence_normalizer import make_sentence_human_readable
 
 
@@ -6,6 +5,7 @@ def print_results(synonyms, questions):
     correct_answers_count = 0
 
     for key, value in questions.items():
+        from modules.WordSenseDisambiguator import process_question
         model_answer = process_question(key, synonyms)
         correct_answers_count += (model_answer == value)
         answer = 'YES' if model_answer == value else 'NO'

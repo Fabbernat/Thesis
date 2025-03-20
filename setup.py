@@ -4,7 +4,7 @@ setup(
     name='peternity',
     version='0.1.0',    
     description='Peternity Python package',
-    url='https://github.com/Fabbernat/peternity',
+    url='https://github.com/Fabbernat/Peternity',
     author='Bernát Fábián',
     author_email='fabbernat@gmail.com',
     license='BSD 2-clause',
