@@ -23,9 +23,8 @@ def wic_compare_gold_to_predicted_yes_or_no(gold_str, predicted_str):
 
     return tp, fp, fn, tn
 
-
-# Example usage
-if __name__ == "__main__":
+def get_results():
+    # TODO replace with data from {actual_working_file}.gold.txt and the {actual_model}_output.txt
     gold_data = """Yes
                    No
                    T
@@ -36,6 +35,10 @@ if __name__ == "__main__":
                         No
                         F
                         No"""
+    
+    return wic_compare_gold_to_predicted_yes_or_no(gold_data, predicted_data)
 
-    results = wic_compare_gold_to_predicted_yes_or_no(gold_data, predicted_data)
+# Example usage
+if __name__ == '__main__':
+    results = get_results
     print(f"TP: {results[0]}, FP: {results[1]}, FN: {results[2]}, TN: {results[3]}")
