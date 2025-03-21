@@ -9,10 +9,7 @@ def print_prompt():
 
     # Set true if you want the model to reason their choice.
     explain = True
-
-    with_reasoning = ""
-    if explain:
-        with_reasoning = ' with reasoning'
+    with_reasoning = " with reasoning" if explain else ""
 
     print(f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!')
     print(*human_readable_questions_full.keys(), sep='\n')
