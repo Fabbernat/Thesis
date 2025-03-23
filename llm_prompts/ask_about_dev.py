@@ -53,7 +53,6 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "branch" mean the same thing in sentences "A branch of Congress." and "We have branches in all major suburbs."?': 'Yes',
     'Does the word "risk" mean the same thing in sentences "I cannot risk smoking." and "Why risk your life?"?': 'Yes',
     'Does the word "chemistry" mean the same thing in sentences "The chemistry of indigo." and "The chemistry of iron."?': 'Yes',
-
     'Does the word "char" mean the same thing in sentences "Among other native delicacies, they give you fresh char." and "I had to scrub the kitchen today, because the char couldn\'t come."?': 'Unknown',
     'Does the word "response" mean the same thing in sentences "This situation developed in response to events in Africa." and "His responses have slowed with age."?': 'Unknown',
     'Does the word "excuse" mean the same thing in sentences "That thing is a poor excuse for a gingerbread man. Hasn\'t anyone taught you how to bake?" and "He\'s a sorry excuse of a doctor."?': 'Unknown',
