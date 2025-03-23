@@ -1,5 +1,4 @@
 import re
-import os
 
 # Define which dataset you want to work with
 actual_working_dataset = 'test'

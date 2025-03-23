@@ -5,7 +5,7 @@ import re
 from typing import Set, Optional, Dict, List
 
 import wic_result_printer
-from modules import wic_nltk_handler
+from modules_and_data import wic_nltk_handler
 
 
 def build_sentence_simple(word: str, sentence_a: str, sentence_b: str) -> str:
