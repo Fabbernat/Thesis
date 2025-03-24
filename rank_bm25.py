@@ -4,8 +4,8 @@ import math
 import numpy as np
 from multiprocessing import Pool, cpu_count
 
-from modules import WordSenseDisambiguator
-from WiCTfidfBaseline import load_wic_data
+from modules_and_data import wic_word_sense_disambiguator
+from wic_tfidf_baseline_combined import load_wic_data
 
 """
 All of these algorithms have been taken from the paper:
@@ -263,18 +263,18 @@ class BM25Plus(BM25):
 def main():
     base_dir = r'C:\WiC_dataset'
 
-    wic_data = WordSenseDisambiguator.load_wic_data(base_dir)
+    wic_data = wic_word_sense_disambiguator.load_wic_data(base_dir)
     questions = {}
 
-    processed_data = WordSenseDisambiguator.process_wic_data(wic_data)
+    processed_data = wic_word_sense_disambiguator.process_wic_data(wic_data)
     print(processed_data)
 
 
     bm25 = BM25Okapi(processed_data, tokenizer=lambda x: x.lower().split())
 
-    query = ["macska"]
+    query = ["dog"]
     scores = bm25.get_scores(query)
-    print(scores)  # Megmutatja, melyik mondat relevánsabb a 'macska' szóhoz
+    print(scores)  # Megmutatja, melyik mondat relevánsabb a 'dog' szóhoz
 
 if __name__ == '__main__':
     main()

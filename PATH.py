@@ -12,7 +12,7 @@ if OS == 'Linux':
 elif OS == 'Windows':
     RECOMMENDED_PATH = r'C:\WiC_dataset'
 
-print(f'The app will search the dataset at{BASE_PATH}')
+print(f'The app will search the dataset at `{BASE_PATH}`. You can set a different path in PATH.py')
 
 def apply_recommended_path():
     BASE_PATH = RECOMMENDED_PATH
