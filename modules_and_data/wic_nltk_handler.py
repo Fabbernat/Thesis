@@ -34,11 +34,11 @@ else:
 
 # Example usage: Get synonyms for the word "bank"
 '''public'''
-word = 'bank'
+word = 'bat'
 synonyms = wn.synsets(word)
 
 for syn in synonyms:
-    print('Bank synonyms:')
+    print(f'{word} synonyms:')
     print(f'name: {syn.name()}, definition: {syn.definition()}')
 
 print()

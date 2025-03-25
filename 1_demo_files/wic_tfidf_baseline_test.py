@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 
-from PATH import BASE_PATH
+from PATH import BASE_DIR
 from wic_tfidf_baseline_combined import compute_sentence_similarity
 
 # Download necessary NLTK resources (uncomment if needed)
@@ -227,7 +227,7 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 def main():
     # Paths to WiC dataset files
-    base_path = BASE_PATH
+    base_path = BASE_DIR
     data_file = os.path.normpath(os.path.join(base_path, "test/test.data.txt"))
     gold_file = os.path.normpath(os.path.join(base_path, "test/test.gold.txt"))
 

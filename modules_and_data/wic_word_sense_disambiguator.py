@@ -5,6 +5,7 @@ import re
 from typing import Set, Optional, Dict, List
 
 import wic_result_printer
+from PATH import BASE_DIR
 from modules_and_data import wic_nltk_handler
 
 
@@ -86,10 +87,12 @@ return "YES" if similarity > 0 else "NO"
 '''
 
 
-def read_wic_dataset(base_path: str, file_specific_path):
+def read_wic_dataset(base_path: str, file_specific_path: str):
     """
     Reads the WiC dataset from the given base directory and returns a structured dictionary.
 
+    :type file_specific_path: str
+    :param file_specific_path: str
     :param base_path: The root directory containing the WiC dataset.
     :? : ?
     :return: A dictionary with 'train', 'dev', and 'test' datasets.
@@ -153,7 +156,6 @@ def process_wic_data(wic_data: Dict[str, List[Dict[str, str]]]) -> dict[str, dic
 def sample_questions():
     """
 
-    :param model:
     :return: questions
     """
     # hardcoded add
@@ -232,14 +234,14 @@ def load_wic_data(base_dir: str) -> Dict[str, List[Dict[str, str]]]:
 def main():
     # Run the model with no synonyms
     print()
-    print('"dumb" algorithm implemented by Fabbernat:')
+    print('Primitive algorithm implemented by Fabbernat:')
     wic_result_printer.print_results(None, sample_questions())
 
     print()
     print('nltk wordnet algorithm:')
     wic_result_printer.print_results(wic_nltk_handler.synonyms, sample_questions())
 
-    base_dir = r'C:\WiC_dataset'
+    base_dir = BASE_DIR
 
     wic_data = load_wic_data(base_dir)
     questions = {}

@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from PATH import BASE_PATH
+from PATH import BASE_DIR
 
 
 @dataclass
 class Config:
     """Configuration for WiC classification."""
-    base_path: Path = Path(BASE_PATH)
+    base_path: Path = Path(BASE_DIR)
     data_file: Path = base_path / "train/train.data.txt"
     gold_file: Path = base_path / "train/train.gold.txt"
     model_name: str = 'sentence-transformers/all-MiniLM-L6-v2'

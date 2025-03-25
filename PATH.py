@@ -5,14 +5,14 @@
 OS = 'Windows'
 
 # Path to the local root of https://pilehvar.github.io/wic/package/WiC_dataset.zip
-BASE_PATH = 'C:\WiC_dataset'
+BASE_DIR = 'C:\WiC_dataset'
 
 if OS == 'Linux':
     RECOMMENDED_PATH = r'/home.local/valaki/Letöltések/WiC_dataset'
 elif OS == 'Windows':
     RECOMMENDED_PATH = r'C:\WiC_dataset'
 
-print(f'The app will search the dataset at `{BASE_PATH}`. You can set a different path in PATH.py')
+print(f'The app will search the dataset at `{BASE_DIR}`. You can set a different path in PATH.py')
 
 def apply_recommended_path():
     BASE_PATH = RECOMMENDED_PATH
