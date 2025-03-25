@@ -1,11 +1,14 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # Always adjust the path to match your operating system!
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+import os
 
 OS = 'Windows'
 
 # Path to the local root of https://pilehvar.github.io/wic/package/WiC_dataset.zip
-BASE_DIR = 'C:\WiC_dataset'
+# TODO change to C:\WiC_dataset\ and refactor all references
+BASE_DIR = r'C:\WiC_dataset'
+os.makedirs(BASE_DIR, exist_ok=True)
 
 if OS == 'Linux':
     RECOMMENDED_PATH = r'/home.local/valaki/Letöltések/WiC_dataset'

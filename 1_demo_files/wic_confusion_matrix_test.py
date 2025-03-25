@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-from modules.wic_data_loader import load_wic_data
+from modules_and_data.wic_data_loader import load_wic_data
 from wic_tfidf_baseline_combined import compute_sentence_similarity, evaluate
 from y_true_test import test_y_true
 

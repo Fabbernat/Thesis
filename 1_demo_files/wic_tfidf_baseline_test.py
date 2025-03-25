@@ -1,5 +1,6 @@
+import collections
 import os
-from typing import Any, LiteralString
+from typing import Any, LiteralString, Sized, Iterable
 
 import numpy as np
 import pandas as pd
@@ -7,6 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
+from torch import Tensor
 
 from PATH import BASE_DIR
 from wic_tfidf_baseline_combined import compute_sentence_similarity
@@ -18,7 +20,7 @@ from wic_tfidf_baseline_combined import compute_sentence_similarity
 # nltk.download("punkt")
 
 # Load sentence embedding model
-SENTENCE_EMBEDDING_MODEL: object = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 
 # Load a sentence embedding model (e.g., all-MiniLM)
@@ -30,7 +32,7 @@ def get_best_sense(word, sentence):
     if not synsets:
         return None
 
-    sentence_embedding: object = SENTENCE_EMBEDDING_MODEL.encode(sentence, convert_to_tensor=True)
+    sentence_embedding: Tensor = SENTENCE_EMBEDDING_MODEL.encode(sentence, convert_to_tensor=True)
     best_sense = max(synsets, key=lambda sense:
     util.pytorch_cos_sim(sentence_embedding,
                          SENTENCE_EMBEDDING_MODEL.encode(sense.definition(), convert_to_tensor=True)).item())
@@ -50,14 +52,14 @@ def get_disambiguated_synonyms(word: object, sentence: object) -> set[Any]:
     return set()
 
 
-def optimize_threshold(similarities: object, labels: object) -> float:
+def optimize_threshold(similarities: object, labels: Sized) -> float:
     """Finds the best similarity threshold for classification."""
     best_accuracy: int = 0
     best_threshold: float = 0.0
 
     for threshold in np.arange(0.3, 0.6, 0.01):  # Kipróbál értékeket 0.3 és 0.6 között
-        predictions: list[str] = ['T' if sim > threshold else 'F' for sim in similarities]
-        accuracy: float = sum(pred == true_label for pred, true_label in zip(predictions, labels)) / len(labels)
+        predictions: Iterable[str] | Iterable[Any] = ['T' if sim > threshold else 'F' for sim in similarities]
+        accuracy: int | float = sum(pred == true_label for pred, true_label in zip(predictions, labels)) / len(labels)
 
         if accuracy > best_accuracy:
             best_accuracy = accuracy
@@ -66,9 +68,9 @@ def optimize_threshold(similarities: object, labels: object) -> float:
     return best_threshold
 
 
-def expand_sentence_with_wsd(sentence: object, target_word: object) -> LiteralString:
+def expand_sentence_with_wsd(sentence, target_word: object) -> LiteralString:
     """Expands a sentence by adding only contextually relevant synonyms."""
-    words: object = sentence.split()
+    words: collections.Iterable = sentence.split()
     expanded_words: list[Any] = []
 
     for word in words:
@@ -227,9 +229,8 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 def main():
     # Paths to WiC dataset files
-    base_path = BASE_DIR
-    data_file = os.path.normpath(os.path.join(base_path, "test/test.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "test/test.gold.txt"))
+    data_file = os.path.normpath(BASE_DIR + r'\test\test.data.txt')
+    gold_file = os.path.normpath(BASE_DIR + r'\test\test.gold.txt')
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
