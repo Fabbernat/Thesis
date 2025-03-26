@@ -1,6 +1,8 @@
 import openai
 from openai import OpenAI
 
+from API_KEYS import API_KEY
+
 
 def check_word_semantic_equivalence(word, sentence_a, sentence_b):
     """
@@ -14,7 +16,7 @@ def check_word_semantic_equivalence(word, sentence_a, sentence_b):
     Returns:
         bool: Whether the word has equivalent meaning
     """
-    client: OpenAI = openai.OpenAI(api_key='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')
+    client: OpenAI = openai.OpenAI(api_key=API_KEY)
 
     explain = True
     with_reasoning = " with reasoning" if explain else ""
