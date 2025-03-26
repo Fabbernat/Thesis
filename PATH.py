@@ -8,6 +8,11 @@ OS = 'Windows'
 # Path to the local root of https://pilehvar.github.io/wic/package/WiC_dataset.zip
 # TODO change to C:\WiC_dataset\ and refactor all references
 BASE_DIR = r'C:\WiC_dataset'
+
+PATH_DIR = os.path.dirname(os.path.abspath(__file__))
+
+OUTPUT_DIR = os.path.join(PATH_DIR, 'output')
+print(OUTPUT_DIR)
 os.makedirs(BASE_DIR, exist_ok=True)
 
 if OS == 'Linux':
