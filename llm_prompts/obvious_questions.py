@@ -5,3 +5,6 @@ tricky_questions: Dict[str, str] = {
     'Does the word "dog" mean the same thing in sentences "The dog barked." and "The dog wagged its tail."?': 'Yes',
     'Does the word "apple" mean the same thing in sentences "I ate an apple." and "He owns Apple Inc."?': 'No'
 }
+
+with open(f'obvious_questions.txt', 'w', encoding='utf-8') as file:
+    file.write(sentence for sentence in tricky_questions.keys())

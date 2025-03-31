@@ -1,5 +1,5 @@
 # Define which dataset you want to work with
-actual_working_dataset = 'dev'
+actual_working_dataset = 'train'
 
 # Read the .txt files
 with open(f'{actual_working_dataset}.data.txt', 'r', encoding='utf-8') as data_file, \
@@ -14,8 +14,17 @@ if len(data_lines) != len(gold_lines):
 
 def make_sentence_human_readable(sentence):
     """Replaces contractions for better readability both for humans and for language models."""
-    sentence = sentence.replace(" 's", "\'s")
-    sentence = sentence.replace("'", "\\'")  # Escape all single quotes
+    # TODO: write a regex to escape ' after any char, except '.'
+    # Escape all single quotes, necessary for Python to correctly find the string endings.
+    sentence = sentence.replace(" '", "\\'")
+
+    # escapes `n't`, also necessary for Python to correctly find the string endings.
+    sentence = sentence.replace("n't", "n\\'t")
+
+    # escapes `f'`, maths sentences
+    sentence = sentence.replace("f'", "f\\'")
+
+    sentence = sentence.replace("o", "o\\'")
     sentence = sentence.replace(" ,", ",")
     sentence = sentence.replace(" .", ".")
     return sentence
@@ -30,7 +39,7 @@ for line, label in zip(data_lines, gold_lines):
         sentence1 = make_sentence_human_readable(sentence1)
         sentence2 = make_sentence_human_readable(sentence2)
         answer = 'Yes' if label.strip() == 'T' else 'No'
-        formatted = f"r'Does the word \"{word}\" mean the same thing in sentences \"{sentence1}\" and \"{sentence2}\"?': '{answer}',"
+        formatted = f"'Does the word \"{word}\" mean the same thing in sentences \"{sentence1}\" and \"{sentence2}\"?': '{answer}',"
         data.append(formatted)
 
 # Write the output to a new file
