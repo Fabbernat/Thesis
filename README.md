@@ -14,13 +14,10 @@ over supersenses (Pilehvar and Camacho-Collados,
 in two different supersenses and the positive ones
 include a word used in the same supersense.
 
-# Example usages:
-![Képernyőkép 2025-02-06 124831](https://github.com/user-attachments/assets/1c0691c6-2bb7-4cdf-a1be-06793b9c09b3)
-
-![Képernyőkép 2025-02-06 124751](https://github.com/user-attachments/assets/baa43460-712b-48f2-a1ed-cf8a6c694c62)
-
-![Képernyőkép 2025-02-06 124646](https://github.com/user-attachments/assets/93443df3-46f4-48fd-91bd-003a85000fa2)
-
-![Képernyőkép 2025-02-06 124555](https://github.com/user-attachments/assets/d5c03a1d-81f3-4b7e-a5f8-53c50e17bdc5)
-
-![Képernyőkép 2025-02-06 124250](https://github.com/user-attachments/assets/5ed3bec3-f99c-413a-8e0a-fb576512cdfa)
+# Illustration and usage of the scripts:
+![Large Language Models Table](https://github.com/user-attachments/assets/b5c7e5db-df58-4cbb-815b-d23d88f1f1da)
+![image](https://github.com/user-attachments/assets/40cec6ac-9306-49ab-9749-156a22308541)
+![image](https://github.com/user-attachments/assets/ae79159c-16c2-4018-a51c-c483ade90183)
+![image](https://github.com/user-attachments/assets/768bc99d-7a77-4ab5-877d-1e5578afb8f1)
+![image](https://github.com/user-attachments/assets/d3221ae1-f9a1-4295-bfb5-8f6db278d777)
+![image](https://github.com/user-attachments/assets/f99d52f4-4af6-4f3b-9571-0b4d8ba01170)
