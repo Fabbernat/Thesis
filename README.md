@@ -14,9 +14,11 @@ over supersenses (Pilehvar and Camacho-Collados,
 in two different supersenses and the positive ones
 include a word used in the same supersense.
 
-# Illustration and usage of the scripts:
+# Illustration of results:
 ![Large Language Models Table](https://github.com/user-attachments/assets/b5c7e5db-df58-4cbb-815b-d23d88f1f1da)
 ![image](https://github.com/user-attachments/assets/40cec6ac-9306-49ab-9749-156a22308541)
+
+# Usage of the scripts:
 ![image](https://github.com/user-attachments/assets/ae79159c-16c2-4018-a51c-c483ade90183)
 ![image](https://github.com/user-attachments/assets/768bc99d-7a77-4ab5-877d-1e5578afb8f1)
 ![image](https://github.com/user-attachments/assets/d3221ae1-f9a1-4295-bfb5-8f6db278d777)
