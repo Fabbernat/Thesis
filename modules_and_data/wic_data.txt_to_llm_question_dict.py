@@ -1,3 +1,7 @@
+import re
+
+from modules_and_data import wic_sentence_normalizer
+
 # Define which dataset you want to work with
 actual_working_dataset = 'train'
 
@@ -12,32 +16,14 @@ if len(data_lines) != len(gold_lines):
     raise ValueError("Mismatch between data lines and gold labels")
 
 
-def make_sentence_human_readable(sentence):
-    """Replaces contractions for better readability both for humans and for language models."""
-    # TODO: write a regex to escape ' after any char, except '.'
-    # Escape all single quotes, necessary for Python to correctly find the string endings.
-    sentence = sentence.replace(" '", "\\'")
-
-    # escapes `n't`, also necessary for Python to correctly find the string endings.
-    sentence = sentence.replace("n't", "n\\'t")
-
-    # escapes `f'`, maths sentences
-    sentence = sentence.replace("f'", "f\\'")
-
-    sentence = sentence.replace("o", "o\\'")
-    sentence = sentence.replace(" ,", ",")
-    sentence = sentence.replace(" .", ".")
-    return sentence
-
-
 # Process the data
 data = []
 for line, label in zip(data_lines, gold_lines):
     parts = line.strip().split('\t')
     if len(parts) == 5:  # Ensure data integrity
         word, pos, freq, sentence1, sentence2 = parts
-        sentence1 = make_sentence_human_readable(sentence1)
-        sentence2 = make_sentence_human_readable(sentence2)
+        sentence1 = wic_sentence_normalizer.make_sentence_human_readable(sentence1)
+        sentence2 = wic_sentence_normalizer.make_sentence_human_readable(sentence2)
         answer = 'Yes' if label.strip() == 'T' else 'No'
         formatted = f"'Does the word \"{word}\" mean the same thing in sentences \"{sentence1}\" and \"{sentence2}\"?': '{answer}',"
         data.append(formatted)
@@ -50,5 +36,5 @@ print("Data formatting complete. Check 'formatted_data.txt'.")
 
 
 # Example
-print(make_sentence_human_readable(
+print(wic_sentence_normalizer.make_sentence_human_readable(
     "We had to swim for 20 minutes to reach the shore . A big fish was swimming in the tank . Do n't fire until you see the whites of their eyes . The gun fired ."))
