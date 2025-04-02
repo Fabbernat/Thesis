@@ -1,12 +1,11 @@
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# Always adjust the path to match your operating system!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# The project uses relative path, but if you have the dataset somewhere else, adjust the path to match your operating system!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 import os
 
 OS = 'Windows'
 
-# Path to the local root of https://pilehvar.github.io/wic/package/WiC_dataset.zip
-# TODO change to C:\WiC_dataset\ and refactor all references
+# Path to the local root of the contents of https://pilehvar.github.io/wic/package/WiC_dataset.zip
 BASE_DIR = r'/WiC_dataset/'
 
 PATH_DIR = os.path.dirname(os.path.abspath(__file__))
