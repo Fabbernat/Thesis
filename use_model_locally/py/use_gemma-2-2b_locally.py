@@ -1,6 +1,9 @@
 import torch
 from transformers import pipeline
 
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Adjust the path to match your operating system!
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # Windows
 model_path = r'C:\codes\gemma22b\gemma-2-2b-it'
 
