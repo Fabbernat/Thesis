@@ -15,3 +15,4 @@ sentence-transformers~=3.4.1
 distro~=1.9.0
 openai~=1.68.2
 setuptools~=75.8.0
+sentence-transformers
