@@ -6,7 +6,7 @@ import os
 OS = 'Windows'
 
 # Path to the local root of the contents of https://pilehvar.github.io/wic/package/WiC_dataset.zip
-BASE_DIR = r'/WiC_dataset/'
+BASE_DIR = r'../WiC_dataset/'
 
 PATH_DIR = os.path.dirname(os.path.abspath(__file__))
 

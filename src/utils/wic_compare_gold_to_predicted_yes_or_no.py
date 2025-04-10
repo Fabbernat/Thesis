@@ -1,7 +1,7 @@
 import os
 
-import modules_and_data.wic_data_loader
-from PATH import BASE_DIR
+import src.utils.wic_data_loader
+from src.PATH import BASE_DIR
 
 
 def wic_compare_gold_to_predicted_yes_or_no(gold_str, predicted_str):
@@ -35,7 +35,7 @@ def get_results():
     base_path = BASE_DIR
     data_file = os.path.normpath(os.path.join(base_path, "test/test.data.txt"))
     gold_file = os.path.normpath(os.path.join(base_path, "test/test.gold.txt"))
-    gold_data, predicted_data = modules_and_data.wic_data_loader.load_wic_data(data_file, gold_file)
+    gold_data, predicted_data = src.utils.wic_data_loader.load_wic_data(data_file, gold_file)
 
     return wic_compare_gold_to_predicted_yes_or_no(gold_data, predicted_data)
 

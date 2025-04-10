@@ -1,9 +1,7 @@
-import re
-
-from modules_and_data import wic_sentence_normalizer
-
 # Define which dataset you want to work with
-actual_working_dataset = 'train'
+from src.utils import wic_sentence_normalizer
+
+actual_working_dataset = 'test'
 
 # Read the .txt files
 with open(f'{actual_working_dataset}.data.txt', 'r', encoding='utf-8') as data_file, \
@@ -25,11 +23,13 @@ for line, label in zip(data_lines, gold_lines):
         sentence1 = wic_sentence_normalizer.make_sentence_human_readable(sentence1)
         sentence2 = wic_sentence_normalizer.make_sentence_human_readable(sentence2)
         answer = 'Yes' if label.strip() == 'T' else 'No'
-        formatted = f"'Does the word \"{word}\" mean the same thing in sentences \"{sentence1}\" and \"{sentence2}\"?': '{answer}',"
+
+        # Reverse the order by swapping sentence2 and sentence1
+        formatted = f"r'Does the word \"{word}\" mean the same thing in sentences \"{sentence2}\" and \"{sentence1}\"?': '{answer}',"
         data.append(formatted)
 
 # Write the output to a new file
-with open(f'formatted_{actual_working_dataset}_dataset.txt', 'w', encoding='utf-8') as file:
+with open(f'formatted_{actual_working_dataset}_dataset_reversed.txt', 'w', encoding='utf-8') as file:
     file.write('\n'.join(data))
 
 print("Data formatting complete. Check 'formatted_data.txt'.")

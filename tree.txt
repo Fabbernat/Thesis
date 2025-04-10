@@ -1,0 +1,28 @@
+﻿Folder PATH listing
+Volume serial number is DEC7-D9F5
+C:.
+├───.env
+├───.idea
+│   └───inspectionProfiles
+├───decision_algorithms_with_confidence_calculation
+├───demo_files
+├───llm_prompts
+│   ├───scripts
+│   └───text
+├───solution
+│   ├───implementation
+│   ├───results
+│   └───__pycache__
+├───src
+│   ├───data
+│   │   └───txt
+│   └───utils
+├───tfidf
+├───use_model_locally
+│   ├───ipynb
+│   └───py
+├───WiC_dataset
+│   ├───dev
+│   ├───test
+│   └───train
+└───__pycache__

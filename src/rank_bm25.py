@@ -4,8 +4,7 @@ import math
 import numpy as np
 from multiprocessing import Pool, cpu_count
 
-from modules_and_data import wic_word_sense_disambiguator
-from wic_tfidf_baseline_combined import load_wic_data
+from src.utils import wic_word_sense_disambiguator
 
 """
 All of these algorithms have been taken from the paper:

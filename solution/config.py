@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from PATH import BASE_DIR
+from src.PATH import BASE_DIR
 
 
 @dataclass
@@ -17,8 +17,7 @@ class Config:
 
 # data_loader.py
 from pathlib import Path
-from typing import List, Tuple, Optional
-import pandas as pd
+from typing import List, Tuple
 
 
 def load_wic_data(data_path: Path, gold_path: Path) -> Tuple[List[Tuple], List[str]]:

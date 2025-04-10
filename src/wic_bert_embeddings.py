@@ -136,10 +136,13 @@ def evaluate_wic_model(wic_dataset, gold_labels, similarity_threshold=0.7):
 
 
 if __name__ == '__main__':
+
+    # Define which dataset you want to work with
+    actual_working_dataset = 'test'
     # Load dataset and gold labels
-    base_path = "C:/WiC_dataset/dev"
-    data_file = os.path.normpath(os.path.join(base_path, "dev.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "dev.gold.txt"))
+    base_path = f"C:/WiC_dataset/{actual_working_dataset}"
+    data_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.gold.txt"))
 
     wic_dataset, gold_labels = load_wic_data(data_file, gold_file)
 

@@ -7,8 +7,7 @@ from sklearn.metrics import confusion_matrix
 import config
 import similarity
 import combined
-import evaluation
-from y_true_train import y_true_train
+from src.y_true_train import y_true_train
 
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):

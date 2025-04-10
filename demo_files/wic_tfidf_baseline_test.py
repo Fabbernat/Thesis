@@ -3,15 +3,14 @@ import os
 from typing import Any, LiteralString, Sized, Iterable
 
 import numpy as np
-import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 from torch import Tensor
 
-from PATH import BASE_DIR
-from wic_tfidf_baseline_combined import compute_sentence_similarity
+from src.PATH import BASE_DIR
+from tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk

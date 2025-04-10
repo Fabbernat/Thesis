@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
-from PATH import BASE_DIR
+from src.PATH import BASE_DIR
 from wic_tfidf_baseline_test import load_wic_data, compute_sentence_similarity, print_evaluation_details
 
 
