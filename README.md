@@ -1,7 +1,9 @@
 # The Colab Notebook:
 [WiC POS Tagging Word Comparison Notebook](https://colab.research.google.com/drive/1_UdMjugchWWHVrgETc9T1wsYs0R-67wh#scrollTo=9OlQSKyWfH9Y)
+
 #The paper:
 [Comparing the Performance of Language Models on a Word-in-Context Benchmark and Developing a Custom Evaluation System in Python](https://www.overleaf.com/read/hdsmwqzsjyhy#e73a16)
+
 # My home page:
 [Bernát Fábián](https://fabbernat.github.io/)
 
