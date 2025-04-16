@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_extract_sentences_from_data.txt.py
 def extract_sentences(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         sentences = [(line.split('\t')[3], line.split('\t')[4]) for line in file if line.strip()]  # Az első oszlopot vesszük ki

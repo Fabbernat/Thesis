@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_word_sense_disambiguator.py
 # Word Sense Disambiguation module
 # https://pilehvar.github.io/wic/
 import os

@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_splash_art.py
 import random
 
 

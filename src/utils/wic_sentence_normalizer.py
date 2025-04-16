@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_sentence_normalizer.py
 import re
 
 def make_sentence_human_readable(sentence: str) -> str:

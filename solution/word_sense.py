@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\solution\word_sense.py
 from sentence_transformers import SentenceTransformer, util
 from nltk.corpus import wordnet as wn
 from typing import Optional, Set

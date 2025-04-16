@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_extract_words_from_data.txt.py
 def extract_words(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         words = [line.split('\t')[0] for line in file if line.strip()]  # Az első oszlopot vesszük ki

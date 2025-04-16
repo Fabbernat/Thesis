@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_data.txt_to_llm_question_dict.py
 from src.utils import wic_sentence_normalizer
 
 # Define which dataset you want to work with

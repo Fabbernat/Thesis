@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\wic_import_and_ask_gpt2_a_question.py
 from modules.WordSenseDisambiguator import sample_questions
 
 # 1

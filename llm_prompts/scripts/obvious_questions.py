@@ -1,3 +1,5 @@
+# C:\PycharmProjects\Peternity\llm_prompts\scripts\obvious_questions.py
+
 from typing import Dict
 
 # Sanity check: some intentionally simple questions with obvious answers.

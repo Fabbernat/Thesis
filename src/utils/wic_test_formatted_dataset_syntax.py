@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_test_formatted_dataset_syntax.py
 test_dict = {
 r'Does the word "defeat" mean the same thing in sentences "It was a narrow defeat." and "The army\'s only defeat."?': 'Yes',
 r'Does the word "groom" mean the same thing in sentences "Groom the dogs." and "Sheila groomed the horse."?': 'Yes',

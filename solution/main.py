@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\solution\main.py
 from pathlib import Path
 from config import Config
 from data_loader import load_wic_data

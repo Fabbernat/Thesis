@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\run_app.py
 import openai
 from openai import OpenAI
 

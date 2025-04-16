@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_data_loader.py
 def load_wic_data(data_path, gold_path):
     """
         Loads the WiC dataset and its gold into a structured format.

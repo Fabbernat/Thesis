@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\wic_result_printer.py
 from src.utils.wic_sentence_normalizer import make_sentence_human_readable
 
 
