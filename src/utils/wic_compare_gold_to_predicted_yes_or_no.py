@@ -1,3 +1,4 @@
+# C:\PycharmProjects\Peternity\src\utils\wic_compare_gold_to_predicted_yes_or_no.py
 import os
 
 import src.utils.wic_data_loader
@@ -33,13 +34,15 @@ def get_results():
     # TODO replace with data from {actual_working_file}.gold.txt and the {actual_model}_output.txt
 
     base_path = BASE_DIR
-    data_file = os.path.normpath(os.path.join(base_path, "test/test.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "test/test.gold.txt"))
-    gold_data, predicted_data = src.utils.wic_data_loader.load_wic_data(data_file, gold_file)
+    data_path = os.path.normpath(os.path.join(base_path, "test/test.data.txt"))
+    print(data_path)
+    gold_path = os.path.normpath(os.path.join(base_path, "test/test.gold.txt"))
+    print(gold_path)
+    gold_data, predicted_data = src.utils.wic_data_loader.load_wic_data(data_path, gold_path)
 
     return wic_compare_gold_to_predicted_yes_or_no(gold_data, predicted_data)
 
 # Example usage
 if __name__ == '__main__':
     results = get_results
-    print(f"TP: {results[0]}, FP: {results[1]}, FN: {results[2]}, TN: {results[3]}")
+    print(f"TP: {results.__str__()}, FP: {results}, FN: {results}, TN: {results}")

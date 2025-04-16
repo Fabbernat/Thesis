@@ -1,3 +1,5 @@
+# C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_test.py
+
 import os
 import matplotlib.pyplot as plt
 import numpy as np
@@ -5,8 +7,8 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
 from src.utils.wic_data_loader import load_wic_data
-from tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity, evaluate
-from src.y_true_test import test_y_true
+from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity, evaluate
+from independent_scripts.y_true.y_true_test import test_y_true
 
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):

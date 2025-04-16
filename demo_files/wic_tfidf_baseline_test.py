@@ -1,3 +1,5 @@
+# C:\PycharmProjects\Peternity\demo_files\wic_tfidf_baseline_test.py
+
 import collections
 import os
 from typing import Any, LiteralString, Sized, Iterable
@@ -10,7 +12,7 @@ from sentence_transformers import SentenceTransformer, util
 from torch import Tensor
 
 from src.PATH import BASE_DIR
-from tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity
+from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk
