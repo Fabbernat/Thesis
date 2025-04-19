@@ -6,7 +6,7 @@ import re
 from typing import Set, Optional, Dict, List
 
 from src import wic_result_printer
-from src.PATH import BASE_DIR
+from src.PATH import BASE_PATH
 from src.utils import wic_nltk_handler
 
 
@@ -242,7 +242,7 @@ def main():
     print('nltk wordnet algorithm:')
     wic_result_printer.print_results(wic_nltk_handler.synonyms, sample_questions())
 
-    base_dir = BASE_DIR
+    base_dir = BASE_PATH
 
     wic_data = load_wic_data(base_dir)
     questions = {}

@@ -11,7 +11,7 @@ from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 from torch import Tensor
 
-from src.PATH import BASE_DIR
+from src.PATH import BASE_PATH
 from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity
 
 # Download necessary NLTK resources (uncomment if needed)
@@ -230,8 +230,8 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 def main():
     # Paths to WiC dataset files
-    data_file = os.path.normpath(BASE_DIR + r'\test\test.data.txt')
-    gold_file = os.path.normpath(BASE_DIR + r'\test\test.gold.txt')
+    data_file = os.path.normpath(BASE_PATH + r'\test\test.data.txt')
+    gold_file = os.path.normpath(BASE_PATH + r'\test\test.gold.txt')
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
