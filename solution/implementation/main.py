@@ -1,9 +1,8 @@
 # C:\PycharmProjects\Peternity\solution\main.py
-from pathlib import Path
 from config import Config
-from data_loader import load_wic_data
+from solution.data_loader import load_wic_data
 from similarity import compute_sentence_similarity
-from evaluation import evaluate
+from solution.results.evaluation import evaluate
 
 
 def main():

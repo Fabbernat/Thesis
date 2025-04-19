@@ -1,3 +1,7 @@
+# C:\PycharmProjects\Peternity\independent_scripts\tfidf\wic_tfidf_baseline_combined.py
+# Hyperparameters:
+#
+
 import os
 import numpy as np
 import pandas as pd
@@ -8,10 +12,10 @@ from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
 
 # Download necessary NLTK resources (uncomment if needed)
-# import nltk
-# nltk.download("wordnet")
-# nltk.download("omw-1.4")
-# nltk.download("punkt")
+import nltk
+nltk.download("wordnet")
+nltk.download("omw-1.4")
+nltk.download("punkt")
 
 # Load sentence embedding model
 SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
