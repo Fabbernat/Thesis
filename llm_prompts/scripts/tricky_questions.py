@@ -1,7 +1,7 @@
 # C:\PycharmProjects\Peternity\llm_prompts\scripts\tricky_questions.py
 from typing import Dict
 
-# I made some tricky questions that are not part of any of the dev/train/test datasets
+# I made some tricky questions that are not in any of the dev/train/test datasets
 tricky_questions: Dict[str, str] = {
     'Does the word "bank" mean the same in sentence "The treasure sunk onto the river bank." and "The treasure chamber of the financial building is beneath the river bank."?': 'No',
     'Does the word "running" mean the same in sentence "My program is running." and "My nose is running."?': 'No',

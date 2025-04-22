@@ -80,5 +80,5 @@ def main():
     matplotlib_plot_confusion_matrix(tn, fp, fn, tp)
     seaborn_plot_confusion_matrix(tn, fp, fn, tp)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

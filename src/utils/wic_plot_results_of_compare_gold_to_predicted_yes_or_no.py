@@ -29,7 +29,7 @@ def plot_wic_results(tp, fp, fn, tn):
     plt.show()
 
 # Example usage
-if __name__ == "__main__":
+if __name__ == '__main__':
     results = get_results()
     tp, fp, fn, tn = results[0], results[1], results[2], results[3]
     plot_wic_results(tp, fp, fn, tn)

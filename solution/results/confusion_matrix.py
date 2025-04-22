@@ -53,7 +53,7 @@ def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
     plt.show()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     # Paths to WiC dataset files
     base_path = "C:/WiC_dataset/train"
     data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))

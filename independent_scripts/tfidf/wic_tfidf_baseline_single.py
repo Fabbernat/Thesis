@@ -1,4 +1,4 @@
-# C:\PycharmProjects\Peternity\independent_scripts\tfidf\wic_tfidf_baseline_combined.py
+# C:\PycharmProjects\Peternity\independent_scripts\tfidf\wic_tfidf_baseline_single.py
 # Hyperparameters:
 #
 
@@ -215,18 +215,19 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 
 def main():
-    # Paths to all 6 WiC dataset files
-    data_paths = {
-        "dev": ("C:/WiC_dataset/dev/dev.data.txt", "C:/WiC_dataset/dev/dev.gold.txt"),
-        "test": ("C:/WiC_dataset/test/test.data.txt", "C:/WiC_dataset/test/test.gold.txt"),
-        "train": ("C:/WiC_dataset/train/train.data.txt", "C:/WiC_dataset/train/train.gold.txt"),
+    # Define which dataset you want to work with
+    actual_working_dataset = 'test'
+
+    # Paths to selected WiC dataset data and gold files, respectively
+    data_path = {
+        f"{actual_working_dataset}": (f"C:/WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.data.txt", f"C:/WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.gold.txt"),
     }
 
     all_data = []
     all_labels = []
     all_similarities = []
 
-    for dataset_name, (data_file, gold_file) in data_paths.items():
+    for dataset_name, (data_file, gold_file) in data_path.items():
         data, labels = load_wic_data(data_file, gold_file)
         similarities = compute_sentence_similarity(data)
 

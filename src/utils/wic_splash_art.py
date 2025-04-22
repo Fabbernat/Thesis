@@ -29,5 +29,5 @@ def print_splash():
     print(splash)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print_splash()

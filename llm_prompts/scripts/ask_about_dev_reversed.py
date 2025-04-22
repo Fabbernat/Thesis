@@ -24,7 +24,7 @@ def write_prompt_to_file():
     with_reasoning = " with reasoning" if explain else ""
     prompt = f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!\n'
     prompt += '\n'.join(human_readable_questions_full.keys())
-    with open(f'../text/{actual_working_dataset}_llm_question_prompt_reversed.txt', 'w', encoding='utf-8') as file:
+    with open(f'../text/_{actual_working_dataset}{'no_reasoning' if with_reasoning is False else ''}_llm_question_prompt_reversed.txt', 'w', encoding='utf-8') as file:
         file.write(prompt)
 
 

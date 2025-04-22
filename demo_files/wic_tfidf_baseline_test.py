@@ -243,5 +243,5 @@ def main():
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
