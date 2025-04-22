@@ -43,7 +43,7 @@ for syn in synonyms:
     print(f'name: {syn.name()}, definition: {syn.definition()}')
 
 print()
-print('End of bank synonyms. Continuing... \n')
+print(f'End of {word} synonyms. Continuing... \n')
 
 def get_synonyms(word):
     """Returns a set of synonyms for a given word using WordNet."""

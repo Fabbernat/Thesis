@@ -137,33 +137,22 @@ def evaluate_wic_model(wic_dataset, gold_labels, similarity_threshold=0.7):
 
 
 if __name__ == '__main__':
-
-    # Define which dataset you want to work with
-    actual_working_dataset = 'test'
-    # Load dataset and gold labels
-    base_path = f"C:/WiC_dataset/{actual_working_dataset}"
-    data_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.gold.txt"))
-
-    wic_dataset, gold_labels = load_wic_data(data_file, gold_file)
-
-    # Evaluate model performance
-    evaluation_results = evaluate_wic_model(wic_dataset, gold_labels)
-
-    print("Evaluation Results:")
-    print(evaluation_results)
-
-    # Attempt to evaluate on a development set if available
     try:
-        dev_data_file = 'dev.txt'
-        dev_dataset, dev_gold_labels = load_wic_data(dev_data_file, gold_file)
+        # Define which dataset you want to work with
+        actual_working_dataset = 'test'
+        # Load dataset and gold labels
+        base_path = f"C:/WiC_dataset/{actual_working_dataset}"
+        data_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.data.txt"))
+        gold_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.gold.txt"))
 
-        print(f"Loaded {len(dev_dataset)} instances from {dev_data_file}")
-        dev_results = evaluate_wic_model(dev_dataset, dev_gold_labels)
+        wic_dataset, gold_labels = load_wic_data(data_file, gold_file)
 
-        print("Evaluation Results on Dev Set:")
-        print(dev_results)
+        # Evaluate model performance
+        evaluation_results = evaluate_wic_model(wic_dataset, gold_labels)
+
+        print("Evaluation Results:")
+        print(evaluation_results)
 
     except FileNotFoundError:
-        print("Warning: Development dataset not found. Please ensure 'dev.txt' is available in the working directory.")
+        print(f"Warning: {actual_working_dataset} dataset not found. Please ensure it is available in the working directory.")
         print("You can download the WiC dataset from: https://pilehvar.github.io/wic/")

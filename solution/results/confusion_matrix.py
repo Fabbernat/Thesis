@@ -5,7 +5,6 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-import config
 import similarity
 import combined
 from independent_scripts.y_true.y_true_train import y_true_train

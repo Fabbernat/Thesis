@@ -91,11 +91,6 @@ return "YES" if similarity > 0 else "NO"
 def read_wic_dataset(base_path: str, file_specific_path: str):
     """
     Reads the WiC dataset from the given base directory and returns a structured dictionary.
-
-    :type file_specific_path: str
-    :param file_specific_path: str
-    :param base_path: The root directory containing the WiC dataset.
-    :? : ?
     :return: A dictionary with 'train', 'dev', and 'test' datasets.
     """
     full_path = os.path.join(base_path, file_specific_path)

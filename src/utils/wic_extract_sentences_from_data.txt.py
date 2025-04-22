@@ -5,15 +5,15 @@ def extract_sentences(file_path):
     return sentences
 
 # Define which dataset you want to work with
-actual_working_dataset = 'train'
+actual_working_dataset = 'test'
 
 # Fájl beolvasása és a szavak kiírása
-file_path = f'{actual_working_dataset}.data.txt'
+file_path = f'../data/txt/{actual_working_dataset}.data.txt'
 sentences = extract_sentences(file_path)
 
 output_text = '\n\n'.join(f'{s1}\n{s2}' for s1, s2 in sentences)
 
 print(output_text)
 
-with open(f'{actual_working_dataset}_extracted_sentences.txt', 'w', encoding='utf-8') as outfile:
+with open(f'../data/txt/{actual_working_dataset}_extracted_sentences.txt', 'w', encoding='utf-8') as outfile:
     outfile.write(output_text)

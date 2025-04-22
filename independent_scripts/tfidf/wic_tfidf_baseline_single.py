@@ -216,7 +216,7 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 def main():
     # Define which dataset you want to work with
-    actual_working_dataset = 'test'
+    actual_working_dataset = 'train'
 
     # Paths to selected WiC dataset data and gold files, respectively
     data_path = {

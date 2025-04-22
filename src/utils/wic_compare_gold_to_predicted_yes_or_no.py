@@ -2,13 +2,14 @@
 import os
 
 import src.utils.wic_data_loader
-from src.PATH import BASE_PATH
 
+# Define which dataset you want to work with
+actual_working_dataset = 'test'
 
-def wic_compare_gold_to_predicted_yes_or_no(gold_str, predicted_str):
+def wic_compare_gold_to_predicted_yes_or_no(gold_list, predicted_list):
     # Normalize inputs and split by lines
-    gold = [word.strip().replace('T', 'Yes').replace('F', 'No') for word in gold_str.strip().split('\n')]
-    predicted = [word.strip().replace('T', 'Yes').replace('F', 'No') for word in predicted_str.strip().split('\n')]
+    gold = [label.strip().replace('T', 'Yes').replace('F', 'No') for label in gold_list]
+    predicted = [label.strip().replace('T', 'Yes').replace('F', 'No') for label in predicted_list]
 
     # Ensure both lists have the same length
     if len(gold) != len(predicted):
@@ -33,16 +34,22 @@ def wic_compare_gold_to_predicted_yes_or_no(gold_str, predicted_str):
 def get_results():
     # TODO replace with data from {actual_working_file}.gold.txt and the {actual_model}_output.txt
 
-    base_path = BASE_PATH
+    base_path = '../../WiC_dataset/'
     data_path = os.path.normpath(os.path.join(base_path, "test/test.data.txt"))
-    print(data_path)
     gold_path = os.path.normpath(os.path.join(base_path, "test/test.gold.txt"))
-    print(gold_path)
-    gold_data, predicted_data = src.utils.wic_data_loader.load_wic_data(data_path, gold_path)
 
-    return wic_compare_gold_to_predicted_yes_or_no(gold_data, predicted_data)
+    print(data_path)
+    print(gold_path)
+
+    data, gold = src.utils.wic_data_loader.load_wic_data(data_path, gold_path)
+
+    predicted_path = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}/{actual_working_dataset}.gold.txt"))
+    with open(predicted_path, 'r', encoding='utf-8') as f:
+        predicted = [line.strip() for line in f.readlines()]
+
+    return wic_compare_gold_to_predicted_yes_or_no(gold, predicted)
 
 # Example usage
 if __name__ == '__main__':
-    results = get_results
+    results = get_results()
     print(f"TP: {results.__str__()}, FP: {results}, FN: {results}, TN: {results}")
