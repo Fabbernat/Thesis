@@ -1,5 +1,5 @@
 # C:\PycharmProjects\Peternity\src\wic_import_and_ask_gpt2_a_question.py
-from modules.WordSenseDisambiguator import sample_questions
+import llm_prompts.scripts.obvious_questions
 
 # 1
 import torch
