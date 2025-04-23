@@ -13,9 +13,9 @@ from sentence_transformers import SentenceTransformer, util
 
 # Download necessary NLTK resources (uncomment if needed)
 import nltk
-nltk.download("wordnet")
-nltk.download("omw-1.4")
-nltk.download("punkt")
+# nltk.download("wordnet")
+# nltk.download("omw-1.4")
+# nltk.download("punkt")
 
 # Load sentence embedding model
 SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
@@ -238,10 +238,15 @@ def main():
 
     best_threshold = optimize_threshold(all_similarities, all_labels)
 
-    overall_accuracy, overall_correct_answers, _ = evaluate_with_uncertainty(
-        all_similarities, all_labels, all_data, threshold=best_threshold,
-        gray_zone=(0.00, 1.00),  # Effectively no gray zone for this evaluation
-        verbose=True
+    # overall_accuracy, overall_correct_answers, _ = evaluate_with_uncertainty(
+    #     all_similarities, all_labels, all_data, threshold=best_threshold,
+    #     gray_zone=(0.00, 1.00),  # Effectively no gray zone for this evaluation
+    #     verbose=True
+    # )
+
+    overall_accuracy, overall_correct_answers, _ = evaluate(
+        similarities, labels, data, threshold=best_threshold,
+        return_predictions=True, verbose=True
     )
 
     print(f"Overall accuracy: {overall_accuracy:.3%}")

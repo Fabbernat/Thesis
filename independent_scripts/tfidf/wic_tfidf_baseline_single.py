@@ -13,9 +13,9 @@ from sentence_transformers import SentenceTransformer, util
 
 # Download necessary NLTK resources (uncomment if needed)
 import nltk
-nltk.download("wordnet")
-nltk.download("omw-1.4")
-nltk.download("punkt")
+# nltk.download("wordnet")
+# nltk.download("omw-1.4")
+# nltk.download("punkt")
 
 # Load sentence embedding model
 SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
@@ -223,30 +223,28 @@ def main():
         f"{actual_working_dataset}": (f"C:/WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.data.txt", f"C:/WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.gold.txt"),
     }
 
-    all_data = []
-    all_labels = []
-    all_similarities = []
 
     for dataset_name, (data_file, gold_file) in data_path.items():
         data, labels = load_wic_data(data_file, gold_file)
         similarities = compute_sentence_similarity(data)
 
-        all_data.extend(data)
-        all_labels.extend(labels)
-        all_similarities.extend(similarities)
 
-    all_similarities = np.array(all_similarities)  # Convert to numpy array
 
-    best_threshold = optimize_threshold(all_similarities, all_labels)
+    best_threshold = optimize_threshold(similarities, labels)
 
-    overall_accuracy, overall_correct_answers, _ = evaluate_with_uncertainty(
-        all_similarities, all_labels, all_data, threshold=best_threshold,
-        gray_zone=(0.00, 1.00),  # Effectively no gray zone for this evaluation
-        verbose=True
+    # overall_accuracy, overall_correct_answers, _ = evaluate_with_uncertainty(
+    #     similarities, labels, data, threshold=best_threshold,
+    #     gray_zone=(0.00, 1.00),  # Effectively no gray zone for this evaluation
+    #     verbose=True
+    # )
+
+    overall_accuracy, overall_correct_answers, _ = evaluate(
+        similarities, labels, data, threshold=best_threshold,
+        return_predictions=True, verbose=True
     )
 
     print(f"Overall accuracy: {overall_accuracy:.3%}")
-    print(f"{overall_correct_answers} correct answer(s) out of {len(all_labels)} total answers.")
+    print(f"{overall_correct_answers} correct answer(s) out of {len(labels)} total answers.")
 
 
 
