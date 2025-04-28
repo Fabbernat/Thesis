@@ -1,11 +1,13 @@
 # C:\PycharmProjects\Peternity\solution\confusion_matrix.py
 import os
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-from solution.implementation import similarity, combined
+from solution.implementation import similarity, combined, config
 from independent_scripts.y_true.y_true_train import y_true_train
 
 
@@ -54,7 +56,7 @@ if __name__ == '__main__':
     gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
 
     # Load data and compute similarities
-    data, labels = config.load_wic_data(data_file, gold_file)
+    data, labels = config.load_wic_data(Path(data_file), Path(gold_file))
     similarities = similarity.compute_sentence_similarity(data)
 
     EvaluationMetrics = combined.evaluate(similarities, labels, data) # EvaluationMetrics should contain accuracy, correct_answers_count, y_pred
