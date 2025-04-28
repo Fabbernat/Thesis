@@ -2,8 +2,8 @@
 from typing import List, Tuple
 import numpy as np
 
-from wic_tfidf_baseline_test import print_evaluation_details
-from metrics import EvaluationMetrics, calculate_metrics
+from independent_scripts.tfidf.wic_tfidf_baseline_single import print_evaluation_details
+from solution.implementation.metrics import EvaluationMetrics, calculate_metrics
 
 
 def evaluate(

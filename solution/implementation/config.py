@@ -4,13 +4,15 @@ from pathlib import Path
 
 from src.PATH import BASE_PATH
 
+# Define which dataset you want to work with
+actual_working_dataset = 'train'
 
 @dataclass
 class Config:
     """Configuration for WiC classification."""
     base_path: Path = Path(BASE_PATH)
-    data_file: Path = base_path / "train/train.data.txt"
-    gold_file: Path = base_path / "train/train.gold.txt"
+    data_file: Path = f"../../WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.data.txt"
+    gold_file: Path = f"../../WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.gold.txt"
     model_name: str = 'sentence-transformers/all-MiniLM-L6-v2'
     similarity_threshold: float = 0.449
     gray_zone: tuple = (0.40, 0.50)

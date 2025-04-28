@@ -1,6 +1,6 @@
-# C:\PycharmProjects\Peternity\solution\main.py
+# C:\PycharmProjects\Peternity\solution\implementation\main.py
 from config import Config
-from solution.data_loader import load_wic_data
+from config import load_wic_data
 from similarity import compute_sentence_similarity
 from solution.results.wic_evaluation import evaluate
 
@@ -13,7 +13,7 @@ def main():
     similarities = compute_sentence_similarity(data)
 
     # Evaluate model with all metrics
-    metrics = evaluate(
+    evaluate(
         similarities,
         labels,
         data,
