@@ -2,7 +2,7 @@
 from config import Config
 from solution.data_loader import load_wic_data
 from similarity import compute_sentence_similarity
-from solution.results.evaluation import evaluate
+from solution.results.wic_evaluation import evaluate
 
 
 def main():

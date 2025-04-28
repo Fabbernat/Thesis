@@ -5,52 +5,47 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-import similarity
-import combined
+from solution.implementation import similarity, combined
 from independent_scripts.y_true.y_true_train import y_true_train
 
 
-def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
-    """Plots a labeled confusion matrix using Matplotlib and Seaborn."""
-    matrix = np.array([[tn, fp], [fn, tp]])  # Corrected order
+def plot_confusion_matrix(tn, fp, fn, tp, style='seaborn'):
+    """
+    Plots a labeled confusion matrix using either Seaborn or Matplotlib style.
+
+    Parameters:
+        tn (int): True Negative count
+        fp (int): False Positive count
+        fn (int): False Negative count
+        tp (int): True Positive count
+        style (str): Plotting style - 'seaborn' (default) or 'matplotlib'
+    """
+    matrix = np.array([[tn, fp], [fn, tp]])
     labels = [["TN", "FP"], ["FN", "TP"]]
 
     plt.figure(figsize=(5, 4))
-    sns.heatmap(matrix, annot=True, fmt="d", cmap="Blues",
-                xticklabels=["Actual Negative", "Actual Positive"],
-                yticklabels=["Predicted Negative", "Predicted Positive"])
+
+    if style.lower() == 'seaborn':
+        # Seaborn style with coolwarm colormap
+        ax = sns.heatmap(matrix, annot=True, fmt="d", cmap="coolwarm",
+                         xticklabels=["Actual Negative", "Actual Positive"],
+                         yticklabels=["Predicted Negative", "Predicted Positive"])
+    else:
+        # Matplotlib style with Blues colormap
+        ax = sns.heatmap(matrix, annot=True, fmt="d", cmap="Blues",
+                         xticklabels=["Actual Negative", "Actual Positive"],
+                         yticklabels=["Predicted Negative", "Predicted Positive"])
 
     # Overlay text labels (TN, FP, FN, TP) for clarity
     for i in range(2):
         for j in range(2):
-            plt.text(j + 0.5, i + 0.7, labels[i][j], ha="center", va="center", color="black", fontsize=12)
+            ax.text(j + 0.5, i + 0.7, labels[i][j],
+                    ha="center", va="center", color="black", fontsize=12)
 
     plt.title("Confusion Matrix")
     plt.xlabel("Actual Label")
     plt.ylabel("Predicted Label")
     plt.show()
-
-
-def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
-    """Plots a labeled confusion matrix using Seaborn."""
-    matrix = np.array([[tn, fp], [fn, tp]])  # Corrected order
-    labels = np.array([["TN", "FP"], ["FN", "TP"]])
-
-    plt.figure(figsize=(5, 4))
-    ax = sns.heatmap(matrix, annot=True, fmt="d", cmap="coolwarm",
-                     xticklabels=["Actual Negative", "Actual Positive"],
-                     yticklabels=["Predicted Negative", "Predicted Positive"])
-
-    # Overlay text labels (TN, FP, FN, TP) for clarity
-    for i in range(2):
-        for j in range(2):
-            ax.text(j + 0.5, i + 0.7, labels[i][j], ha="center", va="center", color="black", fontsize=12)
-
-    plt.title("Confusion Matrix")
-    plt.xlabel("Actual Label")
-    plt.ylabel("Predicted Label")
-    plt.show()
-
 
 if __name__ == '__main__':
     # Paths to WiC dataset files
@@ -74,5 +69,5 @@ if __name__ == '__main__':
 
     print(f"Confusion Matrix: TP={tp}, FP={fp}, FN={fn}, TN={tn}")
 
-    matplotlib_plot_confusion_matrix(tn, fp, fn, tp)
-    seaborn_plot_confusion_matrix(tn, fp, fn, tp)
+    plot_confusion_matrix(tn, fp, fn, tp)  # Default seaborn style
+    plot_confusion_matrix(tn, fp, fn, tp, style='matplotlib')

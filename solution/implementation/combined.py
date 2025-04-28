@@ -6,7 +6,7 @@ from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
 from src.PATH import BASE_PATH
-from wic_tfidf_baseline_test import load_wic_data, compute_sentence_similarity, print_evaluation_details
+from independent_scripts.tfidf.wic_tfidf_baseline_single import load_wic_data, compute_sentence_similarity, print_evaluation_details
 
 
 @dataclass
