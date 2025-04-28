@@ -1,10 +1,17 @@
 import independent_scripts.tfidf.wic_tfidf_baseline_single as tfidf
 import solution.results.wic_confusion_matrix
+import llm_prompts.scripts.ask_about_test as ask_about_test
+import llm_prompts.scripts.ask_about_test_reversed as ask_about_test_reversed
 
 obvious_questions = {
     'Does the word "dog" mean the same thing in sentences "The dog barked." and "The dog wagged its tail."?': 'Yes',
     'Does the word "apple" mean the same thing in sentences "I ate an apple." and "He owns Apple Inc."?': 'No'
 }
+
+
+full_test_questions = ask_about_test.human_readable_questions_full
+full_test_questions_reversed = ask_about_test_reversed.human_readable_questions_full
+
 similarities = tfidf.compute_sentence_similarity(obvious_questions)
 chosen_implementation = 'tfidf'
 if tfidf:
