@@ -1,4 +1,4 @@
-# C:\PycharmProjects\Peternity\demo_files\wic_tfidf_baseline_test.py
+# C:\PycharmProjects\Peternity\demo_files\wic_tfidf_baseline_single.py
 
 import collections
 import os
@@ -22,9 +22,6 @@ from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_senten
 
 # Load sentence embedding model
 SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-
-
-# Load a sentence embedding model (e.g., all-MiniLM)
 
 
 def get_best_sense(word, sentence):
@@ -59,7 +56,7 @@ def optimize_threshold(similarities: object, labels: Sized) -> float:
     best_threshold: float = 0.0
 
     for threshold in np.arange(0.3, 0.6, 0.01):  # Kipróbál értékeket 0.3 és 0.6 között
-        predictions: Iterable[str] | Iterable[Any] = ['T' if sim > threshold else 'F' for sim in similarities]
+        predictions: Iterable[Any] = ['T' if sim > threshold else 'F' for sim in similarities]
         accuracy: int | float = sum(pred == true_label for pred, true_label in zip(predictions, labels)) / len(labels)
 
         if accuracy > best_accuracy:
@@ -229,9 +226,13 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 
 def main():
+
+    # Define which dataset you want to work with
+    actual_working_dataset = 'train'
+
     # Paths to WiC dataset files
-    data_file = os.path.normpath(BASE_PATH + r'\test\test.data.txt')
-    gold_file = os.path.normpath(BASE_PATH + r'\test\test.gold.txt')
+    data_file = os.path.normpath(BASE_PATH + rf'\{actual_working_dataset}\{actual_working_dataset}.data.txt')
+    gold_file = os.path.normpath(BASE_PATH + rf'\{actual_working_dataset}\{actual_working_dataset}.gold.txt')
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)

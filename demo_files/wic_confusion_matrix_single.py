@@ -1,4 +1,4 @@
-# C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_test.py
+# C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py
 
 import os
 import matplotlib.pyplot as plt
@@ -54,10 +54,13 @@ def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
 
 
 def main():
+    # Define which dataset you want to work with
+    actual_working_dataset = 'train'
+
     # Paths to WiC dataset files
-    base_path = "C:/WiC_dataset/test"
-    data_file = os.path.normpath(os.path.join(base_path, "test.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "test.gold.txt"))
+    base_path = f"C:/WiC_dataset/{actual_working_dataset}"
+    data_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.data.txt"))
+    gold_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.gold.txt"))
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)

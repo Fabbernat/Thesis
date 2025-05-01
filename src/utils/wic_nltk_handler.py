@@ -1,4 +1,4 @@
-# C:\PycharmProjects\Peternity\src\utils\wic_nltk_handler.py
+# C:\PycharmProjects\Peternity\demo_files\wic_nltk_handler.py
 import nltk
 from nltk.corpus import wordnet as wn
 
