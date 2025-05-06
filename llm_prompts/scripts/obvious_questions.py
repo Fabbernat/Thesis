@@ -8,5 +8,5 @@ obvious_questions: Dict[str, str] = {
     'Does the word "apple" mean the same thing in sentences "I ate an apple." and "He owns Apple Inc."?': 'No'
 }
 
-with open('obvious_questions.txt', 'w', encoding='utf-8') as file:
+with open('../text/obvious_questions.txt', 'w', encoding='utf-8') as file:
     file.write("\n".join(obvious_questions.keys()))

@@ -20,3 +20,6 @@ tricky_questions: Dict[str, str] = {
     'Does the word "school" mean the same thing in sentences "She goes to school every weekday." and "A school of fish swam past the boat."?': 'No',
     'Does the word "lawyer" mean the same thing in sentences "She hired a lawyer to represent her in court." and "He was his own lawyer in the trial."?': 'Yes',
 }
+
+with open('../text/tricky_questions.txt', 'w', encoding='utf-8') as file:
+    file.write("\n".join(tricky_questions.keys()))
