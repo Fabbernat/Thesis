@@ -11,7 +11,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import Tensor
 
-from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity
 from src.PATH import BASE_PATH
 
 # Download necessary NLTK resources (uncomment if needed)
@@ -168,6 +167,16 @@ def compute_sentence_similarity(data: object, mode="tfidf") -> Any:
             similarities.append(sim)
         return np.array(similarities)
 
+def preprocess_sentences(data: list) -> list:
+    """Expand sentences with WSD-based synonyms for the target word."""
+    processed_data = []
+    for word, pos, idx1, idx2, sent1, sent2 in data:
+        # Expand only the target word with its contextually relevant synonyms
+        expanded_sent1 = expand_sentence_with_wsd(sent1, word)
+        expanded_sent2 = expand_sentence_with_wsd(sent2, word)
+        processed_data.append((word, pos, idx1, idx2, expanded_sent1, expanded_sent2))
+    return processed_data
+
 
 def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50), verbose=False):
     """Evaluates accuracy, adding a gray zone for uncertain cases."""
@@ -245,7 +254,15 @@ def main():
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
-    similarities = compute_sentence_similarity(data, mode="bert")
+
+    # comment for faster run, but no word synonym expansion
+    processed_data = preprocess_sentences(data)
+
+    similarities = compute_sentence_similarity(processed_data, mode="bert")
+
+    # can be commented for faster run
+    # best_threshold = optimize_threshold(similarities, labels)
+    # print(f"Optimal threshold: {best_threshold:.3f}")
 
     # Evaluate model
     accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
