@@ -255,7 +255,7 @@ def main():
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
 
-    # comment for faster run, but no word synonym expansion
+    # can be commented for faster run, but no word synonym expansion
     processed_data = preprocess_sentences(data)
 
     similarities = compute_sentence_similarity(processed_data, mode="bert")
