@@ -1,4 +1,4 @@
-# C:\PycharmProjects\Peternity\demo_files\wic_tfidf_baseline_single.py
+# C:\PycharmProjects\Peternity\demo_files\wic_tfidf_or_sensebert_baseline_single.py
 
 import collections
 import os
@@ -237,7 +237,7 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 def main():
     # Define which dataset you want to work with
-    actual_working_dataset = 'train'
+    actual_working_dataset = 'dev'
 
     # Paths to WiC dataset files
     data_file = os.path.normpath(BASE_PATH + rf'\{actual_working_dataset}\{actual_working_dataset}.data.txt')

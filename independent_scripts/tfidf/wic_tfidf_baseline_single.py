@@ -1,4 +1,4 @@
-# C:\PycharmProjects\Peternity\independent_scripts\tfidf\wic_tfidf_baseline_single.py
+# C:\PycharmProjects\Peternity\independent_scripts\tfidf\wic_tfidf_or_sensebert_baseline_single.py
 # Hyperparameters:
 #
 
