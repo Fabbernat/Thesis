@@ -5,14 +5,14 @@ import os
 from typing import Any, LiteralString, Sized, Iterable
 
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer, util
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from torch import Tensor
 
-from src.PATH import BASE_PATH
 from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity
+from src.PATH import BASE_PATH
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk
@@ -135,28 +135,38 @@ def load_wic_data(data_path: object, gold_path: object) -> tuple[list[tuple[str,
     return data, gold
 
 
-def compute_sentence_similarity(data: object) -> Any:
+def compute_sentence_similarity(data: object, mode="tfidf") -> Any:
     """Computes cosine similarity between sentence pairs using TF-IDF."""
+    if mode == "tfidf":
+        # max_df 0.1-0.9 does not change much
+        vectorizer = TfidfVectorizer(lowercase=True,
+                                     ngram_range=(0, 1),
+                                     max_df=0.85,
+                                     min_df=2,
+                                     sublinear_tf=True,
+                                     norm='l2')
 
-    # max_df 0.1-0.9 does not change much
-    vectorizer = TfidfVectorizer(lowercase=True,
-                                 ngram_range=(0, 1),
-                                 max_df=0.85,
-                                 min_df=2,
-                                 sublinear_tf=True,
-                                 norm='l2')
+        # Precompute vocabulary using all sentences
+        all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in
+                         (sentence_a, sentence_b)]
+        vectorizer.fit(all_sentences)
 
-    # Precompute vocabulary using all sentences
-    all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in (sentence_a, sentence_b)]
-    vectorizer.fit(all_sentences)
+        similarities = []
+        for _, _, _, _, sentence1, sentence2 in data:
+            vectors = vectorizer.transform([sentence1, sentence2])
+            sim = cosine_similarity(vectors[0], vectors[1])[0][0]
+            similarities.append(sim)
 
-    similarities = []
-    for _, _, _, _, sentence1, sentence2 in data:
-        vectors = vectorizer.transform([sentence1, sentence2])
-        sim = cosine_similarity(vectors[0], vectors[1])[0][0]
-        similarities.append(sim)
+        return np.array(similarities)
 
-    return np.array(similarities)
+    else:
+        """Compute cosine similarity using Sentence-BERT embeddings."""
+        similarities = []
+        for _, _, _, _, sentence1, sentence2 in data:
+            embeddings = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
+            sim = util.pytorch_cos_sim(embeddings[0], embeddings[1]).item()
+            similarities.append(sim)
+        return np.array(similarities)
 
 
 def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50), verbose=False):
@@ -226,7 +236,6 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 
 def main():
-
     # Define which dataset you want to work with
     actual_working_dataset = 'train'
 
@@ -236,7 +245,7 @@ def main():
 
     # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
-    similarities = compute_sentence_similarity(data)
+    similarities = compute_sentence_similarity(data, mode="bert")
 
     # Evaluate model
     accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
