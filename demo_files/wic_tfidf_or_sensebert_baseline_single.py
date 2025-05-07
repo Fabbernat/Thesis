@@ -261,11 +261,11 @@ def main():
     similarities = compute_sentence_similarity(processed_data, mode="bert")
 
     # can be commented for faster run
-    # best_threshold = optimize_threshold(similarities, labels)
-    # print(f"Optimal threshold: {best_threshold:.3f}")
+    best_threshold = optimize_threshold(similarities, labels)
+    print(f"Optimal threshold: {best_threshold:.3f}")
 
     # Evaluate model
-    accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True)
+    accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True, threshold=best_threshold)
     print(f"Baseline accuracy: {accuracy:.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
 
