@@ -1,5 +1,6 @@
 # C:\PycharmProjects\Peternity\solution\evaluation.py
 from typing import List, Tuple
+
 import numpy as np
 
 from independent_scripts.tfidf.wic_tfidf_baseline_single import print_evaluation_details
@@ -29,7 +30,7 @@ def print_evaluation_results(
         similarities: np.ndarray,
         data: List[Tuple],
         metrics: EvaluationMetrics
-    ) -> None:
+) -> None:
     """Prints detailed evaluation results."""
     print("\nDetailed Error Analysis:")
     print_evaluation_details(predictions, labels, similarities, data,

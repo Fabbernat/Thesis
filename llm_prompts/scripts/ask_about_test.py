@@ -1,5 +1,6 @@
 # C:\PycharmProjects\Peternity\llm_prompts\scripts\ask_about_test.py
 from typing import Dict
+import os
 
 # Define which dataset you want to work with
 actual_working_dataset = 'test'
@@ -12,16 +13,20 @@ def print_prompt():
     explain = True
     with_reasoning = " with reasoning" if explain else ""
 
+    text_dir = os.path.join(os.path.dirname(__file__), '..', 'text')
+    os.makedirs(text_dir, exist_ok=True)
+
     print(f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!')
     print(*human_readable_questions_full.keys(), sep='\n')
+    return os.path.join(text_dir, f'_{actual_working_dataset}{"no_reasoning" if not explain else ""}_llm_question_prompt.txt')
 
-def write_prompt_to_file():
+def write_prompt_to_file(filepath):
     selected_questions = human_readable_questions_full
     explain = True
     with_reasoning = " with reasoning" if explain else ""
     prompt = f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!\n'
     prompt += '\n'.join(human_readable_questions_full.keys())
-    with open(f'../text/_{actual_working_dataset}{'no_reasoning' if with_reasoning is False else ''}_llm_question_prompt.txt', 'w', encoding='utf-8') as file:
+    with open(filepath, 'w', encoding='utf-8') as file:
         file.write(prompt)
 
 human_readable_questions_short: Dict[str, str] = {
@@ -1498,5 +1503,5 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "exchange" mean the same thing in sentences "Exchange employees between branches of the company." and "Exchange prisoners."?': 'Yes',
 }
 
-print_prompt()
-write_prompt_to_file()
+filepath = print_prompt()
+write_prompt_to_file(filepath)
