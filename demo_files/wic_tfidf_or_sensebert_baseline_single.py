@@ -138,38 +138,36 @@ def load_wic_data(data_path: object, gold_path: object) -> tuple[list[tuple[str,
     return data, gold
 
 
-def compute_sentence_similarity(data: object, mode="tfidf") -> Any:
-    """Computes cosine similarity between sentence pairs using TF-IDF."""
-    if mode == "tfidf":
-        # max_df 0.1-0.9 does not change much
-        vectorizer = TfidfVectorizer(lowercase=True,
-                                     ngram_range=(0, 1),
-                                     max_df=0.85,
-                                     min_df=2,
-                                     sublinear_tf=True,
-                                     norm='l2')
+def compute_sentence_similarity(data, mode="hybrid"):
+    """Hybrid approach combining TF-IDF and BERT"""
+    if mode == "hybrid":
+        # TF-IDF features
+        tfidf_vectorizer = TfidfVectorizer(
+            ngram_range=(1, 2),  # Include bigrams
+            max_features=10000,
+            sublinear_tf=True
+        )
 
-        # Precompute vocabulary using all sentences
-        all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in
-                         (sentence_a, sentence_b)]
-        vectorizer.fit(all_sentences)
+        # BERT features
+        all_sentences = [s for _, _, _, _, s1, s2 in data for s in (s1, s2)]
+        tfidf_vectorizer.fit(all_sentences)
 
         similarities = []
         for _, _, _, _, sentence1, sentence2 in data:
-            vectors = vectorizer.transform([sentence1, sentence2])
-            sim = cosine_similarity(vectors[0], vectors[1])[0][0]
-            similarities.append(sim)
+            # TF-IDF similarity
+            tfidf_vecs = tfidf_vectorizer.transform([sentence1, sentence2])
+            tfidf_sim = cosine_similarity(tfidf_vecs[0], tfidf_vecs[1])[0][0]
+
+            # BERT similarity
+            bert_embs = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
+            bert_sim = util.pytorch_cos_sim(bert_embs[0], bert_embs[1]).item()
+
+            # Weighted combination
+            similarities.append(0.4 * tfidf_sim + 0.6 * bert_sim)
 
         return np.array(similarities)
+    return None
 
-    else:
-        """Compute cosine similarity using Sentence-BERT embeddings."""
-        similarities = []
-        for _, _, _, _, sentence1, sentence2 in data:
-            embeddings = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
-            sim = util.pytorch_cos_sim(embeddings[0], embeddings[1]).item()
-            similarities.append(sim)
-        return np.array(similarities)
 
 def preprocess_sentences(data: list) -> list:
     """Expand sentences with WSD-based synonyms for the target word."""
