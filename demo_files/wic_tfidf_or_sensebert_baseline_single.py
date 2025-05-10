@@ -55,18 +55,17 @@ def get_disambiguated_synonyms(word: object, sentence: object) -> set[Any]:
 
 def optimize_threshold(similarities: object, labels: Sized) -> float:
     """Finds the best similarity threshold for classification."""
-    best_accuracy: int = 0
-    best_threshold: float = 0.0
+    from sklearn.metrics import precision_recall_curve
 
-    for threshold in np.arange(0.3, 0.6, 0.01):  # Kipróbál értékeket 0.3 és 0.6 között
-        predictions: Iterable[Any] = ['T' if sim > threshold else 'F' for sim in similarities]
-        accuracy: int | float = sum(pred == true_label for pred, true_label in zip(predictions, labels)) / len(labels)
+    precisions, recalls, thresholds = precision_recall_curve(
+        [1 if label == 'T' else 0 for label in labels],
+        similarities
+    )
 
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            best_threshold = threshold
-
-    return best_threshold
+    # Find threshold that maximizes F1 score
+    f1_scores = 2 * (precisions * recalls) / (precisions + recalls + 1e-8)
+    best_idx = np.argmax(f1_scores)
+    return thresholds[best_idx]
 
 
 def expand_sentence_with_wsd(sentence, target_word: object) -> LiteralString:
