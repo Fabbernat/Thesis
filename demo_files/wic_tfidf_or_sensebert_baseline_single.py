@@ -2,6 +2,7 @@
 
 import collections
 import os
+import time
 from typing import Any, LiteralString, Sized, Iterable
 
 import numpy as np
@@ -24,7 +25,7 @@ SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM
 
 
 def get_best_sense(word, sentence):
-    """Uses sentence embeddings to disambiguate word senses."""
+    """Uses sentence embeddings to disambiguate word senses using both definition and example sentences."""
     synsets: object = wn.synsets(word)
     if not synsets:
         return None
@@ -178,7 +179,7 @@ def preprocess_sentences(data: list) -> list:
     return processed_data
 
 
-def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50), verbose=False):
+def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50), verbose=False) -> tuple[float, int, list[Any]]:
     """Evaluates accuracy, adding a gray zone for uncertain cases."""
     predictions = []
     uncertain_cases = 0
@@ -218,7 +219,7 @@ def print_evaluation_details(predictions, labels, similarities, data, title, pre
             print("-" * 80)
 
 
-def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False):
+def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False) -> tuple[float, int, list[str]] | tuple[float, int]:
     """
             Evaluates accuracy based on similarity threshold.
             :param similarities:
@@ -245,29 +246,52 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 
 
 def main():
+    start_time = time.time()
+
+    # === CONFIGURATION SECTION ===
+
     # Define which dataset you want to work with
     actual_working_dataset = 'dev'
+    use_processed_data = True
+    use_bert = True
+    use_best_threshold = True
+    use_evaluate_with_uncertainty = False
+    verbose = True
+    # =============================
 
     # Paths to WiC dataset files
     data_file = os.path.normpath(BASE_PATH + rf'\{actual_working_dataset}\{actual_working_dataset}.data.txt')
     gold_file = os.path.normpath(BASE_PATH + rf'\{actual_working_dataset}\{actual_working_dataset}.gold.txt')
 
-    # Load data and compute similarities
+    # Load data and labels
     data, labels = load_wic_data(data_file, gold_file)
 
-    # can be commented for faster run, but no word synonym expansion
-    processed_data = preprocess_sentences(data)
+    # Optionally preprocess data
+    processed_data = preprocess_sentences(data) if use_processed_data else data
 
-    similarities = compute_sentence_similarity(processed_data, mode="bert")
+    # Compute similarities
+    mode = "bert" if use_bert else "tfidf"
+    similarities = compute_sentence_similarity(processed_data, mode=mode)
 
-    # can be commented for faster run
-    best_threshold = optimize_threshold(similarities, labels)
-    print(f"Optimal threshold: {best_threshold:.3f}")
+    # Threshold selection
+    best_threshold_value = optimize_threshold(similarities, labels)
+    threshold = best_threshold_value if use_best_threshold else 0.449
+    print(f"Using threshold: {threshold:.3f}")
 
     # Evaluate model
-    accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True, threshold=best_threshold)
+    eval_fn = evaluate_with_uncertainty if use_evaluate_with_uncertainty else evaluate
+    if use_evaluate_with_uncertainty:
+        accuracy, correct_answers_count, predictions = eval_fn(similarities, labels, data, verbose=verbose,
+                                                               threshold=threshold)
+    else:
+        accuracy, correct_answers_count = eval_fn(similarities, labels, data, verbose=verbose, threshold=threshold)
+
+
     print(f"Baseline accuracy: {accuracy:.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
+
+    runtime = time.time() - start_time
+    print(f"\nTotal runtime: {runtime:.2f} seconds")
 
 
 if __name__ == '__main__':
