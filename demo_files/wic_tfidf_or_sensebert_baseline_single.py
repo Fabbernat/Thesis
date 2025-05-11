@@ -30,15 +30,12 @@ def get_best_sense(word, sentence):
     if not synsets:
         return None
 
-    sentence_embedding = SENTENCE_EMBEDDING_MODEL.encode(sentence, convert_to_tensor=True)
+    sentence_embedding: Tensor = SENTENCE_EMBEDDING_MODEL.encode(sentence, convert_to_tensor=True)
+    best_sense = max(synsets, key=lambda sense:
+    util.pytorch_cos_sim(sentence_embedding,
+                         SENTENCE_EMBEDDING_MODEL.encode(sense.definition(), convert_to_tensor=True)).item())
 
-    def get_sense_score(sense):
-        # Combine definition and examples for better context
-        context = f"{sense.definition()} {' '.join(sense.examples())}"
-        sense_embedding = SENTENCE_EMBEDDING_MODEL.encode(context, convert_to_tensor=True)
-        return util.pytorch_cos_sim(sentence_embedding, sense_embedding).item()
-
-    return max(synsets, key=get_sense_score)
+    return best_sense
 
 
 def get_disambiguated_synonyms(word: object, sentence: object) -> set[Any]:
