@@ -34,6 +34,4 @@ with open(f'../data/txt/formatted_{actual_working_dataset}_dataset.txt', 'w', en
 print("Data formatting complete. Check 'formatted_data.txt'.")
 
 
-# Example
-print(wic_sentence_normalizer.make_sentence_human_readable(
-    "We had to swim for 20 minutes to reach the shore . A big fish was swimming in the tank . Do n't fire until you see the whites of their eyes . The gun fired ."))
+

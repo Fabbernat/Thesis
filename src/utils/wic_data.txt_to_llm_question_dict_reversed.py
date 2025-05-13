@@ -26,16 +26,12 @@ for line, label in zip(data_lines, gold_lines):
         answer = 'Yes' if label.strip() == 'T' else 'No'
 
         # Reverse the order by swapping sentence2 and sentence1
-        formatted = f"r'Does the word \"{word}\" mean the same thing in sentences \"{sentence2}\" and \"{sentence1}\"?': '{answer}',"
+        formatted = f"'Does the word \"{word}\" mean the same thing in sentences \"{sentence2}\" and \"{sentence1}\"?': '{answer}',"
         data.append(formatted)
 
 # Write the output to a new file
-with open(f'../data/txt/formatted_{actual_working_dataset}_dataset_reversed.txt', 'w', encoding='utf-8') as file:
+output_file_name = f'../data/txt/formatted_{actual_working_dataset}_dataset_reversed.txt'
+with open(output_file_name, 'w', encoding='utf-8') as file:
     file.write('\n'.join(data))
 
-print("Data formatting complete. Check 'formatted_data.txt'.")
-
-
-# Example
-print(wic_sentence_normalizer.make_sentence_human_readable(
-    "We had to swim for 20 minutes to reach the shore . A big fish was swimming in the tank . Do n't fire until you see the whites of their eyes . The gun fired ."))
+print(f"Data formatting complete. Check '{output_file_name}'.")
