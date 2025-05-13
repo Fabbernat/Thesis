@@ -36,6 +36,7 @@ def write_prompt_to_file():
 '''
 
 human_readable_questions_full: Dict[str, str] = {
+    # TODO C:\PycharmProjects\Peternity\src\data\txt\formatted_test_dataset_reversed.txt
     'Does the word "defeat" mean the same thing in sentences "The army \'s only defeat." and "It was a narrow defeat."?': 'Yes',
     'Does the word "groom" mean the same thing in sentences "Sheila groomed the horse." and "Groom the dogs."?': 'Yes',
     'Does the word "penetration" mean the same thing in sentences "Any penetration, however slight, is sufficient to complete the offense." and "The penetration of upper management by women."?': 'Yes',
