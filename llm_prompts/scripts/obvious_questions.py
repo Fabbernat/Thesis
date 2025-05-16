@@ -1,11 +1,11 @@
-# C:\PycharmProjects\Peternity\llm_prompts\scripts\obvious_questions.py
+# C:\PycharmProjects\Peternity\llm_prompts\scripts\easy_questions.py
 
 from typing import Dict
 
 # Sanity check: some intentionally simple questions with obvious answers.
-obvious_questions: Dict[str, str] = {
+easy_questions: Dict[str, str] = {
     'Does the word "dog" mean the same thing in sentences "The dog barked." and "The dog wagged its tail."?': 'Yes',
-'Does the word "cat" mean the same thing in sentences "The cat is sleeping." and "The cat chased the mouse."?': 'Yes',
+    'Does the word "cat" mean the same thing in sentences "The cat is sleeping." and "The cat chased the mouse."?': 'Yes',
     'Does the word "car" mean the same thing in sentences "I drove the car." and "The car is parked outside."?': 'Yes',
     'Does the word "chair" mean the same thing in sentences "He sat on the chair." and "She bought a new chair."?': 'Yes',
     'Does the word "book" mean the same thing in sentences "I read a book." and "She borrowed a book from the library."?': 'Yes',
@@ -26,5 +26,6 @@ obvious_questions: Dict[str, str] = {
 
 }
 
-with open('../text/obvious_questions.txt', 'w', encoding='utf-8') as file:
-    file.write("\n".join(obvious_questions.keys()))
+with open('../text/easy_questions.txt', 'w', encoding='utf-8') as file:
+    file.write("\n".join(easy_questions.keys()))
+    print('\n'.join(easy_questions.values()))

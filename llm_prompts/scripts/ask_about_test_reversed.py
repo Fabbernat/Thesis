@@ -1,9 +1,20 @@
 # C:\PycharmProjects\Peternity\llm_prompts\scripts\ask_about_test_reversed.py
+import ast
 from typing import Dict
+
+DATASET_PATH = r"C:\PycharmProjects\Peternity\src\data\txt\formatted_test_dataset_reversed.txt"
 
 # Define which dataset you want to work with
 actual_working_dataset = 'test'
 
+def load_questions_from_file(path: str) -> Dict[str, str]:
+    with open(path, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+
+    # Join the lines into a fake Python dict for safe evaluation
+    dict_text = "{\n" + "".join(lines) + "\n}"
+    # Use ast.literal_eval to safely parse the string into a Python dict
+    return ast.literal_eval(dict_text)
 
 def print_prompt():
     # `short` contains first 60 sentence pairs, `full` contains all of them.
@@ -36,7 +47,7 @@ def write_prompt_to_file():
 '''
 
 human_readable_questions_full: Dict[str, str] = {
-    # TODO C:\PycharmProjects\Peternity\src\data\txt\formatted_test_dataset_reversed.txt
+    # TODO write all from C:\PycharmProjects\Peternity\src\data\txt\formatted_test_dataset_reversed.txt escaping aphostrophes
     'Does the word "defeat" mean the same thing in sentences "The army \'s only defeat." and "It was a narrow defeat."?': 'Yes',
     'Does the word "groom" mean the same thing in sentences "Sheila groomed the horse." and "Groom the dogs."?': 'Yes',
     'Does the word "penetration" mean the same thing in sentences "Any penetration, however slight, is sufficient to complete the offense." and "The penetration of upper management by women."?': 'Yes',

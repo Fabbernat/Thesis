@@ -21,17 +21,18 @@ for line, label in zip(data_lines, gold_lines):
     parts = line.strip().split('\t')
     if len(parts) == 5:  # Ensure data integrity
         word, pos, freq, sentence1, sentence2 = parts
-        sentence1 = wic_sentence_normalizer.make_sentence_human_readable(sentence1)
-        sentence2 = wic_sentence_normalizer.make_sentence_human_readable(sentence2)
+        sentence1 = wic_sentence_normalizer.make_sentence_human_readable_old(sentence1)
+        sentence2 = wic_sentence_normalizer.make_sentence_human_readable_old(sentence2)
         answer = 'Yes' if label.strip() == 'T' else 'No'
         formatted = f"'Does the word \"{word}\" mean the same thing in sentences \"{sentence1}\" and \"{sentence2}\"?': '{answer}',"
         data.append(formatted)
 
 # Write the output to a new file
-with open(f'../data/txt/formatted_{actual_working_dataset}_dataset.txt', 'w', encoding='utf-8') as file:
+output_file_name = f'../data/txt/formatted_{actual_working_dataset}_dataset.txt'
+with open(output_file_name, 'w', encoding='utf-8') as file:
     file.write('\n'.join(data))
 
-print("Data formatting complete. Check 'formatted_data.txt'.")
+print(f"Data formatting complete. Check '{output_file_name}'.")
 
 
 

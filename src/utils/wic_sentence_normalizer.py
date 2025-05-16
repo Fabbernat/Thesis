@@ -8,11 +8,22 @@ def make_sentence_human_readable(sentence: str) -> str:
     - Escapes single quotes after specific characters.
     - Fixes spacing issues before punctuation marks.
     """
-    # Escape single quotes when needed, except after a period
-    sentence = re.sub(r"(?<!\.)'", r"\\'", sentence)
+    # Fix misplaced punctuation spacing
+    sentence = re.sub(r'\s([.,!?])', r'\1', sentence)
 
-    # Fix spacing before punctuation
-    sentence = sentence.replace(" ,", ",").replace(" .", ".")
+    # Rejoin common contractions using regex
+    contractions = [
+        (r"\b([A-Za-z]+) n't\b", r"\1n't"),
+        (r"\b([A-Za-z]+) 's\b", r"\1's"),
+        (r"\b([A-Za-z]+) 've\b", r"\1've"),
+        (r"\b([A-Za-z]+) 'll\b", r"\1'll"),
+        (r"\b([A-Za-z]+) 'd\b", r"\1'd"),
+        (r"\b([A-Za-z]+) 're\b", r"\1're"),
+        (r"\b([A-Za-z]+) 'm\b", r"\1'm"),
+    ]
+
+    for pattern, replacement in contractions:
+        sentence = re.sub(pattern, replacement, sentence)
 
     return sentence
 
@@ -22,13 +33,16 @@ def make_sentence_human_readable_old(sentence: str) -> str:
     """Replaces contractions for better readability both for humans and for chatbots."""
     sentence = sentence.replace(" 's", "\\'s")
     sentence = sentence.replace(" 't", "\\'t")
+    sentence = sentence.replace(" 'd", "\\'d")
+    sentence = sentence.replace(" 'm", "\\'m")
     sentence = sentence.replace(" 've", "\\'ve")
     sentence = sentence.replace(" 'll", "\\'ll")
-    sentence = sentence.replace(" 'd", "\\'d")
     sentence = sentence.replace(" 're", "\\'re")
-    sentence = sentence.replace(" 's", "\\'s")
+    sentence = sentence.replace(" n't", "n\\'t")
     sentence = sentence.replace(" ,", ",")
     sentence = sentence.replace(" .", ".")
+    sentence = sentence.replace(" ?", "?")
+    sentence = sentence.replace(" !", "!")
     # Uppercase
     sentence = sentence.replace("Do n't", "Don't")
     sentence = sentence.replace("Wo n't", "Won't")
