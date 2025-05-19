@@ -144,12 +144,13 @@ def compute_sentence_similarity(data, mode="hybrid"):
             sublinear_tf=True
         )
 
-        # BERT features
-        all_sentences = [s for _, _, _, _, s1, s2 in data for s in (s1, s2)]
+        # Process all sentences at once for better efficiency
+        sentence_pairs = [(s1, s2) for _, _, _, _, s1, s2 in data]
+        all_sentences = [s for pair in sentence_pairs for s in pair]
         tfidf_vectorizer.fit(all_sentences)
 
         similarities = []
-        for _, _, _, _, sentence1, sentence2 in data:
+        for sentence1, sentence2 in sentence_pairs:
             # TF-IDF similarity
             tfidf_vecs = tfidf_vectorizer.transform([sentence1, sentence2])
             tfidf_sim = cosine_similarity(tfidf_vecs[0], tfidf_vecs[1])[0][0]
@@ -162,6 +163,15 @@ def compute_sentence_similarity(data, mode="hybrid"):
             similarities.append(0.4 * tfidf_sim + 0.6 * bert_sim)
 
         return np.array(similarities)
+
+    elif mode == "bert":
+        similarities = []
+        for _, _, _, _, sentence1, sentence2 in data:
+            bert_embs = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
+            sim = util.pytorch_cos_sim(bert_embs[0], bert_embs[1]).item()
+            similarities.append(sim)
+        return np.array(similarities)
+
     return None
 
 
@@ -248,10 +258,10 @@ def main():
     # === CONFIGURATION SECTION ===
 
     # Define which dataset you want to work with
-    actual_working_dataset = 'dev'
+    actual_working_dataset = 'test'
     use_processed_data = True
     use_bert = True
-    use_best_threshold = True
+    use_best_threshold = False # This does not work yet, leave on False
     use_evaluate_with_uncertainty = False
     verbose = True
     # =============================

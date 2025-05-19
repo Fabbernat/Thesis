@@ -21,8 +21,8 @@ for line, label in zip(data_lines, gold_lines):
     parts = line.strip().split('\t')
     if len(parts) == 5:  # Ensure data integrity
         word, pos, freq, sentence1, sentence2 = parts
-        sentence1 = wic_sentence_normalizer.make_sentence_human_readable_old(sentence1)
-        sentence2 = wic_sentence_normalizer.make_sentence_human_readable_old(sentence2)
+        sentence1 = wic_sentence_normalizer.make_sentence_human_readable(sentence1)
+        sentence2 = wic_sentence_normalizer.make_sentence_human_readable(sentence2)
         answer = 'Yes' if label.strip() == 'T' else 'No'
 
         # Reverse the order by swapping sentence2 and sentence1
