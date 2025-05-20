@@ -2,7 +2,7 @@
 def load_wic_data(data_path: object, gold_path: object) -> tuple[list[tuple[str, str, int, int, str, str]], list[str]]:
     """
         Loads the WiC dataset and its gold into a structured format.
-        extracts index1 and index2 from the index field.
+        Extracts index1 and index2 from the index field.
      """
 
     data = []

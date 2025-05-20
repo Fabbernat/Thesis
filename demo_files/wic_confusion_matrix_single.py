@@ -1,18 +1,7 @@
 # C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py
-# 05.12
-'''
-C:\Users\Bernát\AppData\Local\Microsoft\WindowsApps\python3.13.exe C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py
-Traceback (most recent call last):
-  File "C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py", line 87, in <module>
-    main()
-    ~~~~^^
-  File "C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py", line 75, in main
-    assert len(test_y_true) == len(y_pred)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError
+# 05.20
 
-Process finished with exit code 1
-'''
+
 import os
 import matplotlib.pyplot as plt
 import numpy as np
