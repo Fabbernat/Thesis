@@ -1,0 +1,6 @@
+To search and replace llm_question.txt syntax errors, use the following regex:
+
+Find:
+' (\?<!:)
+Replace:
+\'

@@ -1,8 +1,10 @@
 # C:\PycharmProjects\Peternity\src\utils\wic_data.txt_to_llm_question_dict.py
 from src.utils import wic_sentence_normalizer
 
+
 # Define which dataset you want to work with
 actual_working_dataset = 'test'
+
 
 # Read the .txt files
 with open(f'../data/txt/{actual_working_dataset}.data.txt', 'r', encoding='utf-8') as data_file, \
@@ -28,12 +30,11 @@ for line, label in zip(data_lines, gold_lines):
         data.append(formatted)
 
 # Write the output to a new file
-with open(f'../data/txt/formatted_{actual_working_dataset}_dataset.txt', 'w', encoding='utf-8') as file:
+output_file_name = f'../data/txt/formatted_{actual_working_dataset}_dataset.txt'
+with open(output_file_name, 'w', encoding='utf-8') as file:
     file.write('\n'.join(data))
 
-print("Data formatting complete. Check 'formatted_data.txt'.")
+print(f"Data formatting complete. Check '{output_file_name}'.")
 
 
-# Example
-print(wic_sentence_normalizer.make_sentence_human_readable(
-    "We had to swim for 20 minutes to reach the shore . A big fish was swimming in the tank . Do n't fire until you see the whites of their eyes . The gun fired ."))
+

@@ -25,7 +25,7 @@ SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM
 
 
 def get_best_sense(word, sentence):
-    """Uses sentence embeddings to disambiguate word senses using both definition and example sentences."""
+    """Uses sentence embeddings to disambiguate word senses."""
     synsets: object = wn.synsets(word)
     if not synsets:
         return None
@@ -52,17 +52,18 @@ def get_disambiguated_synonyms(word: object, sentence: object) -> set[Any]:
 
 def optimize_threshold(similarities: object, labels: Sized) -> float:
     """Finds the best similarity threshold for classification."""
-    from sklearn.metrics import precision_recall_curve
+    best_accuracy: int = 0
+    best_threshold: float = 0.0
 
-    precisions, recalls, thresholds = precision_recall_curve(
-        [1 if label == 'T' else 0 for label in labels],
-        similarities
-    )
+    for threshold in np.arange(0.3, 0.6, 0.01):  # Kipróbál értékeket 0.3 és 0.6 között
+        predictions: Iterable[Any] = ['T' if sim > threshold else 'F' for sim in similarities]
+        accuracy: int | float = sum(pred == true_label for pred, true_label in zip(predictions, labels)) / len(labels)
 
-    # Find threshold that maximizes F1 score
-    f1_scores = 2 * (precisions * recalls) / (precisions + recalls + 1e-8)
-    best_idx = np.argmax(f1_scores)
-    return thresholds[best_idx]
+        if accuracy > best_accuracy:
+            best_accuracy = accuracy
+            best_threshold = threshold
+
+    return best_threshold
 
 
 def expand_sentence_with_wsd(sentence, target_word: object) -> LiteralString:
@@ -134,46 +135,38 @@ def load_wic_data(data_path: object, gold_path: object) -> tuple[list[tuple[str,
     return data, gold
 
 
-def compute_sentence_similarity(data, mode="hybrid"):
-    """Hybrid approach combining TF-IDF and BERT"""
-    if mode == "hybrid":
-        # TF-IDF features
-        tfidf_vectorizer = TfidfVectorizer(
-            ngram_range=(1, 2),  # Include bigrams
-            max_features=10000,
-            sublinear_tf=True
-        )
+def compute_sentence_similarity(data: object, mode="tfidf") -> Any:
+    """Computes cosine similarity between sentence pairs using TF-IDF."""
+    if mode == "tfidf":
+        # max_df 0.1-0.9 does not change much
+        vectorizer = TfidfVectorizer(lowercase=True,
+                                     ngram_range=(0, 1),
+                                     max_df=0.85,
+                                     min_df=2,
+                                     sublinear_tf=True,
+                                     norm='l2')
 
-        # Process all sentences at once for better efficiency
-        sentence_pairs = [(s1, s2) for _, _, _, _, s1, s2 in data]
-        all_sentences = [s for pair in sentence_pairs for s in pair]
-        tfidf_vectorizer.fit(all_sentences)
+        # Precompute vocabulary using all sentences
+        all_sentences = [sentence for _, _, _, _, sentence_a, sentence_b in data for sentence in
+                         (sentence_a, sentence_b)]
+        vectorizer.fit(all_sentences)
 
-        similarities = []
-        for sentence1, sentence2 in sentence_pairs:
-            # TF-IDF similarity
-            tfidf_vecs = tfidf_vectorizer.transform([sentence1, sentence2])
-            tfidf_sim = cosine_similarity(tfidf_vecs[0], tfidf_vecs[1])[0][0]
-
-            # BERT similarity
-            bert_embs = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
-            bert_sim = util.pytorch_cos_sim(bert_embs[0], bert_embs[1]).item()
-
-            # Weighted combination
-            similarities.append(0.4 * tfidf_sim + 0.6 * bert_sim)
-
-        return np.array(similarities)
-
-    elif mode == "bert":
         similarities = []
         for _, _, _, _, sentence1, sentence2 in data:
-            bert_embs = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
-            sim = util.pytorch_cos_sim(bert_embs[0], bert_embs[1]).item()
+            vectors = vectorizer.transform([sentence1, sentence2])
+            sim = cosine_similarity(vectors[0], vectors[1])[0][0]
             similarities.append(sim)
+
         return np.array(similarities)
 
-    return None
-
+    else:
+        """Compute cosine similarity using Sentence-BERT embeddings."""
+        similarities = []
+        for _, _, _, _, sentence1, sentence2 in data:
+            embeddings = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
+            sim = util.pytorch_cos_sim(embeddings[0], embeddings[1]).item()
+            similarities.append(sim)
+        return np.array(similarities)
 
 def preprocess_sentences(data: list) -> list:
     """Expand sentences with WSD-based synonyms for the target word."""
@@ -186,7 +179,7 @@ def preprocess_sentences(data: list) -> list:
     return processed_data
 
 
-def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50), verbose=False) -> tuple[float, int, list[Any]]:
+def evaluate_with_uncertainty(similarities, labels, data, threshold=0.449, gray_zone=(0.40, 0.50), verbose=False):
     """Evaluates accuracy, adding a gray zone for uncertain cases."""
     predictions = []
     uncertain_cases = 0
@@ -226,7 +219,7 @@ def print_evaluation_details(predictions, labels, similarities, data, title, pre
             print("-" * 80)
 
 
-def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False) -> tuple[float, int, list[str]] | tuple[float, int]:
+def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False):
     """
             Evaluates accuracy based on similarity threshold.
             :param similarities:
@@ -251,53 +244,49 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
         return accuracy, correct_predictions_count, predictions
     return accuracy, correct_predictions_count
 
+def jaccard_similarity(sentence1: str, sentence2: str) -> float:
+    words1 = set(sentence1.split())
+    words2 = set(sentence2.split())
+    return len(words1 & words2) / len(words1 | words2)
+
+def hybrid_similarity(data: list) -> np.ndarray:
+    """Combine SBERT and Jaccard similarities."""
+    sbert_sims = compute_sentence_similarity(data)
+    hybrid_sims = []
+    for i, (_, _, _, _, sent1, sent2) in enumerate(data):
+        jaccard = jaccard_similarity(sent1, sent2)
+        hybrid_sims.append(0.7 * sbert_sims[i] + 0.3 * jaccard)  # Weighted average
+    return np.array(hybrid_sims)
 
 def main():
     start_time = time.time()
 
-    # === CONFIGURATION SECTION ===
-
     # Define which dataset you want to work with
-    actual_working_dataset = 'test'
-    use_processed_data = True
-    use_bert = True
-    use_best_threshold = False # This does not work yet, leave on False
-    use_evaluate_with_uncertainty = False
-    verbose = True
-    # =============================
+    actual_working_dataset = 'dev'
 
     # Paths to WiC dataset files
     data_file = os.path.normpath(BASE_PATH + rf'\{actual_working_dataset}\{actual_working_dataset}.data.txt')
     gold_file = os.path.normpath(BASE_PATH + rf'\{actual_working_dataset}\{actual_working_dataset}.gold.txt')
 
-    # Load data and labels
+    # Load data and compute similarities
     data, labels = load_wic_data(data_file, gold_file)
 
-    # Optionally preprocess data
-    processed_data = preprocess_sentences(data) if use_processed_data else data
+    # can be commented for faster run, but no word synonym expansion
+    processed_data = preprocess_sentences(data)
 
-    # Compute similarities
-    mode = "bert" if use_bert else "tfidf"
-    similarities = compute_sentence_similarity(processed_data, mode=mode)
+    similarities = hybrid_similarity(processed_data)
 
-    # Threshold selection
-    best_threshold_value = optimize_threshold(similarities, labels)
-    threshold = best_threshold_value if use_best_threshold else 0.449
-    print(f"Using threshold: {threshold:.3f}")
+    # can be commented for faster run
+    best_threshold = optimize_threshold(similarities, labels)
+    print(f"Optimal threshold: {best_threshold:.3f}")
 
     # Evaluate model
-    eval_fn = evaluate_with_uncertainty if use_evaluate_with_uncertainty else evaluate
-    if use_evaluate_with_uncertainty:
-        accuracy, correct_answers_count, predictions = eval_fn(similarities, labels, data, verbose=verbose,
-                                                               threshold=threshold)
-    else:
-        accuracy, correct_answers_count = eval_fn(similarities, labels, data, verbose=verbose, threshold=threshold)
-
-
+    accuracy, correct_answers_count = evaluate(similarities, labels, data, verbose=True, threshold=best_threshold)
     print(f"Baseline accuracy: {accuracy:.3%}")
     print(f"{correct_answers_count} correct answer(s) out of {len(labels)} answers.")
 
-    runtime = time.time() - start_time
+    end_time = time.time()
+    runtime = end_time - start_time
     print(f"\nTotal runtime: {runtime:.2f} seconds")
 
 
