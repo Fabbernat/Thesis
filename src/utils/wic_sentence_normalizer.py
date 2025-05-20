@@ -71,6 +71,7 @@ def make_sentence_human_readable_new(sentence: str) -> str:
         r" 'll": "'ll",
         r" 're": "'re",
         r" n't": "n't",
+        r"o' ": "o'",
     }
 
     # Special cases for n't
