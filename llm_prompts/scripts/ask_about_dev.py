@@ -32,7 +32,6 @@ def write_prompt_to_file():
 '''
 
 human_readable_questions_short: Dict[str, str] = {
-# TODO C:\PycharmProjects\Peternity\src\data\txt\formatted ...
     'Does the word "board" mean the same thing in sentences "Room and board." and "He nailed boards across the windows."?': 'No',
     'Does the word "circulate" mean the same thing in sentences "Circulate a rumor." and "This letter is being circulated among the faculty."?': 'No',
     'Does the word "hook" mean the same thing in sentences "Hook a fish." and "He hooked a snake accidentally."?': 'Yes',

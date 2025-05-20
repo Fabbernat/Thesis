@@ -25,7 +25,7 @@ for line, label in zip(data_lines, gold_lines):
         sentence2 = wic_sentence_normalizer.make_sentence_human_readable(sentence2)
         answer = 'Yes' if label.strip() == 'T' else 'No'
 
-        # Reverse the order by swapping sentence2 and sentence1
+        # Reverses the order of the sentences by swapping sentence2 and sentence1
         formatted = f"'Does the word \"{word}\" mean the same thing in sentences \"{sentence2}\" and \"{sentence1}\"?': '{answer}',"
         data.append(formatted)
 

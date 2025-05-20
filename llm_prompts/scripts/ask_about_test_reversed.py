@@ -1,42 +1,45 @@
 # C:\PycharmProjects\Peternity\llm_prompts\scripts\ask_about_test_reversed.py
 import ast
+import os
 from typing import Dict
-
-DATASET_PATH = r"C:\PycharmProjects\Peternity\src\data\txt\formatted_test_dataset_reversed.txt"
+import re
 
 # Define which dataset you want to work with
 actual_working_dataset = 'test'
 
-def load_questions_from_file(path: str) -> Dict[str, str]:
-    with open(path, "r", encoding="utf-8") as file:
-        lines = file.readlines()
 
-    # Join the lines into a fake Python dict for safe evaluation
-    dict_text = "{\n" + "".join(lines) + "\n}"
-    # Use ast.literal_eval to safely parse the string into a Python dict
-    return ast.literal_eval(dict_text)
+def parse_loose_dict(text: str) -> dict:
+    pattern = r"'(.*?)'\s*:\s*'(.*?)'\s*,?"
+    return {key: value for key, value in re.findall(pattern, text)}
+
+
 
 def print_prompt():
     # `short` contains first 60 sentence pairs, `full` contains all of them.
-    selected_questions = human_readable_questions_full
+    with open(r"..\..\src\data\txt\formatted_test_dataset_reversed.txt", encoding="utf-8") as f:
+        file_content = f.read()
+        selected_questions = parse_loose_dict(file_content)
 
     # Set true if you want the model to reason their choice.
     explain = False
     with_reasoning = " with reasoning" if explain else ""
 
+    text_dir = os.path.join(os.path.dirname(__file__), '..', 'text')
+    os.makedirs(text_dir, exist_ok=True)
+
     print(f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!')
     print(*human_readable_questions_full.keys(), sep='\n')
+    return os.path.join(text_dir,
+                        f'_{actual_working_dataset}{"no_reasoning" if not explain else ""}_llm_question_prompt.txt')
 
 
-def write_prompt_to_file():
+def write_prompt_to_file(filepath):
     selected_questions = human_readable_questions_full
     explain = True
     with_reasoning = " with reasoning" if explain else ""
     prompt = f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!\n'
     prompt += '\n'.join(human_readable_questions_full.keys())
-    with open(
-            f'../text/_{actual_working_dataset}{'no_reasoning' if with_reasoning is False else ''}_llm_question_prompt_reversed.txt',
-            'w', encoding='utf-8') as file:
+    with open(filepath, 'w', encoding='utf-8') as file:
         file.write(prompt)
 
 
@@ -47,7 +50,6 @@ def write_prompt_to_file():
 '''
 
 human_readable_questions_full: Dict[str, str] = {
-    # TODO write all from C:\PycharmProjects\Peternity\src\data\txt\formatted_test_dataset_reversed.txt escaping aphostrophes
     'Does the word "defeat" mean the same thing in sentences "The army \'s only defeat." and "It was a narrow defeat."?': 'Yes',
     'Does the word "groom" mean the same thing in sentences "Sheila groomed the horse." and "Groom the dogs."?': 'Yes',
     'Does the word "penetration" mean the same thing in sentences "Any penetration, however slight, is sufficient to complete the offense." and "The penetration of upper management by women."?': 'Yes',
@@ -1450,5 +1452,5 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "exchange" mean the same thing in sentences "Exchange prisoners." and "Exchange employees between branches of the company."?': 'Yes',
 }
 
-print_prompt()
-write_prompt_to_file()
+filepath = print_prompt()
+write_prompt_to_file(filepath)

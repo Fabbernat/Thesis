@@ -1,8 +1,10 @@
 # C:\PycharmProjects\Peternity\src\utils\wic_data.txt_to_llm_question_dict.py
 from src.utils import wic_sentence_normalizer
 
+
 # Define which dataset you want to work with
 actual_working_dataset = 'test'
+
 
 # Read the .txt files
 with open(f'../data/txt/{actual_working_dataset}.data.txt', 'r', encoding='utf-8') as data_file, \

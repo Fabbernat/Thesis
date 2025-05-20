@@ -1,17 +1,27 @@
 # C:\PycharmProjects\Peternity\llm_prompts\scripts\ask_about_test.py
+import ast
 import os
 from typing import Dict
+import re
 
 # Define which dataset you want to work with
 actual_working_dataset = 'test'
 
 
+def parse_loose_dict(text: str) -> dict:
+    pattern = r"'(.*?)'\s*:\s*'(.*?)'\s*,?"
+    return {key: value for key, value in re.findall(pattern, text)}
+
+
+
 def print_prompt():
     # `short` contains first 60 sentence pairs, `full` contains all of them.
-    selected_questions = human_readable_questions_full
+    with open(r"..\..\src\data\txt\formatted_test_dataset.txt", encoding="utf-8") as f:
+        file_content = f.read()
+        selected_questions = parse_loose_dict(file_content)
 
     # Set true if you want the model to reason their choice.
-    explain = True
+    explain = False
     with_reasoning = " with reasoning" if explain else ""
 
     text_dir = os.path.join(os.path.dirname(__file__), '..', 'text')
@@ -34,7 +44,6 @@ def write_prompt_to_file(filepath):
 
 
 human_readable_questions_short: Dict[str, str] = {
-    # TODO C:\PycharmProjects\Peternity\src\data\txt\formatted_test_dataset_reversed.txt
     'Does the word "defeat" mean the same thing in sentences "It was a narrow defeat." and "The army \'s only defeat."?': 'Yes',
     'Does the word "groom" mean the same thing in sentences "Groom the dogs." and "Sheila groomed the horse."?': 'Yes',
     'Does the word "penetration" mean the same thing in sentences "The penetration of upper management by women." and "Any penetration, however slight, is sufficient to complete the offense."?': 'Yes',
