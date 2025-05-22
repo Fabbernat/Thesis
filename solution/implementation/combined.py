@@ -1,12 +1,15 @@
 # C:\PycharmProjects\Peternity\solution\combined.py
 import os
+from pathlib import Path
 from typing import List, Tuple
 from dataclasses import dataclass
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
-from src.PATH import BASE_PATH
-from independent_scripts.tfidf.wic_tfidf_baseline_single import load_wic_data, compute_sentence_similarity, print_evaluation_details
+from solution.results.wic_evaluation import print_evaluation_details
+from similarity import compute_sentence_similarity
+from config import load_wic_data
+
 
 
 @dataclass
@@ -93,12 +96,11 @@ def evaluate(
 
 def main():
     # Paths to WiC dataset files
-    base_path = BASE_PATH
-    data_file = os.path.join(base_path, "train/train.data.txt")
-    gold_file = os.path.join(base_path, "train/train.gold.txt")
+    data_path = os.path.join("../../WiC_dataset/train/train.data.txt")
+    gold_path = os.path.join("../../WiC_dataset/train/train.gold.txt")
 
     # Load data and compute similarities
-    data, labels = load_wic_data(data_file, gold_file)
+    data, labels = load_wic_data(Path(data_path), Path(gold_path))
     similarities = compute_sentence_similarity(data)
 
     # Evaluate model with all metrics
