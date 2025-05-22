@@ -8,7 +8,7 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
 from solution.implementation import similarity, combined, config
-from independent_scripts.y_true.y_true_train import y_true_train
+from independent_scripts.y_true.train_y_true import train_y_true
 
 
 def plot_confusion_matrix(tn, fp, fn, tp, style='seaborn'):
@@ -63,8 +63,8 @@ if __name__ == '__main__':
 
 
     # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
-    assert len(y_true_train) == EvaluationMetrics.total_predictions
-    cm = confusion_matrix(y_true_train, EvaluationMetrics.correct_predictions, labels=['T', 'F'])
+    assert len(train_y_true) == EvaluationMetrics.total_predictions
+    cm = confusion_matrix(train_y_true, EvaluationMetrics.correct_predictions, labels=['T', 'F'])
 
     # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
     tp, fp, fn, tn = cm.ravel()

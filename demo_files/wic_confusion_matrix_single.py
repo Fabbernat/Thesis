@@ -57,7 +57,7 @@ def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
 
 def main():
     # Define which dataset you want to work with
-    actual_working_dataset = 'dev'
+    actual_working_dataset = 'train'
 
     # Paths to WiC dataset files
     base_path = f"C:/WiC_dataset/{actual_working_dataset}"
@@ -74,7 +74,7 @@ def main():
     # Confusion matrix calculation
 
     # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
-    actual_y_true = y_true_dev.dev_y_true if actual_working_dataset == 'dev' else y_true_test.test_y_true if actual_working_dataset == 'test' else y_true_train.y_true_train
+    actual_y_true = y_true_dev.dev_y_true if actual_working_dataset == 'dev' else y_true_test.test_y_true if actual_working_dataset == 'test' else train_y_true.train_y_true
     assert len(actual_y_true) == len(y_pred)
     cm = confusion_matrix(actual_y_true, y_pred, labels=['T', 'F'])
 
