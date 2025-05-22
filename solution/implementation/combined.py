@@ -95,9 +95,12 @@ def evaluate(
 
 
 def main():
+    # Define which dataset you want to work with
+    actual_working_dataset = 'test'
+
     # Paths to WiC dataset files
-    data_path = os.path.join("../../WiC_dataset/train/train.data.txt")
-    gold_path = os.path.join("../../WiC_dataset/train/train.gold.txt")
+    data_path = os.path.join(f"../../WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.data.txt")
+    gold_path = os.path.join(f"../../WiC_dataset/{actual_working_dataset}/{actual_working_dataset}.gold.txt")
 
     # Load data and compute similarities
     data, labels = load_wic_data(Path(data_path), Path(gold_path))
