@@ -110,7 +110,7 @@ def main():
     print(make_sentence_human_readable(test_sentence))
 
     print("\nUsing OLD algorithm:")
-    print(make_sentence_human_readable(test_sentence, algorithm="old"))
+    print(make_sentence_human_readable(test_sentence, version="old"))
 
 
 if __name__ == '__main__':
