@@ -74,7 +74,7 @@ def main():
     # Confusion matrix calculation
 
     # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
-    actual_y_true = y_true_dev.dev_y_true if actual_working_dataset == 'dev' else y_true_test.test_y_true if actual_working_dataset == 'test' else train_y_true.train_y_true
+    actual_y_true = y_true_dev.dev_y_true if actual_working_dataset == 'dev' else y_true_test.test_y_true if actual_working_dataset == 'test' else y_true_train.train_y_true
     assert len(actual_y_true) == len(y_pred)
     cm = confusion_matrix(actual_y_true, y_pred, labels=['T', 'F'])
 
