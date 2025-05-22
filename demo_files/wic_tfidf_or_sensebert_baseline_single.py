@@ -258,7 +258,7 @@ def main():
     # === CONFIGURATION SECTION ===
 
     # Define which dataset you want to work with
-    actual_working_dataset = 'test'
+    actual_working_dataset = 'dev'
     use_processed_data = True
     use_bert = True
     use_best_threshold = False # This does not work yet, leave on False
