@@ -12,7 +12,7 @@ def main():
     data, labels = load_wic_data(config.data_file, config.gold_file)
     similarities = compute_sentence_similarity(data)
 
-    # Evaluate model with all metrics
+    # Evaluate the model with all metrics
     evaluate(
         similarities,
         labels,

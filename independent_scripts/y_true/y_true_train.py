@@ -1,4 +1,4 @@
-y_true_train = [
+train_y_true = [
 'F',
 'F',
 'F',

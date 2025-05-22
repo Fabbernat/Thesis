@@ -1,18 +1,7 @@
 # C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py
-# 05.12
-'''
-C:\Users\Bernát\AppData\Local\Microsoft\WindowsApps\python3.13.exe C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py
-Traceback (most recent call last):
-  File "C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py", line 87, in <module>
-    main()
-    ~~~~^^
-  File "C:\PycharmProjects\Peternity\demo_files\wic_confusion_matrix_single.py", line 75, in main
-    assert len(test_y_true) == len(y_pred)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError
+# 05.20
 
-Process finished with exit code 1
-'''
+
 import os
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,7 +10,7 @@ from sklearn.metrics import confusion_matrix
 
 from src.utils.wic_data_loader import load_wic_data
 from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity, evaluate
-from independent_scripts.y_true.y_true_test import test_y_true
+from independent_scripts.y_true import y_true_train, y_true_dev, y_true_test
 
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):
@@ -68,7 +57,7 @@ def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
 
 def main():
     # Define which dataset you want to work with
-    actual_working_dataset = 'dev'
+    actual_working_dataset = 'train'
 
     # Paths to WiC dataset files
     base_path = f"C:/WiC_dataset/{actual_working_dataset}"
@@ -85,8 +74,9 @@ def main():
     # Confusion matrix calculation
 
     # Ha az assert nem megfelelő, addig a confusion_matrix function sem fog lefutni
-    assert len(test_y_true) == len(y_pred)
-    cm = confusion_matrix(test_y_true, y_pred, labels=['T', 'F'])
+    actual_y_true = y_true_dev.dev_y_true if actual_working_dataset == 'dev' else y_true_test.test_y_true if actual_working_dataset == 'test' else y_true_train.train_y_true
+    assert len(actual_y_true) == len(y_pred)
+    cm = confusion_matrix(actual_y_true, y_pred, labels=['T', 'F'])
 
     # Takes the confusion matrix (cm), flattens it into a 1D array using .ravel(), and then unpacks its values into four variables
     tp, fp, fn, tn = cm.ravel()
