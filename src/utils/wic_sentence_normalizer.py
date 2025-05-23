@@ -105,10 +105,15 @@ def make_sentence_human_readable_new(sentence: str) -> str:
 
 
 def main():
-    test_sentence = r"My boss is out on another of his three martini lunches . Will you join us at six o'clock for martinis ? We 've been swimming for hours just to get to the other side . A big fish was swimming in the tank . Do n't fire until you see the whites of their eyes . The gun fired ."
+    test_sentence = (r"My boss is out on another of his three martini lunches ."
+                     r" Will you join us at six o'clock for martinis ? We 've been swimming for hours just to get to the other side ."
+                     r" A big fish was swimming in the tank . Do n't fire until you see the whites of their eyes . The gun fired .")
 
     print("Using NEW algorithm (default):")
-    print(make_sentence_human_readable(test_sentence)) # My boss is out on another of his three martini lunches.	Will you join us at six o\'clock for martinis?
+    print(make_sentence_human_readable(test_sentence))
+    # My boss is out on another of his three martini lunches. Will you join us at six o\'clock for martinis?
+    # We\'ve been swimming for hours just to get to the other side. A big fish was swimming in the tank.
+    # Don\'t fire until you see the whites of their eyes. The gun fired.
 
     print("\nUsing OLD algorithm:")
     print(make_sentence_human_readable(test_sentence, version="old")) # My boss is out on another of his three martini lunches.	Will you join us at six o\'clock for martinis?
