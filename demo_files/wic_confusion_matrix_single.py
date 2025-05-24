@@ -57,10 +57,10 @@ def seaborn_plot_confusion_matrix(tn, fp, fn, tp):
 
 def main():
     # Define which dataset you want to work with
-    actual_working_dataset = 'train'
+    actual_working_dataset = 'test'
 
     # Paths to WiC dataset files
-    base_path = f"C:/WiC_dataset/{actual_working_dataset}"
+    base_path = f"../WiC_dataset/{actual_working_dataset}"
     data_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.data.txt"))
     gold_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.gold.txt"))
 

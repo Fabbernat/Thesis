@@ -1,4 +1,4 @@
-# C:\PycharmProjects\Peternity\src\run_app.py
+# C:\PycharmProjects\Peternity\src\use_gpt-3.5-turbo_through_api_key.py
 import openai
 from openai import OpenAI
 

@@ -144,13 +144,12 @@ def compute_sentence_similarity(data, mode="hybrid"):
             sublinear_tf=True
         )
 
-        # Process all sentences at once for better efficiency
-        sentence_pairs = [(s1, s2) for _, _, _, _, s1, s2 in data]
-        all_sentences = [s for pair in sentence_pairs for s in pair]
+        # BERT features
+        all_sentences = [s for _, _, _, _, s1, s2 in data for s in (s1, s2)]
         tfidf_vectorizer.fit(all_sentences)
 
         similarities = []
-        for sentence1, sentence2 in sentence_pairs:
+        for _, _, _, _, sentence1, sentence2 in data:
             # TF-IDF similarity
             tfidf_vecs = tfidf_vectorizer.transform([sentence1, sentence2])
             tfidf_sim = cosine_similarity(tfidf_vecs[0], tfidf_vecs[1])[0][0]
@@ -163,15 +162,6 @@ def compute_sentence_similarity(data, mode="hybrid"):
             similarities.append(0.4 * tfidf_sim + 0.6 * bert_sim)
 
         return np.array(similarities)
-
-    elif mode == "bert":
-        similarities = []
-        for _, _, _, _, sentence1, sentence2 in data:
-            bert_embs = SENTENCE_EMBEDDING_MODEL.encode([sentence1, sentence2], convert_to_tensor=True)
-            sim = util.pytorch_cos_sim(bert_embs[0], bert_embs[1]).item()
-            similarities.append(sim)
-        return np.array(similarities)
-
     return None
 
 
@@ -237,9 +227,7 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
             :param verbose: If verbose=True, prints false positives, true negatives, and relevant sentences.
             :return:
         """
-    print("predicting...")
     predictions = ['T' if sim > threshold else 'F' for sim in similarities]
-    print("counting correct predictions...")
     correct_predictions_count = sum(pred == true_label for pred, true_label in zip(predictions, labels))
     accuracy = correct_predictions_count / len(labels)
 
@@ -263,7 +251,7 @@ def main():
     actual_working_dataset = 'train'
     use_processed_data = True
     use_bert = True
-    use_best_threshold = False # This does not work yet, leave on False
+    use_best_threshold = True
     use_evaluate_with_uncertainty = False
     verbose = True
     # =============================

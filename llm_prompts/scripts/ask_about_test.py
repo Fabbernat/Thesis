@@ -30,7 +30,7 @@ def print_prompt():
     print(f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!')
     print(*human_readable_questions_full.keys(), sep='\n')
     return os.path.join(text_dir,
-                        f'_{actual_working_dataset}{"no_reasoning" if not explain else ""}_llm_question_prompt.txt')
+                        f'_{actual_working_dataset}{"_no_reasoning" if not explain else ""}_llm_question_prompt.txt')
 
 
 def write_prompt_to_file(filepath):
