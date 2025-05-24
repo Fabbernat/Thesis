@@ -3,7 +3,7 @@
 import collections
 import os
 import time
-from typing import Any, LiteralString, Sized, Iterable
+from typing import Any, LiteralString, Sized
 
 import numpy as np
 from nltk.corpus import wordnet as wn
@@ -12,7 +12,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import Tensor
 
-from src.PATH import BASE_PATH
+from modules_and_data.modules.PATH import BASE_PATH
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk
@@ -228,7 +228,7 @@ def print_evaluation_details(predictions, labels, similarities, data, title, pre
 
 def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False) -> tuple[float, int, list[str]] | tuple[float, int]:
     """
-            Evaluates accuracy based on similarity threshold.
+            Evaluates accuracy based on `similarity threshold`.
             :param similarities:
             :param labels:
             :param data:

@@ -32,3 +32,8 @@ include a word used in the same supersense.
 ![image](https://github.com/user-attachments/assets/768bc99d-7a77-4ab5-877d-1e5578afb8f1)
 ![image](https://github.com/user-attachments/assets/d3221ae1-f9a1-4295-bfb5-8f6db278d777)
 ![image](https://github.com/user-attachments/assets/f99d52f4-4af6-4f3b-9571-0b4d8ba01170)
+
+
+- The Google Colab notebook running the models can be found [at this link](https://colab.research.google.com/drive/1yA8IAd5z2oreKUXha-16Du2YrNhemNiU?usp=sharing).
+- The evaluation system and function library can be downloaded from the [Fabbernat/Peternity](https://github.com/Fabbernat/Peternity) GitHub repository.
+- Testing and evaluation of language models can be viewed in the [Generative Language Models](https://docs.google.com/spreadsheets/d/1y49lg52LHVFmTom-0ibCqYqWA1pKKhiUny-Pf3KVTIg/edit?usp=sharing) spreadsheet.

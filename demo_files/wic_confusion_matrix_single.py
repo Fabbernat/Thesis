@@ -8,7 +8,7 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-from src.utils.wic_data_loader import load_wic_data
+from modules_and_data.modules.wic_data_loader import load_wic_data
 from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity, evaluate
 from independent_scripts.y_true import y_true_train, y_true_dev, y_true_test
 

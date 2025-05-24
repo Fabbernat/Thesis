@@ -1,0 +1,14 @@
+--------------------------------------------------------------------------------
+Baseline accuracy: 59.838%
+3248 correct answer(s) out of 5428 answers.
+
+Total runtime: 2141.42 seconds
+
+Process finished with exit code 0
+--------------------------------------------------------------------------------
+Baseline accuracy: 59.571%
+834 correct answer(s) out of 1400 answers.
+
+Total runtime: 477.93 seconds
+
+Process finished with exit code 0

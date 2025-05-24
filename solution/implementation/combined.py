@@ -62,7 +62,7 @@ def evaluate(
         verbose: bool = False
 ) -> EvaluationMetrics:
     """
-    Evaluates WiC classification performance based on similarity threshold.
+    Evaluates WiC classification performance based on `similarity threshold`.
 
     Args:
         similarities: Array of similarity scores between sentence pairs
