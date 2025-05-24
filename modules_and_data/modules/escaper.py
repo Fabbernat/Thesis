@@ -5,7 +5,7 @@ import re
 actual_working_dataset = 'test'
 
 # Correct the file path assignment (removed trailing comma)
-actual_file_name = f'formatted_{actual_working_dataset}_dataset.txt'
+actual_file_name = f'../data/txt/formatted_{actual_working_dataset}_dataset.txt'
 
 # Escape non-beginning and non-ending single quotes
 def escape_inner_quotes(text):

@@ -141,7 +141,7 @@ if __name__ == '__main__':
     actual_working_dataset = 'test'
     # Load dataset and gold labels
     try:
-        base_path = f"../WiC_dataset/{actual_working_dataset}"
+        base_path = f"../../WiC_dataset/{actual_working_dataset}"
         data_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.data.txt"))
         gold_file = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}.gold.txt"))
 

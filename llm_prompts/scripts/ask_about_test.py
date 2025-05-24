@@ -16,7 +16,7 @@ def parse_loose_dict(text: str) -> dict:
 
 def print_prompt():
     # `short` contains first 60 sentence pairs, `full` contains all of them.
-    with open(r"..\..\src\data\txt\formatted_test_dataset.txt", encoding="utf-8") as f:
+    with open("../../modules_and_data/data/txt/formatted_test_dataset.txt", encoding="utf-8") as f:
         file_content = f.read()
         selected_questions = parse_loose_dict(file_content)
 

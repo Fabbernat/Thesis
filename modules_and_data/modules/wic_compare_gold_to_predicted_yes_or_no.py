@@ -41,7 +41,7 @@ def get_results():
     print(data_path)
     print(gold_path)
 
-    data, gold = modules_and_data.utils.wic_data_loader.load_wic_data(data_path, gold_path)
+    data, gold = modules_and_data.modules.wic_data_loader.load_wic_data(data_path, gold_path)
 
     predicted_path = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}/{actual_working_dataset}.gold.txt"))
     with open(predicted_path, 'r', encoding='utf-8') as f:

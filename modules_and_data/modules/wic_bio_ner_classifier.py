@@ -1,4 +1,5 @@
 # C:\PycharmProjects\Peternity\modules_and_data\modules\wic_bio_ner_classifier.py
+# First you need to install SpaCy
 import spacy
 
 
