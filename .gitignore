@@ -11,3 +11,4 @@ build/
 /.idea/assetWizardSettings.xml
 __pycache__/
 .git/
+out/

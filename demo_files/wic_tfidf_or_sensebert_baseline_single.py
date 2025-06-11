@@ -26,7 +26,7 @@ SENTENCE_EMBEDDING_MODEL = SentenceTransformer('sentence-transformers/all-MiniLM
 
 def get_best_sense(word, sentence):
     """Uses sentence embeddings to disambiguate word senses using both definition and example sentences."""
-    synsets: object = wn.synsets(word)
+    synsets = wn.synsets(word)
     if not synsets:
         return None
 
@@ -44,7 +44,7 @@ def get_disambiguated_synonyms(word: object, sentence: object) -> set[Any]:
         Uses advanced Word Sense Disambiguation to get only relevant synonyms for a word in context.
         :rtype: object
     """
-    sense: object | None | Any = get_best_sense(word, sentence)
+    sense: Any = get_best_sense(word, sentence)
     if sense:
         return {lemma.name().replace("_", " ") for lemma in sense.lemmas()}  # Return synonyms for that sense only
     return set()
@@ -80,7 +80,7 @@ def expand_sentence_with_wsd(sentence, target_word: object) -> LiteralString:
     return " ".join(expanded_words)
 
 
-def load_wic_data(data_path: object, gold_path: object) -> tuple[list[tuple[str, str, int, int, str, str]], list[str]]:
+def load_wic_data(data_path, gold_path) -> tuple[list[tuple[str, str, int, int, str, str]], list[str]]:
     """
         Loads the WiC dataset and its gold into a structured format.
         extracts index1 and index2 from the index field.
