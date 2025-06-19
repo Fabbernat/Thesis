@@ -16,7 +16,7 @@ def parse_loose_dict(text: str) -> dict:
 
 def print_prompt():
     # `short` contains first 60 sentence pairs, `full` contains all of them.
-    with open(r"..\..\src\data\txt\formatted_test_dataset.txt", encoding="utf-8") as f:
+    with open("../../modules_and_data/data/txt/formatted_test_dataset.txt", encoding="utf-8") as f:
         file_content = f.read()
         selected_questions = parse_loose_dict(file_content)
 
@@ -30,7 +30,7 @@ def print_prompt():
     print(f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!')
     print(*human_readable_questions_full.keys(), sep='\n')
     return os.path.join(text_dir,
-                        f'_{actual_working_dataset}{"no_reasoning" if not explain else ""}_llm_question_prompt.txt')
+                        f'_{actual_working_dataset}{"_no_reasoning" if not explain else ""}_llm_question_prompt.txt')
 
 
 def write_prompt_to_file(filepath):

@@ -1,0 +1,43 @@
+main.py:
+--------------------------------------------------------------------------------
+Baseline accuracy: 59.838%
+3248 correct answer(s) out of 5428 answers.
+
+Total runtime: 2141.42 seconds
+
+Process finished with exit code 0
+--------------------------------------------------------------------------------
+Baseline accuracy: 59.571%
+834 correct answer(s) out of 1400 answers.
+
+Total runtime: 477.93 seconds
+
+Process finished with exit code 0
+--------------------------------------------------------------------------------
+Baseline accuracy: 60.972%
+389 correct answer(s) out of 638 answers.
+
+Total runtime: 209.28 seconds
+
+Process finished with exit code 0
+
+
+wic_tfidf_b_SINGLE:
+--------------------------------------------------------------------------------
+Index 5416: Similarity = 0.240
+Word: air
+Sentence A: He threw the ball into the air .
+Sentence B: A smell of chemicals in the air .
+--------------------------------------------------------------------------------
+Overall accuracy: 54.606%
+2964 correct answer(s) out of 5428 total answers.
+
+wic_tfidf_b_COMBINED:
+--------------------------------------------------------------------------------
+Index 5416: Similarity = 0.240
+Word: air
+Sentence A: He threw the ball into the air .
+Sentence B: A smell of chemicals in the air .
+--------------------------------------------------------------------------------
+Overall accuracy: 54.606%
+2964 correct answer(s) out of 7466 total answers.

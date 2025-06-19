@@ -31,7 +31,7 @@ def write_prompt_to_file():
 '''
 
 human_readable_questions_full: Dict[str, str] = {
-    # C:\PycharmProjects\Peternity\src\data\txt\formatted ...
+    # C:\PycharmProjects\Peternity\modules_and_data\data\txt\formatted ...
     'Does the word "carry" mean the same thing in sentences "You must carry your camping gear." and "Sound carries well over water."?': 'No',
     'Does the word "go" mean the same thing in sentences "Messages must go through diplomatic channels." and "Do you think the sofa will go through the door ?"?': 'No',
     'Does the word "break" mean the same thing in sentences "Break an alibi." and "The wholesaler broke the container loads into palettes and boxes for local retailers."?': 'No',

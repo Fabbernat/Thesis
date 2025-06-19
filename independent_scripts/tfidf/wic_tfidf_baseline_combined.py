@@ -192,7 +192,7 @@ def print_evaluation_details(predictions, labels, similarities, data, title, pre
 
 def evaluate(similarities, labels, data, threshold=0.449, return_predictions=False, verbose=False):
         """
-            Evaluates accuracy based on similarity threshold.
+            Evaluates accuracy based on `similarity threshold`.
             :param similarities:
             :param labels:
             :param data:
