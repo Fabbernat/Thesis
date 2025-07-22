@@ -16,7 +16,7 @@ def parse_loose_dict(text: str) -> dict:
 
 def print_prompt():
     # `short` contains first 60 sentence pairs, `full` contains all of them.
-    with open("../../modules_and_data/data/txt/formatted_test_dataset.txt", encoding="utf-8") as f:
+    with open("../../data/text_files/formatted_test_dataset.txt", encoding="utf-8") as f:
         file_content = f.read()
         selected_questions = parse_loose_dict(file_content)
 
@@ -30,7 +30,7 @@ def print_prompt():
     print(f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!')
     print(*human_readable_questions_full.keys(), sep='\n')
     return os.path.join(text_dir,
-                        f'_{actual_working_dataset}{"_no_reasoning" if not explain else ""}_llm_question_prompt.txt')
+                        f'_{actual_working_dataset}{"_no_reasoning" if not explain else ""}_llm_question_prompt.text_files')
 
 
 def write_prompt_to_file(filepath):
@@ -777,7 +777,7 @@ human_readable_questions_short: Dict[str, str] = {
     'Does the word "oxygenate" mean the same thing in sentences "Oxygenate blood." and "After we oxygenated the river, the fish returned."?': 'Yes',
     'Does the word "flame" mean the same thing in sentences "The sky seemed to flame in the Hawaiian sunset." and "The person who posted an inflammatory message got flamed."?': 'No',
     'Does the word "weather" mean the same thing in sentences "They were hoping for good weather." and "Wooden garden furniture must be well oiled as it is continuously exposed to weather."?': 'Yes',
-    'Does the word "extension" mean the same thing in sentences "Files with the.txt extension usually contain text." and "Most applications provide extensions for the files they create."?': 'Yes',
+    'Does the word "extension" mean the same thing in sentences "Files with the.text_files extension usually contain text." and "Most applications provide extensions for the files they create."?': 'Yes',
     'Does the word "balance" mean the same thing in sentences "To balance a set of books." and "This final payment, or credit, balances the account."?': 'Yes',
     'Does the word "cut" mean the same thing in sentences "He played the first cut on the cd." and "He insisted that we give him the last cut before every deal."?': 'No',
     'Does the word "disorder" mean the same thing in sentences "The class was thrown into disorder when the teacher left the room." and "The army tried to prevent disorder when claims the elections had been rigged grew stronger."?': 'Yes',
@@ -2186,7 +2186,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "oxygenate" mean the same thing in sentences "Oxygenate blood." and "After we oxygenated the river, the fish returned."?': 'Yes',
     'Does the word "flame" mean the same thing in sentences "The sky seemed to flame in the Hawaiian sunset." and "The person who posted an inflammatory message got flamed."?': 'No',
     'Does the word "weather" mean the same thing in sentences "They were hoping for good weather." and "Wooden garden furniture must be well oiled as it is continuously exposed to weather."?': 'Yes',
-    'Does the word "extension" mean the same thing in sentences "Files with the.txt extension usually contain text." and "Most applications provide extensions for the files they create."?': 'Yes',
+    'Does the word "extension" mean the same thing in sentences "Files with the.text_files extension usually contain text." and "Most applications provide extensions for the files they create."?': 'Yes',
     'Does the word "balance" mean the same thing in sentences "To balance a set of books." and "This final payment, or credit, balances the account."?': 'Yes',
     'Does the word "cut" mean the same thing in sentences "He played the first cut on the cd." and "He insisted that we give him the last cut before every deal."?': 'No',
     'Does the word "disorder" mean the same thing in sentences "The class was thrown into disorder when the teacher left the room." and "The army tried to prevent disorder when claims the elections had been rigged grew stronger."?': 'Yes',

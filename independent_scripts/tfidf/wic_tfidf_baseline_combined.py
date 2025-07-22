@@ -110,14 +110,14 @@ def load_wic_data(data_path, gold_path):
 
             # Expand sentences with synonyms
             # sentence_a = NltkHandler.expand_with_synonyms(sentence_a)
-            # sentence_b = NltkHandler.expand_with_synonyms(sentence_b)
+            # sentenceB = NltkHandler.expand_with_synonyms(sentenceB)
 
             # Highlight target word for better feature extraction
             # sentence_a = sentence_a.replace(word, word + " " + word)
-            # sentence_b = sentence_b.replace(word, word + " " + word)
+            # sentenceB = sentenceB.replace(word, word + " " + word)
 
             # sentence_a = expand_sentence_with_wsd(sentence_a, word)
-            # sentence_b = expand_sentence_with_wsd(sentence_b, word)
+            # sentenceB = expand_sentence_with_wsd(sentenceB, word)
 
 
             gold.append(label.strip())
@@ -217,9 +217,9 @@ def evaluate(similarities, labels, data, threshold=0.449, return_predictions=Fal
 def main():
     # Paths to all 6 WiC dataset files
     data_paths = {
-        "dev": ("C:/WiC_dataset/dev/dev.data.txt", "C:/WiC_dataset/dev/dev.gold.txt"),
-        "test": ("C:/WiC_dataset/test/test.data.txt", "C:/WiC_dataset/test/test.gold.txt"),
-        "train": ("C:/WiC_dataset/train/train.data.txt", "C:/WiC_dataset/train/train.gold.txt"),
+        "dev": ("C:/WiC_dataset/dev/dev.data.text_files", "C:/WiC_dataset/dev/dev.gold.text_files"),
+        "test": ("C:/WiC_dataset/test/test.data.text_files", "C:/WiC_dataset/test/test.gold.text_files"),
+        "train": ("C:/WiC_dataset/train/train.data.text_files", "C:/WiC_dataset/train/train.gold.text_files"),
     }
 
     all_data = []

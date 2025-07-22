@@ -21,7 +21,7 @@ def write_prompt_to_file():
     with_reasoning = " with reasoning" if explain else ""
     prompt = f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!\n'
     prompt += '\n'.join(human_readable_questions_full.keys())
-    with open(f'../text/_{actual_working_dataset}{'no_reasoning' if with_reasoning is False else ''}_llm_question_prompt.txt', 'w', encoding='utf-8') as file:
+    with open(f'../text/_{actual_working_dataset}{'no_reasoning' if with_reasoning is False else ''}_llm_question_prompt.text_files', 'w', encoding='utf-8') as file:
         file.write(prompt)
 
 ''' SAMPLE
@@ -31,7 +31,7 @@ def write_prompt_to_file():
 '''
 
 human_readable_questions_full: Dict[str, str] = {
-    # C:\PycharmProjects\Peternity\modules_and_data\data\txt\formatted ...
+    # C:\PycharmProjects\Peternity\modules_and_data\data\text_files\formatted ...
     'Does the word "carry" mean the same thing in sentences "You must carry your camping gear." and "Sound carries well over water."?': 'No',
     'Does the word "go" mean the same thing in sentences "Messages must go through diplomatic channels." and "Do you think the sofa will go through the door ?"?': 'No',
     'Does the word "break" mean the same thing in sentences "Break an alibi." and "The wholesaler broke the container loads into palettes and boxes for local retailers."?': 'No',
@@ -94,7 +94,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "furniture" mean the same thing in sentences "The woman does not even have one stick of furniture moved in yet." and "There was only one piece of furniture in the room."?': 'Yes',
     'Does the word "give" mean the same thing in sentences "Give a yelp." and "This student gives promise of real creativity."?': 'No',
     'Does the word "cut" mean the same thing in sentences "Cut a movie scene." and "Cut a Ping-Pong ball."?': 'No',
-    'Does the word "extension" mean the same thing in sentences "Most BASIC files use the filename extension.BAS." and "A text file will have a file extension of.txt."?': 'Yes',
+    'Does the word "extension" mean the same thing in sentences "Most BASIC files use the filename extension.BAS." and "A text file will have a file extension of.text_files."?': 'Yes',
     'Does the word "seat" mean the same thing in sentences "He was elected to a seat in the Senate." and "He dusted off the seat before sitting down."?': 'No',
     'Does the word "make" mean the same thing in sentences "Make enemies." and "What do you make of his remarks ?"?': 'No',
     'Does the word "make" mean the same thing in sentences "We should make Cincinnati by 7 tonight." and "Make the bed."?': 'No',
@@ -4889,7 +4889,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "match" mean the same thing in sentences "These two copies are supposed to be identical, but they do n\'t match." and "Match my sweater."?': 'No',
     'Does the word "floor" mean the same thing in sentences "The floor of a cave served the refugees as a home." and "Many sunken ships rest on the ocean floor."?': 'Yes',
     'Does the word "sell" mean the same thing in sentences "The French try to sell us their image as great lovers." and "The brothers sell shoes."?': 'No',
-    'Does the word "extension" mean the same thing in sentences "The extension of ` satellite of Mars \' is the set containing only Demos and Phobos." and "A text file will have a file extension of.txt."?': 'No',
+    'Does the word "extension" mean the same thing in sentences "The extension of ` satellite of Mars \' is the set containing only Demos and Phobos." and "A text file will have a file extension of.text_files."?': 'No',
     'Does the word "have" mean the same thing in sentences "I do n\'t have any money left." and "What do we have here ?"?': 'No',
     'Does the word "business" mean the same thing in sentences "He bought his brother\'s business." and "Business has been slow lately."?': 'No',
     'Does the word "leak" mean the same thing in sentences "A leak in a gas pipe." and "He had to clean up the leak."?': 'Yes',

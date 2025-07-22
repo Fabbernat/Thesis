@@ -5,7 +5,7 @@ import math
 import numpy as np
 from multiprocessing import Pool, cpu_count
 
-from modules_and_data.modules import wic_word_sense_disambiguator
+from modules import wic_word_sense_disambiguator
 
 """
 All of these algorithms have been taken from the paper:
@@ -261,7 +261,7 @@ class BM25T(BM25):
 
 #teszt
 def main():
-    base_dir = r'../../WiC_dataset'
+    base_dir = r'../WiC_dataset'
 
     wic_data = wic_word_sense_disambiguator.load_wic_data(base_dir)
     questions = {}

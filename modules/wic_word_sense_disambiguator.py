@@ -5,8 +5,8 @@ import os
 import re
 from typing import Set, Optional, Dict, List
 
-from modules_and_data.modules import wic_nltk_handler, wic_result_printer
-from modules_and_data.modules.PATH import BASE_PATH
+from modules import wic_result_printer, wic_nltk_handler
+from modules.PATH import BASE_PATH
 
 
 def build_sentence_simple(word: str, sentence_a: str, sentence_b: str) -> str:
@@ -72,7 +72,7 @@ def process_question(question: str, synonyms: Optional[Set[str]]) -> str:
 '''
 word = "run"
 sentence_a = "I went for a run in the park."
-sentence_b = "The play had a long run on Broadway."
+sentenceB = "The play had a long run on Broadway."
 context_a = {"for", "a", "in", "the"}
 context_b = {"a", "long", "on", "Broadway"}
 similarity = len(context_a & context_b) / (len(context_a | context_b) + 1e-5)
@@ -112,7 +112,7 @@ def read_wic_dataset(base_path: str, file_specific_path: str):
                 "pos": pos,
                 "index": index,
                 "sentence_a": sentence_a,
-                "sentence_b": sentence_b
+                "sentenceB": sentence_b
             })
     return entries
 
@@ -133,12 +133,12 @@ def process_wic_data(wic_data: Dict[str, List[Dict[str, str]]]) -> dict[str, dic
             for row in wic_data[split]:
                 word = row['word']
                 sentence_a = row['sentence_a']
-                sentence_b = row['sentence_b']
+                sentence_b = row['sentenceB']
                 label = row['label']
 
                 split_data['word'] = word
                 split_data['sentence_a'] = sentence_a
-                split_data['sentence_b'] = sentence_b
+                split_data['sentenceB'] = sentence_b
                 split_data['label'] = label
 
             print('BEGIN\n\n', split, '\n\nEND')
@@ -246,7 +246,7 @@ def main():
         #     assert isinstance(entry, tuple) and len(entry) == 4
         word = row.get('word')
         sentence_a = row.get('sentence_a')
-        sentence_b = row.get('sentence_b')
+        sentence_b = row.get('sentenceB')
         label = row.get('label')
         built_sentence = build_sentence_simple(word, sentence_a, sentence_b)
         questions[built_sentence] = 'YES' if label == 'T' else 'NO'
@@ -259,15 +259,15 @@ if __name__ == '__main__':
 
     '''
     outputs:
-    {'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}, 'dev': {'word': 'pierce', 'sentence_a': 'To pierce a mystery .', 'sentence_b': 'The path pierced the jungle .', 'label': 'F'}, 'test': {'word': 'exchange', 'sentence_a': 'Exchange employees between branches of the company .', 'sentence_b': 'Exchange prisoners .', 'label': 'T'}}
-    {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentence_b': 'An invasion of mobile phones .', 'label': 'T'}
+    {'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentenceB': 'An invasion of mobile phones .', 'label': 'T'}, 'dev': {'word': 'pierce', 'sentence_a': 'To pierce a mystery .', 'sentenceB': 'The path pierced the jungle .', 'label': 'F'}, 'test': {'word': 'exchange', 'sentence_a': 'Exchange employees between branches of the company .', 'sentenceB': 'Exchange prisoners .', 'label': 'T'}}
+    {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentenceB': 'An invasion of mobile phones .', 'label': 'T'}
     Sentence: "Does the word "invasion" mean the same thing in sentences "An invasion of bees." and "An invasion of mobile phones."?"
     model answer: YES
     actual answer: YES
     Did the model predict correctly? YES
     accuracy = 1.0
     1 correct answer(s) out of 1 answers.
-    {'word': 'pierce', 'sentence_a': 'To pierce a mystery .', 'sentence_b': 'The path pierced the jungle .', 'label': 'F'}
+    {'word': 'pierce', 'sentence_a': 'To pierce a mystery .', 'sentenceB': 'The path pierced the jungle .', 'label': 'F'}
     Sentence: "Does the word "invasion" mean the same thing in sentences "An invasion of bees." and "An invasion of mobile phones."?"
     model answer: YES
     actual answer: YES
@@ -278,7 +278,7 @@ if __name__ == '__main__':
     Did the model predict correctly? NO
     accuracy = 0.5
     1 correct answer(s) out of 2 answers.
-    {'word': 'exchange', 'sentence_a': 'Exchange employees between branches of the company .', 'sentence_b': 'Exchange prisoners .', 'label': 'T'}
+    {'word': 'exchange', 'sentence_a': 'Exchange employees between branches of the company .', 'sentenceB': 'Exchange prisoners .', 'label': 'T'}
     Sentence: "Does the word "invasion" mean the same thing in sentences "An invasion of bees." and "An invasion of mobile phones."?"
     model answer: YES
     actual answer: YES

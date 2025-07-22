@@ -23,7 +23,7 @@ def write_prompt_to_file():
     with_reasoning = " with reasoning" if explain else ""
     prompt = f'Answer all {len(selected_questions)} questions with Yes or No{with_reasoning}!\n'
     prompt += '\n'.join(human_readable_questions_full.keys())
-    with open(f'../text/_{actual_working_dataset}{'no_reasoning' if with_reasoning is False else ''}_llm_question_prompt_reversed.txt', 'w', encoding='utf-8') as file:
+    with open(f'../text/_{actual_working_dataset}{'no_reasoning' if with_reasoning is False else ''}_llm_question_prompt_reversed.text_files', 'w', encoding='utf-8') as file:
         file.write(prompt)
 
 
@@ -34,7 +34,7 @@ def write_prompt_to_file():
 '''
 
 human_readable_questions_full: Dict[str, str] = {
-    # C:\PycharmProjects\Peternity\modules_and_data\data\txt\formatted ...
+    # C:\PycharmProjects\Peternity\modules_and_data\data\text_files\formatted ...
     'Does the word "carry" mean the same thing in sentences "Sound carries well over water." and "You must carry your camping gear."?': 'No',
     'Does the word "go" mean the same thing in sentences "Do you think the sofa will go through the door ?" and "Messages must go through diplomatic channels."?': 'No',
     'Does the word "break" mean the same thing in sentences "The wholesaler broke the container loads into palettes and boxes for local retailers." and "Break an alibi."?': 'No',
@@ -97,7 +97,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "furniture" mean the same thing in sentences "There was only one piece of furniture in the room." and "The woman does not even have one stick of furniture moved in yet."?': 'Yes',
     'Does the word "give" mean the same thing in sentences "This student gives promise of real creativity." and "Give a yelp."?': 'No',
     'Does the word "cut" mean the same thing in sentences "Cut a Ping-Pong ball." and "Cut a movie scene."?': 'No',
-    'Does the word "extension" mean the same thing in sentences "A text file will have a file extension of.txt." and "Most BASIC files use the filename extension.BAS."?': 'Yes',
+    'Does the word "extension" mean the same thing in sentences "A text file will have a file extension of.text_files." and "Most BASIC files use the filename extension.BAS."?': 'Yes',
     'Does the word "seat" mean the same thing in sentences "He dusted off the seat before sitting down." and "He was elected to a seat in the Senate."?': 'No',
     'Does the word "make" mean the same thing in sentences "What do you make of his remarks ?" and "Make enemies."?': 'No',
     'Does the word "make" mean the same thing in sentences "Make the bed." and "We should make Cincinnati by 7 tonight."?': 'No',
@@ -4892,7 +4892,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "match" mean the same thing in sentences "Match my sweater." and "These two copies are supposed to be identical, but they do n\'t match."?': 'No',
     'Does the word "floor" mean the same thing in sentences "Many sunken ships rest on the ocean floor." and "The floor of a cave served the refugees as a home."?': 'Yes',
     'Does the word "sell" mean the same thing in sentences "The brothers sell shoes." and "The French try to sell us their image as great lovers."?': 'No',
-    'Does the word "extension" mean the same thing in sentences "A text file will have a file extension of.txt." and "The extension of ` satellite of Mars \' is the set containing only Demos and Phobos."?': 'No',
+    'Does the word "extension" mean the same thing in sentences "A text file will have a file extension of.text_files." and "The extension of ` satellite of Mars \' is the set containing only Demos and Phobos."?': 'No',
     'Does the word "have" mean the same thing in sentences "What do we have here ?" and "I do n\'t have any money left."?': 'No',
     'Does the word "business" mean the same thing in sentences "Business has been slow lately." and "He bought his brother\'s business."?': 'No',
     'Does the word "leak" mean the same thing in sentences "He had to clean up the leak." and "A leak in a gas pipe."?': 'Yes',

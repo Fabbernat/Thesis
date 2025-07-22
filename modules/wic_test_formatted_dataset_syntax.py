@@ -733,7 +733,7 @@ r'Does the word "balance" mean the same thing in sentences "Balance the two weig
 r'Does the word "oxygenate" mean the same thing in sentences "Oxygenate blood." and "After we oxygenated the river, the fish returned."?': 'Yes',
 r'Does the word "flame" mean the same thing in sentences "The sky seemed to flame in the Hawaiian sunset." and "The person who posted an inflammatory message got flamed."?': 'No',
 r'Does the word "weather" mean the same thing in sentences "They were hoping for good weather." and "Wooden garden furniture must be well oiled as it is continuously exposed to weather."?': 'Yes',
-r'Does the word "extension" mean the same thing in sentences "Files with the.txt extension usually contain text." and "Most applications provide extensions for the files they create."?': 'Yes',
+r'Does the word "extension" mean the same thing in sentences "Files with the.text_files extension usually contain text." and "Most applications provide extensions for the files they create."?': 'Yes',
 r'Does the word "balance" mean the same thing in sentences "To balance a set of books." and "This final payment, or credit, balances the account."?': 'Yes',
 r'Does the word "cut" mean the same thing in sentences "He played the first cut on the cd." and "He insisted that we give him the last cut before every deal."?': 'No',
 r'Does the word "disorder" mean the same thing in sentences "The class was thrown into disorder when the teacher left the room." and "The army tried to prevent disorder when claims the elections had been rigged grew stronger."?': 'Yes',

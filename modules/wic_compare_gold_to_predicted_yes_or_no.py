@@ -1,7 +1,7 @@
 # C:\PycharmProjects\Peternity\modules_and_data\modules\wic_compare_gold_to_predicted_yes_or_no.py
 import os
 
-import modules_and_data.modules.wic_data_loader
+import modules.wic_data_loader
 
 # Define which dataset you want to work with
 actual_working_dataset = 'test'
@@ -32,18 +32,18 @@ def wic_compare_gold_to_predicted_yes_or_no(gold_list, predicted_list):
     return tp, fp, fn, tn
 
 def get_results():
-    # TODO replace with data from {actual_working_file}.gold.txt and the {actual_model}_output.txt
+    # TODO replace with data from {actual_working_file}.gold.text_files and the {actual_model}_output.text_files
 
-    base_path = '../../WiC_dataset/'
-    data_path = os.path.normpath(os.path.join(base_path, "test/test.data.txt"))
-    gold_path = os.path.normpath(os.path.join(base_path, "test/test.gold.txt"))
+    base_path = '../WiC_dataset/'
+    data_path = os.path.normpath(os.path.join(base_path, "test/test.data.text_files"))
+    gold_path = os.path.normpath(os.path.join(base_path, "test/test.gold.text_files"))
 
     print(data_path)
     print(gold_path)
 
-    data, gold = modules_and_data.modules.wic_data_loader.load_wic_data(data_path, gold_path)
+    data, gold = modules.wic_data_loader.load_wic_data(data_path, gold_path)
 
-    predicted_path = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}/{actual_working_dataset}.gold.txt"))
+    predicted_path = os.path.normpath(os.path.join(base_path, f"{actual_working_dataset}/{actual_working_dataset}.gold.text_files"))
     with open(predicted_path, 'r', encoding='utf-8') as f:
         predicted = [line.strip() for line in f.readlines()]
 

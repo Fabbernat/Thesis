@@ -10,7 +10,7 @@ def compute_sentence_similarity(data: List[Tuple]) -> np.ndarray:
     Computes cosine similarity between sentence pairs using TF-IDF.
 
     Args:
-        data: List of tuples containing (word, pos, index1, index2, sentence_a, sentence_b)
+        data: List of tuples containing (word, pos, index1, index2, sentence_a, sentenceB)
 
     Returns:
         Array of similarity scores

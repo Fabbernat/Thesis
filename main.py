@@ -115,17 +115,17 @@ def load_wic_data(data_path: object, gold_path: object) -> tuple[list[tuple[str,
 
             # Expand sentences with synonyms
             # sentence_a = NltkHandler.expand_with_synonyms(sentence_a)
-            # sentence_b = NltkHandler.expand_with_synonyms(sentence_b)
+            # sentenceB = NltkHandler.expand_with_synonyms(sentenceB)
 
             # Highlight target word for better feature extraction
             # sentence_a = sentence_a.replace(word, word + " " + word)
-            # sentence_b = sentence_b.replace(word, word + " " + word)
+            # sentenceB = sentenceB.replace(word, word + " " + word)
 
             # sentence_a = expand_sentence_with_wsd(sentence_a, word)
-            # sentence_b = expand_sentence_with_wsd(sentence_b, word)
+            # sentenceB = expand_sentence_with_wsd(sentenceB, word)
 
             # sentence_a = normalize_sentence(sentence_a)
-            # sentence_b = normalize_sentence(sentence_b)
+            # sentenceB = normalize_sentence(sentenceB)
 
             gold.append(label.strip())
             data.append((word, pos, index1, index2, sentence_a, sentence_b))

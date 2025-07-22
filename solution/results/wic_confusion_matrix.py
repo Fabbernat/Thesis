@@ -52,8 +52,8 @@ def plot_confusion_matrix(tn, fp, fn, tp, style='seaborn'):
 if __name__ == '__main__':
     # Paths to WiC dataset files
     base_path = "C:/WiC_dataset/train"
-    data_file = os.path.normpath(os.path.join(base_path, "train.data.txt"))
-    gold_file = os.path.normpath(os.path.join(base_path, "train.gold.txt"))
+    data_file = os.path.normpath(os.path.join(base_path, "train.data.text_files"))
+    gold_file = os.path.normpath(os.path.join(base_path, "train.gold.text_files"))
 
     # Load data and compute similarities
     data, labels = config.load_wic_data(Path(data_file), Path(gold_file))

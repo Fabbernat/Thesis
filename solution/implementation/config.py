@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from modules_and_data.modules.PATH import BASE_PATH
+from modules import BASE_PATH
 
 # Define which dataset you want to work with
 actual_working_dataset = 'train'
@@ -33,7 +33,7 @@ def load_wic_data(data_path: Path, gold_path: Path) -> Tuple[List[Tuple], List[s
 
     Returns:
         Tuple of (data, labels) where data is a list of tuples containing
-        (word, pos, index1, index2, sentence_a, sentence_b)
+        (word, pos, index1, index2, sentence_a, sentenceB)
     """
     data = []
     gold = []

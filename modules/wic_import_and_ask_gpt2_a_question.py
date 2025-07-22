@@ -5,7 +5,7 @@ import torch
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-from modules_and_data.modules.wic_word_sense_disambiguator import sample_questions
+from modules.wic_word_sense_disambiguator import sample_questions
 
 tokenizer = AutoTokenizer.from_pretrained('gpt2')
 model = AutoModelForCausalLM.from_pretrained('gpt2')
