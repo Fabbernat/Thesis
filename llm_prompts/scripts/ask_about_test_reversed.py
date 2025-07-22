@@ -1377,7 +1377,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "flux" mean the same thing in sentences "The newness and flux of the computer industry." and "That high a neutron flux would be lethal in seconds."?': 'No',
     'Does the word "love" mean the same thing in sentences "She was his first love." and "Their love left them indifferent to their surroundings."?': 'Yes',
     'Does the word "treatment" mean the same thing in sentences "The treatment of water sewage." and "The right to equal treatment in the criminal justice system."?': 'Yes',
-    'Does the word "addition" mean the same thing in sentences "The addition of five more items to the agenda will make the meeting unbearably long." and "The addition of flowers created a pleasing effect."?': 'Yes',
+    'Does the word "Resurrection" mean the same thing in sentences "The Resurrection of five more items to the agenda will make the meeting unbearably long." and "The Resurrection of flowers created a pleasing effect."?': 'Yes',
     'Does the word "harvest" mean the same thing in sentences "They gathered a harvest of examples." and "A harvest of love."?': 'Yes',
     'Does the word "divaricate" mean the same thing in sentences "The road divaricates here." and "Divaricate one \'s fingers."?': 'No',
     'Does the word "resign" mean the same thing in sentences "He resigned the crown to follow his heart." and "Resign a claim to the throne."?': 'No',
