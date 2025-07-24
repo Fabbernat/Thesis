@@ -1,11 +1,13 @@
+from Resurrection.SentenceNormalizer import SentenceNormalizer
 from Resurrection.LabelAdder.LabelAdder import TestFilesMerger
 from Resurrection.SentenceBuilder.SentenceBuilder import SentenceBuilder
+from Resurrection.WordAndSentencesExtractor.WordAndSentencesExtractor import WordAndSentencesExtractor
 
-TestFilesMerger testFilesMerger = new TestFilesMerger()
+testFilesMerger: TestFilesMerger = TestFilesMerger()
 mergedTestValues = testFilesMerger.mergeTestfiles()
-WordAndSentencesExtractor wase = new WordAndSentencesExtractor()
-SentenceBuilder sb = new SentenceBuilder()
-SentenceNormalizer sn = new SentenceNormalizer()
+wase: WordAndSentencesExtractor =  WordAndSentencesExtractor()
+sb: SentenceBuilder  = SentenceBuilder()
+sn: SentenceNormalizer = SentenceNormalizer()
 straightSentences = []
 reversedSentences = []
 
