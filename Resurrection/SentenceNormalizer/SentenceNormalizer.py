@@ -101,12 +101,9 @@ def main():
 
     print("Using NEW algorithm (default):")
     print(makeSentenceHumanReadable(test_sentence))
-    # My boss is out on another of his three martini lunches. Will you join us at six o\'clock for martinis?
-    # We\'ve been swimming for hours just to get to the other side. A big fish was swimming in the tank.
-    # Don\'t fire until you see the whites of their eyes. The gun fired.
 
     print("\nUsing OLD algorithm:")
-    print(makeSentenceHumanReadable(test_sentence, version="old")) # My boss is out on another of his three martini lunches.	Will you join us at six o\'clock for martinis?
+    print(makeSentenceHumanReadable(test_sentence, version="old"))
 
 
 if __name__ == '__main__':

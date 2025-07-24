@@ -1,15 +1,21 @@
 import typing
 
-class TestFilesMerger:
-    def mergeTestfiles(self):
-        with open("test.data.txt" and "test.gold.txt") as testDataFile and testGoldFile:
-            fileReader: FileReader = new FileReader()
-            rawTestDataValues = fileReader.readWholeFile(testDataFile)
-            rawTestGoldValues = fileReader.readWholeFile(testGoldFile)
+class FileReader:
+    def readWholeFile(self, file):
+        return [line.strip() for line in file]
 
-            mergedTestValues = ""
-            for dataRow, goldRow in rawTestDataValues, rawTestGoldValues:
-                mergedTestValues.join(f'{dataRow}\t{goldRow}')
-            return mergedTestValues
+class TestFilesMerger:
+    def mergeTestfiles(self) -> str:
+        try:
+            with open("test.data.txt", "r") as testDataFile, open("test.gold.txt", "r") as testGoldFile:
+                fileReader: FileReader = FileReader()
+                rawTestDataValues = fileReader.readWholeFile(testDataFile)
+                rawTestGoldValues = fileReader.readWholeFile(testGoldFile)
+
+                mergedTestValues = []
+                for dataRow, goldRow in zip(rawTestDataValues, rawTestGoldValues):
+                    mergedTestValues.append(f'{dataRow}\t{goldRow}')
+            return "\n".join(mergedTestValues)
         except Exception:
             print("Something went wrong")
+            return ""

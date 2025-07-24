@@ -1327,7 +1327,7 @@ r'Does the word "notice" mean the same thing in sentences "His hard work soon at
 r'Does the word "flux" mean the same thing in sentences "That high a neutron flux would be lethal in seconds." and "The newness and flux of the computer industry."?': 'No',
 r'Does the word "love" mean the same thing in sentences "Their love left them indifferent to their surroundings." and "She was his first love."?': 'Yes',
 r'Does the word "treatment" mean the same thing in sentences "The right to equal treatment in the criminal justice system." and "The treatment of water sewage."?': 'Yes',
-r'Does the word "Resurrection" mean the same thing in sentences "The Resurrection of flowers created a pleasing effect." and "The Resurrection of five more items to the agenda will make the meeting unbearably long."?': 'Yes',
+r'Does the word "addition" mean the same thing in sentences "The addition of flowers created a pleasing effect." and "The addition of five more items to the agenda will make the meeting unbearably long."?': 'Yes',
 r'Does the word "harvest" mean the same thing in sentences "A harvest of love." and "They gathered a harvest of examples."?': 'Yes',
 r'Does the word "divaricate" mean the same thing in sentences "Divaricate one\'s fingers." and "The road divaricates here."?': 'No',
 r'Does the word "resign" mean the same thing in sentences "Resign a claim to the throne." and "He resigned the crown to follow his heart."?': 'No',
