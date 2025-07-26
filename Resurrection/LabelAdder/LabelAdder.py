@@ -1,4 +1,4 @@
-import typing
+import traceback
 
 class FileReader:
     def readWholeFile(self, file):
@@ -16,6 +16,7 @@ class TestFilesMerger:
                 for dataRow, goldRow in zip(rawTestDataValues, rawTestGoldValues):
                     mergedTestValues.append(f'{dataRow}\t{goldRow}')
             return "\n".join(mergedTestValues)
-        except Exception:
+        except Exception as e:
+            traceback.print_exc()
             print("The file could not be opened.")
             return ""
