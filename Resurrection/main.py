@@ -1,4 +1,4 @@
-from Resurrection.SentenceNormalizer import SentenceNormalizer
+from Resurrection.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
 from Resurrection.LabelAdder.LabelAdder import TestFilesMerger
 from Resurrection.SentenceBuilder.SentenceBuilder import SentenceBuilder
 from Resurrection.WordAndSentencesExtractor.WordAndSentencesExtractor import WordAndSentencesExtractor

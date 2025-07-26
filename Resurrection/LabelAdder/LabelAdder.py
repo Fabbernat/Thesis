@@ -17,5 +17,5 @@ class TestFilesMerger:
                     mergedTestValues.append(f'{dataRow}\t{goldRow}')
             return "\n".join(mergedTestValues)
         except Exception:
-            print("Something went wrong")
+            print("The file could not be opened.")
             return ""
