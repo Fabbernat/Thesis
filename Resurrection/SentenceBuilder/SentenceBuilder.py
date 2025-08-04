@@ -7,8 +7,8 @@ class SentenceBuilder:
         self.sentence_a = sentence_a
         self.sentence_b = sentence_b
 
-    def buildStraightSentence(word: str, sentence_a: str, sentence_b: str) -> str:
+    def buildStraightSentence(self, word: str, sentence_a: str, sentence_b: str) -> str:
         return f'Does the word "{word}" mean the same thing in sentences "{sentence_a}" and "{sentence_b}"?'
 
-    def buildReversedSentence(word: str, sentence_a: str, sentence_b: str) -> str:
+    def buildReversedSentence(self, word: str, sentence_a: str, sentence_b: str) -> str:
         return f'Does the word "{word}" mean the same thing in sentences "{sentence_b}" and "{sentence_a}"?'

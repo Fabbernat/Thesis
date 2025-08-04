@@ -5,7 +5,7 @@ from Resurrection.WordAndSentencesExtractor.WordAndSentencesExtractor import Wor
 
 testFilesMerger: TestFilesMerger = TestFilesMerger()
 mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.txt" and "test.gold.txt" in this directory
-print(mergedTestValues) #edddig okés
+# print(mergedTestValues) #edddig okés
 wase: WordAndSentencesExtractor =  WordAndSentencesExtractor()
 sentenceBuilder: SentenceBuilder  = SentenceBuilder()
 sentenceNormalizer: SentenceNormalizer = SentenceNormalizer()
@@ -14,7 +14,7 @@ reversedSentences = []
 
 for rowValues in mergedTestValues.split('\n'):
     word, sentenceA, sentenceB = wase.extract(rowValues)
-    print('\n--\n', word, sentenceA, sentenceB) # ez is okés
+    # print('\n--\n', word, sentenceA, sentenceB) # ez is okés
 
     normalizedSentenceA = sentenceNormalizer.makeSentenceHumanReadable(sentenceA)
     normalizedSentenceB = sentenceNormalizer.makeSentenceHumanReadable(sentenceB)
@@ -24,5 +24,5 @@ for rowValues in mergedTestValues.split('\n'):
     straightSentences.append(straightSentence)
     reversedSentences.append(reversedSentence)
 
-print(straightSentences)
-print(reversedSentences)
+print('\n'.join(straightSentences))
+print('\n'.join(reversedSentences))
