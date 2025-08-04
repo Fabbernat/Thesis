@@ -3,4 +3,5 @@ class WordAndSentencesExtractor:
         pass
 
     def extract(self, rowValues) -> (str, str, str):
-        return rowValues[0], rowValues[3], rowValues[4]
+        cells = rowValues.split('\t')
+        return cells[0], cells[3], cells[4]
