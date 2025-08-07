@@ -14,7 +14,7 @@ reversedSentences = []
 
 for rowValues in mergedTestValues.split('\n'):
     word, sentenceA, sentenceB = wase.extract(rowValues)
-    # print('\n--\n', word, sentenceA, sentenceB) # ez is okés
+    print('\n--\n', word, sentenceA, sentenceB) # ez is okés
 
     normalizedSentenceA = sentenceNormalizer.makeSentenceHumanReadable(sentenceA)
     normalizedSentenceB = sentenceNormalizer.makeSentenceHumanReadable(sentenceB)
@@ -24,5 +24,6 @@ for rowValues in mergedTestValues.split('\n'):
     straightSentences.append(straightSentence)
     reversedSentences.append(reversedSentence)
 
-print('\n'.join(straightSentences))
-print('\n'.join(reversedSentences))
+with open('data.json') as dataJson:
+    print('\n'.join(straightSentences), file=dataJson)
+    print('\n'.join(reversedSentences), file=dataJson)
