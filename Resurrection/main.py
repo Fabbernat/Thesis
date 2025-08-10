@@ -1,29 +1,9 @@
-from Resurrection.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
-from Resurrection.LabelAdder.LabelAdder import TestFilesMerger
-from Resurrection.SentenceBuilder.SentenceBuilder import SentenceBuilder
-from Resurrection.WordAndSentencesExtractor.WordAndSentencesExtractor import WordAndSentencesExtractor
+from Resurrection.run import run
 
-testFilesMerger: TestFilesMerger = TestFilesMerger()
-mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.txt" and "test.gold.txt" in this directory
-# print(mergedTestValues) #edddig okés
-wase: WordAndSentencesExtractor =  WordAndSentencesExtractor()
-sentenceBuilder: SentenceBuilder  = SentenceBuilder()
-sentenceNormalizer: SentenceNormalizer = SentenceNormalizer()
-straightSentences = []
-reversedSentences = []
 
-for rowValues in mergedTestValues.split('\n'):
-    word, sentenceA, sentenceB = wase.extract(rowValues)
-    print('\n--\n', word, sentenceA, sentenceB) # ez is okés
+def main():
+    logPartialResults = True
+    run(logPartialResults)
 
-    normalizedSentenceA = sentenceNormalizer.makeSentenceHumanReadable(sentenceA)
-    normalizedSentenceB = sentenceNormalizer.makeSentenceHumanReadable(sentenceB)
-
-    straightSentence = sentenceBuilder.buildStraightSentence(word, sentenceA, sentenceB)
-    reversedSentence = sentenceBuilder.buildReversedSentence(word, sentenceA, sentenceB)
-    straightSentences.append(straightSentence)
-    reversedSentences.append(reversedSentence)
-
-with open('data.json') as dataJson:
-    print('\n'.join(straightSentences), file=dataJson)
-    print('\n'.join(reversedSentences), file=dataJson)
+if __name__ == '__main__':
+    main()
