@@ -1,3 +1,5 @@
+import json
+
 from Resurrection.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
 from Resurrection.LabelAdder.LabelAdder import TestFilesMerger
 from Resurrection.SentenceBuilder.SentenceBuilder import SentenceBuilder
@@ -28,5 +30,5 @@ def run(logPartialResults=False):
         reversedSentences.append(reversedSentence)
 
     with open('data.json') as dataJson:
-        print('\n'.join(straightSentences), file=dataJson)
-        print('\n'.join(reversedSentences), file=dataJson)
+        print(json.loads('\n'.join(straightSentences)), file=dataJson)
+        print(json.loads('\n'.join(reversedSentences)), file=dataJson)

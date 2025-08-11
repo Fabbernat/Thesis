@@ -8,16 +8,19 @@ class SentenceNormalizer:
         """
         Replaces contractions for better readability both for humans and for chatbots.
         """
+        # Escape all apostrophes
+        sentence = sentence.replace("'", "\\'")
+
         # Contractions
-        sentence = sentence.replace(" 's", "\'s")
-        sentence = sentence.replace(" 't", "\'t")
-        sentence = sentence.replace(" 'd", "\'d")
-        sentence = sentence.replace(" 'm", "\'m")
-        sentence = sentence.replace(" 've", "\'ve")
-        sentence = sentence.replace(" 'll", "\'ll")
-        sentence = sentence.replace(" 're", "\'re")
-        sentence = sentence.replace(" n't", "n\'t")
-        sentence = sentence.replace("o'clock", "o\'clock")
+        sentence = sentence.replace(" 's", "\\'s")
+        sentence = sentence.replace(" 't", "\\'t")
+        sentence = sentence.replace(" 'd", "\\'d")
+        sentence = sentence.replace(" 'm", "\\'m")
+        sentence = sentence.replace(" 've", "\\'ve")
+        sentence = sentence.replace(" 'll", "\\'ll")
+        sentence = sentence.replace(" 're", "\\'re")
+        sentence = sentence.replace(" n't", "n\\'t")
+        sentence = sentence.replace("o'clock", "o\\'clock")
 
         # Punctuation
         sentence = sentence.replace(" ,", ",")
@@ -26,14 +29,14 @@ class SentenceNormalizer:
         sentence = sentence.replace(" !", "!")
 
         # Special uppercase cases
-        sentence = sentence.replace("Do n't", "Don\'t")
-        sentence = sentence.replace("Wo n't", "Won\'t")
-        sentence = sentence.replace("Ca n't", "Can\'t")
+        sentence = sentence.replace("Do n't", "Don\\'t")
+        sentence = sentence.replace("Wo n't", "Won\\'t")
+        sentence = sentence.replace("Ca n't", "Can\\'t")
 
         # Special lowercase cases
-        sentence = sentence.replace("do n't", "don\'t")
-        sentence = sentence.replace("wo n't", "won\'t")
-        sentence = sentence.replace("ca n't", "can\'t")
+        sentence = sentence.replace("do n't", "don\\'t")
+        sentence = sentence.replace("wo n't", "won\\'t")
+        sentence = sentence.replace("ca n't", "can\\'t")
 
         # General n't replacement
         sentence = sentence.replace(" n't", "not")
