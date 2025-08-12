@@ -8,8 +8,6 @@ class SentenceNormalizer:
         """
         Replaces contractions for better readability both for humans and for chatbots.
         """
-        # Escape all apostrophes
-        sentence = sentence.replace("'", "\\'")
 
         # Contractions
         sentence = sentence.replace(" 's", "\\'s")
@@ -40,6 +38,9 @@ class SentenceNormalizer:
 
         # General n't replacement
         sentence = sentence.replace(" n't", "not")
+
+        # Escape all apostrophes
+        sentence = sentence.replace("'", "\\'")
 
         return sentence
 
