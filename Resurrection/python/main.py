@@ -1,4 +1,4 @@
-from Resurrection.run import run
+from Resurrection.py.run import run
 
 
 def main():
