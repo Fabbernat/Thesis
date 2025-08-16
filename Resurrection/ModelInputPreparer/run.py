@@ -1,9 +1,11 @@
 import json
 
-from Resurrection.py.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
-from Resurrection.py.LabelAdder.LabelAdder import TestFilesMerger
-from Resurrection.py.SentenceBuilder.SentenceBuilder import SentenceBuilder
-from Resurrection.py.WordAndSentencesExtractor.WordAndSentencesExtractor import WordAndSentencesExtractor
+from Resurrection.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
+from Resurrection.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
+from Resurrection.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
+from Resurrection.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
+    WordAndSentencesExtractor
+
 
 def run(logPartialResults=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
