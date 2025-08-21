@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name='peternity',
     version='0.1.0',    
-    description='Peternity Python package',
+    description='My BSc Thesis - Peternity Python package',
     url='https://github.com/Fabbernat/Peternity',
     author='Bernát Fábián',
     author_email='fabbernat@gmail.com',
