@@ -21,6 +21,7 @@ class TernaryClassifier:
 
                 goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip()
 
+                print('1', self.getYesOrNo(modelAnswerLine), '2', goldAnswerLine, sep='\n')
                 value = (self.getYesOrNo(modelAnswerLine) == goldAnswerLine)
 
                 if not isinstance(value, bool):
