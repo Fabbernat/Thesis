@@ -1,7 +1,3 @@
-import json
-import re
-
-
 class TernaryClassifier:
 
     def classify(self):
@@ -18,8 +14,12 @@ class TernaryClassifier:
 
                 goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip()
 
-                print(f'{i}:{self.getYesOrNo(modelAnswerLine)}\n{i}:{goldAnswerLine}')
-                value = (self.getYesOrNo(modelAnswerLine) == goldAnswerLine)
+                modelAnswerLineYesOrNo = self.getYesOrNo(modelAnswerLine)
+                # print(f'{i}:{self.getYesOrNo(modelAnswerLine)}\n{i}:{goldAnswerLine}')
+                print("COMPARE2")
+                print(modelAnswerLineYesOrNo)
+                print(goldAnswerLine)
+                value = (modelAnswerLineYesOrNo == goldAnswerLine)
 
                 if not isinstance(value, bool):
                     raise TypeError(f"Only boolean values can be stored in {answerCorrectnessValidityFlagsAsBools}!")
@@ -29,7 +29,7 @@ class TernaryClassifier:
         with open('ternaryResults.txt', 'w') as ternaryResultsFile:
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
 
-    def getYesOrNo(self, modelAnswer):
+    def getYesOrNo(self, modelAnswer: str) -> str:
         return self.classifySentence(modelAnswer)
 
     def classifySentence(self, LinebreaklessString: str) -> str:

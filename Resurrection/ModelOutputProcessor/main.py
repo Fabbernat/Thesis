@@ -6,7 +6,7 @@ TESTFILE_LENGTH = 2800
 
 def main():
     from Resurrection.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
-    tf = TernaryClassifier()
+    tf = TernaryClassifier.TernaryClassifier()
     tf.classify()
     from Resurrection.ModelOutputProcessor.ternaryResultsExtractor import ResultsExtractor
     re = ResultsExtractor()

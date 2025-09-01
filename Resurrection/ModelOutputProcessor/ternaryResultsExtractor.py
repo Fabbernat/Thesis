@@ -13,12 +13,13 @@ class ResultsExtractor:
     def countMatches(self):
         matches = 0
         for line in self.ternaryResultsLines:
-            if line == 'True':
+            line = line.strip()
+            if line.__contains__('True'):
                 matches += 1
         return matches
 
     def getMatchPercentage(self):
-        return (self.countMatches() / int(len(self.ternaryResultsLines) / 2)) * 100
+        return (self.countMatches() / int(len(self.ternaryResultsLines))) * 100
 
     def countConsistentAnswers(self):
         consistentAnswers = 0

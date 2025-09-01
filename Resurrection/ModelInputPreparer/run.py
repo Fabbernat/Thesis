@@ -1,4 +1,5 @@
 import json
+import sys
 
 from Resurrection.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
 from Resurrection.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
@@ -10,8 +11,10 @@ from Resurrection.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesE
 def run(logPartialResults=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
     mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.txt" and "test.gold.txt" in this directory
+
     if logPartialResults:
-        print(mergedTestValues) #edddig okés
+        print(mergedTestValues) #eddig okés
+
     wase: WordAndSentencesExtractor =  WordAndSentencesExtractor()
     sentenceBuilder: SentenceBuilder  = SentenceBuilder()
     sentenceNormalizer: SentenceNormalizer = SentenceNormalizer()
@@ -20,6 +23,7 @@ def run(logPartialResults=False):
 
     for rowValues in mergedTestValues.split('\n'):
         word, sentenceA, sentenceB = wase.extract(rowValues)
+
         if logPartialResults:
             print('\n--\n', word, sentenceA, sentenceB) # ez is okés
 
@@ -31,6 +35,13 @@ def run(logPartialResults=False):
         straightSentences.append(straightSentence)
         reversedSentences.append(reversedSentence)
 
-    with open('data.json') as dataJson:
-        print(json.loads('\n'.join(straightSentences)), file=dataJson)
-        print(json.loads('\n'.join(reversedSentences)), file=dataJson)
+    try:
+        with open("data.json", "w", encoding="utf-8") as dataJson:
+            print("\n".join(straightSentences), file=dataJson)
+            print("\n".join(reversedSentences), file=dataJson)
+    except OSError as oe:
+            sys.stderr.write(f"File writing error: {oe}\n")
+
+    except ValueError as ve:
+        sys.stderr.write(f"Error while writing data.json: {ve}\n")
+
