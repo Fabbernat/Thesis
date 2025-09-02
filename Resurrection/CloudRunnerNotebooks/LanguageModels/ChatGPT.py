@@ -1,5 +1,9 @@
 import os
+from abc import ABC
+
 from openai import OpenAI
+
+from Resurrection.CloudRunnerNotebooks.LanguageModels.Model import Model
 
 client = OpenAI(
     # This is the default and can be omitted
@@ -12,6 +16,9 @@ response = client.responses.create(
     input="How do I check if a Python object is an instance of a class?",
 )
 
-class ChatGPT:
+
+class ChatGPT(Model, ABC):
     def ask(self, question: str) -> str:
-        print(response.output_text)
+        result = response.output_text
+        print(result)
+        return result
