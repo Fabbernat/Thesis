@@ -1,10 +1,10 @@
 from Resurrection.ModelOutputProcessor.main import TESTFILE_LENGTH
 
 
-class ResultsExtractor:
+class TernaryResultsExtractor:
 
-    def __init__(self):
-        with open('ternaryResults.txt') as ternaryResultsFile:
+    def __init__(self, filename):
+        with open(filename) as ternaryResultsFile:
             self.ternaryResultsLines = ternaryResultsFile.readlines()
 
     def getResultsFromTernaryJson(self):

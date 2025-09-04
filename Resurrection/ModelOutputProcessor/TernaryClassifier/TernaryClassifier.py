@@ -39,8 +39,10 @@ class TernaryClassifier:
         :return:
         """
         text = LinebreaklessString.strip()
-        affirmativeKeywords = {"Yes", "Yes!", "Yes.", "Yes,", "->Yes"}
-        negativeKeywords = {"No", "No!", "No.", "No,", "->No", "Never", "Not at all", "Nope", "Nah"}
+
+        import main
+        affirmativeKeywords = main.AFFIRMATIVE_KEYWORDS
+        negativeKeywords = main.NEGATIVE_KEYWORDS
 
         if any(word.lower() in text.lower() for word in affirmativeKeywords):
             return 'T'
