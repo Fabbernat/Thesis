@@ -1,8 +1,19 @@
-# The Colab Notebook:
+# The WiC processor module:
+[Resurrection module](https://github.com/Fabbernat/Thesis/tree/master/Resurrection)
+
+## input:
+- Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
+- Any [Hugging Face](https://huggingface.co/models) model
+  
+## Output: 
+- Detailed statistics and analytics of the model's answers to the input.
+
+  
+# The Colab Notebook [outdated]:
 [WiC POS Tagging Word Comparison Notebook](https://colab.research.google.com/drive/1_UdMjugchWWHVrgETc9T1wsYs0R-67wh#scrollTo=9OlQSKyWfH9Y)
 
 # The paper:
-[Comparing the Performance of Language Models on a Word-in-Context Benchmark and Developing a Custom Evaluation System in Python](https://www.overleaf.com/read/hdsmwqzsjyhy#e73a16)
+[Reviewing the Performance of Language Models on the Word-in-Context Benchmark](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
 
 # My home page:
 [Bernát Fábián](https://fabbernat.github.io/)
@@ -23,11 +34,11 @@ over supersenses (Pilehvar and Camacho-Collados,
 in two different supersenses and the positive ones
 include a word used in the same supersense.
 
-# Illustration of results:
+# Illustration of results [outdated]:
 ![Large Language Models Table](https://github.com/user-attachments/assets/b5c7e5db-df58-4cbb-815b-d23d88f1f1da)
 ![image](https://github.com/user-attachments/assets/40cec6ac-9306-49ab-9749-156a22308541)
 
-# Usage of the scripts:
+# Usage of the scripts [outdated]:
 ![image](https://github.com/user-attachments/assets/ae79159c-16c2-4018-a51c-c483ade90183)
 ![image](https://github.com/user-attachments/assets/768bc99d-7a77-4ab5-877d-1e5578afb8f1)
 ![image](https://github.com/user-attachments/assets/d3221ae1-f9a1-4295-bfb5-8f6db278d777)
