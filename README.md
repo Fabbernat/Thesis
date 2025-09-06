@@ -1,5 +1,5 @@
 # My Bachelor's Thesis: Word-in-Context Benchmark Evaluation System and Utility Library
-## The WiC processor module:
+## The module where it happens:
 [Resurrection module](https://github.com/Fabbernat/Thesis/tree/master/Resurrection)
 
 
