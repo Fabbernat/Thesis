@@ -1,22 +1,23 @@
 # The WiC processor module:
 [Resurrection module](https://github.com/Fabbernat/Thesis/tree/master/Resurrection)
 
-## input:
+
+# Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
 - Any [Hugging Face](https://huggingface.co/models) model
-  
-## Output: 
-- Detailed statistics and analytics of the model's answers to the input.
 
   
-# The Colab Notebook [outdated]:
-[WiC POS Tagging Word Comparison Notebook](https://colab.research.google.com/drive/1_UdMjugchWWHVrgETc9T1wsYs0R-67wh#scrollTo=9OlQSKyWfH9Y)
+# Output: 
+- Detailed statistics and analytics of the model's answers to the input.
+
 
 # The paper:
 [Reviewing the Performance of Language Models on the Word-in-Context Benchmark](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
 
+  
 # My home page:
 [Bernát Fábián](https://fabbernat.github.io/)
+
 
 # Word in Context (WiC) Task
 By design, word embeddings are unable to model the dynamic nature of words' semantics, i.e., the property of words to correspond to potentially different meanings. To address this limitation, dozens of specialized meaning representation techniques such as sense or contextualized embeddings have been proposed. However, despite the popularity of research on this topic, very few evaluation benchmarks exist that specifically focus on the dynamic semantics of words. In this paper we show that existing models have surpassed the performance ceiling of the standard evaluation dataset for the purpose, i.e., Stanford Contextual Word Similarity, and highlight its shortcomings. To address the lack of a suitable benchmark, Pilehvar and his team put forward a large-scale Word in Context dataset, called WiC, based on annotations curated by experts, for generic evaluation of context-sensitive representations. WiC is released in https://pilehvar.github.io/wic/.
@@ -34,11 +35,16 @@ over supersenses (Pilehvar and Camacho-Collados,
 in two different supersenses and the positive ones
 include a word used in the same supersense.
 
-# Illustration of results [outdated]:
+
+## The Colab Notebook [outdated]:
+[WiC POS Tagging Word Comparison Notebook](https://colab.research.google.com/drive/1_UdMjugchWWHVrgETc9T1wsYs0R-67wh#scrollTo=9OlQSKyWfH9Y)
+
+
+## Illustration of results [outdated]:
 ![Large Language Models Table](https://github.com/user-attachments/assets/b5c7e5db-df58-4cbb-815b-d23d88f1f1da)
 ![image](https://github.com/user-attachments/assets/40cec6ac-9306-49ab-9749-156a22308541)
 
-# Usage of the scripts [outdated]:
+## Usage of the scripts [outdated]:
 ![image](https://github.com/user-attachments/assets/ae79159c-16c2-4018-a51c-c483ade90183)
 ![image](https://github.com/user-attachments/assets/768bc99d-7a77-4ab5-877d-1e5578afb8f1)
 ![image](https://github.com/user-attachments/assets/d3221ae1-f9a1-4295-bfb5-8f6db278d777)
