@@ -32,15 +32,3 @@ class TernaryResultsProcessor:
 
     def getConsistencyPercentage(self):
         return (self.countConsistentAnswers() / int(len(self.ternaryResultsLines) / 2)) * 100
-
-    def getTruePositiveAnswers(self):
-        negativeAnswers = 0
-
-    def getFalsePositiveAnswers(self):
-        negativeAnswers = 0
-
-    def getFalseNegativeAnswers(self):
-        negativeAnswers = 0
-
-    def getTrueNegativeAnswers(self):
-        negativeAnswers = 0

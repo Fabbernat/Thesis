@@ -1,2 +1,6 @@
 MatchPercentage: 78.0%
 Consistency: 77.28571428571429%
+True positives: 623
+False positives: 226
+False negatives: 69
+True negatives: 469

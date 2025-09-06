@@ -13,7 +13,7 @@ class TernaryClassifier:
 
     def classify(self) -> None:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
-        confusionMatrixValuse: list[str] = []
+        confusionMatrixValues: list[str] = []
 
         with  open("modelAnswers.txt") as modelFile, open("test.gold.txt") as goldFile:
             modelAnswersLines: list[str] = modelFile.readlines()
@@ -40,28 +40,14 @@ class TernaryClassifier:
                     raise TypeError(f"Only boolean values can be stored in {answerCorrectnessValidityFlagsAsBools}!")
 
                 answerCorrectnessValidityFlagsAsBools.append(value)
-                confusionMatrixValuse.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
+                confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
 
         with open('ternaryResults.txt', 'w') as ternaryResultsFile, open('confusionMatrix.txt', 'w') as confusionMatrixFile:
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
-            print('\n'.join((str(answer) for answer in confusionMatrixValuse)), file=confusionMatrixFile)
+            print('\n'.join((str(answer) for answer in confusionMatrixValues)), file=confusionMatrixFile)
 
 
-    def categorize(self, modelAnswerLineYesOrNo, goldAnswerLine):
-        if modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'T':
-            self.TruePositives += 1
-            return 'TP'
-        if modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'F':
-            self.FalsePositives += 1
-            return "FP"
-        if modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'T':
-            self.FalseNegatives += 1
-            return "FN"
-        if modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'F':
-            self.TrueNegatives += 1
-            return "TN"
-        else:
-            raise ShouldCategorizeException("This should never happen")
+
 
     def getYesOrNo(self, modelAnswer: str) -> str:
         return self.classifySentence(modelAnswer)
@@ -84,3 +70,33 @@ class TernaryClassifier:
         if any(word.lower() in text.lower() for word in negativeKeywords):
             return 'F'
         return '?'
+
+
+    def categorize(self, modelAnswerLineYesOrNo, goldAnswerLine):
+        if modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'T':
+            self.TruePositives += 1
+            return 'TP'
+        elif modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'F':
+            self.FalsePositives += 1
+            return "FP"
+        elif modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'T':
+            self.FalseNegatives += 1
+            return "FN"
+        elif modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'F':
+            self.TrueNegatives += 1
+            return "TN"
+        else:
+            return "?"
+
+
+    def getTruePositives(self):
+        return self.TruePositives
+
+    def getTrueNegatives(self):
+        return self.TrueNegatives
+
+    def getFalseNegatives(self):
+        return self.FalseNegatives
+
+    def getFalsePositives(self):
+        return self.FalsePositives
