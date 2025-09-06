@@ -1,17 +1,31 @@
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+
 from Resurrection.CloudRunnerNotebooks.LanguageModels import Models
 from Resurrection.CloudRunnerNotebooks.LanguageModels.Model import Model
 
-MODEL_NAME =  '                   '
+MODEL_NAME =  '       meta-llama/Llama-2-7b-chat-hf            '
 
-MODEL_NAME = MODEL_NAME.strip()
-
-
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
+model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
 
 
 def main():
-    prompt = open('prompt.txt').read()
-    model = Models.get(MODEL_NAME)
-    model.ask('Answer all questions with Yes or No!\n'.join(prompt))
+    messages = [
+        {"role": "system", "content": "Answer all questions with Yes or No!"},
+        {"role": "user", "content": open("prompt.txt").read()},
+    ]
+
+    prompt = tokenizer.apply_chat_template(messages, tokenize=False)
+
+    inputs = tokenizer(prompt, return_tensors="pt")
+
+    with torch.no_grad():
+        outputs = model.generate(**inputs, max_new_tokens=50)
+
+    answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    print(answer)
 
 if __name__ == '__main__':
     main()

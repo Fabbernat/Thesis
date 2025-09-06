@@ -1,6 +1,7 @@
 class Gemma22bIt:
-    pass
-
+    def __init__(self):
+        self.requiresFlashAttention = True
+        self.implementation = "flashAttention"
 
 class Phi4MiniInstruct:
     pass

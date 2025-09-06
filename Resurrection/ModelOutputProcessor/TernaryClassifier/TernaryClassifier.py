@@ -1,7 +1,19 @@
-class TernaryClassifier:
+class ShouldCategorizeException(Exception):
+    pass
 
-    def classify(self):
+
+
+class TernaryClassifier:
+    def __init__(self):
+        self.TruePositives = 0
+        self.FalsePositives = 0
+        self.FalseNegatives = 0
+        self.TrueNegatives = 0
+
+
+    def classify(self) -> None:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
+        confusionMatrixValuse: list[str] = []
 
         with  open("modelAnswers.txt") as modelFile, open("test.gold.txt") as goldFile:
             modelAnswersLines: list[str] = modelFile.readlines()
@@ -21,13 +33,35 @@ class TernaryClassifier:
                 print(goldAnswerLine)
                 value = (modelAnswerLineYesOrNo == goldAnswerLine)
 
+
+
+
                 if not isinstance(value, bool):
                     raise TypeError(f"Only boolean values can be stored in {answerCorrectnessValidityFlagsAsBools}!")
 
                 answerCorrectnessValidityFlagsAsBools.append(value)
+                confusionMatrixValuse.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
 
-        with open('ternaryResults.txt', 'w') as ternaryResultsFile:
+        with open('ternaryResults.txt', 'w') as ternaryResultsFile, open('confusionMatrix.txt', 'w') as confusionMatrixFile:
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
+            print('\n'.join((str(answer) for answer in confusionMatrixValuse)), file=confusionMatrixFile)
+
+
+    def categorize(self, modelAnswerLineYesOrNo, goldAnswerLine):
+        if modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'T':
+            self.TruePositives += 1
+            return 'TP'
+        if modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'F':
+            self.FalsePositives += 1
+            return "FP"
+        if modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'T':
+            self.FalseNegatives += 1
+            return "FN"
+        if modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'F':
+            self.TrueNegatives += 1
+            return "TN"
+        else:
+            raise ShouldCategorizeException("This should never happen")
 
     def getYesOrNo(self, modelAnswer: str) -> str:
         return self.classifySentence(modelAnswer)
@@ -38,6 +72,7 @@ class TernaryClassifier:
         Ez a legjobb ötletem a modell intenciójának az eldöntésére, de ez biztosan nem osztályozza be a szándékokat 100%-os pontossággal
         :return:
         """
+        #TODO mivan ha "Yes and No" a válasz, vagy "eyes"?
         text = LinebreaklessString.strip()
 
         import main
