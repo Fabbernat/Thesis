@@ -1,16 +1,15 @@
 # My Bachelor's Thesis: Word-in-Context Benchmark Evaluation System and Utility Library
+You can test any* Hugging Face model on the Word in Context task
+
 ## The module where it happens:
 [Resurrection module](https://github.com/Fabbernat/Thesis/tree/master/Resurrection)
-
-
-## Input:
+### Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
 - Any [Hugging Face](https://huggingface.co/models) model
-
-  
-## Output: 
+### Output: 
 - Detailed statistics and analytics of the model's answers to the input.
 
+* almost any. You need to make your own scripts to test unsupported models
 
 ## The paper:
 [Reviewing the Performance of Language Models on the Word-in-Context Benchmark](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
