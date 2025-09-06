@@ -9,7 +9,7 @@ You can test any* Hugging Face model on the Word in Context task
 ### Output: 
 - Detailed statistics and analytics of the model's answers to the input.
 
-* almost any. You need to make your own scripts to test unsupported models
+\* almost any. You need to make your own scripts to test unsupported models
 
 ## The paper:
 [Reviewing the Performance of Language Models on the Word-in-Context Benchmark](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
