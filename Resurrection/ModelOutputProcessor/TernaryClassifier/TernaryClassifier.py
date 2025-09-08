@@ -63,6 +63,10 @@ class TernaryClassifier:
         """
         #TODO mivan ha "Yes and No" a válasz, vagy "eyes"?
         text = LinebreaklessString.strip()
+        if text == 'T':
+            return 'T'
+        if text == 'F':
+            return 'F'
 
 
         affirmativeKeywords = AFFIRMATIVE_KEYWORDS
