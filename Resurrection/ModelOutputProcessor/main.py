@@ -1,6 +1,5 @@
 import sys
-from run import run
-
+import Resurrection.ModelOutputProcessor.run
 
 TESTFILE_LENGTH = 1400
 
@@ -9,7 +8,7 @@ AFFIRMATIVE_KEYWORDS = ["Yes"]
 NEGATIVE_KEYWORDS = ["No"]
 
 def main():
-    run()
+    Resurrection.ModelOutputProcessor.run.run()
 
 
 if __name__ == '__main__':
