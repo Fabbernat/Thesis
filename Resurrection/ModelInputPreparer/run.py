@@ -36,7 +36,7 @@ def run(logPartialResults=False):
         reversedSentences.append(reversedSentence)
 
     try:
-        with open("data.json", "w", encoding="utf-8") as dataJson:
+        with open("data.out", "w", encoding="utf-8") as dataJson:
             print("\n".join(straightSentences), file=dataJson)
             print("\n".join(reversedSentences), file=dataJson)
     except OSError as oe:

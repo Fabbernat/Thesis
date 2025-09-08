@@ -45,7 +45,7 @@ class TernaryClassifier:
                 answerCorrectnessValidityFlagsAsBools.append(value)
                 confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
 
-        with open('ternaryResults.txt', 'w') as ternaryResultsFile, open('confusionMatrix.txt', 'w') as confusionMatrixFile:
+        with open('ternaryResults.out', 'w') as ternaryResultsFile, open('confusionMatrix.out', 'w') as confusionMatrixFile:
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
             print('\n'.join((str(answer) for answer in confusionMatrixValues)), file=confusionMatrixFile)
 

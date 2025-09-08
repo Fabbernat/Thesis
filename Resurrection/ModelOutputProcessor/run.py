@@ -3,10 +3,10 @@ def run():
     tc = TernaryClassifier.TernaryClassifier()
     tc.classify()
     from Resurrection.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
-    ternaryResultsFile = 'ternaryResults.txt'
+    ternaryResultsFile = 'ternaryResults.out'
     tre = TernaryResultsProcessor.TernaryResultsProcessor(ternaryResultsFile)
 
-    overallPerformanceReport = open("overallPerformanceReport.txt", "w")
+    overallPerformanceReport = open("overallPerformanceReport.out", "w")
     print(f'MatchPercentage: {tre.getMatchPercentage()}%', file=overallPerformanceReport)
     print(f'Consistency: {tre.getConsistencyPercentage()}%', file=overallPerformanceReport)
 
