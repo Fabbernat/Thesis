@@ -1,4 +1,4 @@
-from Resurrection.ModelInputPreparer.run import run
+from run import run
 
 
 def main():

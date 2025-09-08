@@ -1,3 +1,6 @@
+from typing import Any
+from Resurrection.ModelOutputProcessor.main import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
+
 class ShouldCategorizeException(Exception):
     pass
 
@@ -11,7 +14,7 @@ class TernaryClassifier:
         self.TrueNegatives = 0
 
 
-    def classify(self) -> None:
+    def classify(self) -> Any:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
         confusionMatrixValues: list[str] = []
 
@@ -61,9 +64,9 @@ class TernaryClassifier:
         #TODO mivan ha "Yes and No" a válasz, vagy "eyes"?
         text = LinebreaklessString.strip()
 
-        import main
-        affirmativeKeywords = main.AFFIRMATIVE_KEYWORDS
-        negativeKeywords = main.NEGATIVE_KEYWORDS
+
+        affirmativeKeywords = AFFIRMATIVE_KEYWORDS
+        negativeKeywords = NEGATIVE_KEYWORDS
 
         if any(word.lower() in text.lower() for word in affirmativeKeywords):
             return 'T'
