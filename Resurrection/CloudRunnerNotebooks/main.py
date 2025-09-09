@@ -1,10 +1,7 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-
-from Resurrection.CloudRunnerNotebooks.LanguageModels import Models
-from Resurrection.CloudRunnerNotebooks.LanguageModels.Model import Model
-
+print("Is cuda available?", torch.cuda.is_available())
 MODEL_NAME =  '       meta-llama/Llama-2-7b-chat-hf            '
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
