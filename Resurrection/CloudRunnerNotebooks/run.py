@@ -1,13 +1,22 @@
 import torch
 
 print("Is cuda available?", torch.cuda.is_available())
-MODEL_NAME =  '       meta-llama/Llama-2-7b-chat-hf            '
+
+MODEL_NAME =  '      https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct           '
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
-model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
+
 
 def run():
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
+    except Exception as exc:
+        print("Exception while trying to load tokenizer:", exc)
+    except Error as err:
+        print("Error while trying to load tokenizer:", err)
+
+    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
+
     messages = [
         {"role": "system", "content": "Answer all questions with Yes or No!"},
         {"role": "user", "content": open("prompt.txt").read()},
