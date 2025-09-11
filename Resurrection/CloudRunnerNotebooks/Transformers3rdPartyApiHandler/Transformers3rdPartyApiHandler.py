@@ -1,7 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
-from Resurrection.CloudRunnerNotebooks.ThesisCloudRunner import messages
 from Resurrection.CloudRunnerNotebooks.run import MODEL_NAME
 
 
@@ -19,7 +18,7 @@ class Transformers3rdPartyApiHandler(object):
 
         self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
 
-        prompt = tokenizer.apply_chat_template(messages, tokenize=False)
+        prompt = tokenizer.apply_chat_template(None, tokenize=False) # messages instead of None
 
         self.inputs = tokenizer(prompt, return_tensors="pt")
 
@@ -27,4 +26,4 @@ class Transformers3rdPartyApiHandler(object):
         self.model.generate(**self.inputs, max_new_tokens=50)
 
     def decodeOutputsSkippingSpecialTokens(self):
-        self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        self.tokenizer.decode(None, skip_special_tokens=True) # outputs[0] instead of None
