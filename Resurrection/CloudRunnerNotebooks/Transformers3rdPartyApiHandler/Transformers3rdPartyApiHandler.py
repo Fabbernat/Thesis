@@ -1,12 +1,23 @@
+import sys
+
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
-from Resurrection.CloudRunnerNotebooks.run import MODEL_NAME
+from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringMaker.MessagesAsASingleStringMaker import \
+    getMessagesAsString
 
 
 class Transformers3rdPartyApiHandler(object):
     def __init__(self):
         self.tokenizer = None
+        self.model = None
+
+        from Resurrection.CloudRunnerNotebooks.run import MODEL_NAME
+        try:
+            self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
+        except AttributeError:
+            sys.stderr.write("AttributeError in self.model.generate.")
+
         try:
             tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
         except HFValidationError as e:
@@ -16,13 +27,12 @@ class Transformers3rdPartyApiHandler(object):
             print("Unexpected error while loading model:", e)
             return
 
-        self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
 
-        prompt = tokenizer.apply_chat_template(None, tokenize=False) # messages instead of None
+        prompt = tokenizer.apply_chat_template(getMessagesAsString(), tokenize=False) # messages instead of None
 
         self.inputs = tokenizer(prompt, return_tensors="pt")
 
-    def generateAnswersFor(self, messages):
+    def generateAnswers(self):
         self.model.generate(**self.inputs, max_new_tokens=50)
 
     def decodeOutputsSkippingSpecialTokens(self):

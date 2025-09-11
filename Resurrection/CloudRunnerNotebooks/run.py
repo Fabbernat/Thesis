@@ -1,27 +1,23 @@
 import torch
 
-from Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler import \
-    Transformers3rdPartyApiHandler
+import Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler
 
 print("Is cuda available?", torch.cuda.is_available())
 
 MODEL_NAME =  '      https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct           '
-
+MODEL_NAME = MODEL_NAME.strip()
 
 
 def run():
 
-    messages = [
-        {"role": "system", "content": "Answer all questions with Yes or No!"},
-        {"role": "user", "content": open("prompt.txt").read()},
-    ]
+
 
 
 
     with torch.no_grad():
-        outputs = Transformers3rdPartyApiHandler().generateAnswersFor(messages)
+        Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler().generateAnswers()
 
-    answer = Transformers3rdPartyApiHandler().decodeOutputsSkippingSpecialTokens()
+    answer = Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler().decodeOutputsSkippingSpecialTokens()
 
     with open("modelAnswers.out", "w") as modelAnswersFile:
         print(answer, file=modelAnswersFile)
