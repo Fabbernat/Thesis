@@ -1,6 +1,6 @@
 import torch
 
-import Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler
+from  Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler import Transformers3rdPartyApiHandler
 
 print("Is cuda available?", torch.cuda.is_available())
 
@@ -9,15 +9,10 @@ MODEL_NAME = MODEL_NAME.strip()
 
 
 def run():
-
-
-
-
-
     with torch.no_grad():
-        Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler().generateAnswers()
+        Transformers3rdPartyApiHandler().generateAnswers()
 
-    answer = Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler().decodeOutputsSkippingSpecialTokens()
+    answer = Transformers3rdPartyApiHandler().decodeOutputsSkippingSpecialTokens()
 
     with open("modelAnswers.out", "w") as modelAnswersFile:
         print(answer, file=modelAnswersFile)
