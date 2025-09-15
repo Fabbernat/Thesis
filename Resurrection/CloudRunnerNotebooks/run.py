@@ -1,16 +1,16 @@
 import torch
 
-from  Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler import Transformers3rdPartyApiHandler
+from  Resurrection.CloudRunnerNotebooks.Transformers3rdPartyApiHandler.Transformers3rdPartyApiHandler import Transformers3rdPartyApiHandler
 
 print("Is cuda available?", torch.cuda.is_available())
 
-MODEL_NAME =  '      https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct           '
-MODEL_NAME = MODEL_NAME.strip()
-
-
 def run():
     with torch.no_grad():
-        Transformers3rdPartyApiHandler().generateAnswers()
+        print('torch.no_grad()')
+        try:
+            Transformers3rdPartyApiHandler().generateAnswers()
+        except Exception as e:
+            print(e)
 
     answer = Transformers3rdPartyApiHandler().decodeOutputsSkippingSpecialTokens()
 

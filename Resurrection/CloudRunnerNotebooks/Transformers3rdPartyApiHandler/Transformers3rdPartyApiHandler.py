@@ -3,8 +3,7 @@ import sys
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
-from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringMaker.MessagesAsASingleStringMaker import \
-    getMessagesAsString
+from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringMaker.MessagesAsASingleStringMaker import getMessagesAsString
 
 
 class Transformers3rdPartyApiHandler(object):
@@ -12,7 +11,7 @@ class Transformers3rdPartyApiHandler(object):
         self.tokenizer = None
         self.model = None
 
-        from Resurrection.CloudRunnerNotebooks.run import MODEL_NAME
+        from Resurrection.CloudRunnerNotebooks.main import MODEL_NAME
         try:
             self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
         except AttributeError:
@@ -36,4 +35,7 @@ class Transformers3rdPartyApiHandler(object):
         self.model.generate(**self.inputs, max_new_tokens=50)
 
     def decodeOutputsSkippingSpecialTokens(self):
-        self.tokenizer.decode(None, skip_special_tokens=True) # outputs[0] instead of None
+        try:
+            self.tokenizer.decode(None, skip_special_tokens=True) # outputs[0] instead of None
+        except AttributeError:
+            return
