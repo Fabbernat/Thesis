@@ -6,10 +6,11 @@ from huggingface_hub.errors import HFValidationError
 from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringMaker.MessagesAsASingleStringMaker import getMessagesAsString
 
 
-class Transformers3rdPartyApiHandler(object):
+class TransformersApiHandler:
     def __init__(self):
         self.tokenizer = None
         self.model = None
+        self.outputs = None
 
         from Resurrection.CloudRunnerNotebooks.main import MODEL_NAME
         try:
@@ -27,15 +28,15 @@ class Transformers3rdPartyApiHandler(object):
             return
 
 
-        prompt = tokenizer.apply_chat_template(getMessagesAsString(), tokenize=False) # messages instead of None
+        prompt = tokenizer.apply_chat_template(getMessagesAsString(), tokenize=False)
 
         self.inputs = tokenizer(prompt, return_tensors="pt")
 
     def generateAnswers(self):
-        self.model.generate(**self.inputs, max_new_tokens=50)
+        self.outputs = self.model.generate(**self.inputs, max_new_tokens=50)
 
     def decodeOutputsSkippingSpecialTokens(self):
         try:
-            self.tokenizer.decode(None, skip_special_tokens=True) # outputs[0] instead of None
+            self.tokenizer.decode(self.outputs, skip_special_tokens=True) # outputs[0] instead of output ?
         except AttributeError:
-            return
+            raise Exception("AttributeError while trying to decode outputs skipping special tokens.")
