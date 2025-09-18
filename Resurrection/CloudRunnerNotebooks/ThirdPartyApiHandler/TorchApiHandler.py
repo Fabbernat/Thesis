@@ -9,7 +9,7 @@ class TorchApiHandler:
         with torch.no_grad():
             print('torch.no_grad()')
             try:
-                TransformersApiHandler().generateAnswers()
+                TransformersApiHandler().generateIds1()
             except Exception as e:
                 print(e)
 
