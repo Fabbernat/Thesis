@@ -11,10 +11,11 @@ class TransformersApiHandler:
         self.tokenizer = None
         self.model = None
         self.generated_ids = None
+        self.response = None
 
         from Resurrection.CloudRunnerNotebooks.Config.Config import MODEL_NAME
         try:
-            self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype="auto", device="cpu", device_map="auto")
+            self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype="auto", device_map="auto")
         except AttributeError as e:
             print("AttributeError in self.model.generate.", str(e))
 
@@ -34,17 +35,18 @@ class TransformersApiHandler:
 
     def generateIds1(self):
         self.generated_ids = self.model.generate(**self.inputs, max_new_tokens=512)
+        return self.generated_ids
 
     def generate2(self):
-        generated_ids = [
+        self.generated_ids = [
             output_ids[len(input_ids):] for input_ids, output_ids in zip(self.inputs.input_ids, self.generated_ids)
         ]
 
     def generate3(self):
-        response = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]
+        self.response = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]
 
     def decodeOutputsSkippingSpecialTokens(self):
         try:
             self.tokenizer.decode(self.generated_ids, skip_special_tokens=True) # outputs[0] instead of output ?
-        except AttributeError:
-            raise Exception("AttributeError while trying to decode outputs skipping special tokens.")
+        except AttributeError as ae:
+            raise Exception("AttributeError while trying to decode outputs skipping special tokens.", ae)

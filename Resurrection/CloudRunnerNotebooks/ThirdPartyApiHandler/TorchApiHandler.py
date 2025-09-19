@@ -6,14 +6,15 @@ print("Is cuda available?", torch.cuda.is_available())
 
 class TorchApiHandler:
     def __init__(self):
+        answer = None
         with torch.no_grad():
             print('torch.no_grad()')
             try:
-                TransformersApiHandler().generateIds1()
+                answer = TransformersApiHandler().generateIds1()
             except Exception as e:
                 print(e)
 
-        answer = TransformersApiHandler().decodeOutputsSkippingSpecialTokens()
+        # answer = TransformersApiHandler().decodeOutputsSkippingSpecialTokens()
 
         with open("modelAnswers.out", "w") as modelAnswersFile:
             print(answer, file=modelAnswersFile)
