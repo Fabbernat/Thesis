@@ -2,4 +2,4 @@ from Resurrection.CloudRunnerNotebooks.ThirdPartyApiHandler.TorchApiHandler impo
 
 
 def run():
-    tah = TorchApiHandler()
+    TorchApiHandler()

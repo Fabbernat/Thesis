@@ -1,5 +1,3 @@
-import sys
-
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
@@ -11,7 +9,7 @@ class TransformersApiHandler:
         self.tokenizer = None
         self.model = None
         self.generated_ids = None
-        self.response = None
+        self.answer = None
 
         from Resurrection.CloudRunnerNotebooks.Config.Config import MODEL_NAME
         try:
@@ -37,16 +35,20 @@ class TransformersApiHandler:
         self.generated_ids = self.model.generate(**self.inputs, max_new_tokens=512)
         return self.generated_ids
 
-    def generate2(self):
+    def convertIds2(self):
         self.generated_ids = [
             output_ids[len(input_ids):] for input_ids, output_ids in zip(self.inputs.input_ids, self.generated_ids)
         ]
 
-    def generate3(self):
-        self.response = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]
+        return self.generated_ids
+
+    def generateFinalAnswer3(self):
+        self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]
+
+        return self.answer
 
     def decodeOutputsSkippingSpecialTokens(self):
         try:
-            self.tokenizer.decode(self.generated_ids, skip_special_tokens=True) # outputs[0] instead of output ?
+            self.tokenizer.decode(self.generated_ids, skip_special_tokens=True)
         except AttributeError as ae:
             raise Exception("AttributeError while trying to decode outputs skipping special tokens.", ae)

@@ -361,7 +361,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "piece" mean the same thing in sentences "He needed a piece of granite." and "He\'s packin \' a piece !"?': 'No',
     'Does the word "coordinate" mean the same thing in sentences "Coordinate his actions with that of his colleagues." and "Coordinate our efforts."?': 'Yes',
     'Does the word "assume" mean the same thing in sentences "The queen assumed the stately robes." and "Mr. Jones will assume the position of a lifeguard until a proper replacement is found."?': 'No',
-    'Does the word "shock" mean the same thing in sentences "It came as a shock to learn that he was injured." and "Subjects received a small electric shock when they made the wrong response."?': 'No',
+    'Does the word "shock" mean the same thing in sentences "It came as a shock to learn that he was injured." and "Subjects received a small electric shock when they made the wrong answer."?': 'No',
     'Does the word "end" mean the same thing in sentences "One end of the box was marked ` This side up \'." and "The end of the year."?': 'No',
     'Does the word "quality" mean the same thing in sentences "Quality of life is usually determined by health, education, and income." and "This school is well-known for having teachers of high quality."?': 'Yes',
     'Does the word "cast" mean the same thing in sentences "Cast a vote." and "Who cast this beautiful movie ?"?': 'No',

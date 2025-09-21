@@ -64,7 +64,7 @@ human_readable_questions_full: Dict[str, str] = {
     'Does the word "risk" mean the same thing in sentences "Why risk your life ?" and "I can not risk smoking."?': 'Yes',
     'Does the word "chemistry" mean the same thing in sentences "The chemistry of iron." and "The chemistry of indigo."?': 'Yes',
     'Does the word "char" mean the same thing in sentences "“ I had to scrub the kitchen today, because the char could n\'t come ”." and "“ Among other native delicacies, they give you fresh char. ”."?': 'No',
-    'Does the word "response" mean the same thing in sentences "His responses have slowed with age." and "This situation developed in response to events in Africa."?': 'No',
+    'Does the word "answer" mean the same thing in sentences "His responses have slowed with age." and "This situation developed in answer to events in Africa."?': 'No',
     'Does the word "excuse" mean the same thing in sentences "He\'s a sorry excuse of a doctor." and "That thing is a poor excuse for a gingerbread man. Has n\'t anyone taught you how to bake ?"?': 'Yes',
     'Does the word "bondage" mean the same thing in sentences "A self freed from the bondage of time." and "He sought release from his bondage to Satan."?': 'Yes',
     'Does the word "catch" mean the same thing in sentences "He shared his catch with the others." and "The catch was only 10 fish."?': 'No',
