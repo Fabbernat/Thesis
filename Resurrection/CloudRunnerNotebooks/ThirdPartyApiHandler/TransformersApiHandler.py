@@ -1,7 +1,11 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
-from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+try:
+    from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+except Exception as e:
+    print("Warning: Could not import getMessagesAsString:", e)
+    getMessagesAsString = lambda: ""  # fallback: empty prompt
 
 
 class TransformersApiHandler:
@@ -44,8 +48,8 @@ class TransformersApiHandler:
 
     def generateFinalAnswer3(self):
         self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]
-
-        return self.answer
+        print(self.generated_ids)
+        return self.answer or self.generated_ids or self.tokenizer # need to test all three
 
     def decodeOutputsSkippingSpecialTokens(self):
         try:
