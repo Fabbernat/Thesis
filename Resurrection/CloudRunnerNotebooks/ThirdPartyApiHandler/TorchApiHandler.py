@@ -7,21 +7,19 @@ print("Is cuda available?", torch.cuda.is_available())
 class TorchApiHandler:
     def __init__(self):
         transformersTensors = None
+        modelAnswers = None
         with torch.no_grad():
             print('torch.no_grad()')
             tah = TransformersApiHandler()
             try:
+                tah.tokenizeAutoModel0()
                 transformersTensors = tah.generateIds1()
-            except Exception as e:
-                print(e)
-            try:
                 convertedTensors = tah.convertIds2()
             except Exception as e:
                 print(e)
-            try:
-                modelAnswers = tah.generateFinalAnswer3()
-            except Exception as e:
-                print(e)
+            modelAnswers, generated_ids, tokenizer = tah.generateFinalAnswer3()
+
+            print(f'Model\'s answers: {modelAnswers} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
 
 

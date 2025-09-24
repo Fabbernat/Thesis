@@ -15,9 +15,10 @@ class TransformersApiHandler:
         self.generated_ids = None
         self.answer = None
 
+    def tokenizeAutoModel0(self):
         from Resurrection.CloudRunnerNotebooks.Config.Config import MODEL_NAME
         try:
-            self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype="auto", device_map="auto")
+            self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
         except AttributeError as e:
             print("AttributeError in self.model.generate.", str(e))
 
@@ -49,7 +50,7 @@ class TransformersApiHandler:
     def generateFinalAnswer3(self):
         self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]
         print(self.generated_ids)
-        return self.answer or self.generated_ids or self.tokenizer # need to test all three
+        return self.answer, self.generated_ids, self.tokenizer # need to test all three
 
     def decodeOutputsSkippingSpecialTokens(self):
         try:
