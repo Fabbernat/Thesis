@@ -14,6 +14,7 @@ class TransformersApiHandler:
         self.model = None
         self.generated_ids = None
         self.answer = None
+        self.inputs = None
 
     def tokenizeAutoModel0(self):
         from Resurrection.CloudRunnerNotebooks.Config.Config import MODEL_NAME
