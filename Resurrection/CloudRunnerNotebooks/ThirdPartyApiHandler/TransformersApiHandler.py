@@ -54,7 +54,7 @@ class TransformersApiHandler:
     def generateFinalAnswer3(self):
         if self.tokenizer is None:
             print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')
-        self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]# [NUMBER_OF_DESIRED_ANSWERS] # ez
+        self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]# [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason
         print(self.generated_ids)
         return self.answer, self.generated_ids, self.tokenizer # need to test all three
 
