@@ -1,11 +1,12 @@
 import os
 
-from Resurrection.CloudRunnerNotebooks.Config.Config import FILE_PATH
+from Resurrection.CloudRunnerNotebooks.Config.Config import FILE_NAME
 
 def getMessagesAsString():
     currentFilesDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    promptPath = os.path.join(currentFilesDir, 'prompt.txt')
+    promptPath = os.path.join(currentFilesDir, FILE_NAME)
+    print(f'Prompt file path={promptPath}')
 
     if not os.path.exists(promptPath):
         raise FileNotFoundError(f'Expected prompt file not found at: {promptPath}')
@@ -19,10 +20,6 @@ def getMessagesAsString():
     ]
 
     return "".join(messages[0]["content"] + promptFileContents)
-
-def tryToOpenAFileFromHere():
-    with open("../prompt.txt") as f:
-        print(f.read())
 
 if __name__ == "__main__":
     print(getMessagesAsString())
