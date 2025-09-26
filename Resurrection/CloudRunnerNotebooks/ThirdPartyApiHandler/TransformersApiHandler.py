@@ -1,6 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
+# from Resurrection.CloudRunnerNotebooks.Config.Config import NUMBER_OF_DESIRED_ANSWERS
+
 try:
     from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
 except Exception as e:
@@ -23,19 +25,20 @@ class TransformersApiHandler:
         except AttributeError as e:
             print("AttributeError in self.model.generate.", str(e))
 
+        print(f'self.tokenizer before={self.tokenizer}')
         try:
-            tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
+            self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
         except HFValidationError as e:
             print("Invalid Hugging Face model name:", e)
-            return  # shut down gracefully
+
         except Exception as e:
             print("Unexpected error while loading model:", e)
-            return
 
+        print(f'self.tokenizer after={self.tokenizer}')
 
-        prompt = tokenizer.apply_chat_template(getMessagesAsString(), tokenize=False, add_generation_prompt=True)
+        prompt = self.tokenizer.apply_chat_template(getMessagesAsString(), tokenize=False, add_generation_prompt=True)
 
-        self.inputs = tokenizer([prompt], return_tensors="pt").to(self.model.device)
+        self.inputs = self.tokenizer([prompt], return_tensors="pt").to(self.model.device)
 
     def generateIds1(self):
         self.generated_ids = self.model.generate(**self.inputs, max_new_tokens=512)
@@ -49,7 +52,9 @@ class TransformersApiHandler:
         return self.generated_ids
 
     def generateFinalAnswer3(self):
-        self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]
+        if self.tokenizer is None:
+            print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')
+        self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]# [NUMBER_OF_DESIRED_ANSWERS] # ez
         print(self.generated_ids)
         return self.answer, self.generated_ids, self.tokenizer # need to test all three
 
