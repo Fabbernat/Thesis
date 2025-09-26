@@ -1,6 +1,6 @@
 import os
 
-from Resurrection.CloudRunnerNotebooks.Config.Config import FILE_NAME
+from Resurrection.HuggingFaceModelInferencer.Config.Config import FILE_NAME
 
 def getMessagesAsString():
     currentFilesDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -1,4 +1,4 @@
-from Resurrection.CloudRunnerNotebooks.run import run
+from Resurrection.HuggingFaceModelInferencer.run import run
 
 
 

@@ -1,10 +1,10 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
-# from Resurrection.CloudRunnerNotebooks.Config.Config import NUMBER_OF_DESIRED_ANSWERS
+# from Resurrection.HuggingFaceModelInferencer.Config.Config import NUMBER_OF_DESIRED_ANSWERS
 
 try:
-    from Resurrection.CloudRunnerNotebooks.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from Resurrection.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
 except Exception as e:
     print("Warning: Could not import getMessagesAsString:", e)
     getMessagesAsString = lambda: ""  # fallback: empty prompt
@@ -19,7 +19,7 @@ class TransformersApiHandler:
         self.inputs = None
 
     def tokenizeAutoModel0(self):
-        from Resurrection.CloudRunnerNotebooks.Config.Config import MODEL_NAME
+        from Resurrection.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
         try:
             self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
         except AttributeError as e:
@@ -54,7 +54,7 @@ class TransformersApiHandler:
     def generateFinalAnswer3(self):
         if self.tokenizer is None:
             print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')
-        self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]# [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason
+        self.answer = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0]# [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason, so [NUMBER_OF_DESIRED_ANSWERS] is not needed.
         print(self.generated_ids)
         return self.answer, self.generated_ids, self.tokenizer # need to test all three
 

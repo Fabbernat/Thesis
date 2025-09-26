@@ -1,6 +1,6 @@
 import torch
 
-from  Resurrection.CloudRunnerNotebooks.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+from  Resurrection.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
 
 print("Is cuda available?", torch.cuda.is_available())
 

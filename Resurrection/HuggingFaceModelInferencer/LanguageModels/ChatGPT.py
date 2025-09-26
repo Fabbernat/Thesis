@@ -3,7 +3,7 @@ from abc import ABC
 
 from openai import OpenAI
 
-from Resurrection.CloudRunnerNotebooks.LanguageModels.Model import Model
+from Resurrection.HuggingFaceModelInferencer.LanguageModels.Model import Model
 
 client = OpenAI(
     # This is the default and can be omitted
