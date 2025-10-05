@@ -12,10 +12,10 @@ def print_results(synonyms, questions):
         answer = 'YES' if model_answer == value else 'NO'
         key = make_sentence_human_readable(key)
         print(f'Sentence: "{key}"')
-        print('model answer:', model_answer)
-        print('actual answer:', value)
+        print('model response:', model_answer)
+        print('actual response:', value)
         print(f'Did the model predict correctly? {answer}')
 
     if len(questions) > 0:
         print(f'accuracy = {correct_answers_count / len(questions)}')
-    print(f'{correct_answers_count} correct answer(s) out of {len(questions)} answers.')
+    print(f'{correct_answers_count} correct response(s) out of {len(questions)} answers.')

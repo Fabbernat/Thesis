@@ -42,7 +42,7 @@ def get_bio_classification(sentences):
 # Example usage:
 sentences = [
     "I do it for the fun of it .", "He is fun to have around .",
-    "The man must answer to his employer for the money entrusted to his care .", "She must answer for her actions .",
+    "The man must response to his employer for the money entrusted to his care .", "She must response for her actions .",
     "A history of France .", "A critical time in the school's history ."
 ]
 

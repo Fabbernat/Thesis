@@ -57,7 +57,7 @@ def determine_word_similarity(word: str, sentence_a: str, sentence_b: str,
 
 
 def process_question(question: str, synonyms: Optional[Set[str]]) -> str:
-    """Extracts components from the formatted question and determines the answer."""
+    """Extracts components from the formatted question and determines the response."""
     pattern = r'Does the word "(.+?)" mean the same thing in sentences "(.+?)" and "(.+?)"\?'
     match = re.match(pattern, question)
 
@@ -262,35 +262,35 @@ if __name__ == '__main__':
     {'train': {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentenceB': 'An invasion of mobile phones .', 'label': 'T'}, 'dev': {'word': 'pierce', 'sentence_a': 'To pierce a mystery .', 'sentenceB': 'The path pierced the jungle .', 'label': 'F'}, 'test': {'word': 'exchange', 'sentence_a': 'Exchange employees between branches of the company .', 'sentenceB': 'Exchange prisoners .', 'label': 'T'}}
     {'word': 'invasion', 'sentence_a': 'An invasion of bees .', 'sentenceB': 'An invasion of mobile phones .', 'label': 'T'}
     Sentence: "Does the word "invasion" mean the same thing in sentences "An invasion of bees." and "An invasion of mobile phones."?"
-    model answer: YES
-    actual answer: YES
+    model response: YES
+    actual response: YES
     Did the model predict correctly? YES
     accuracy = 1.0
-    1 correct answer(s) out of 1 answers.
+    1 correct response(s) out of 1 answers.
     {'word': 'pierce', 'sentence_a': 'To pierce a mystery .', 'sentenceB': 'The path pierced the jungle .', 'label': 'F'}
     Sentence: "Does the word "invasion" mean the same thing in sentences "An invasion of bees." and "An invasion of mobile phones."?"
-    model answer: YES
-    actual answer: YES
+    model response: YES
+    actual response: YES
     Did the model predict correctly? YES
     Sentence: "Does the word "pierce" mean the same thing in sentences "To pierce a mystery." and "The path pierced the jungle."?"
-    model answer: YES
-    actual answer: NO
+    model response: YES
+    actual response: NO
     Did the model predict correctly? NO
     accuracy = 0.5
-    1 correct answer(s) out of 2 answers.
+    1 correct response(s) out of 2 answers.
     {'word': 'exchange', 'sentence_a': 'Exchange employees between branches of the company .', 'sentenceB': 'Exchange prisoners .', 'label': 'T'}
     Sentence: "Does the word "invasion" mean the same thing in sentences "An invasion of bees." and "An invasion of mobile phones."?"
-    model answer: YES
-    actual answer: YES
+    model response: YES
+    actual response: YES
     Did the model predict correctly? YES
     Sentence: "Does the word "pierce" mean the same thing in sentences "To pierce a mystery." and "The path pierced the jungle."?"
-    model answer: YES
-    actual answer: NO
+    model response: YES
+    actual response: NO
     Did the model predict correctly? NO
     Sentence: "Does the word "exchange" mean the same thing in sentences "Exchange employees between branches of the company." and "Exchange prisoners."?"
-    model answer: YES
-    actual answer: YES
+    model response: YES
+    actual response: YES
     Did the model predict correctly? YES
     accuracy = 0.6666666666666666
-    2 correct answer(s) out of 3 answers.
+    2 correct response(s) out of 3 answers.
     '''
