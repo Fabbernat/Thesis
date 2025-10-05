@@ -8,6 +8,8 @@ class TorchApiHandler:
     def __init__(self):
         transformersTensors = None
         modelAnswers = None
+
+    def handleRequest(self):
         with torch.no_grad():
             print('torch.no_grad()')
             tah = TransformersApiHandler()

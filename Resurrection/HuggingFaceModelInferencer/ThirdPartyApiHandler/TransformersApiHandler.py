@@ -27,7 +27,7 @@ class TransformersApiHandler:
 
         print(f'self.tokenizer before={self.tokenizer}')
         try:
-            self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME.strip())
+            self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
         except HFValidationError as e:
             print("Invalid Hugging Face model name:", e)
 
