@@ -12,9 +12,9 @@ def writeToFile(modelResponses):
 
 class TorchApiHandler:
     def __init__(self):
-        self.transformersTensors = None
-        self.convertedTensors = None
-        self.modelAnswers = None
+        self.transformersTensors = []
+        self.convertedTensors = []
+        self.modelResponses = ""
 
     def handleRequest(self):
         with torch.no_grad():
@@ -36,9 +36,9 @@ class TorchApiHandler:
                     self.convertedTensors = tah.convertIds2()
             except Exception as e:
                 print(e)
-            modelResponses, generated_ids, tokenizer = tah.generateFinalAnswer3()
+            self.modelResponses, generated_ids, tokenizer = tah.generateFinalAnswer3()
 
-            print(f'Model\'s answers: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
+            print(f'Model\'s responses: {self.modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
 
 
@@ -51,4 +51,4 @@ class TorchApiHandler:
         with open("convertedTensors.out", "w") as convertedTensorsFile:
             print(self.convertedTensors, file=convertedTensorsFile)
 
-        writeToFile(modelResponses)
+        writeToFile(self.modelResponses)
