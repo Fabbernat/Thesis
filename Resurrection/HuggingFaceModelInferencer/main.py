@@ -1,5 +1,9 @@
-from Resurrection.HuggingFaceModelInferencer.run import run
+import sys; print(sys.path)
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
+
+from Resurrection.HuggingFaceModelInferencer.run import run
 
 
 def main():
