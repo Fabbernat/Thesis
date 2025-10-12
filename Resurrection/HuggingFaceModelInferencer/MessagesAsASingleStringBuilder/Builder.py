@@ -15,12 +15,13 @@ def getMessagesAsString():
         promptFileContents = promptFile.read()
 
     messages = [
-        {"role": "system", "content": "Answer all questions with Yes or No!\n"},
-        {"role": "user", "content": promptFileContents},
+        {'role': 'system', 'content': 'Answer all questions with Yes or No!\n'},
+        {'role': 'user', 'content': promptFileContents},
     ]
 
-    return "".join(messages[0]["content"] + promptFileContents)
+    print('getMessagesAsString returns:', messages[0]['content'], messages[1]['content'], 'FULL STOP')
+    return messages[0]['content'] + messages[1]['content']
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print(getMessagesAsString())
 

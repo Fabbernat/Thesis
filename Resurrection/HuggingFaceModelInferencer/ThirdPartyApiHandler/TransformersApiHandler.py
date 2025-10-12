@@ -7,8 +7,7 @@ from huggingface_hub.errors import HFValidationError
 try:
     from Resurrection.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
 except Exception as e:
-    print("Warning: Could not import getMessagesAsString:", e)
-    getMessagesAsString = lambda: ""  # fallback: empty prompt
+    raise ImportError("Could not import getMessagesAsString", e)
 
 
 class TransformersApiHandler:
@@ -17,7 +16,7 @@ class TransformersApiHandler:
         self.model = None
         self.generated_ids = None
         self.response = None
-        self.inputs = None
+        self.modelInputs = None
 
     def tokenizeAutoModelForQwenAndSimilar0(self):
         from Resurrection.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
@@ -41,11 +40,17 @@ class TransformersApiHandler:
 
         print(f'self.tokenizer after={self.tokenizer}')
 
-        prompt = self.tokenizer.apply_chat_template(getMessagesAsString(), tokenize=False, add_generation_prompt=True)
+        promptAsText = self.tokenizer.apply_chat_template(
+            getMessagesAsString(),
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=False
+        )
 
-        self.inputs = self.tokenizer([prompt], return_tensors="pt").to(self.model.device)
+        self.modelInputs = self.tokenizer([promptAsText], return_tensors="pt").to(self.model.device)
 
 
+    # for gemma models
     def tokeniteAutoModelForGoogle0(self):
         from transformers import pipeline
         from Resurrection.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
@@ -60,13 +65,14 @@ class TransformersApiHandler:
 
         return response
 
+
     def generateIds1(self):
-        self.generated_ids = self.model.generate(**self.inputs, max_new_tokens=512)
+        self.generated_ids = self.model.generate(**self.modelInputs, max_new_tokens=32768)
         return self.generated_ids
 
     def convertIds2(self):
         self.generated_ids = [
-            output_ids[len(input_ids):] for input_ids, output_ids in zip(self.inputs.input_ids, self.generated_ids)
+            output_ids[len(input_ids):] for input_ids, output_ids in zip(self.modelInputs.input_ids, self.generated_ids)
         ]
 
         return self.generated_ids
