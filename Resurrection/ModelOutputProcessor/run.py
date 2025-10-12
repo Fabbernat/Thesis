@@ -1,5 +1,3 @@
-from main import TESTFILE_LENGTH
-
 def run():
     from Resurrection.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
     tc = TernaryClassifier.TernaryClassifier()
@@ -17,6 +15,7 @@ def run():
     fn = tc.getFalseNegatives()
     tn = tc.getTrueNegatives()
 
+    from Resurrection.ModelOutputProcessor.main import TESTFILE_LENGTH
     print(f'True positives: {tp}\t\t{tp * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
     print(f'False positives: {fp}\t\t{fp * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
     print(f'False negatives: {fn}\t\t{fn * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
