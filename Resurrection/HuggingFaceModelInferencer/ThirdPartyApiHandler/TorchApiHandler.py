@@ -9,43 +9,20 @@ def writeToFile(modelResponses):
     with open("modelResponses.out", "w") as modelResponsesFile:
         print(modelResponses, file=modelResponsesFile)
 
-def handleModelSpecificActions():
-    try:
-        from Resurrection.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
-        if MODEL_NAME == 'google/gemma-2-2b':
-            print(f'Model name is {MODEL_NAME}')
-            response = tah.tokeniteAutoModelForGoogle0()
-            writeToFile(response)
-
-            return
-
-
-        else:
-            tah.tokenizeAutoModelForQwenAndSimilar0()
-            self.transformersTensors = tah.generateIds1()
-            self.convertedTensors = tah.convertIds2()
-    except Exception as e:
-        print(e)
-
 class TorchApiHandler:
     def __init__(self):
         print('TorchApiHandler initialized')
         self.transformersTensors = []
         self.convertedTensors = []
         self.modelResponses = ""
+        self.tah = None
 
     def handleRequest(self):
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
-            tah = TransformersApiHandler()
-
-
-            handleModelSpecificActions()
-
-
-
-            self.modelResponses, generated_ids, tokenizer = tah.generateFinalAnswer3()
-
+            self.tah = TransformersApiHandler()
+            self.handleModelSpecificActions()
+            self.modelResponses, generated_ids, tokenizer = self.tah.generateFinalAnswer3()
             print(f'Model\'s responses: {self.modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
 
@@ -60,3 +37,21 @@ class TorchApiHandler:
             print(self.convertedTensors, file=convertedTensorsFile)
 
         writeToFile(self.modelResponses)
+
+    def handleModelSpecificActions(self):
+        try:
+            from Resurrection.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+            if MODEL_NAME == 'google/gemma-2-2b':
+                print(f'Model name is {MODEL_NAME}')
+                response = self.tah.tokeniteAutoModelForGoogle0()
+                writeToFile(response)
+
+                return
+
+
+            else:
+                self.tah.tokenizeAutoModelForQwenAndSimilar0()
+                self.transformersTensors = self.tah.generateIds1()
+                self.convertedTensors = self.tah.convertIds2()
+        except Exception as e:
+            print(e)

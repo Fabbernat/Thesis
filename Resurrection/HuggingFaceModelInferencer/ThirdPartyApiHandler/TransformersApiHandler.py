@@ -11,8 +11,8 @@ except Exception as e:
 
 
 class TransformersApiHandler:
-    print('TransformersApiHandler.TransformersApiHandler() started')
     def __init__(self):
+        print('TransformersApiHandler() started')
         self.tokenizer = None # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
         self.model = None
         self.generated_ids = None
