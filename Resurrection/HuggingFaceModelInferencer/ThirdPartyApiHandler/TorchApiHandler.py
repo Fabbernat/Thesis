@@ -2,40 +2,48 @@ import torch
 
 from  Resurrection.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
 
-print("Is cuda available?", torch.cuda.is_available())
+print("Is cuda available? ", torch.cuda.is_available())
 
 
 def writeToFile(modelResponses):
     with open("modelResponses.out", "w") as modelResponsesFile:
         print(modelResponses, file=modelResponsesFile)
 
+def handleModelSpecificActions():
+    try:
+        from Resurrection.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+        if MODEL_NAME == 'google/gemma-2-2b':
+            print(f'Model name is {MODEL_NAME}')
+            response = tah.tokeniteAutoModelForGoogle0()
+            writeToFile(response)
+
+            return
+
+
+        else:
+            tah.tokenizeAutoModelForQwenAndSimilar0()
+            self.transformersTensors = tah.generateIds1()
+            self.convertedTensors = tah.convertIds2()
+    except Exception as e:
+        print(e)
 
 class TorchApiHandler:
     def __init__(self):
+        print('TorchApiHandler initialized')
         self.transformersTensors = []
         self.convertedTensors = []
         self.modelResponses = ""
 
     def handleRequest(self):
+        print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
-            print('torch.no_grad()')
             tah = TransformersApiHandler()
-            try:
-                from Resurrection.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
-                if MODEL_NAME == 'google/gemma-2-2b':
-                    print(f'Model name is {MODEL_NAME}')
-                    response = tah.tokeniteAutoModelForGoogle0()
-                    writeToFile(response)
-
-                    return
 
 
-                else:
-                    tah.tokenizeAutoModelForQwenAndSimilar0()
-                    self.transformersTensors = tah.generateIds1()
-                    self.convertedTensors = tah.convertIds2()
-            except Exception as e:
-                print(e)
+            handleModelSpecificActions()
+
+
+
             self.modelResponses, generated_ids, tokenizer = tah.generateFinalAnswer3()
 
             print(f'Model\'s responses: {self.modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')

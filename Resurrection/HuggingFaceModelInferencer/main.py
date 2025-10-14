@@ -7,6 +7,7 @@ from Resurrection.HuggingFaceModelInferencer.run import run
 
 
 def main():
+    print('main started')
     run()
 '''
 requires pip install torch, transformers, accelerate

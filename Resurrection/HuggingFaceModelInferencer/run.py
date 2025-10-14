@@ -2,4 +2,5 @@ from Resurrection.HuggingFaceModelInferencer.ThirdPartyApiHandler.TorchApiHandle
 
 
 def run():
+    print('run started')
     TorchApiHandler().handleRequest()
