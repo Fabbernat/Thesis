@@ -10,7 +10,7 @@ def main():
     print('main started')
     run()
 '''
-requires pip install torch, transformers, accelerate
+requires pip install torch, transformers, accelerate, hf_xet
 '''
 if __name__ == '__main__':
     main()
