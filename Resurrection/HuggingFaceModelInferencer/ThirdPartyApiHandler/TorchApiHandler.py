@@ -2,11 +2,11 @@ import torch
 
 from  Resurrection.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
 
-print("Is cuda available? ", torch.cuda.is_available())
+print('Is cuda available? ', torch.cuda.is_available())
 
 
-def writeToFile(modelResponses):
-    with open("modelResponses.out", "w") as modelResponsesFile:
+def writeToFile(modelResponses, fileNameAsString):
+    with open(fileNameAsString, 'w') as modelResponsesFile:
         print(modelResponses, file=modelResponsesFile)
 
 class TorchApiHandler:
@@ -14,7 +14,6 @@ class TorchApiHandler:
         print('TorchApiHandler initialized')
         self.transformersTensors = []
         self.convertedTensors = []
-        self.modelResponses = ""
         self.tah = None
 
     def handleRequest(self):
@@ -22,21 +21,19 @@ class TorchApiHandler:
         with torch.no_grad():
             self.tah = TransformersApiHandler()
             self.handleModelSpecificActions()
-            self.modelResponses, generated_ids, tokenizer = self.tah.generateFinalAnswer3()
-            print(f'Model\'s responses: {self.modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
+            modelResponses, generated_ids, tokenizer = self.tah.generateFinalAnswer3()
+            print(f'Model\'s responses: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
+            writeToFile(modelResponses, 'modelResponses.out')
+            writeToFile(generated_ids, 'generated_ids.out')
+            writeToFile(tokenizer, 'tokenizer.out')
+            writeToFile(self.transformersTensors, 'transformersTensors.out')
+            writeToFile(self.convertedTensors, 'convertedTensors.out')
 
 
         # transformersTensors = TransformersApiHandler().decodeOutputsSkippingSpecialTokens()
 
-        with open("transformersTensors.out", "w") as generatedTensorsFile:
-            print(self.transformersTensors, file=generatedTensorsFile)
-            # print((line for line in transformersTensors), file=transformersTensorsFile)
 
-        with open("convertedTensors.out", "w") as convertedTensorsFile:
-            print(self.convertedTensors, file=convertedTensorsFile)
-
-        writeToFile(self.modelResponses)
 
     def handleModelSpecificActions(self):
         try:
@@ -44,7 +41,7 @@ class TorchApiHandler:
             if MODEL_NAME == 'google/gemma-2-2b':
                 print(f'Model name is {MODEL_NAME}')
                 response = self.tah.tokeniteAutoModelForGoogle0()
-                writeToFile(response)
+                writeToFile(response, 'modelResponses.out')
 
                 return
 
