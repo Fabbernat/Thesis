@@ -1,4 +1,4 @@
-# My Bachelor's Thesis: Reviewing the Consistency of Semantical Capabilities of Large Language Models - a 
+# My Bachelor's Thesis: Reviewing the Consistency of Semantical Capabilities of Large Language Models - a Word-in-Context Benchmark Evaluation System and Utility Library
 You can test the semantical sentence-understanding capabilities of **any\* Hugging Face model**
 
 # [Resurrection](https://github.com/Fabbernat/Thesis/tree/master/Resurrection) - The module where it happens
