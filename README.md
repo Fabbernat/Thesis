@@ -9,7 +9,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 ### Output: 
 - Detailed statistics and analytics of the model's answers to the input.
 
-\* almost any. You need to make your own scripts to test unsupported models. It has been thoroughly tested on `Qwen/Qwen2.5-0.5B-Instruct` though, so this and similar models will grantedly work. 
+\* almost any. You need to make your own scripts to test unsupported models. Resurrection has been thoroughly tested on [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) though, so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work. 
 
 
 ## The paper:
