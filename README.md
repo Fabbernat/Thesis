@@ -1,6 +1,7 @@
 # My Bachelor's Thesis: Word-in-Context Benchmark Evaluation System and Utility Library
-You can test any* Hugging Face model on the Word in Context task
+You can test the semantical sentence-understanding capabilities of **any\* Hugging Face model**
 
+# [Resurrection](https://github.com/Fabbernat/Thesis/tree/master/Resurrection)
 ## The module where it happens:
 [Resurrection module](https://github.com/Fabbernat/Thesis/tree/master/Resurrection)
 ### Input:
