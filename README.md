@@ -13,7 +13,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 
 
 ## The paper:
-[Reviewing the Performance of Language Models on the Word-in-Context Benchmark](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
+[Reviewing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
 
   
 ## My home page:
