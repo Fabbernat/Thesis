@@ -10,7 +10,8 @@ def main():
     print('main started')
     run()
 '''
-requires pip install torch, transformers, accelerate, hf_xet
+All models require pip install torch transformers accelerate
+Some models require  pip install torch transformers accelerate hf_xetm optimum
 '''
 if __name__ == '__main__':
     main()
