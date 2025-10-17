@@ -12,7 +12,7 @@ tested_models = {
 41:'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4',1: 'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8'
 }  # tested models, that will grantedly work
 untested_models = ['google/gemma-2-2b']  # for your own responsibility
-MODEL_NAME = tested_models[10]
+MODEL_NAME = tested_models[1]
 FILE_NAME = "prompt.txt"
 DEVICE = "cuda"
 NUMBER_OF_DESIRED_ANSWERS = 100

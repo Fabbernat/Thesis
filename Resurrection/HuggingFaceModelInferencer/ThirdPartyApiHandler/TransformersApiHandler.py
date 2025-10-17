@@ -45,7 +45,7 @@ class TransformersApiHandler:
             getMessagesAsString(),
             tokenize=False,
             add_generation_prompt=True,
-            enable_thinking=False
+            enable_thinking=True # For Qwen3-32B
         )
 
         self.modelInputs = self.tokenizer([promptAsText], return_tensors="pt").to(self.model.device)
