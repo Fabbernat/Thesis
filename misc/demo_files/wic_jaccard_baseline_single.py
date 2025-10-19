@@ -12,7 +12,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from torch import Tensor
 
-from modules import BASE_PATH
+from misc.modules import BASE_PATH
 
 # Download necessary NLTK resources (uncomment if needed)
 # import nltk

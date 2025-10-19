@@ -11,5 +11,6 @@ build/
 /.idea/assetWizardSettings.xml
 __pycache__/
 .git/
-out/
+misc/out/
 /.idea/*.iml
+/.venv1/

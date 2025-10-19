@@ -1,0 +1,6 @@
+To search and replace llm_question_prompt.txt syntax errors, use the following regex:
+
+Find:
+' (\?<!:)
+Replace:
+\'

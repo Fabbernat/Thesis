@@ -3,8 +3,8 @@ from typing import List, Tuple
 
 import numpy as np
 
-from independent_scripts.tfidf.wic_tfidf_baseline_single import print_evaluation_details
-from solution.implementation.metrics import EvaluationMetrics, calculate_metrics
+from misc.independent_scripts.tfidf.wic_tfidf_baseline_single import print_evaluation_details
+from misc.solution.implementation.metrics import EvaluationMetrics, calculate_metrics
 
 
 def evaluate(

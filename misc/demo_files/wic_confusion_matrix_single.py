@@ -8,9 +8,9 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-from modules import load_wic_data
-from independent_scripts.tfidf.wic_tfidf_baseline_combined import compute_sentence_similarity, evaluate
-from independent_scripts.y_true import y_true_train, y_true_dev, y_true_test
+from misc.modules import load_wic_data
+from misc.independent_scripts.tfidf import compute_sentence_similarity, evaluate
+from misc.independent_scripts.y_true import y_true_train, y_true_dev, y_true_test
 
 
 def matplotlib_plot_confusion_matrix(tn, fp, fn, tp):

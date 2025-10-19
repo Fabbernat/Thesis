@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
-from solution.results.wic_evaluation import print_evaluation_details
+from misc.solution.results.wic_evaluation import print_evaluation_details
 from similarity import compute_sentence_similarity
 from config import load_wic_data
 

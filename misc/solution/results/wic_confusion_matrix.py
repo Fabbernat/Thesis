@@ -7,8 +7,8 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-from solution.implementation import similarity, combined, config
-from independent_scripts.y_true.y_true_train import train_y_true
+from misc.solution.implementation import combined, similarity, config
+from misc.independent_scripts import train_y_true
 
 
 def plot_confusion_matrix(tn, fp, fn, tp, style='seaborn'):

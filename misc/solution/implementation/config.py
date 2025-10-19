@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from modules import BASE_PATH
+from misc.modules import BASE_PATH
 
 # Define which dataset you want to work with
 actual_working_dataset = 'train'

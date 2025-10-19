@@ -5,8 +5,8 @@ import os
 import re
 from typing import Set, Optional, Dict, List
 
-from modules import wic_result_printer, wic_nltk_handler
-from modules.PATH import BASE_PATH
+from misc.modules import wic_result_printer, wic_nltk_handler
+from misc.modules.PATH import BASE_PATH
 
 
 def build_sentence_simple(word: str, sentence_a: str, sentence_b: str) -> str:
