@@ -1,15 +1,15 @@
 # My Bachelor's Thesis: Reviewing the Consistency of Semantical Capabilities of Large Language Models - a Word-in-Context Benchmark Evaluation Framework and Utility Library
 You can test the semantical sentence-understanding capabilities of **any\* Hugging Face model**
 
-# [Resurrection](https://github.com/Fabbernat/Thesis/tree/master/Resurrection) - The module where it happens
-[Resurrection module](https://github.com/Fabbernat/Thesis/tree/master/Resurrection)
+# [src/Framework](https://github.com/Fabbernat/Thesis/tree/master/src/Framework) - The module where it happens
+[src/Framework module](https://github.com/Fabbernat/Thesis/tree/master/src/Framework)
 ### Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
 - Any [Hugging Face](https://huggingface.co/models) model
 ### Output: 
 - Detailed statistics and analytics of the model's answers to the input.
 
-\* almost any. You need to make your own scripts to test unsupported models. Resurrection has been thoroughly tested on [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) though, so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work. 
+\* almost any. You need to make your own scripts to test unsupported models. src/Framework has been thoroughly tested on [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) though, so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work. 
 
 
 ## The paper:
