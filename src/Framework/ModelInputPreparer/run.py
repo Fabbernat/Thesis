@@ -1,10 +1,9 @@
-import json
 import sys
 
-from Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
-from Framework.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
-from Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
-from Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
+from src.Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
+from src.Framework.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
+from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
+from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
     WordAndSentencesExtractor
 
 

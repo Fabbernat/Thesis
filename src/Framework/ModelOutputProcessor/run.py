@@ -1,8 +1,8 @@
 def run():
-    from Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
+    from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
     tc = TernaryClassifier.TernaryClassifier()
     tc.classify()
-    from Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
+    from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
     ternaryResultsFile = 'ternaryResults.out'
     tre = TernaryResultsProcessor.TernaryResultsProcessor(ternaryResultsFile)
 
@@ -15,7 +15,7 @@ def run():
     fn = tc.getFalseNegatives()
     tn = tc.getTrueNegatives()
 
-    from Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
+    from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
     print(f'True positives: {tp}\t\t{tp * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
     print(f'False positives: {fp}\t\t{fp * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
     print(f'False negatives: {fn}\t\t{fn * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)

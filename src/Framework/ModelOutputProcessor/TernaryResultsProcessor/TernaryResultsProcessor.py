@@ -1,4 +1,4 @@
-from Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
+from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
 
 
 class TernaryResultsProcessor:

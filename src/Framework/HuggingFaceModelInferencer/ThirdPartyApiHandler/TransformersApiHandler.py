@@ -1,11 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
-
-# from Framework.HuggingFaceModelInferencer.Config.Config import NUMBER_OF_DESIRED_ANSWERS
-
 try:
-    from Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
 except Exception as e:
     raise ImportError("Could not import getMessagesAsString", e)
 
@@ -20,7 +17,7 @@ class TransformersApiHandler:
         self.modelInputs = None
 
     def tokenizeAutoModelForQwenAndSimilar0(self):
-        from Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
         try:
             self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
 
@@ -42,7 +39,7 @@ class TransformersApiHandler:
         print(f'self.tokenizer after={self.tokenizer}')
 
         promptAsText = self.tokenizer.apply_chat_template(
-            getMessagesAsString(),
+            getMessagesAsString(10),
             tokenize=False,
             add_generation_prompt=True,
             enable_thinking=True # For Qwen3-32B
@@ -54,13 +51,13 @@ class TransformersApiHandler:
     # for gemma models
     def tokeniteAutoModelForGoogle0(self):
         from transformers import pipeline
-        from Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
         pipe = pipeline(
             "text-generation",
             model=MODEL_NAME,
             device="cuda",
         )
-        text = getMessagesAsString()
+        text = getMessagesAsString(10)
         outputs = pipe(text, max_new_tokens=256)
         response = outputs[0]["generated_text"]
 

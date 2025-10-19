@@ -1,4 +1,4 @@
-from Framework.ModelInputPreparer.run import run
+from src.Framework.ModelInputPreparer.run import run
 
 
 def main():

@@ -3,7 +3,7 @@ from abc import ABC
 
 from openai import OpenAI
 
-from Framework.HuggingFaceModelInferencer.LanguageModels.Model import Model
+from src.Framework.HuggingFaceModelInferencer.LanguageModels.Model import Model
 
 client = OpenAI(
     # This is the default and can be omitted

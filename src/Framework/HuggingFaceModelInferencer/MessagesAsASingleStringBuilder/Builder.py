@@ -1,6 +1,6 @@
 import os
 
-from Framework.HuggingFaceModelInferencer.Config.Config import FILE_NAME
+from src.Framework.HuggingFaceModelInferencer.Config.Config import FILE_NAME
 
 def getMessagesAsString(numberOfLines=None):
     currentFilesDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -1,5 +1,5 @@
 from typing import Any
-from Framework.ModelOutputProcessor.main import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
+from src.Framework.ModelOutputProcessor.main import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
 
 class ShouldCategorizeException(Exception):
     pass
@@ -25,7 +25,7 @@ class TernaryClassifier:
             for i in range(len(modelAnswersLines)):
                 modelAnswerLine = modelAnswersLines[i].strip()
 
-                from Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
+                from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
 
                 goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip()
 

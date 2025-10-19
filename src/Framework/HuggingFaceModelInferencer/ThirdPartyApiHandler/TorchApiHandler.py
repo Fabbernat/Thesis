@@ -1,6 +1,6 @@
 import torch
 
-from  Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
 
 print('Is cuda available? ', torch.cuda.is_available())
 
@@ -37,7 +37,7 @@ class TorchApiHandler:
 
     def handleModelSpecificActions(self):
         try:
-            from Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+            from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
             if MODEL_NAME == 'google/gemma-2-2b':
                 print(f'Model name is {MODEL_NAME}')
                 response = self.tah.tokeniteAutoModelForGoogle0()
