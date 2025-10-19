@@ -10,11 +10,11 @@ except Exception as e:
 class TransformersApiHandler:
     def __init__(self):
         print('TransformersApiHandler() started')
-        self.tokenizer = None # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
-        self.model = None
-        self.generated_ids = None
-        self.response = None
-        self.modelInputs = None
+        self.tokenizer = object # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
+        self.model = object
+        self.generated_ids = object
+        self.response = object
+        self.modelInputs = object
 
     def tokenizeAutoModelForQwenAndSimilar0(self):
         from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
@@ -82,9 +82,10 @@ class TransformersApiHandler:
             self.response = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0] # [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason, so [NUMBER_OF_DESIRED_ANSWERS] is not needed.
             print(self.generated_ids)
         except AttributeError as ae:
-            print('failed to batch_decode generated_ids:', ae)
+            print('AttributeError trying to batch_decode generated_ids:', ae)
+        except TypeError as te:
+            print('TypeError trying to batch_decode generated_ids:', te)
         return self.response, self.generated_ids, self.tokenizer # need to test all three
-
     def decodeOutputsSkippingSpecialTokens(self):
         try:
             self.tokenizer.decode(self.generated_ids, skip_special_tokens=True)
