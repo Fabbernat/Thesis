@@ -36,6 +36,17 @@ over supersenses (Pilehvar and Camacho-Collados,
 in two different supersenses and the positive ones
 include a word used in the same supersense.
 
+#### How to use the app?
+1. Clone the Repo. Python interpreter needed. It is recommended to use PyCharm
+2. navigate to `src/Framework/ModelInputPreparer/main.py` and run `main()` (in PyCharm just click the green triangle)
+3. You see the results in the `.out` files
+4. do the same with the `HuggingFaceModelInferencer` and the `ModelOutputProcessor` modules, or just run the `src/Framework/globalMain.py` to execute all three modules at once
+5. Check the results in the .out files
+6. That's it!
+
+#### Example result:
+<img width="1919" height="1029" alt="image" src="https://github.com/user-attachments/assets/a5049ee9-e84b-48fc-a917-5b6bb66556fd" />
+
 
 #### The Colab Notebook [outdated]:
 [WiC POS Tagging Word Comparison Notebook](https://colab.research.google.com/drive/1_UdMjugchWWHVrgETc9T1wsYs0R-67wh#scrollTo=9OlQSKyWfH9Y)
