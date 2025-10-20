@@ -1,4 +1,4 @@
-# My Bachelor's Thesis: Reviewing the Consistency of Semantical Capabilities of Large Language Models - a Word-in-Context Benchmark Evaluation Framework and Utility Library
+# My Bachelor's Thesis: Analyzing the Consistency of Semantical Capabilities of Large Language Models - a Word-in-Context Benchmark Evaluation Framework and Utility Library
 You can test the semantical sentence-understanding capabilities of **any\* Hugging Face model**
 
 # [src/Framework](https://github.com/Fabbernat/Thesis/tree/master/src/Framework) - The module where it happens
@@ -12,10 +12,11 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 \* almost any. You need to make your own scripts to test unsupported models. src/Framework has been thoroughly tested on [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) though, so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work. 
 
 
-## The paper:
-[Reviewing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
+## The paper [Outdated]:
+[Analyzing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
+## Pdf TeX Source:
+[GitHub](https://github.com/Fabbernat/Thesis-paper)  
 
-  
 ## My home page:
 [Bernát Fábián](https://fabbernat.github.io/)
 
