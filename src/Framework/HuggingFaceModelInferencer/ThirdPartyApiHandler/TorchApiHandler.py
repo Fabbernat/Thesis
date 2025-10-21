@@ -1,6 +1,10 @@
 import torch
 import sys
 
+from transformers import MODEL_NAMES_MAPPING
+
+from Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+
 from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
 
 print('Is cuda available? ', torch.cuda.is_available())
