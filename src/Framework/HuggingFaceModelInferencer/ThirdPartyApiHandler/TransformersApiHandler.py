@@ -11,7 +11,7 @@ except Exception as e:
 
 class TransformersApiHandler:
     def __init__(self):
-        print('TransformersApiHandler() started')
+        print('TransformersApiHandler() initalized')
         self.tokenizer = object # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
         self.model = object
         self.generated_ids = object
@@ -53,7 +53,6 @@ class TransformersApiHandler:
     # for gemma models
     def tokeniteAutoModelForGoogle0(self):
         from transformers import pipeline
-        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
         pipe = pipeline(
             "text-generation",
             model=MODEL_NAME,

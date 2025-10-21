@@ -1,4 +1,5 @@
 import torch
+import sys
 
 from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
 
@@ -14,14 +15,14 @@ class TorchApiHandler:
         print('TorchApiHandler initialized')
         self.transformersTensors = []
         self.convertedTensors = []
-        self.tah = None
+        self.transApiH = None
 
     def handleRequest(self):
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
-            self.tah = TransformersApiHandler()
+            self.transApiH = TransformersApiHandler()
             self.handleModelSpecificActions()
-            modelResponses, generated_ids, tokenizer = self.tah.generateFinalAnswer3()
+            modelResponses, generated_ids, tokenizer = self.transApiH.generateFinalAnswer3()
             print(f'Model\'s responses: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
             writeToFile(modelResponses, 'modelResponses.out')
@@ -37,18 +38,17 @@ class TorchApiHandler:
 
     def handleModelSpecificActions(self):
         try:
-            from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
             if MODEL_NAME == 'google/gemma-2-2b':
                 print(f'Model name is {MODEL_NAME}')
-                response = self.tah.tokeniteAutoModelForGoogle0()
+                response = self.transApiH.tokeniteAutoModelForGoogle0()
                 writeToFile(response, 'modelResponses.out')
 
                 return
 
 
             else:
-                self.tah.tokenizeAutoModelForQwenAndSimilar0()
-                self.transformersTensors = self.tah.generateIds1()
-                self.convertedTensors = self.tah.convertIds2()
+                self.transApiH.tokenizeAutoModelForQwenAndSimilar0()
+                self.transformersTensors = self.transApiH.generateIds1()
+                self.convertedTensors = self.transApiH.convertIds2()
         except Exception as e:
-            print(e)
+            print('Exception in handleModelSpecificActions:', e)
