@@ -1,8 +1,9 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
+from ..Config.Config import MODEL_NAME
 
 try:
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from ..MessagesAsASingleStringBuilder.Builder import getMessagesAsString
 except Exception as e:
     raise ImportError("Could not import getMessagesAsString", e)
 
@@ -17,7 +18,6 @@ class TransformersApiHandler:
         self.modelInputs = object
 
     def tokenizeAutoModelForQwenAndSimilar0(self):
-        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
         try:
             self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
 
@@ -51,7 +51,6 @@ class TransformersApiHandler:
     # for gemma models
     def tokeniteAutoModelForGoogle0(self):
         from transformers import pipeline
-        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
         pipe = pipeline(
             "text-generation",
             model=MODEL_NAME,
@@ -65,7 +64,7 @@ class TransformersApiHandler:
 
 
     def generateIds1(self):
-        self.generated_ids = self.model.generate(**self.modelInputs, max_new_tokens=32768)
+        self.generated_ids = self.model.generate({**self.modelInputs}, max_new_tokens=32768)
         return self.generated_ids
 
     def convertIds2(self):

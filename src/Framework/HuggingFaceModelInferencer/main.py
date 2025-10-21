@@ -3,7 +3,8 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 
-from src.Framework.HuggingFaceModelInferencer.run import run
+from run import run
+
 
 
 def main():

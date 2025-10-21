@@ -1,6 +1,6 @@
 import torch
 
-from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+from .TransformersApiHandler import TransformersApiHandler
 
 print('Is cuda available? ', torch.cuda.is_available())
 
@@ -14,14 +14,14 @@ class TorchApiHandler:
         print('TorchApiHandler initialized')
         self.transformersTensors = []
         self.convertedTensors = []
-        self.tah = None
+        self.transApiHandler = None
 
     def handleRequest(self):
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
-            self.tah = TransformersApiHandler()
+            self.transApiHandler = TransformersApiHandler()
             self.handleModelSpecificActions()
-            modelResponses, generated_ids, tokenizer = self.tah.generateFinalAnswer3()
+            modelResponses, generated_ids, tokenizer = self.transApiHandler.generateFinalAnswer3()
             print(f'Model\'s responses: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
             writeToFile(modelResponses, 'modelResponses.out')
@@ -37,18 +37,18 @@ class TorchApiHandler:
 
     def handleModelSpecificActions(self):
         try:
-            from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
-            if MODEL_NAME == 'google/gemma-2-2b':
+            from ..Config.Config import MODEL_NAME
+            if 'google' in MODEL_NAME:
                 print(f'Model name is {MODEL_NAME}')
-                response = self.tah.tokeniteAutoModelForGoogle0()
+                response = self.transApiHandler.tokeniteAutoModelForGoogle0()
                 writeToFile(response, 'modelResponses.out')
 
                 return
 
 
             else:
-                self.tah.tokenizeAutoModelForQwenAndSimilar0()
-                self.transformersTensors = self.tah.generateIds1()
-                self.convertedTensors = self.tah.convertIds2()
+                self.transApiHandler.tokenizeAutoModelForQwenAndSimilar0()
+                self.transformersTensors = self.transApiHandler.generateIds1()
+                self.convertedTensors = self.transApiHandler.convertIds2()
         except Exception as e:
             print(e)
