@@ -18,6 +18,20 @@ class TransformersApiHandler:
         self.response = object
         self.modelInputs = object
 
+        # for gemma models
+    def tokeniteAutoModelForGoogle0(self):
+        from transformers import pipeline
+        pipe = pipeline(
+            "text-generation",
+            model=MODEL_NAME,
+            device="cuda",
+        )
+        text = getMessagesAsString(10)
+        outputs = pipe(text, max_new_tokens=256)
+        response = outputs[0]["generated_text"]
+
+        return response
+
     def tokenizeAutoModelForQwenAndSimilar0(self):
         from Config.Config import MODEL_NAME
         try:
@@ -48,21 +62,6 @@ class TransformersApiHandler:
         )
 
         self.modelInputs = self.tokenizer([promptAsText], return_tensors="pt").to(self.model.device)
-
-
-    # for gemma models
-    def tokeniteAutoModelForGoogle0(self):
-        from transformers import pipeline
-        pipe = pipeline(
-            "text-generation",
-            model=MODEL_NAME,
-            device="cuda",
-        )
-        text = getMessagesAsString(10)
-        outputs = pipe(text, max_new_tokens=256)
-        response = outputs[0]["generated_text"]
-
-        return response
 
 
     def generateIds1(self):
