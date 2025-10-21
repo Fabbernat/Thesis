@@ -1,6 +1,6 @@
+
+
 # BETA: Optional global main running all three submodules if you don't want to click three times (not recommended, since the second module often runs to errors or bugs)
-
-
 def main():
     try:
         src.Framework.ModelInputPreparer.main.main()
