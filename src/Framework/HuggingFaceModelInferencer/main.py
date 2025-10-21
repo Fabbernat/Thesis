@@ -1,14 +1,13 @@
-import sys; print(sys.path)
+import sys; print("sys.path: ", str(sys.path))
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 
-from src.Framework.HuggingFaceModelInferencer.run import run
-
+import run
 
 def main():
     print('main started')
-    run()
+    run.run()
 '''
 All models require pip install torch transformers accelerate
 Some models require  pip install torch transformers accelerate hf_xetm optimum

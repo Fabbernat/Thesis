@@ -1,6 +1,6 @@
 import torch
 
-from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
 
 print('Is cuda available? ', torch.cuda.is_available())
 

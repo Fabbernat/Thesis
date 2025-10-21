@@ -2,9 +2,11 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
 try:
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+except ImportError as ie:
+    print("Could not import getMessagesAsString: ", ie)
 except Exception as e:
-    raise ImportError("Could not import getMessagesAsString", e)
+    print("Exception occured: ", e)
 
 
 class TransformersApiHandler:
@@ -17,7 +19,7 @@ class TransformersApiHandler:
         self.modelInputs = object
 
     def tokenizeAutoModelForQwenAndSimilar0(self):
-        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+        from Config.Config import MODEL_NAME
         try:
             self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
 
