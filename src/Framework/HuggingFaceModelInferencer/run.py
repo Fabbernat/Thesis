@@ -1,6 +1,5 @@
-from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TorchApiHandler import TorchApiHandler
-
+import ThirdPartyApiHandler.TorchApiHandler as TorchApiHandler
 
 def run():
     print('run started')
-    TorchApiHandler().handleRequest()
+    TorchApiHandler.TorchApiHandler().handleRequest()

@@ -2,22 +2,38 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
 try:
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+except ImportError as ie:
+    print("Could not import getMessagesAsString: ", ie)
 except Exception as e:
-    raise ImportError("Could not import getMessagesAsString", e)
+    print("Exception occured: ", e)
 
 
 class TransformersApiHandler:
     def __init__(self):
-        print('TransformersApiHandler() started')
+        print('TransformersApiHandler() initalized')
         self.tokenizer = object # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
         self.model = object
         self.generated_ids = object
         self.response = object
         self.modelInputs = object
 
+        # for gemma models
+    def tokeniteAutoModelForGoogle0(self):
+        from transformers import pipeline
+        pipe = pipeline(
+            "text-generation",
+            model=MODEL_NAME,
+            device="cuda",
+        )
+        text = getMessagesAsString(10)
+        outputs = pipe(text, max_new_tokens=256)
+        response = outputs[0]["generated_text"]
+
+        return response
+
     def tokenizeAutoModelForQwenAndSimilar0(self):
-        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+        from Config.Config import MODEL_NAME
         try:
             self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
 
@@ -46,22 +62,6 @@ class TransformersApiHandler:
         )
 
         self.modelInputs = self.tokenizer([promptAsText], return_tensors="pt").to(self.model.device)
-
-
-    # for gemma models
-    def tokeniteAutoModelForGoogle0(self):
-        from transformers import pipeline
-        from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
-        pipe = pipeline(
-            "text-generation",
-            model=MODEL_NAME,
-            device="cuda",
-        )
-        text = getMessagesAsString(10)
-        outputs = pipe(text, max_new_tokens=256)
-        response = outputs[0]["generated_text"]
-
-        return response
 
 
     def generateIds1(self):
