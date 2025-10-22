@@ -18,7 +18,7 @@ class TernaryClassifier:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
         confusionMatrixValues: list[str] = []
 
-        with  open("modelResponses.txt") as modelFile, open("test.gold.txt") as goldFile:
+        with  open("modelResponses.in") as modelFile, open("test.gold.in") as goldFile:
             modelAnswersLines: list[str] = modelFile.readlines()
             goldAnswersLines: list[str] = goldFile.readlines()
 

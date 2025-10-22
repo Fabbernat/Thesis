@@ -1,4 +1,5 @@
 import os
+from itertools import islice
 
 from src.Framework.HuggingFaceModelInferencer.Config.Config import FILE_NAME
 
@@ -24,8 +25,8 @@ def getMessagesAsString(numberOfLines=None):
         {'role': 'user', 'content': promptFileContents},
     ]
 
-    print('getMessagesAsString returns:', messages[0]['content'], messages[1]['content'], 'FULL STOP')
-    return messages[0]['content'] + messages[1]['content']
+    print('getMessagesAsString returns:```\n', messages[0]['content'], messages[1]['content'], '```\n')
+    return messages
 
 if __name__ == '__main__':
     print(getMessagesAsString())

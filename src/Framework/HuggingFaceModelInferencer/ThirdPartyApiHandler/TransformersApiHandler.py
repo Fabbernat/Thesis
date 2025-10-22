@@ -1,6 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
+from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+
 try:
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
 except ImportError as ie:
@@ -33,7 +35,6 @@ class TransformersApiHandler:
         return response
 
     def tokenizeAutoModelForQwenAndSimilar0(self):
-        from Config.Config import MODEL_NAME
         try:
             self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
 

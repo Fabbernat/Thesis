@@ -13,7 +13,7 @@ tested_models = {
 }  # tested models, that will grantedly work
 untested_models = ['google/gemma-2-2b']  # for your own responsibility
 MODEL_NAME = tested_models[0]
-FILE_NAME = "prompt.txt"
+FILE_NAME = "prompt.in"
 DEVICE = "cuda"
 NUMBER_OF_DESIRED_ANSWERS = 100
 

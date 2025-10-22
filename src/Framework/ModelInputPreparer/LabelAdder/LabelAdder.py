@@ -7,7 +7,7 @@ class FileReader:
 class TestFilesMerger:
     def mergeTestfiles(self) -> str:
         try:
-            with open("test.data.txt", "r") as testDataFile, open("test.gold.txt", "r") as testGoldFile:
+            with open("test.data.in", "r") as testDataFile, open("test.gold.in", "r") as testGoldFile:
                 fileReader: FileReader = FileReader()
                 rawTestDataValues = fileReader.readWholeFile(testDataFile)
                 rawTestGoldValues = fileReader.readWholeFile(testGoldFile)

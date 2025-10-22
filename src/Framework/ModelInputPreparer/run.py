@@ -9,7 +9,7 @@ from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentences
 
 def run(logPartialResults=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
-    mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.txt" and "test.gold.txt" in this directory
+    mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.in" and "test.gold.in" in this directory
 
     if logPartialResults:
         print(mergedTestValues) #eddig okés
