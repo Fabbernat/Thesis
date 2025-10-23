@@ -15,8 +15,8 @@ def run():
     fn = tc.getFalseNegatives()
     tn = tc.getTrueNegatives()
 
-    from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
-    print(f'True positives: {tp}\t\t{tp * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
-    print(f'False positives: {fp}\t\t{fp * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
-    print(f'False negatives: {fn}\t\t{fn * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
-    print(f'True negatives: {tn}\t\t{tn * 100 / TESTFILE_LENGTH:.2f} %', file=overallPerformanceReport)
+    length = tc.NUMBER_OF_LINES
+    print(f'True positives: {tp}\t\t{tp * 100 / length:.2f} %', file=overallPerformanceReport)
+    print(f'False positives: {fp}\t\t{fp * 100 / length:.2f} %', file=overallPerformanceReport)
+    print(f'False negatives: {fn}\t\t{fn * 100 / length:.2f} %', file=overallPerformanceReport)
+    print(f'True negatives: {tn}\t\t{tn * 100 / length:.2f} %', file=overallPerformanceReport)

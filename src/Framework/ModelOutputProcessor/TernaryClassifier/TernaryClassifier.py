@@ -1,5 +1,4 @@
 from typing import Any
-from src.Framework.ModelOutputProcessor.main import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
 
 class ShouldCategorizeException(Exception):
     pass
@@ -7,6 +6,8 @@ class ShouldCategorizeException(Exception):
 
 
 class TernaryClassifier:
+    NUMBER_OF_LINES = 1
+
     def __init__(self):
         self.TruePositives = 0
         self.FalsePositives = 0
@@ -22,7 +23,8 @@ class TernaryClassifier:
             modelAnswersLines: list[str] = modelFile.readlines()
             goldAnswersLines: list[str] = goldFile.readlines()
 
-            for i in range(len(modelAnswersLines)):
+            self.NUMBER_OF_LINES = len(modelAnswersLines)
+            for i in range(self.NUMBER_OF_LINES):
                 modelAnswerLine = modelAnswersLines[i].strip()
 
                 from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
@@ -36,7 +38,8 @@ class TernaryClassifier:
                 print(goldAnswerLine)
                 value = (modelAnswerLineYesOrNo == goldAnswerLine)
 
-
+                if not value:
+                    print(f'MISTAKE IN LINE {i + 1}! {modelAnswerLineYesOrNo} instead of {goldAnswerLine}')
 
 
                 if not isinstance(value, bool):
@@ -55,28 +58,48 @@ class TernaryClassifier:
     def getYesOrNo(self, modelAnswer: str) -> str:
         return self.classifySentence(modelAnswer)
 
-    def classifySentence(self, LinebreaklessString: str) -> str:
+    def classifySentence(self, linebreaklessSentence: str, phrases=False) -> str:
         """
-        function that gets a LinebreaklessString as input and may output 3 different characters based on the sentence: - 'T' if the LinebreaklessString contains the word "Yes" (case-sensitive), or an affirmative message. - 'F' if the LinebreaklessString contains the word "No" (case-sensitive), or a not affirmative message. - '?' in any other cases, where the intent of the sentence is unclear.
-        Ez a legjobb ötletem a modell intenciójának az eldöntésére, de ez biztosan nem osztályozza be a szándékokat 100%-os pontossággal
+        function that gets a linebreaklessSentence as input and may output 3 different characters based on the sentence: - 'T' if the linebreaklessSentence contains the word "Yes" (case-sensitive), or an affirmative message. - 'F' if the linebreaklessSentence contains the word "No" (case-sensitive), or a not affirmative message. - '?' in any other cases, where the intent of the sentence is unclear.
+        Ez a legjobb ötletem a modell biasának az eldöntésére, de ez biztosan nem osztályozza be a szándékokat 100%-os pontossággal
         :return:
         """
         #TODO mivan ha "Yes and No" a válasz, vagy "eyes"?
-        text = LinebreaklessString.strip()
-        if text == 'T':
+        sentence = linebreaklessSentence.strip()
+        if sentence == 'T' or sentence == 'Yes' or sentence == 'Yes.':
             return 'T'
-        if text == 'F':
+        if sentence == 'F' or sentence == 'No' or sentence == 'No.':
             return 'F'
 
+        if phrases:
+            return self.classifyByPhrases(sentence)
+        else:
+            return self.classifyByKeywords(sentence)
 
+
+    def classifyByPhrases(self, sentence: str) -> str:
+        from src.Framework.ModelOutputProcessor.main import AFFIRMATIVE_PHRASES, NEGATIVE_PHRASES
+
+        affirmativePhrases = AFFIRMATIVE_PHRASES
+        negativePhrases = NEGATIVE_PHRASES
+
+        if any(affirmativePhrases) in sentence:
+            return 'T'
+        if any(negativePhrases) in sentence:
+            return 'F'
+        return '?'
+
+    def classifyByKeywords(self, sentence: str) -> str:
+        from src.Framework.ModelOutputProcessor.main import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
         affirmativeKeywords = AFFIRMATIVE_KEYWORDS
         negativeKeywords = NEGATIVE_KEYWORDS
 
-        if any(word.lower() in text.lower() for word in affirmativeKeywords):
+        if any(word.lower() in sentence.lower() for word in affirmativeKeywords):
             return 'T'
-        if any(word.lower() in text.lower() for word in negativeKeywords):
+        if any(word.lower() in sentence.lower() for word in negativeKeywords):
             return 'F'
         return '?'
+
 
 
     def categorize(self, modelAnswerLineYesOrNo, goldAnswerLine):
