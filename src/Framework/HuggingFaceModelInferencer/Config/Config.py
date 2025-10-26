@@ -11,7 +11,4 @@ SUPPORTED_MODELS = {
 37:'Qwen/Qwen2.5-32B-Instruct-GPTQ-Int4', 38:'Qwen/Qwen2.5-32B-Instruct-GPTQ-Int8', 39:'Qwen/Qwen2.5-72B-Instruct-GGUF', 40:'Qwen/Qwen2.5-72B-Instruct-AWQ',
 41:'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4',1: 'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8'
 }  # tested models, that will grantedly work
-untested_models = ['google/gemma-2-2b']  # for your own responsibility
-MODEL_NAME = SUPPORTED_MODELS[0]
-
-MODEL_NAME = MODEL_NAME.strip().lower()
+UNSUPPORTED_MODELS = {0: 'google/gemma-2-2b', 1:'microsoft/Phi-4-mini-instruct'}  # for your own responsibility

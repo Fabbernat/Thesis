@@ -3,9 +3,8 @@ import sys
 
 from transformers import MODEL_NAMES_MAPPING
 
-from Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
-
-from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+from src.Framework.HuggingFaceModelInferencer.main import MODEL_NAME
 
 print('Is cuda available? ', torch.cuda.is_available())
 
@@ -19,18 +18,18 @@ class TorchApiHandler:
         print('TorchApiHandler initialized')
         self.transformersTensors = []
         self.convertedTensors = []
-        self.transApiH = None
+        self.transformersApiHandler = None
 
     def handleRequest(self):
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
-            self.transApiH = TransformersApiHandler()
+            self.transformersApiHandler = TransformersApiHandler()
             self.handleModelSpecificActions()
-            modelResponses, generated_ids, tokenizer = self.transApiH.generateFinalAnswer3()
+            modelResponses, generated_ids, tokenizer = self.transformersApiHandler.generateFinalAnswer3()
             print(f'Model\'s responses: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
             writeToFile(modelResponses, 'modelResponses.out')
-            writeToFile(generated_ids, 'generated_ids.out')
+            writeToFile(generated_ids, 'generatedIds.out')
             writeToFile(tokenizer, 'tokenizer.out')
             writeToFile(self.transformersTensors, 'transformersTensors.out')
             writeToFile(self.convertedTensors, 'convertedTensors.out')
@@ -44,15 +43,14 @@ class TorchApiHandler:
         try:
             if MODEL_NAME == 'google/gemma-2-2b':
                 print(f'Model name is {MODEL_NAME}')
-                response = self.transApiH.tokeniteAutoModelForGoogle0()
+                response = self.transformersApiHandler.google()
                 writeToFile(response, 'modelResponses.out')
 
                 return
 
 
             else:
-                self.transApiH.tokenizeAutoModelForQwenAndSimilar0()
-                self.transformersTensors = self.transApiH.generateIds1()
-                self.convertedTensors = self.transApiH.convertIds2()
+                self.transformersTensors, self.convertedTensors = self.transformersApiHandler.qwen()
         except Exception as e:
+            raise e
             print('Exception in handleModelSpecificActions:', e)

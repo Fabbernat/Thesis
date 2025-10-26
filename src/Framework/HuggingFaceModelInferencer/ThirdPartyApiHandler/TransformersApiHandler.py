@@ -1,8 +1,6 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-from huggingface_hub.errors import HFValidationError
-
-from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
-from src.Framework.HuggingFaceModelInferencer.main import NUMBER_OF_DESIRED_ANSWERS
+from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
+from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0, \
+    generateIds1, convertIds2
 
 try:
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
@@ -17,79 +15,38 @@ class TransformersApiHandler:
         print('TransformersApiHandler() initalized')
         self.tokenizer = object # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
         self.model = object
-        self.generated_ids = object
+        self.generatedIds = object
         self.response = object
         self.modelInputs = object
 
-        # for gemma models
-    def tokeniteAutoModelForGoogle0(self):
-        from transformers import pipeline
-        pipe = pipeline(
-            "text-generation",
-            model=MODEL_NAME,
-            device="cuda",
-        )
-        text = getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS)
-        outputs = pipe(text, max_new_tokens=256)
-        response = outputs[0]["generated_text"]
+    # for google models
+    def google(self):
+        print('google path chosen')
+        tokenizeAutoModelForGoogle0()
 
-        return response
+    def qwen(self):
+        print('qwen path chosen')
+        self.model, self.modelInputs = tokenizeAutoModelForQwenAndSimilar0(self.model, self.tokenizer)
+        generatedIds = generateIds1(self.model, self.modelInputs)
+        convertIds = convertIds2(self.modelInputs, self.generatedIds)
 
-    def tokenizeAutoModelForQwenAndSimilar0(self):
-        try:
-            self.model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, dtype="auto", device_map="auto") # torch_dtype is deprecated, but still necessary?
-
-
-        except AttributeError as e:
-            print("AttributeError in self.model.generate.", str(e))
-        print(f'self.tokenizer before={self.tokenizer}')
-
-
-
-        try:
-            self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-        except HFValidationError as e:
-            print("Invalid Hugging Face model name:", e)
-
-        except Exception as e:
-            print("Unexpected error while loading model:", e)
-
-        print(f'self.tokenizer after={self.tokenizer}')
-
-        promptAsText = self.tokenizer.apply_chat_template(
-            getMessagesAsString(10),
-            tokenize=False,
-            add_generation_prompt=True,
-            enable_thinking=True # For Qwen3-32B
-        )
-
-        self.modelInputs = self.tokenizer([promptAsText], return_tensors="pt").to(self.model.device)
-
-
-    def generateIds1(self):
-        self.generated_ids = self.model.generate(**self.modelInputs, max_new_tokens=32768)
-        return self.generated_ids
-
-    def convertIds2(self):
-        self.generated_ids = [
-            output_ids[len(input_ids):] for input_ids, output_ids in zip(self.modelInputs.input_ids, self.generated_ids)
-        ]
-
-        return self.generated_ids
+        return generatedIds, convertIds
 
     def generateFinalAnswer3(self):
         if self.tokenizer is None:
             print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')
         try:
-            self.response = self.tokenizer.batch_decode(self.generated_ids, skip_special_tokens=True)[0] # [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason, so [NUMBER_OF_DESIRED_ANSWERS] is not needed.
-            print(self.generated_ids)
+            self.response = self.tokenizer.batch_decode(self.generatedIds, skip_special_tokens=True)[
+                0]  # [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason, so [NUMBER_OF_DESIRED_ANSWERS] is not needed.
+            print(self.generatedIds)
         except AttributeError as ae:
-            print('AttributeError trying to batch_decode generated_ids:', ae)
+            print('AttributeError trying to batch_decode generatedIds:', ae)
         except TypeError as te:
-            print('TypeError trying to batch_decode generated_ids:', te)
-        return self.response, self.generated_ids, self.tokenizer # need to test all three
+            print('TypeError trying to batch_decode generatedIds:', te)
+        return self.response, self.generatedIds, self.tokenizer  # need to test all three
+
     def decodeOutputsSkippingSpecialTokens(self):
         try:
-            self.tokenizer.decode(self.generated_ids, skip_special_tokens=True)
+            self.tokenizer.decode(self.generatedIds, skip_special_tokens=True)
         except AttributeError as ae:
             raise Exception("AttributeError while trying to decode outputs skipping special tokens.", ae)
