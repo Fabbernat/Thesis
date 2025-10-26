@@ -1,7 +1,8 @@
 import os
 from itertools import islice
 
-from src.Framework.HuggingFaceModelInferencer.Config.Config import FILE_NAME
+from src.Framework.HuggingFaceModelInferencer.main import FILE_NAME
+
 
 def getMessagesAsString(numberOfLines=None):
     currentFilesDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +22,7 @@ def getMessagesAsString(numberOfLines=None):
             print('reading:', promptFileContents)
 
     messages = [
-        {'role': 'system', 'content': 'Answer all questions with Yes or No!\n'},
+        {'role': 'system', 'content': f'Answer all {numberOfLines} questions with Yes or No!\n'},
         {'role': 'user', 'content': promptFileContents},
     ]
 

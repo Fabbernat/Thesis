@@ -13,7 +13,5 @@ SUPPORTED_MODELS = {
 }  # tested models, that will grantedly work
 untested_models = ['google/gemma-2-2b']  # for your own responsibility
 MODEL_NAME = SUPPORTED_MODELS[0]
-FILE_NAME = "prompt.in"
-NUMBER_OF_DESIRED_ANSWERS = 100
 
 MODEL_NAME = MODEL_NAME.strip().lower()
