@@ -1,4 +1,4 @@
-tested_models = {
+SUPPORTED_MODELS = {
     0: 'Qwen/Qwen2.5-0.5B-Instruct', 2:'Qwen/Qwen2.5-0.5B', 3:'Qwen/Qwen2.5-1.5B', 4:'Qwen/Qwen2.5-1.5B-Instruct',
 5:'Qwen/Qwen2.5-3B',6: 'Qwen/Qwen2.5-3B-Instruct',7: 'Qwen/Qwen2.5-7B',8: 'Qwen/Qwen2.5-7B-Instruct',
 9:'Qwen/Qwen2.5-14B',10: 'Qwen/Qwen2.5-14B-Instruct',11: 'Qwen/Qwen2.5-32B',12: 'Qwen/Qwen2.5-32B-Instruct',
@@ -12,9 +12,8 @@ tested_models = {
 41:'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4',1: 'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8'
 }  # tested models, that will grantedly work
 untested_models = ['google/gemma-2-2b']  # for your own responsibility
-MODEL_NAME = tested_models[0]
+MODEL_NAME = SUPPORTED_MODELS[0]
 FILE_NAME = "prompt.in"
-DEVICE = "cuda"
 NUMBER_OF_DESIRED_ANSWERS = 100
 
 MODEL_NAME = MODEL_NAME.strip().lower()

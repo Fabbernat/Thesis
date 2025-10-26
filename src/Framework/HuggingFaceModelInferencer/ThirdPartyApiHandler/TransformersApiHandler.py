@@ -2,6 +2,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from huggingface_hub.errors import HFValidationError
 
 from src.Framework.HuggingFaceModelInferencer.Config.Config import MODEL_NAME
+from src.Framework.HuggingFaceModelInferencer.main import NUMBER_OF_DESIRED_ANSWERS
 
 try:
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
@@ -28,7 +29,7 @@ class TransformersApiHandler:
             model=MODEL_NAME,
             device="cuda",
         )
-        text = getMessagesAsString(10)
+        text = getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS)
         outputs = pipe(text, max_new_tokens=256)
         response = outputs[0]["generated_text"]
 
