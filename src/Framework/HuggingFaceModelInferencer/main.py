@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 # --- CONFIG ---
 MODEL_NAME = SUPPORTED_MODELS[0]
-FILE_NAME = "prompt.in"
+FILE_NAME = "data/prompt.in"
 
 NUMBER_OF_DESIRED_ANSWERS = 15
 

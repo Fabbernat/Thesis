@@ -10,7 +10,7 @@ print('Is cuda available? ', torch.cuda.is_available())
 
 
 def writeToFile(modelResponses, fileNameAsString):
-    with open(fileNameAsString, 'w') as modelResponsesFile:
+    with open(f'data/{fileNameAsString}', 'w') as modelResponsesFile:
         print(modelResponses, file=modelResponsesFile)
 
 class TorchApiHandler:
