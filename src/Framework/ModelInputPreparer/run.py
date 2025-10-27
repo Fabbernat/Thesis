@@ -35,7 +35,7 @@ def run(logPartialResults=False):
         reversedSentences.append(reversedSentence)
 
     try:
-        with open("data.out", "w", encoding="utf-8") as dataFile:
+        with open("data/formattedQuestions.out", "w", encoding="utf-8") as dataFile:
             print("\n".join(straightSentences), file=dataFile)
             print("\n".join(reversedSentences), file=dataFile)
             print('Program succesfully executed!')
