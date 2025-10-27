@@ -3,9 +3,9 @@ from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
 
 class TernaryResultsProcessor:
 
-    def __init__(self, filename):
-        with open(filename) as ternaryResultsFile:
-            self.ternaryResultsLines = ternaryResultsFile.readlines()
+    def __init__(self, filePath):
+        with open(filePath) as ternaryResultsFilePath:
+            self.ternaryResultsLines = ternaryResultsFilePath.readlines()
 
     def getResultsFromTernaryJson(self):
         pass

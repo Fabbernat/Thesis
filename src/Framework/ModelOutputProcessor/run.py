@@ -3,10 +3,10 @@ def run():
     tc = TernaryClassifier.TernaryClassifier()
     tc.classify()
     from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
-    ternaryResultsFile = 'ternaryResults.out'
-    tre = TernaryResultsProcessor.TernaryResultsProcessor(ternaryResultsFile)
+    ternaryResultsPath = 'data/ternaryResults.out'
+    tre = TernaryResultsProcessor.TernaryResultsProcessor(ternaryResultsPath)
 
-    overallPerformanceReport = open("overallPerformanceReport.out", "w")
+    overallPerformanceReport = open("data/overallPerformanceReport.out", "w")
     print(f'MatchPercentage: {tre.getMatchPercentage()}%', file=overallPerformanceReport)
     print(f'Consistency: {tre.getConsistencyPercentage()}%', file=overallPerformanceReport)
 

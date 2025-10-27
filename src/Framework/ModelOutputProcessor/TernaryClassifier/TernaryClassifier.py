@@ -19,7 +19,7 @@ class TernaryClassifier:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
         confusionMatrixValues: list[str] = []
 
-        with  open("modelResponses.in") as modelFile, open("test.gold.in") as goldFile:
+        with  open("data/modelResponses.in") as modelFile, open("data/test.gold.in") as goldFile:
             modelAnswersLines: list[str] = modelFile.readlines()
             goldAnswersLines: list[str] = goldFile.readlines()
 
@@ -48,7 +48,7 @@ class TernaryClassifier:
                 answerCorrectnessValidityFlagsAsBools.append(value)
                 confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
 
-        with open('ternaryResults.out', 'w') as ternaryResultsFile, open('confusionMatrix.out', 'w') as confusionMatrixFile:
+        with open('data/ternaryResults.out', 'w') as ternaryResultsFile, open('data/confusionMatrix.out', 'w') as confusionMatrixFile:
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
             print('\n'.join((str(answer) for answer in confusionMatrixValues)), file=confusionMatrixFile)
 
