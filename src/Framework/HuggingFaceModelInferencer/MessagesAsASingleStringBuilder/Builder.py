@@ -22,7 +22,7 @@ def getMessagesAsString(numberOfLines=None):
             print('reading:', promptFileContents)
 
     messages = [
-        {'role': 'system', 'content': f'Answer all {numberOfLines} questions with Yes or No!\n'},
+        {'role': 'system', 'content': f'Answer all {numberOfLines} questions with either `Yes` or `No`!\n'},
         {'role': 'user', 'content': promptFileContents},
     ]
 
