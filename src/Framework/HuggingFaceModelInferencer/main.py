@@ -1,13 +1,13 @@
 import sys
 
-from src.Framework.HuggingFaceModelInferencer.Config.Config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
+from Framework.HuggingFaceModelInferencer.config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
 
 print("sys.path: ", str(sys.path))
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 # --- CONFIG ---
-MODEL_NAME = SUPPORTED_MODELS[2]
+MODEL_NAME = SUPPORTED_MODELS[0]
 FILE_NAME = "data/prompt.in"
 
 NUMBER_OF_DESIRED_ANSWERS = 15
