@@ -28,7 +28,7 @@ class TernaryClassifier:
 
             self.NUMBER_OF_LINES = len(modelAnswersLines)
             for i in range(self.NUMBER_OF_LINES):
-                modelAnswerLine = modelAnswersLines[i].strip()
+                modelAnswerLine: str = modelAnswersLines[i].strip()
 
                 from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
 

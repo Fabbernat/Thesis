@@ -18,5 +18,3 @@ print(NEGATIVE_KEYWORDS)
 AFFIRMATIVE_PHRASES = ['Of Course']
 NEGATIVE_PHRASES = ['Not at all']
 
-def setClassificationRule():
-    pass

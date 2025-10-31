@@ -14,7 +14,6 @@ TESTFILE_LENGTH = 1400
 # --- end of config ---
 
 def main():
-    setClassificationRule()
     run()
 
 
