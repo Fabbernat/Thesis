@@ -1,13 +1,46 @@
 from typing import Any
 
-from Framework.ModelOutputProcessor.AnswerAwareClassificationRule.AnswerAwareClassificationRule import \
-    setAnswerAwareClassificationRule
+from Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
+from Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
 from Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, AWARE_RUN
 
 
 class ShouldCategorizeException(Exception):
     pass
 
+
+def classifyByPhrases(sentence: str) -> str:
+    from src.Framework.ModelOutputProcessor.config import AFFIRMATIVE_PHRASES, NEGATIVE_PHRASES
+
+    affirmativePhrases = AFFIRMATIVE_PHRASES
+    negativePhrases = NEGATIVE_PHRASES
+
+    if any(phrase.lower() in sentence.lower() for phrase in affirmativePhrases):
+        return 'T'
+    if any(phrase.lower() in sentence.lower() for phrase in negativePhrases):
+        return 'F'
+    return '?'
+
+
+def classifyByKeywords(sentence: str) -> str:
+    from src.Framework.ModelOutputProcessor.config import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
+    affirmativeKeywords = AFFIRMATIVE_KEYWORDS
+    negativeKeywords = NEGATIVE_KEYWORDS
+
+    if any(word.lower() in sentence.lower() for word in affirmativeKeywords):
+        return 'T'
+    if any(word.lower() in sentence.lower() for word in negativeKeywords):
+        return 'F'
+    return '?'
+
+
+
+
+def getYesOrNo(modelAnswer: str) -> str:
+    if AWARE_RUN:
+        return setAnswerAwareClassificationRule(modelAnswer)
+    else:
+        return classifySentence(modelAnswer)
 
 
 class TernaryClassifier:
@@ -36,7 +69,7 @@ class TernaryClassifier:
 
                 goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip() # making sure that only the first `TESTFILE_LENGTH` lines are processed
 
-                modelAnswerLineYesOrNo = self.getYesOrNo(modelAnswerLine)
+                modelAnswerLineYesOrNo = getYesOrNo(modelAnswerLine)
                 # print(f'{i}:{self.getYesOrNo(modelAnswerLine)}\n{i}:{goldAnswerLine}')
                 print("COMPARE2")
                 print(modelAnswerLineYesOrNo)
@@ -56,59 +89,6 @@ class TernaryClassifier:
         with open('data/ternaryResults.out', 'w') as ternaryResultsFile, open('data/confusionMatrix.out', 'w') as confusionMatrixFile:
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
             print('\n'.join((str(answer) for answer in confusionMatrixValues)), file=confusionMatrixFile)
-
-
-
-
-    def getYesOrNo(self, modelAnswer: str) -> str:
-        if AWARE_RUN:
-            return setAnswerAwareClassificationRule(modelAnswer)
-        else:
-            return self.classifySentence(modelAnswer)
-
-    def classifySentence(self, linebreaklessSentence: str, phrases=False) -> str:
-        """
-        function that gets a linebreaklessSentence as input and may output 3 different characters based on the sentence: - 'T' if the linebreaklessSentence contains the word "Yes" (case-sensitive), or an affirmative message. - 'F' if the linebreaklessSentence contains the word "No" (case-sensitive), or a not affirmative message. - '?' in any other cases, where the intent of the sentence is unclear.
-        Ez a legjobb ötletem a modell biasának az eldöntésére, de ez biztosan nem osztályozza be a szándékokat 100%-os pontossággal
-        :return:
-        """
-        #TODO mi van ha "Yes and No" a válasz, vagy "eyes"?
-        sentence = linebreaklessSentence.strip()
-        if sentence.upper() == 'T' or sentence.lower() == 'Yes' or sentence.lower() == 'Yes.' or 'Yes' in sentence:
-            return 'T'
-        if sentence.upper() == 'F' or sentence.lower() == 'No' or sentence.lower() == 'No.' or 'No' in sentence:
-            return 'F'
-
-        if phrases:
-            return self.classifyByPhrases(sentence)
-        else:
-            return self.classifyByKeywords(sentence)
-
-
-    def classifyByPhrases(self, sentence: str) -> str:
-        from src.Framework.ModelOutputProcessor.config import AFFIRMATIVE_PHRASES, NEGATIVE_PHRASES
-
-        affirmativePhrases = AFFIRMATIVE_PHRASES
-        negativePhrases = NEGATIVE_PHRASES
-
-        if any(affirmativePhrases) in sentence:
-            return 'T'
-        if any(negativePhrases) in sentence:
-            return 'F'
-        return '?'
-
-    def classifyByKeywords(self, sentence: str) -> str:
-        from src.Framework.ModelOutputProcessor.config import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
-        affirmativeKeywords = AFFIRMATIVE_KEYWORDS
-        negativeKeywords = NEGATIVE_KEYWORDS
-
-        if any(word.lower() in sentence.lower() for word in affirmativeKeywords):
-            return 'T'
-        if any(word.lower() in sentence.lower() for word in negativeKeywords):
-            return 'F'
-        return '?'
-
-
 
     def categorize(self, modelAnswerLineYesOrNo, goldAnswerLine):
         if modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'T':
