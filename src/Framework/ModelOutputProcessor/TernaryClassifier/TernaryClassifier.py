@@ -1,6 +1,8 @@
 from typing import Any
 
-from Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH
+from Framework.ModelOutputProcessor.AnswerAwareClassificationRule.AnswerAwareClassificationRule import \
+    setAnswerAwareClassificationRule
+from Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, AWARE_RUN
 
 
 class ShouldCategorizeException(Exception):
@@ -59,7 +61,10 @@ class TernaryClassifier:
 
 
     def getYesOrNo(self, modelAnswer: str) -> str:
-        return self.classifySentence(modelAnswer)
+        if AWARE_RUN:
+            return setAnswerAwareClassificationRule(modelAnswer)
+        else:
+            return self.classifySentence(modelAnswer)
 
     def classifySentence(self, linebreaklessSentence: str, phrases=False) -> str:
         """
@@ -67,7 +72,7 @@ class TernaryClassifier:
         Ez a legjobb ötletem a modell biasának az eldöntésére, de ez biztosan nem osztályozza be a szándékokat 100%-os pontossággal
         :return:
         """
-        #TODO mivan ha "Yes and No" a válasz, vagy "eyes"?
+        #TODO mi van ha "Yes and No" a válasz, vagy "eyes"?
         sentence = linebreaklessSentence.strip()
         if sentence.upper() == 'T' or sentence.lower() == 'Yes' or sentence.lower() == 'Yes.' or 'Yes' in sentence:
             return 'T'
@@ -81,7 +86,7 @@ class TernaryClassifier:
 
 
     def classifyByPhrases(self, sentence: str) -> str:
-        from src.Framework.ModelOutputProcessor.main import AFFIRMATIVE_PHRASES, NEGATIVE_PHRASES
+        from src.Framework.ModelOutputProcessor.config import AFFIRMATIVE_PHRASES, NEGATIVE_PHRASES
 
         affirmativePhrases = AFFIRMATIVE_PHRASES
         negativePhrases = NEGATIVE_PHRASES
@@ -93,7 +98,7 @@ class TernaryClassifier:
         return '?'
 
     def classifyByKeywords(self, sentence: str) -> str:
-        from src.Framework.ModelOutputProcessor.main import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
+        from src.Framework.ModelOutputProcessor.config import AFFIRMATIVE_KEYWORDS, NEGATIVE_KEYWORDS
         affirmativeKeywords = AFFIRMATIVE_KEYWORDS
         negativeKeywords = NEGATIVE_KEYWORDS
 

@@ -1,4 +1,3 @@
-from Framework.ModelOutputProcessor.config import setClassificationRule
 from src.Framework.ModelOutputProcessor.run import run
 
 import sys

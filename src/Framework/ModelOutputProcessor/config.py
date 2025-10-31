@@ -1,6 +1,7 @@
 MODEL_PATH = "data/modelResponses.in"
 GOLD_PATH = "data/test.gold.in"
 
+AWARE_RUN = False
 keywordPairs = {
     "yes": ["Yes", "No", ],
     "yes.": ["Yes.", "No."],
