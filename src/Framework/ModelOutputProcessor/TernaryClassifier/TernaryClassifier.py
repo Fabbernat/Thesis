@@ -1,5 +1,8 @@
 from typing import Any
 
+from Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH
+
+
 class ShouldCategorizeException(Exception):
     pass
 
@@ -19,7 +22,7 @@ class TernaryClassifier:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
         confusionMatrixValues: list[str] = []
 
-        with  open("data/modelResponses.in") as modelFile, open("data/test.gold.in") as goldFile:
+        with  open(MODEL_PATH) as modelFile, open(GOLD_PATH) as goldFile:
             modelAnswersLines: list[str] = modelFile.readlines()
             goldAnswersLines: list[str] = goldFile.readlines()
 
