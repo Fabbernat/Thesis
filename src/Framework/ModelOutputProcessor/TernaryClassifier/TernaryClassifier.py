@@ -2,7 +2,7 @@ from typing import Any
 
 from Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
 from Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
-from Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, AWARE_RUN
+from Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, AWARE_RUN, TESTFILE_LENGTH
 
 
 class ShouldCategorizeException(Exception):
@@ -40,23 +40,22 @@ class TernaryClassifier:
             for i in range(self.NUMBER_OF_LINES):
                 modelAnswerLine: str = modelAnswersLines[i].strip()
 
-                from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
 
                 goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip() # making sure that only the first `TESTFILE_LENGTH` lines are processed
 
                 modelAnswerLineYesOrNo = getYesOrNo(modelAnswerLine)
                 # print(f'{i}:{self.getYesOrNo(modelAnswerLine)}\n{i}:{goldAnswerLine}')
-                print("COMPARE2")
+                print(f'Comparing {i + 1}th line:')
                 print(modelAnswerLineYesOrNo)
                 print(goldAnswerLine)
                 value = (modelAnswerLineYesOrNo == goldAnswerLine)
 
                 if not value:
-                    print(f'MISTAKE IN LINE {i + 1}! {modelAnswerLineYesOrNo} instead of {goldAnswerLine}')
+                    print(f'MISTAKE IN LINE {i + 1}! Model falsely predicted {modelAnswerLineYesOrNo} instead of {goldAnswerLine}')
 
 
                 if not isinstance(value, bool):
-                    raise TypeError(f"Only boolean values can be stored in {answerCorrectnessValidityFlagsAsBools}!")
+                    raise TypeError(f'Only boolean values can be stored in {answerCorrectnessValidityFlagsAsBools}!')
 
                 answerCorrectnessValidityFlagsAsBools.append(value)
                 confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
@@ -71,15 +70,15 @@ class TernaryClassifier:
             return 'TP'
         elif modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'F':
             self.FalsePositives += 1
-            return "FP"
+            return 'FP'
         elif modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'T':
             self.FalseNegatives += 1
-            return "FN"
+            return 'FN'
         elif modelAnswerLineYesOrNo == 'F' and goldAnswerLine == 'F':
             self.TrueNegatives += 1
-            return "TN"
+            return 'TN'
         else:
-            return "?"
+            return '?'
 
 
     def getTruePositives(self):
