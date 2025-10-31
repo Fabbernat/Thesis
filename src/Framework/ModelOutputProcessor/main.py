@@ -1,6 +1,12 @@
 from Framework.ModelOutputProcessor.config import setClassificationRule
 from src.Framework.ModelOutputProcessor.run import run
 
+import sys
+
+print(' ** RUNTIME ENVIRONMENT INFO **')
+print("sys.path: ", str(sys.path))
+print(' ** end of runtime environment info ** ')
+
 # --- CONFIG ---
 
 TESTFILE_LENGTH = 1400

@@ -1,8 +1,11 @@
-import sys
-
 from Framework.HuggingFaceModelInferencer.config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
 
+import sys
+
+print(' ** RUNTIME ENVIRONMENT INFO **')
 print("sys.path: ", str(sys.path))
+print(' ** end of runtime environment info ** ')
+
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
