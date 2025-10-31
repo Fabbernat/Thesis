@@ -1,2 +1,3 @@
 def setAnswerAwareClassificationRule(modelAnswers):
-    pass
+    labels = []
+    return labels

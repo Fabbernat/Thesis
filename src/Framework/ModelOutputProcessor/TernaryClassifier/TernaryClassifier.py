@@ -32,7 +32,7 @@ class TernaryClassifier:
 
                 from src.Framework.ModelOutputProcessor.main import TESTFILE_LENGTH
 
-                goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip()
+                goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip() # making sure that only the first `TESTFILE_LENGTH` lines are processed
 
                 modelAnswerLineYesOrNo = self.getYesOrNo(modelAnswerLine)
                 # print(f'{i}:{self.getYesOrNo(modelAnswerLine)}\n{i}:{goldAnswerLine}')
@@ -69,9 +69,9 @@ class TernaryClassifier:
         """
         #TODO mivan ha "Yes and No" a válasz, vagy "eyes"?
         sentence = linebreaklessSentence.strip()
-        if sentence == 'T' or sentence == 'Yes' or sentence == 'Yes.':
+        if sentence.upper() == 'T' or sentence.lower() == 'Yes' or sentence.lower() == 'Yes.' or 'Yes' in sentence:
             return 'T'
-        if sentence == 'F' or sentence == 'No' or sentence == 'No.':
+        if sentence.upper() == 'F' or sentence.lower() == 'No' or sentence.lower() == 'No.' or 'No' in sentence:
             return 'F'
 
         if phrases:
