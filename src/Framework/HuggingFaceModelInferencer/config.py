@@ -12,3 +12,12 @@ SUPPORTED_MODELS = {
 41:'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4',1: 'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8'
 }  # tested models, that will grantedly work
 UNSUPPORTED_MODELS = {0: 'google/gemma-2-2b', 1:'microsoft/Phi-4-mini-instruct'}  # for your own responsibility
+
+# --- CONFIG ---
+MODEL_NAME = SUPPORTED_MODELS[0]
+FILE_NAME = "data/prompt.in"
+
+NUMBER_OF_DESIRED_ANSWERS = 15
+
+MODEL_NAME = MODEL_NAME.strip().lower()
+# --- end of config ---

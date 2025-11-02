@@ -2,7 +2,7 @@ from huggingface_hub.errors import HFValidationError
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-from src.Framework.HuggingFaceModelInferencer.main import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
+from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
 
 
 def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):

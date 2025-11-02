@@ -9,14 +9,6 @@ print(' ** end of runtime environment info ** ')
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
-# --- CONFIG ---
-MODEL_NAME = SUPPORTED_MODELS[0]
-FILE_NAME = "data/prompt.in"
-
-NUMBER_OF_DESIRED_ANSWERS = 15
-
-MODEL_NAME = MODEL_NAME.strip().lower()
-# --- end of config ---
 
 import run
 

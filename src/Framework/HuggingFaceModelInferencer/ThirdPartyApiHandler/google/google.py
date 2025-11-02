@@ -1,5 +1,5 @@
 from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-from src.Framework.HuggingFaceModelInferencer.main import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
+from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
 
 
 def tokenizeAutoModelForGoogle0():

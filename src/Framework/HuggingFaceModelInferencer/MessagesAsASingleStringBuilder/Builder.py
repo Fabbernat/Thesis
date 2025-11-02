@@ -1,7 +1,7 @@
 import os
 from itertools import islice
 
-from src.Framework.HuggingFaceModelInferencer.main import FILE_NAME
+from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME
 
 
 def getMessagesAsString(numberOfLines=None):
