@@ -1,11 +1,16 @@
 import sys
 
-from src.Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
-from src.Framework.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
-from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
-from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
-    WordAndSentencesExtractor
-
+try:
+    from src.Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
+    from src.Framework.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
+    from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
+    from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
+        WordAndSentencesExtractor
+except ModuleNotFoundError:
+    import LabelAdder.LabelAdder
+    import SentenceBuilder as SentenceBuilder
+    import SentenceNormalizer as SentenceNormalizer
+    import WordAndSentencesExtractor.WordAndSentencesExtractor as WordAndSentenceExtractor
 
 def run(logPartialResults=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
