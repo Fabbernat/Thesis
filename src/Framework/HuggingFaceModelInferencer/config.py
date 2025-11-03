@@ -21,7 +21,6 @@ try:
 except ModuleNotFoundError:
     CONNECTED = False
 
-import main
 if CONNECTED:
     FILE_NAME = 'globalData/1/formattedQuestions.out'
 else:
