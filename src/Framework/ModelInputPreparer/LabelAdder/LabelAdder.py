@@ -7,11 +7,14 @@ class FileReader:
 class TestFilesMerger:
     def mergeTestfiles(self) -> str:
         try:
+            from src.Framework.globalMain import CONNECTED
             if CONNECTED:
-                filePath = '../globalData/1/test.data.in'
+                dataFilePath = '../globalData/1/test.data.in'
+                goldFilePath = '../globalData/1/test.gold.in'
             else:
-                filePath = 'data/test.data.in'
-            with open(filePath, 'r') as testDataFile, open('data/test.gold.in', 'r') as testGoldFile:
+                dataFilePath = 'src/Framework/ModelInputPreparer/data/test.data.in'
+                goldFilePath = 'src/Framework/ModelInputPreparer/data/test.gold.in'
+            with open(dataFilePath, 'r') as testDataFile, open(goldFilePath, 'r') as testGoldFile:
                 fileReader: FileReader = FileReader()
                 rawTestDataValues = fileReader.readWholeFile(testDataFile)
                 rawTestGoldValues = fileReader.readWholeFile(testGoldFile)

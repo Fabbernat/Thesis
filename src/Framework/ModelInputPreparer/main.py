@@ -1,4 +1,4 @@
-import config
+from src.Framework.ModelInputPreparer import config
 
 try:
     from src.Framework.ModelInputPreparer.config import logPartialResults

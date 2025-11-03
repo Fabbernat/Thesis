@@ -1,4 +1,4 @@
-import sys
+import sys, os
 
 try:
     from src.Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
@@ -6,11 +6,12 @@ try:
     from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
     from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
         WordAndSentencesExtractor
-except ModuleNotFoundError:
-    import LabelAdder.LabelAdder
-    import SentenceBuilder as SentenceBuilder
-    import SentenceNormalizer as SentenceNormalizer
-    import WordAndSentencesExtractor.WordAndSentencesExtractor as WordAndSentenceExtractor
+except ModuleNotFoundError as mne:
+    print("ModuleNotFoundError: ", mne)
+    from .LabelAdder.LabelAdder import TestFilesMerger
+    from .SentenceBuilder import SentenceBuilder
+    from .SentenceNormalizer import SentenceNormalizer
+    from .WordAndSentencesExtractor import WordAndSentencesExtractor
 
 def run(logPartialResults=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
@@ -40,16 +41,22 @@ def run(logPartialResults=False):
         reversedSentences.append(reversedSentence)
 
     try:
+        from src.Framework.globalMain import CONNECTED
         if CONNECTED:
-            filePath = '../globalData/1/formattedQuestions.out'
+            oFilePath = '../globalData/1/formattedQuestions.out'
         else:
-            filePath = 'data/formattedQuestions.out'
-        with open(filePath, 'w', encoding='utf-8') as dataFile:
+            oFilePath = 'data/formattedQuestions.out'
+
+        # ✅ Ensure the directory exists before writing
+        os.makedirs(os.path.dirname(oFilePath), exist_ok=True)
+
+        with open(oFilePath, 'w', encoding='utf-8') as dataFile:
             print('\n'.join(straightSentences), file=dataFile)
             print('\n'.join(reversedSentences), file=dataFile)
             print('Program succesfully executed!')
+
     except OSError as oe:
-            sys.stderr.write(f'File writing error: {oe}\n')
+        sys.stderr.write(f'File writing error: {oe}\n')
 
     except ValueError as ve:
         sys.stderr.write(f'Error while writing data.json: {ve}\n')
