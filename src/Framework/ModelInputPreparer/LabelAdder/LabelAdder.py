@@ -7,7 +7,11 @@ class FileReader:
 class TestFilesMerger:
     def mergeTestfiles(self) -> str:
         try:
-            with open("data/test.data.in", "r") as testDataFile, open("data/test.gold.in", "r") as testGoldFile:
+            if CONNECTED:
+                filePath = '../globalData/1/test.data.in'
+            else:
+                filePath = 'data/test.data.in'
+            with open(filePath, 'r') as testDataFile, open('data/test.gold.in', 'r') as testGoldFile:
                 fileReader: FileReader = FileReader()
                 rawTestDataValues = fileReader.readWholeFile(testDataFile)
                 rawTestGoldValues = fileReader.readWholeFile(testGoldFile)
@@ -15,8 +19,8 @@ class TestFilesMerger:
                 mergedTestValues = []
                 for dataRow, goldRow in zip(rawTestDataValues, rawTestGoldValues):
                     mergedTestValues.append(f'{dataRow}\t{goldRow}')
-            return "\n".join(mergedTestValues)
+            return '\n'.join(mergedTestValues)
         except Exception as e:
             traceback.print_exc()
-            print("The file could not be opened.")
-            return ""
+            print('The file could not be opened.', e)
+            return ''

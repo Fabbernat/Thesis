@@ -9,7 +9,7 @@ from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentences
 
 def run(logPartialResults=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
-    mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.in" and "test.gold.in" in this directory
+    mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are 'test.data.in' and 'test.gold.in' in this directory
 
     if logPartialResults:
         print(mergedTestValues) #eddig okés
@@ -35,13 +35,17 @@ def run(logPartialResults=False):
         reversedSentences.append(reversedSentence)
 
     try:
-        with open("data/formattedQuestions.out", "w", encoding="utf-8") as dataFile:
-            print("\n".join(straightSentences), file=dataFile)
-            print("\n".join(reversedSentences), file=dataFile)
+        if CONNECTED:
+            filePath = '../globalData/1/formattedQuestions.out'
+        else:
+            filePath = 'data/formattedQuestions.out'
+        with open(filePath, 'w', encoding='utf-8') as dataFile:
+            print('\n'.join(straightSentences), file=dataFile)
+            print('\n'.join(reversedSentences), file=dataFile)
             print('Program succesfully executed!')
     except OSError as oe:
-            sys.stderr.write(f"File writing error: {oe}\n")
+            sys.stderr.write(f'File writing error: {oe}\n')
 
     except ValueError as ve:
-        sys.stderr.write(f"Error while writing data.json: {ve}\n")
+        sys.stderr.write(f'Error while writing data.json: {ve}\n')
 
