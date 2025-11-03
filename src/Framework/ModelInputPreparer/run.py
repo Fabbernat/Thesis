@@ -13,11 +13,11 @@ except ModuleNotFoundError as mne:
     from .SentenceNormalizer import SentenceNormalizer
     from .WordAndSentencesExtractor import WordAndSentencesExtractor
 
-def run(logPartialResults=False):
+def run(LOG_PARTIAL_RESULTS=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
     mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are 'test.data.in' and 'test.gold.in' in this directory
 
-    if logPartialResults:
+    if LOG_PARTIAL_RESULTS:
         print(mergedTestValues) #eddig okés
 
     wase: WordAndSentencesExtractor =  WordAndSentencesExtractor()
@@ -29,7 +29,7 @@ def run(logPartialResults=False):
     for rowValues in mergedTestValues.split('\n'):
         word, sentenceA, sentenceB = wase.extract(rowValues)
 
-        if logPartialResults:
+        if LOG_PARTIAL_RESULTS:
             print('\n--\n', word, sentenceA, sentenceB) # ez is okés
 
         normalizedSentenceA = sentenceNormalizer.makeSentenceHumanReadable(sentenceA)
@@ -39,13 +39,15 @@ def run(logPartialResults=False):
         reversedSentence = sentenceBuilder.buildReversedSentence(word, normalizedSentenceA, normalizedSentenceB)
         straightSentences.append(straightSentence)
         reversedSentences.append(reversedSentence)
-
     try:
         from src.Framework.globalMain import CONNECTED
+
+        # Get path to the project root (assuming this script is somewhere inside the project)
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
         if CONNECTED:
-            oFilePath = '../globalData/1/formattedQuestions.out'
+            oFilePath = os.path.join(project_root, 'src', 'Framework', 'globalData', '1', 'formattedQuestions.out')
         else:
-            oFilePath = 'data/formattedQuestions.out'
+            oFilePath = os.path.join(project_root, 'src', 'Framework', 'ModelInputPreparer', 'data', 'formattedQuestions.out')
 
         # ✅ Ensure the directory exists before writing
         os.makedirs(os.path.dirname(oFilePath), exist_ok=True)
@@ -61,3 +63,6 @@ def run(logPartialResults=False):
     except ValueError as ve:
         sys.stderr.write(f'Error while writing data.json: {ve}\n')
 
+    except ImportError:
+        oFilePath = 'data/formattedQuestions.out'  # fallback if globalMain not found
+        os.makedirs(os.path.dirname(oFilePath), exist_ok=True)

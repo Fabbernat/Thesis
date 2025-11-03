@@ -1,3 +1,3 @@
 # --- CONFIG ---
-logPartialResults = True
+LOG_PARTIAL_RESULTS = True
 # --- end of config ---

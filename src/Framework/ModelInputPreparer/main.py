@@ -1,7 +1,7 @@
 from src.Framework.ModelInputPreparer import config
 
 try:
-    from src.Framework.ModelInputPreparer.config import logPartialResults
+    from src.Framework.ModelInputPreparer.config import LOG_PARTIAL_RESULTS
     from src.Framework.ModelInputPreparer.run import run
     from src.Framework.globalMain import CONNECTED
 except ModuleNotFoundError:
@@ -14,7 +14,7 @@ print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
 def main():
-    run(config.logPartialResults)
+    run(config.LOG_PARTIAL_RESULTS)
 
 if __name__ == '__main__':
     main()
