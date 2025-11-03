@@ -5,7 +5,7 @@ try:
     from src.Framework.ModelInputPreparer.run import run
     from src.Framework.globalMain import CONNECTED
 except ModuleNotFoundError:
-    from run import run
+    from .run import run
     CONNECTED = False
 import sys
 
