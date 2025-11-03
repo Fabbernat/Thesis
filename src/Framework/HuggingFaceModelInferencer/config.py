@@ -15,7 +15,17 @@ UNSUPPORTED_MODELS = {0: 'google/gemma-2-2b', 1:'microsoft/Phi-4-mini-instruct'}
 
 # --- CONFIG ---
 MODEL_NAME = SUPPORTED_MODELS[0]
-FILE_NAME = "data/prompt.in"
+
+try:
+    from src.Framework.globalMain import CONNECTED
+except ModuleNotFoundError:
+    CONNECTED = False
+
+import main
+if CONNECTED:
+    FILE_NAME = 'globalData/1/formattedQuestions.out'
+else:
+    FILE_NAME = "data/prompt.in"
 
 NUMBER_OF_DESIRED_ANSWERS = 15
 

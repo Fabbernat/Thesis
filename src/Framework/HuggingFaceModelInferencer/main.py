@@ -1,4 +1,9 @@
-from Framework.HuggingFaceModelInferencer.config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
+try:
+    from src.Framework.HuggingFaceModelInferencer.config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
+    from src.Framework.globalMain import CONNECTED
+except ModuleNotFoundError:
+    from config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
+    CONNECTED = False
 
 import sys
 

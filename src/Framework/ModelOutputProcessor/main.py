@@ -1,4 +1,8 @@
 from src.Framework.ModelOutputProcessor.run import run
+try:
+    from src.Framework.globalMain import CONNECTED
+except ModuleNotFoundError:
+    CONNECTED = False
 
 import sys
 

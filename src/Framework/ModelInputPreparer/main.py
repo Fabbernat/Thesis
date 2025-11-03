@@ -3,9 +3,10 @@ import config
 try:
     from src.Framework.ModelInputPreparer.config import logPartialResults
     from src.Framework.ModelInputPreparer.run import run
+    from src.Framework.globalMain import CONNECTED
 except ModuleNotFoundError:
     from run import run
-
+    CONNECTED = False
 import sys
 
 print(' ** RUNTIME ENVIRONMENT INFO **')
