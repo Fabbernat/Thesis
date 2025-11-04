@@ -43,5 +43,5 @@ def run(logPartialResults=False):
             sys.stderr.write(f"File writing error: {oe}\n")
 
     except ValueError as ve:
-        sys.stderr.write(f"Error while writing data.json: {ve}\n")
+        sys.stderr.write(f"Error while writing to the output file: {ve}\n")
 
