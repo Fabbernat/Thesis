@@ -17,7 +17,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 import run
 
-def main():
+def main(GlobalRun=False):
     print('main started')
     run.run()
 
