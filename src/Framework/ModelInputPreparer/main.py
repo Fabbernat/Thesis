@@ -7,7 +7,7 @@ print(' ** RUNTIME ENVIRONMENT INFO **')
 print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
-def main():
+def main(GlobalRun=False):
     run(logPartialResults)
 
 if __name__ == '__main__':

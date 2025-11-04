@@ -7,7 +7,7 @@ print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
 
-def main():
+def main(GlobalRun=False):
     run()
 
 
