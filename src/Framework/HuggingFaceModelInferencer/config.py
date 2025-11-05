@@ -18,7 +18,7 @@ MODEL_NAME = SUPPORTED_MODELS[0]
 
 
 
-FILE_NAME = "data/prompt.in"
+FILE_NAME = "data/questions.in"
 
 NUMBER_OF_DESIRED_ANSWERS = 15
 
