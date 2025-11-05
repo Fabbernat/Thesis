@@ -32,6 +32,10 @@ class TransformersApiHandler:
 
         return generatedIds, convertIds
 
+    def microsoft(self):
+        pass
+
+
     def generateFinalAnswer3(self):
         if self.tokenizer is None:
             print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')

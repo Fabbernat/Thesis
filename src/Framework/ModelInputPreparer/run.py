@@ -7,11 +7,11 @@ from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentences
     WordAndSentencesExtractor
 
 
-def run(logPartialResults=False):
+def run(LOG_PARTIAL_RESULTS=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
     mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.in" and "test.gold.in" in this directory
 
-    if logPartialResults:
+    if LOG_PARTIAL_RESULTS:
         print(mergedTestValues) #eddig okés
 
     wase: WordAndSentencesExtractor =  WordAndSentencesExtractor()
@@ -23,7 +23,7 @@ def run(logPartialResults=False):
     for rowValues in mergedTestValues.split('\n'):
         word, sentenceA, sentenceB = wase.extract(rowValues)
 
-        if logPartialResults:
+        if LOG_PARTIAL_RESULTS:
             print('\n--\n', word, sentenceA, sentenceB) # ez is okés
 
         normalizedSentenceA = sentenceNormalizer.makeSentenceHumanReadable(sentenceA)

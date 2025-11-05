@@ -1,8 +1,4 @@
 from src.Framework.ModelOutputProcessor.run import run
-try:
-    from src.Framework.globalMain import CONNECTED
-except ModuleNotFoundError:
-    CONNECTED = False
 
 import sys
 from time import perf_counter
@@ -20,4 +16,4 @@ if __name__ == '__main__':
     startTime = perf_counter()
     main()
     endTime = perf_counter()
-    print('Total runtime: ', (endTime - startTime))
+    print(f'Total runtime: {(endTime - startTime):.6f} seconds')

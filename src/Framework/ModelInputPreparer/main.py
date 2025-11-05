@@ -1,4 +1,4 @@
-from Framework.ModelInputPreparer.config import logPartialResults
+from Framework.ModelInputPreparer.config import LOG_PARTIAL_RESULTS
 from src.Framework.ModelInputPreparer.run import run
 
 import sys
@@ -9,10 +9,10 @@ print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
 def main(GlobalRun=False):
-    run(logPartialResults)
+    run(LOG_PARTIAL_RESULTS)
 
 if __name__ == '__main__':
     startTime = perf_counter()
     main()
     endTime = perf_counter()
-    print('Total runtime: ', (endTime-startTime))
+    print(f'Total runtime: {(endTime - startTime):.6f} seconds')

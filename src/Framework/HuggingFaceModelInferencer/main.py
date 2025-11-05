@@ -1,9 +1,7 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
-    from src.Framework.globalMain import CONNECTED
 except ModuleNotFoundError:
     from config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
-    CONNECTED = False
 
 import sys
 from time import perf_counter
@@ -31,4 +29,4 @@ if __name__ == '__main__':
     startTime = perf_counter()
     main()
     endTime = perf_counter()
-    print('Total runtime: ', (endTime - startTime))
+    print(f'Total runtime: {(endTime - startTime):.6f} seconds')
