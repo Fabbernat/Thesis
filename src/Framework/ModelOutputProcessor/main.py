@@ -5,6 +5,7 @@ except ModuleNotFoundError:
     CONNECTED = False
 
 import sys
+from time import perf_counter
 
 print(' ** RUNTIME ENVIRONMENT INFO **')
 print("sys.path: ", str(sys.path))
@@ -16,4 +17,7 @@ def main(GlobalRun=False):
 
 
 if __name__ == '__main__':
+    startTime = perf_counter()
     main()
+    endTime = perf_counter()
+    print('Total runtime: ', (endTime - startTime))
