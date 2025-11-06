@@ -1,7 +1,7 @@
 import os
 from itertools import islice
 
-from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME
+from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME, INSTRUCTION
 
 
 def getMessagesAsString(numberOfLines=None):
@@ -22,17 +22,19 @@ def getMessagesAsString(numberOfLines=None):
             print('reading:', questionsFileContents)
 
     messages = [
-        {'role': 'system', 'content': f'Answer all {numberOfLines} questions with either `Yes` or `No`!\n'},
+        {'role': 'system', 'content': INSTRUCTION},
         {'role': 'user', 'content': questionsFileContents},
     ]
-    messagesAsStr = messages[0]['content'], messages[1]['content']
-    print('getMessagesAsString returns:```\n', messages[0]['content'], messages[1]['content'], '```\n')
+    messagesAsStr = messages[0]['content']+'\n---------------\n'+ messages[1]['content']
+
+    log = '\n *** The prompt: *** \n'+ messagesAsStr+ '\n *** End of the prompt *** \n'
+    print(log)
 
     print("Writing prompt to:", os.path.abspath('data/prompt.out'))
     try:
         os.makedirs('../data', exist_ok=True)
         with open(os.path.abspath('data/prompt.out'), 'w') as promptFile:
-            print(' *** The prompt: *** \n', messages[0]['content'], messages[1]['content'], ' *** End of the prompt *** \n', file=promptFile)
+            print(log, file=promptFile)
     except Exception as e:
         print('Failed to save the prompt to data/prompt.out:', e)
     return messagesAsStr

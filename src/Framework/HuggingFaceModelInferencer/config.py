@@ -1,3 +1,5 @@
+from torchgen.operator_versions.gen_mobile_upgraders import INSTRUCTION_LIST
+
 SUPPORTED_MODELS = {
     0: 'Qwen/Qwen2.5-0.5B-Instruct', 2:'Qwen/Qwen2.5-0.5B', 3:'Qwen/Qwen2.5-1.5B', 4:'Qwen/Qwen2.5-1.5B-Instruct',
 5:'Qwen/Qwen2.5-3B',6: 'Qwen/Qwen2.5-3B-Instruct',7: 'Qwen/Qwen2.5-7B',8: 'Qwen/Qwen2.5-7B-Instruct',
@@ -22,5 +24,8 @@ FILE_NAME = "data/questions.in"
 
 NUMBER_OF_DESIRED_ANSWERS = 15
 
+fineTunes = ['.', ' with reasoning.', 'with a confidence score between 0 and 100. 100 means you are a hundred percent sure they mean the same thing in both sentences and 0 means the opposite.']
+fineTune = fineTunes[2]
+INSTRUCTION = f'Answer all {NUMBER_OF_DESIRED_ANSWERS} questions with either `Yes` or `No`{fineTune}\n'
 MODEL_NAME = MODEL_NAME.strip().lower()
 # --- end of config ---
