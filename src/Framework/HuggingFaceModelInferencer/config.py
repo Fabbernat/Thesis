@@ -1,7 +1,5 @@
-from torchgen.operator_versions.gen_mobile_upgraders import INSTRUCTION_LIST
-
-SUPPORTED_MODELS = {
-    0: 'Qwen/Qwen2.5-0.5B-Instruct', 2:'Qwen/Qwen2.5-0.5B', 3:'Qwen/Qwen2.5-1.5B', 4:'Qwen/Qwen2.5-1.5B-Instruct',
+supportedModels = {
+    0: 'Qwen/Qwen2.5-0.5B-Instruct', 1:'Qwen/Qwen2.5-0.5B', 2:'Qwen/Qwen2.5-1.5B', 3:'Qwen/Qwen2.5-1.5B-Instruct',
 5:'Qwen/Qwen2.5-3B',6: 'Qwen/Qwen2.5-3B-Instruct',7: 'Qwen/Qwen2.5-7B',8: 'Qwen/Qwen2.5-7B-Instruct',
 9:'Qwen/Qwen2.5-14B',10: 'Qwen/Qwen2.5-14B-Instruct',11: 'Qwen/Qwen2.5-32B',12: 'Qwen/Qwen2.5-32B-Instruct',
 13:'Qwen/Qwen2.5-72B',14: 'Qwen/Qwen2.5-72B-Instruct',15: 'Qwen/Qwen2.5-0.5B-Instruct-GGUF',16: 'Qwen/Qwen2.5-0.5B-Instruct-AWQ',
@@ -11,12 +9,22 @@ SUPPORTED_MODELS = {
 29:'Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4',30: 'Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8',31: 'Qwen/Qwen2.5-14B-Instruct-GGUF',32: 'Qwen/Qwen2.5-14B-Instruct-AWQ',
 33:'Qwen/Qwen2.5-14B-Instruct-GPTQ-Int4',34: 'Qwen/Qwen2.5-14B-Instruct-GPTQ-Int8',35: 'Qwen/Qwen2.5-32B-Instruct-GGUF',36: 'Qwen/Qwen2.5-32B-Instruct-AWQ',
 37:'Qwen/Qwen2.5-32B-Instruct-GPTQ-Int4', 38:'Qwen/Qwen2.5-32B-Instruct-GPTQ-Int8', 39:'Qwen/Qwen2.5-72B-Instruct-GGUF', 40:'Qwen/Qwen2.5-72B-Instruct-AWQ',
-41:'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4',1: 'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8'
+41:'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int4',42: 'Qwen/Qwen2.5-72B-Instruct-GPTQ-Int8'
 }  # tested models, that will grantedly work
-UNSUPPORTED_MODELS = {0: 'google/gemma-2-2b', 1:'microsoft/Phi-4-mini-instruct'}  # for your own responsibility
+
+unsupportedModels = {
+    0: 'google/gemma-2-2b', 1: 'microsoft/Phi-4-mini-instruct'
+}  # for your own responsibility
+
+endings = {
+    0:'.', 1:' with reasoning.',
+             2:' with a confidence score between 0 and 100. 100 means you are a hundred percent sure they mean the same thing in both sentences and 0 means the opposite.',
+    3: 'with reasoning and your confidence score of "Yes" in percentage. 100% means you are a hundred percent sure that they mean the same thing, 0% means the opposite.',
+
+}
 
 # --- CONFIG ---
-MODEL_NAME = SUPPORTED_MODELS[0]
+MODEL_NAME = supportedModels[0]
 
 
 
@@ -24,8 +32,9 @@ FILE_NAME = "data/questions.in"
 
 NUMBER_OF_DESIRED_ANSWERS = 15
 
-fineTunes = ['.', ' with reasoning.', 'with a confidence score between 0 and 100. 100 means you are a hundred percent sure they mean the same thing in both sentences and 0 means the opposite.']
-fineTune = fineTunes[2]
-INSTRUCTION = f'Answer all {NUMBER_OF_DESIRED_ANSWERS} questions with either `Yes` or `No`{fineTune}\n'
+
+endOfSentence = endings[2]
+INSTRUCTION = f'Answer all {NUMBER_OF_DESIRED_ANSWERS} questions with either `Yes` or `No`{endOfSentence}\n'
 MODEL_NAME = MODEL_NAME.strip().lower()
 # --- end of config ---
+print(INSTRUCTION)

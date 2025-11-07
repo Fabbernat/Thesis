@@ -1,7 +1,7 @@
 try:
-    from src.Framework.HuggingFaceModelInferencer.config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
+    from src.Framework.HuggingFaceModelInferencer.config import supportedModels, unsupportedModels
 except ModuleNotFoundError:
-    from config import SUPPORTED_MODELS, UNSUPPORTED_MODELS
+    from config import supportedModels, unsupportedModels
 
 import sys
 from time import perf_counter
