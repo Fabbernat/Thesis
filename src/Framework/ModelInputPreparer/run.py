@@ -7,41 +7,47 @@ from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentences
     WordAndSentencesExtractor
 
 
-def run(LOG_PARTIAL_RESULTS=False):
+def run(advancedDebugIsOn=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
-    mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are "test.data.in" and "test.gold.in" in this directory
+    mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are 'test.data.in' and 'test.gold.in' in the 'data' folder
 
-    if LOG_PARTIAL_RESULTS:
+    if advancedDebugIsOn:
         print(mergedTestValues) #eddig okés
 
-    wase: WordAndSentencesExtractor =  WordAndSentencesExtractor()
+    targetWordAndSentencesExtractor: WordAndSentencesExtractor =  WordAndSentencesExtractor()
     sentenceBuilder: SentenceBuilder  = SentenceBuilder()
     sentenceNormalizer: SentenceNormalizer = SentenceNormalizer()
     straightSentences = []
     reversedSentences = []
 
     for rowValues in mergedTestValues.split('\n'):
-        word, sentenceA, sentenceB = wase.extract(rowValues)
+        targetWord, sentenceA, sentenceB = targetWordAndSentencesExtractor.extract(rowValues)
 
-        if LOG_PARTIAL_RESULTS:
-            print('\n--\n', word, sentenceA, sentenceB) # ez is okés
+        if advancedDebugIsOn:
+            print('\n--\n', targetWord, sentenceA, sentenceB) # ez is okés
 
         normalizedSentenceA = sentenceNormalizer.makeSentenceHumanReadable(sentenceA)
         normalizedSentenceB = sentenceNormalizer.makeSentenceHumanReadable(sentenceB)
 
-        straightSentence = sentenceBuilder.buildStraightSentence(word, normalizedSentenceA, normalizedSentenceB)
-        reversedSentence = sentenceBuilder.buildReversedSentence(word, normalizedSentenceA, normalizedSentenceB)
+        straightSentence = sentenceBuilder.buildStraightSentence(targetWord, normalizedSentenceA, normalizedSentenceB)
+        reversedSentence = sentenceBuilder.buildReversedSentence(targetWord, normalizedSentenceA, normalizedSentenceB)
         straightSentences.append(straightSentence)
         reversedSentences.append(reversedSentence)
 
+
+    outFiles = ['data/formattedQuestions.out']
+    confirmation = input('Program succesfully run. Do you also want to store the result as the next module\'s input? (y/n): ')
+    if confirmation.strip().lower() == 'y':
+        outFiles.append('../HuggingFaceModelInferencer/data/questions.in')
     try:
-        with open("data/formattedQuestions.out", "w", encoding="utf-8") as dataFile:
-            print("\n".join(straightSentences), file=dataFile)
-            print("\n".join(reversedSentences), file=dataFile)
-            print('Program succesfully executed!')
+        for filePath in outFiles:
+            with open(filePath, 'w', encoding='utf-8') as dataFile:
+                print('\n'.join(straightSentences), file=dataFile)
+                print('\n'.join(reversedSentences), file=dataFile)
+                print(f'Succesfully written to {filePath}')
     except OSError as oe:
-            sys.stderr.write(f"File writing error: {oe}\n")
+            sys.stderr.write(f'File writing error: {oe}\n')
 
     except ValueError as ve:
-        sys.stderr.write(f"Error while writing to the output file: {ve}\n")
+        sys.stderr.write(f'Error while writing to the output file: {ve}\n')
 

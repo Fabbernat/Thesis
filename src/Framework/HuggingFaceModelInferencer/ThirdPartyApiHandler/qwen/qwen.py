@@ -20,11 +20,13 @@ def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):
     except HFValidationError as e:
         print("Invalid Hugging Face model name:", e)
 
+    except RuntimeError as e:
+        print("Error while loading model, you probably ran out of disk space:", e)
+        exit(-1)
     except Exception as e:
-        print("Unexpected error while loading model:", e)
+        print("Unexpected exception while loading model:", e)
 
     print(f'tokenizer after={tokenizer}')
-
     promptAsText = tokenizer.apply_chat_template(
         getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS),
         tokenize=False,
