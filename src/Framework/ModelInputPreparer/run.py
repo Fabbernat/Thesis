@@ -41,20 +41,24 @@ def run(advancedDebugIsOn=False):
     saveOutput(results)
 
 def saveOutput(results: str):
-    base_path = Path("data/formattedQuestions.out")
-    secondary_path = Path("../HuggingFaceModelInferencer/data/questions.in")
+
+    basePath = Path(__file__).parent.parent
+    print('basePath: ', basePath)
+    fullPath = Path(str(basePath) + r'\data\formattedQuestions.out')
+    print('fullPath: ', fullPath)
+    secondary_path = Path(str(basePath) + r'\HuggingFaceModelInferencer\data\questions.in')
 
     # Always write the base file
-    write_to_file(base_path, results)
+    writeToFile(fullPath, results)
 
     # Ask user if secondary output should also be saved
     confirmation = input(
-        "Program successfully ran.\n"
-        "Do you also want to store the result as the next module's input? (y/n): "
+        'Program successfully ran.\n'
+        'Do you also want to store the result as the next module\'s input? (y/n): '
     ).strip().lower()
 
     if confirmation == 'y':
-        write_to_file(secondary_path, results)
+        writeToFile(secondary_path, results)
 
 def writeToFile(path: Path, content: str):
     '''Safely write text to a file.'''
