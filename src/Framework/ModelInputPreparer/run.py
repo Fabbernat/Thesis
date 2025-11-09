@@ -71,21 +71,3 @@ def writeToFile(path: Path, content: str):
         sys.stderr.write(f'File writing error ({path}): {oe}\n')
     except ValueError as ve:
         sys.stderr.write(f'Value error while writing to {path}: {ve}\n')
-
-def invalidOtherMethod():
-    outFiles = ['data/formattedQuestions.out']
-    confirmation = input('Program succesfully run. Do you also want to store the result as the next module\'s input? (y/n): ')
-    if confirmation.strip().lower() == 'y':
-        outFiles.append('../HuggingFaceModelInferencer/data/questions.in')
-    try:
-        for filePath in outFiles:
-            with open(filePath, 'w', encoding='utf-8') as dataFile:
-                print('\n'.join(straightSentences), file=dataFile)
-                print('\n'.join(reversedSentences), file=dataFile)
-                print(f'Succesfully written to {filePath}')
-    except OSError as oe:
-            sys.stderr.write(f'File writing error: {oe}\n')
-
-    except ValueError as ve:
-        sys.stderr.write(f'Error while writing to the output file: {ve}\n')
-
