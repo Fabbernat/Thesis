@@ -1,4 +1,4 @@
-from Framework.ModelInputPreparer.config import LOG_PARTIAL_RESULTS
+from src.Framework.ModelInputPreparer.config import LOG_PARTIAL_RESULTS
 from src.Framework.ModelInputPreparer.run import run
 
 import sys
