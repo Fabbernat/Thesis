@@ -4,8 +4,8 @@ USERNAME = 'Fabbernat'
 
 TESTFILE_LENGTH = 1400
 
-MODEL_PATH = 'data/modelResponses.in'
-GOLD_PATH = 'data/test.gold.in'
+MODEL_PATH = r'\data\modelResponses.in'
+GOLD_PATH = r'\data\test.gold.in'
 
 AWARE_RUN = False
 

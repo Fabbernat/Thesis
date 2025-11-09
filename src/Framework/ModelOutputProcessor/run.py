@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from pathlib import Path
 
 
 def run():
@@ -7,18 +7,20 @@ def run():
     tc = TernaryClassifier.TernaryClassifier()
     tc.classify()
     from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
-    ternaryResultsPath = 'data/ternaryResults.out'
+
+    basePath = Path(__file__).parent
+    ternaryResultsPath = Path(str(basePath) + r'\data\ternaryResults.out')
     tre = TernaryResultsProcessor.TernaryResultsProcessor(ternaryResultsPath)
 
     files = []
-    overallPerformanceReport = open("data/overallPerformanceReport.out", "w")
-    logFile = open("data/logFile.out", "a")
+    overallPerformanceReport = open(Path(str(basePath) + r'\data\overallPerformanceReport.out'), 'w')
+    logFile = open(Path(str(basePath) + r'\data\logFile.out'), 'a')
 
     now = datetime.now()
-    formattedDate = now.strftime("%Y. %m. %d. %H:%M")
+    formattedDate = now.strftime('%Y. %m. %d. %H:%M')
 
-    from Framework.HuggingFaceModelInferencer.config import MODEL_NAME
-    from Framework.ModelOutputProcessor.config import USERNAME
+    from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME
+    from src.Framework.ModelOutputProcessor.config import USERNAME
     print(f'{USERNAME} ran {MODEL_NAME} at {formattedDate} with results', file=logFile)
     files.append(overallPerformanceReport)
     files.append(logFile)

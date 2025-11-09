@@ -1,14 +1,9 @@
 from typing import Any
+from pathlib import Path
 
-from Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
-from Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
-from Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, AWARE_RUN, TESTFILE_LENGTH
-
-
-class ShouldCategorizeException(Exception):
-    pass
-
-
+from src.Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
+from src.Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
+from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, AWARE_RUN, TESTFILE_LENGTH
 
 
 def getYesOrNo(modelAnswer: str) -> str:
@@ -32,7 +27,8 @@ class TernaryClassifier:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
         confusionMatrixValues: list[str] = []
 
-        with  open(MODEL_PATH) as modelFile, open(GOLD_PATH) as goldFile:
+        basePath = Path(__file__).parent.parent
+        with  open(Path(str(basePath) + MODEL_PATH)) as modelFile, open(Path(str(basePath) + GOLD_PATH)) as goldFile:
             modelAnswersLines: list[str] = modelFile.readlines()
             goldAnswersLines: list[str] = goldFile.readlines()
 
@@ -60,9 +56,10 @@ class TernaryClassifier:
                 answerCorrectnessValidityFlagsAsBools.append(value)
                 confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
 
-        with open('data/ternaryResults.out', 'w') as ternaryResultsFile, open('data/confusionMatrix.out', 'w') as confusionMatrixFile:
+        with open(Path(str(basePath) + r'\data\ternaryResults.out'), 'w') as ternaryResultsFile, open(Path(str(basePath) + r'\data\confusionMatrix.out'), 'w') as confusionMatrixFile:
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
             print('\n'.join((str(answer) for answer in confusionMatrixValues)), file=confusionMatrixFile)
+
 
     def categorize(self, modelAnswerLineYesOrNo, goldAnswerLine):
         if modelAnswerLineYesOrNo == 'T' and goldAnswerLine == 'T':
