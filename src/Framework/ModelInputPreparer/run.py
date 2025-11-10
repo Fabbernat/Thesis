@@ -7,7 +7,7 @@ from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer impo
 from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
     WordAndSentencesExtractor
 
-from Framework.ModelInputPreparer.config import NUMBER_OF_DESIRED_LINES
+from src.Framework.ModelInputPreparer.config import NUMBER_OF_DESIRED_LINES
 
 
 def run(advancedDebugIsOn=False):
@@ -24,7 +24,7 @@ def run(advancedDebugIsOn=False):
     reversedSentences = []
 
     mergedTestValues = mergedTestValues.split('\n')
-    for i in range(NUMBER_OF_DESIRED_LINES):
+    for i in range(min(len(mergedTestValues), NUMBER_OF_DESIRED_LINES)):
         rowValues = mergedTestValues[i]
         targetWord, sentenceA, sentenceB = targetWordAndSentencesExtractor.extract(rowValues)
 

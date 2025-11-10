@@ -1,4 +1,5 @@
 import traceback
+from pathlib import Path
 
 class FileReader:
     def readWholeFile(self, file):
@@ -7,8 +8,8 @@ class FileReader:
 class TestFilesMerger:
     def mergeTestfiles(self) -> str:
         try:
-            dataFilePath = 'data/test.data.in'
-            goldFilePath = 'data/test.gold.in'
+            dataFilePath = Path(str(basePath) + r'\data\test.data.in')
+            goldFilePath = Path(str(basePath) + r'\data\test.gold.in')
             with open(dataFilePath, 'r') as testDataFile, open(goldFilePath, 'r') as testGoldFile:
                 fileReader: FileReader = FileReader()
                 rawTestDataValues = fileReader.readWholeFile(testDataFile)
