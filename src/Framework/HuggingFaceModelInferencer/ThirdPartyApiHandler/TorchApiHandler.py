@@ -33,7 +33,7 @@ class TorchApiHandler:
 
 def saveOutput(results: str):
 
-    basePath = Path(__file__).parent.parent
+    basePath = Path(__file__).parent.parent.parent
     print('basePath: ', basePath)
     fullPath = Path(str(basePath) + r'\data\modelResponses.out')
     print('fullPath: ', fullPath)
