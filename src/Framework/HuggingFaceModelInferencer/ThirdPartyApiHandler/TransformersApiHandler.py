@@ -1,6 +1,9 @@
 from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
 from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0, \
     generateIds1, convertIds2
+from transformers import AutoTokenizer
+
+from Framework.HuggingFaceModelInferencer.config import MODEL_NAME
 
 try:
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
@@ -13,7 +16,7 @@ except Exception as e:
 class TransformersApiHandler:
     def __init__(self):
         print('TransformersApiHandler() initalized')
-        self.tokenizer = object # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
+        self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME) # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
         self.model = object
         self.generatedIds = object
         self.response = object
@@ -28,21 +31,21 @@ class TransformersApiHandler:
         print('qwen path chosen')
         self.model, self.modelInputs = tokenizeAutoModelForQwenAndSimilar0(self.model, self.tokenizer)
         generatedIds = generateIds1(self.model, self.modelInputs)
-        convertIds = convertIds2(self.modelInputs, self.generatedIds)
+        convertedIds = convertIds2(self.modelInputs, self.generatedIds)
 
-        return generatedIds, convertIds
+        return generatedIds, convertedIds
 
     def microsoft(self):
         pass
 
 
-    def generateFinalAnswer3(self):
+    def generateFinalAnswer3(self, convertedTensors):
         if self.tokenizer is None:
             print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')
         try:
-            self.response = self.tokenizer.batch_decode(self.generatedIds, skip_special_tokens=True)[
+            print(convertedTensors)
+            self.response = self.tokenizer.batch_decode(convertedTensors, skip_special_tokens=True)[
                 0]  # [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason, so [NUMBER_OF_DESIRED_ANSWERS] is not needed.
-            print(self.generatedIds)
         except AttributeError as ae:
             print('AttributeError trying to batch_decode generatedIds:', ae)
         except TypeError as te:

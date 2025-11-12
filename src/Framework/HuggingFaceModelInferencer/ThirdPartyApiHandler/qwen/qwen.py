@@ -27,14 +27,14 @@ def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):
         print("Unexpected exception while loading model:", e)
 
     print(f'tokenizer after={tokenizer}')
-    promptAsText = tokenizer.apply_chat_template(
+    promptAsText: str = tokenizer.apply_chat_template(
         getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS),
         tokenize=False,
         add_generation_prompt=True,
-        enable_thinking=True  # For Qwen3-32B
+        # enable_thinking=True  # For Qwen3-32B
     )
 
-    modelInputs = tokenizer([promptAsText], return_tensors="pt").to(model.device)
+    modelInputs = tokenizer([str(promptAsText)], return_tensors="pt").to(model.device)
 
     return model, modelInputs
 

@@ -11,25 +11,50 @@ print('Is cuda available? ', torch.cuda.is_available())
 class TorchApiHandler:
     def __init__(self):
         print('TorchApiHandler initialized')
-        self.transformersTensors = []
-        self.convertedTensors = []
+        self.generatedIdsTransformersTensors = []
+        self.convertedIdsTensors = []
         self.transformersApiHandler = None
 
     def handleRequest(self):
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
-            handleModelSpecificActions()
-            modelResponses, generated_ids, tokenizer = self.transformersApiHandler.generateFinalAnswer3()
+
+
+            self.handleModelSpecificActions() # This takes up most of the runtime.
+
+
+            modelResponses, generated_ids, tokenizer = self.transformersApiHandler.generateFinalAnswer3(self.convertedIdsTensors)
             print(f'Model\'s responses: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
             writeToFile( Path('modelResponses.out'), modelResponses)
             writeToFile( Path('generatedIds.out'),generated_ids)
             writeToFile(Path('tokenizer.out'),tokenizer)
-            writeToFile( Path('transformersTensors.out'),self.transformersTensors)
-            writeToFile( Path('convertedTensors.out'),self.convertedTensors)
+            writeToFile(Path('generatedIdsTransformersTensors.out'), self.generatedIdsTransformersTensors)
+            writeToFile( Path('convertedIdsTensors.out'),self.convertedIdsTensors)
 
             saveOutput(modelResponses)
+
+
+
+    def handleModelSpecificActions(self):
+        try:
+            if MODEL_NAME.startswith('qwen'):
+                self.generatedIdsTransformersTensors, self.convertedIdsTensors = self.transformersApiHandler.qwen()
+            elif MODEL_NAME.startswith('google'):
+                print(f'Model name is {MODEL_NAME}')
+                response = self.transformersApiHandler.google()
+                writeToFile(response, 'modelResponses.out')
+    
+            elif MODEL_NAME.startswith('microsoft'):
+                pass
+            else:
+                raise NotImplementedError
+    
+    
+        except Exception as e:
+            print('Exception in handleModelSpecificActions:', e)
+
 
 def saveOutput(results: str):
 
@@ -63,19 +88,3 @@ def writeToFile(path: Path, content: str):
     except ValueError as ve:
         sys.stderr.write(f'Value error while writing to {path}: {ve}\n')
 
-
-
-def handleModelSpecificActions():
-    try:
-        if MODEL_NAME == 'google/gemma-2-2b':
-            print(f'Model name is {MODEL_NAME}')
-            response = self.transformersApiHandler.google()
-            writeToFile(response, 'modelResponses.out')
-
-            return
-
-
-        else:
-            self.transformersTensors, self.convertedTensors = self.transformersApiHandler.qwen()
-    except Exception as e:
-        print('Exception in handleModelSpecificActions:', e)
