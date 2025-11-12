@@ -37,7 +37,7 @@ def getMessagesAsString(numberOfLines=None):
             print(log, file=promptFile)
     except Exception as e:
         print('Failed to save the prompt to data/prompt.out:', e)
-    return messagesAsStr
+    return messages
 
 if __name__ == '__main__':
     print(getMessagesAsString())

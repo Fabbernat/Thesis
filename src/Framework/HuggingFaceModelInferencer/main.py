@@ -22,8 +22,8 @@ def main(GlobalRun=False):
 
 
 '''
-All models require ` pip install torch transformers accelerate `.
-Some models require ` pip install torch transformers accelerate hf_xetm optimum `.
+All models require ` pip install torch transformers accelerate huggingface_hub `.
+Some models require ` pip install torch transformers accelerate huggingface_hub hf_xetm optimum `.
 '''
 if __name__ == '__main__':
     startTime = perf_counter()
