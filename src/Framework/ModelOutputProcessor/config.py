@@ -7,7 +7,7 @@ TESTFILE_LENGTH = 1400
 MODEL_PATH = r'\data\modelResponses.in'
 GOLD_PATH = r'\data\test.gold.in'
 
-AWARE_RUN = False
+ADAPTIVE_RUN = False
 
 # keywordPairs = {
 #     'yes': ['Yes', 'No', ],

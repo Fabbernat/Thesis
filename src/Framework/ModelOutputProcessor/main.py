@@ -13,6 +13,7 @@ def main(GlobalRun=False):
 
 
 if __name__ == '__main__':
+
     startTime = perf_counter()
     main()
     endTime = perf_counter()

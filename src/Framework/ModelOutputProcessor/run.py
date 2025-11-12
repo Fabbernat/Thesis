@@ -19,9 +19,8 @@ def run():
     now = datetime.now()
     formattedDate = now.strftime('%Y. %m. %d. %H:%M')
 
-    from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME
     from src.Framework.ModelOutputProcessor.config import USERNAME
-    print(f'{USERNAME} ran {MODEL_NAME} at {formattedDate} with results', file=logFile)
+    print(f'{USERNAME} ran an unknown model at {formattedDate} with results', file=logFile)
     files.append(overallPerformanceReport)
     files.append(logFile)
 

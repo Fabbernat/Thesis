@@ -3,11 +3,11 @@ from pathlib import Path
 
 from src.Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
 from src.Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
-from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, AWARE_RUN, TESTFILE_LENGTH
+from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, TESTFILE_LENGTH
 
 
 def getYesOrNo(modelAnswer: str) -> str:
-    if AWARE_RUN:
+    if ADAPTIVE_RUN:
         return setAnswerAwareClassificationRule(modelAnswer)
     else:
         return classifySentence(modelAnswer)
@@ -57,6 +57,7 @@ class TernaryClassifier:
                 confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
 
         with open(Path(str(basePath) + r'\data\ternaryResults.out'), 'w') as ternaryResultsFile, open(Path(str(basePath) + r'\data\confusionMatrix.out'), 'w') as confusionMatrixFile:
+            print(ternaryResultsFile, confusionMatrixFile)
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
             print('\n'.join((str(answer) for answer in confusionMatrixValues)), file=confusionMatrixFile)
 
