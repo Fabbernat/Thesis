@@ -24,7 +24,7 @@ endings = {
 }
 
 # --- CONFIG ---
-MODEL_NAME = unsupportedModels[1]
+MODEL_NAME = supportedModels[0]
 
 
 
@@ -33,7 +33,7 @@ FILE_NAME = "data/questions.in"
 NUMBER_OF_DESIRED_ANSWERS = 15
 
 
-endOfSentence = endings[2]
+endOfSentence = endings[0]
 INSTRUCTION = f'Answer all {NUMBER_OF_DESIRED_ANSWERS} questions with either `Yes` or `No`{endOfSentence}\n'
 MODEL_NAME = MODEL_NAME.strip().lower()
 # --- end of config ---

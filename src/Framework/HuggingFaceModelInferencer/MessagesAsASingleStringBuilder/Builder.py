@@ -22,8 +22,8 @@ def getMessagesAsString(numberOfLines=None):
             print('reading:', questionsFileContents)
 
     messages = [
-        {'role': 'system', 'content': INSTRUCTION},
-        {'role': 'user', 'content': questionsFileContents},
+        {'role': 'system', 'content': str(INSTRUCTION)},
+        {'role': 'user', 'content': str(questionsFileContents)},
     ]
     messagesAsStr = messages[0]['content']+'\n---------------\n'+ messages[1]['content']
 
