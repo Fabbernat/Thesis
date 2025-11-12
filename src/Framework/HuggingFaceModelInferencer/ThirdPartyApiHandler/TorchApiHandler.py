@@ -33,11 +33,11 @@ class TorchApiHandler:
 
 def saveOutput(results: str):
 
-    basePath = Path(__file__).parent.parent.parent
+    basePath = Path(__file__).parent.parent
     print('basePath: ', basePath)
     fullPath = Path(str(basePath) + r'\data\modelResponses.out')
     print('fullPath: ', fullPath)
-    secondary_path = Path(str(basePath) + r'\ModelOutputProcessor\data\modelResponses.in')
+    secondary_path = Path(str(basePath.parent) + r'\ModelOutputProcessor\data\modelResponses.in')
 
     # Always write the base file
     writeToFile(fullPath, results)
