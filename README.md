@@ -21,7 +21,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
    Install required packages (may vary based on the chosen model)
    ```powershell
    ~\PycharmProjects> cd Thesis
-     ~\PycharmProjects\Thesis> pip install torch transformers accelerate huggingface_hub
+   ~\PycharmProjects\Thesis> pip install torch transformers accelerate huggingface_hub
    ```
    
    Then run the modules one by one:
@@ -34,7 +34,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
     ```
     Or run all three:
     ```powershell
-   ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.globalMain
+    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.globalMain
     ```
 
 ## The paper [Outdated]:
