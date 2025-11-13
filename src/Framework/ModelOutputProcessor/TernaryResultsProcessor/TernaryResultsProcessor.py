@@ -1,3 +1,5 @@
+import sys
+
 from src.Framework.ModelOutputProcessor.config import TESTFILE_LENGTH
 
 
@@ -23,7 +25,13 @@ class TernaryResultsProcessor:
 
     def countConsistentAnswers(self):
         consistentAnswers = 0
-        for i in range(int(len(self.ternaryResultsLines) / 2)):
+
+        if len(self.ternaryResultsLines) % 2 != 0:
+            key = input('Warning: cannot count consistency when odd number of lines. The last line  will be dropped. Do you wish to continue? (y/n)')
+            if key == 'n':
+                exit(0)
+
+        for i in range(len(self.ternaryResultsLines) // 2):
             reversedIndex = i + TESTFILE_LENGTH if i + TESTFILE_LENGTH < len(self.ternaryResultsLines) else 0
             if self.ternaryResultsLines[i] == self.ternaryResultsLines[reversedIndex]:
                 consistentAnswers += 1

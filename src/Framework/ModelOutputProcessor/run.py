@@ -4,8 +4,12 @@ from pathlib import Path
 
 def run():
     from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
+
+    # Classifies each line to a
     tc = TernaryClassifier.TernaryClassifier()
     tc.classify()
+
+
     from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
 
     basePath = Path(__file__).parent
