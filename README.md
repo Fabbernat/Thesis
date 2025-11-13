@@ -37,7 +37,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
     ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.globalMain
     ```
 
-## The paper [Outdated]:
+## The paper [Overleaf Project]:
 [Analyzing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
 ## Pdf TeX Source:
 [GitHub](https://github.com/Fabbernat/Thesis-paper)  
