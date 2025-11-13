@@ -11,6 +11,31 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 
 \* almost any. You need to make your own scripts to test unsupported models. src/Framework has been thoroughly tested on [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) though, so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work. 
 
+### How to run?
+##### In PowerShell
+1. clone the repository to a folder e.g.
+   ```powershell
+   > cd ~\PycharmProjects
+   ~\PycharmProjects> git clone https://github.com/Fabbernat/Thesis
+   ```
+   Install required packages (may vary based on the chosen model)
+   ```powershell
+   ~\PycharmProjects> cd Thesis
+     ~\PycharmProjects\Thesis> pip install torch transformers accelerate huggingface_hub
+   ```
+   
+   Then run the modules one by one:
+    ```powershell
+    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.ModelInputPreparer.main
+    
+    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.HuggingFaceModelInferencer.main
+
+    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.ModelOutputProcessor.main
+    ```
+    Or run all three:
+    ```powershell
+   ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.globalMain
+    ```
 
 ## The paper [Outdated]:
 [Analyzing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
