@@ -32,7 +32,7 @@ class TernaryClassifier:
             goldAnswersLines: list[str] = goldFile.readlines()
 
             modelAnswersLengthInLines: int = len(modelAnswersLines)
-            while modelAnswersLengthInLines % 2 != 1:
+            while modelAnswersLengthInLines % 2 != 0:
                 modelAnswersLengthInLines -= 1
 
             for i in range(modelAnswersLengthInLines):
