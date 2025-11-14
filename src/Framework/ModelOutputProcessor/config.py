@@ -2,7 +2,7 @@
 
 USERNAME = 'Fabbernat'
 
-TESTFILE_LENGTH = 1400
+GoldFileLengthInLines = 1400
 
 MODEL_PATH = r'\data\modelResponses.in'
 GOLD_PATH = r'\data\test.gold.in'

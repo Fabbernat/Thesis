@@ -3,7 +3,7 @@ from pathlib import Path
 
 from src.Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
 from src.Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
-from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, TESTFILE_LENGTH
+from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines
 
 
 def getYesOrNo(modelAnswer: str) -> str:
@@ -14,7 +14,6 @@ def getYesOrNo(modelAnswer: str) -> str:
 
 
 class TernaryClassifier:
-    NUMBER_OF_LINES = 1
 
     def __init__(self):
         self.TruePositives = 0
@@ -23,7 +22,7 @@ class TernaryClassifier:
         self.TrueNegatives = 0
 
 
-    def classify(self) -> Any:
+    def classify0(self) -> Any:
         answerCorrectnessValidityFlagsAsBools: list[bool] = []
         confusionMatrixValues: list[str] = []
 
@@ -32,28 +31,30 @@ class TernaryClassifier:
             modelAnswersLines: list[str] = modelFile.readlines()
             goldAnswersLines: list[str] = goldFile.readlines()
 
-            self.NUMBER_OF_LINES = len(modelAnswersLines)
-            for i in range(self.NUMBER_OF_LINES):
+            modelAnswersLengthInLines: int = len(modelAnswersLines)
+            while modelAnswersLengthInLines % 2 != 1:
+                modelAnswersLengthInLines -= 1
+
+            for i in range(modelAnswersLengthInLines):
                 modelAnswerLine: str = modelAnswersLines[i].strip()
 
+                goldAnswerLine: str = goldAnswersLines[i % GoldFileLengthInLines].strip() # need to reset at half, because `modelAnswersLengthInLines` is about twice as long as `GoldFileLengthInLines`
 
-                goldAnswerLine = goldAnswersLines[i % TESTFILE_LENGTH].strip() # making sure that only the first `TESTFILE_LENGTH` lines are processed
+                modelAnswerLineYesOrNo = getYesOrNo(modelAnswerLine) # returns `T`, `F` or `?`
 
-                modelAnswerLineYesOrNo = getYesOrNo(modelAnswerLine)
-                # print(f'{i}:{self.getYesOrNo(modelAnswerLine)}\n{i}:{goldAnswerLine}')
                 print(f'Comparing {i + 1}th line:')
                 print(modelAnswerLineYesOrNo)
                 print(goldAnswerLine)
-                value = (modelAnswerLineYesOrNo == goldAnswerLine)
+                isEqual = (modelAnswerLineYesOrNo == goldAnswerLine)
 
-                if not value:
+                if not isEqual:
                     print(f'MISTAKE IN LINE {i + 1}! Model falsely predicted {modelAnswerLineYesOrNo} instead of {goldAnswerLine}')
 
 
-                if not isinstance(value, bool):
-                    raise TypeError(f'Only boolean values can be stored in {answerCorrectnessValidityFlagsAsBools}!')
+                if not isinstance(isEqual, bool):
+                    raise TypeError(f'Only boolean values can be stored in answerCorrectnessValidityFlagsAsBools!')
 
-                answerCorrectnessValidityFlagsAsBools.append(value)
+                answerCorrectnessValidityFlagsAsBools.append(isEqual)
                 confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
 
         with open(Path(str(basePath) + r'\data\ternaryResults.out'), 'w') as ternaryResultsFile, open(Path(str(basePath) + r'\data\confusionMatrix.out'), 'w') as confusionMatrixFile:

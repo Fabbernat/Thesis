@@ -1,6 +1,6 @@
 from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
-
+from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
+from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS
 
 def tokenizeAutoModelForGoogle0():
     from transformers import pipeline

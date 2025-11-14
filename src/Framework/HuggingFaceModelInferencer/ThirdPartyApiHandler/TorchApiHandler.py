@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
-from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME
+from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
 
 print('Is cuda available? ', torch.cuda.is_available())
 

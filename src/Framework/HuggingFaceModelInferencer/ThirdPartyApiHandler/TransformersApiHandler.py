@@ -3,7 +3,7 @@ from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen imp
     generateIds1, convertIds2
 from transformers import AutoTokenizer
 
-from Framework.HuggingFaceModelInferencer.config import MODEL_NAME
+from Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
 
 try:
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
