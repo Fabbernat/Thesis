@@ -137,3 +137,13 @@ True negatives: 52		43.33 %
 --------
 
 
+Fabbernat ran an unknown model at 2025. 11. 14. 08:43 with results
+MatchPercentage: 51.66666666666667%
+Consistency: 46.666666666666664%
+True positives: 10		8.33 %
+False positives: 5		4.17 %
+False negatives: 53		44.17 %
+True negatives: 52		43.33 %
+--------
+
+

@@ -35,6 +35,7 @@ def run():
 
 
     length = tc.NUMBER_OF_LINES
+
     for file in files:
         print(f'MatchPercentage: {tre.getMatchPercentage()}%', file=file)
         print(f'Consistency: {tre.getConsistencyPercentage()}%', file=file)
