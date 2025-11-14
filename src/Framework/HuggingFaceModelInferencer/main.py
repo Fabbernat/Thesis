@@ -5,10 +5,6 @@ print(' ** RUNTIME ENVIRONMENT INFO **')
 print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-
-
 from src.Framework.HuggingFaceModelInferencer import run
 
 def main(GlobalRun=False):

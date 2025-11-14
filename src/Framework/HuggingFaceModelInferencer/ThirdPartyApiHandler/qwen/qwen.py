@@ -46,11 +46,13 @@ def generateIds1(model, modelInputs):
 
 
 def convertIds2(modelInputs, generatedIds):
+    print(modelInputs, generatedIds)
     try:
         generatedIds = [
             outputIds[len(inputIds):] for inputIds, outputIds in zip(modelInputs.inputIds, generatedIds)
         ]
     except AttributeError as ae:
-        print("AttributeError in model.generate.", ae)
+        print("AttributeError in convertIds2:", ae)
 
+    print(modelInputs, generatedIds)
     return generatedIds
