@@ -3,12 +3,12 @@ try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0, \
         generateIds1, convertIds2
     from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-    from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME
+    from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
 except Exception as e:
     from .google.google import tokenizeAutoModelForGoogle0
-    from ThirdPartyApiHandler.TransformersApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0
+    from .qwen.qwen import  tokenizeAutoModelForQwenAndSimilar0
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-    from config import MODEL_NAME
+    from modelname import MODEL_NAME
 
 from transformers import AutoTokenizer
 

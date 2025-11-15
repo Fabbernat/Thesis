@@ -1,5 +1,3 @@
-
-
 endings = {
     0:'.', 1:' with reasoning.',
              2:' with a confidence score between 0 and 100. 100 means you are a hundred percent sure they mean the same thing in both sentences and 0 means the opposite.',

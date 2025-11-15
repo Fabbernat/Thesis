@@ -1,8 +1,10 @@
 import os
 from itertools import islice
 
-from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME, INSTRUCTION
-
+try:
+    from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME, INSTRUCTION
+except Exception:
+    from config import FILE_NAME, INSTRUCTION
 
 def getMessagesAsString(numberOfLines=None):
     currentFilesDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

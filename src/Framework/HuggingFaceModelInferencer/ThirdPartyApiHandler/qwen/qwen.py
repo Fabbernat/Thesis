@@ -1,9 +1,11 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-    from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
+    from src.Fravmework.HuggingFaceModelInferencer.modelname import MODEL_NAME
+    from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS
 except Exception:
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-    from config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
+    from modelname import MODEL_NAME
+    from config import  NUMBER_OF_DESIRED_ANSWERS
 
 from huggingface_hub.errors import HFValidationError
 from transformers import AutoModelForCausalLM, AutoTokenizer

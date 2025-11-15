@@ -1,8 +1,8 @@
 try:
-    from src.Framework.HuggingFaceModelInferencer.config import supportedModels, unsupportedModels
+    from src.Framework.HuggingFaceModelInferencer.modelname import supportedModels, unsupportedModels
     from src.Framework.HuggingFaceModelInferencer import run
 except Exception:
-    from config import supportedModels, unsupportedModels
+    from modelname import supportedModels, unsupportedModels
     import run
 
 import sys
