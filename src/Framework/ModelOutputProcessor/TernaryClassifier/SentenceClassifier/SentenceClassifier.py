@@ -9,9 +9,9 @@ def classifySentence(linebreaklessSentence: str, phrases=False) -> str:
     """
 
     sentence = linebreaklessSentence.strip()
-    if sentence.upper() == 'T' or sentence.lower() == 'true' or sentence.lower() == 'Yes' or sentence.lower() == 'Yes.' or 'Yes' in sentence:
+    if sentence.upper() == 'T' or sentence.lower() == 'true' or sentence.lower() == 'yes' or sentence.lower() == 'yes.' or 'Yes' in sentence:
         return 'T'
-    if sentence.upper() == 'F' or sentence.lower() == 'false' or sentence.lower() == 'No' or sentence.lower() == 'No.' or 'No' in sentence:
+    if sentence.upper() == 'F' or sentence.lower() == 'false' or sentence.lower() == 'no' or sentence.lower() == 'no.' or 'No' in sentence:
         return 'F'
 
     return '?'

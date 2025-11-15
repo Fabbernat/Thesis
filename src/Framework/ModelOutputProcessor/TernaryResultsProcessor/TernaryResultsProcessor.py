@@ -1,4 +1,6 @@
-from src.Framework.ModelOutputProcessor.config import TESTFILE_LENGTH
+import sys
+
+from src.Framework.ModelOutputProcessor.config import GoldFileLengthInLines
 
 
 class TernaryResultsProcessor:
@@ -23,8 +25,11 @@ class TernaryResultsProcessor:
 
     def countConsistentAnswers(self):
         consistentAnswers = 0
-        for i in range(int(len(self.ternaryResultsLines) / 2)):
-            reversedIndex = i + TESTFILE_LENGTH if i + TESTFILE_LENGTH < len(self.ternaryResultsLines) else 0
+
+        print("Number of ternaryResultsLines: ", len(self.ternaryResultsLines))
+
+        for i in range(len(self.ternaryResultsLines) // 2):
+            reversedIndex = i + GoldFileLengthInLines if i + GoldFileLengthInLines < len(self.ternaryResultsLines) else -i
             if self.ternaryResultsLines[i] == self.ternaryResultsLines[reversedIndex]:
                 consistentAnswers += 1
 

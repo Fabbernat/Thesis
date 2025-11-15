@@ -4,8 +4,12 @@ from pathlib import Path
 
 def run():
     from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
+
     tc = TernaryClassifier.TernaryClassifier()
-    tc.classify()
+    # Opens files on paths specified in config.py 
+    tc.classify0()
+
+
     from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
 
     basePath = Path(__file__).parent
@@ -30,7 +34,8 @@ def run():
     tn = tc.getTrueNegatives()
 
 
-    length = tc.NUMBER_OF_LINES
+    length = tc.modelAnswersLengthInLines
+
     for file in files:
         print(f'MatchPercentage: {tre.getMatchPercentage()}%', file=file)
         print(f'Consistency: {tre.getConsistencyPercentage()}%', file=file)
