@@ -1,17 +1,16 @@
-from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
-from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0, \
-    generateIds1, convertIds2
-from transformers import AutoTokenizer
-
-from Framework.HuggingFaceModelInferencer.config import MODEL_NAME
-
 try:
-    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-except ImportError as ie:
-    print("Could not import getMessagesAsString: ", ie)
+    from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
+    from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0, \
+        generateIds1, convertIds2
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME
 except Exception as e:
-    print("Exception occured: ", e)
+    from .google.google import tokenizeAutoModelForGoogle0
+    from ThirdPartyApiHandler.TransformersApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from config import MODEL_NAME
 
+from transformers import AutoTokenizer
 
 class TransformersApiHandler:
     def __init__(self):

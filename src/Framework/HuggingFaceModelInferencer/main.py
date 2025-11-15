@@ -1,7 +1,9 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.config import supportedModels, unsupportedModels
-except ModuleNotFoundError:
+    from src.Framework.HuggingFaceModelInferencer import run
+except Exception:
     from config import supportedModels, unsupportedModels
+    import run
 
 import sys
 from time import perf_counter
@@ -14,7 +16,6 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 
-from src.Framework.HuggingFaceModelInferencer import run
 
 def main(GlobalRun=False):
     print('main started')

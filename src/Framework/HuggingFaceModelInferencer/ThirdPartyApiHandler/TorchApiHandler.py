@@ -2,8 +2,12 @@ import torch
 import sys
 from pathlib import Path
 
-from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
-from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME
+try:
+    from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+    from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME
+except Exception:
+    from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+    from config import MODEL_NAME
 
 print('Is cuda available? ', torch.cuda.is_available())
 
