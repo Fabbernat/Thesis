@@ -32,10 +32,11 @@ def getMessagesAsString(numberOfLines=None):
     log = '\n *** The prompt: *** \n'+ messagesAsStr+ '\n *** End of the prompt *** \n'
     print(log)
 
-    print("Writing prompt to:", os.path.abspath('data/prompt.out'))
+    basePath = Path(__file__).parent.parent
+    print("Writing prompt to:", os.path.abspath(Path(str(basePath) + r'data/prompt.out')))
     try:
-        os.makedirs('../data', exist_ok=True)
-        with open(os.path.abspath('data/prompt.out'), 'w') as promptFile:
+        os.makedirs(Path( str(basePath) + r'/data'), exist_ok=True)
+        with open(os.path.abspath(Path( str(basePath) + 'data/prompt.out')), 'w') as promptFile:
             print(log, file=promptFile)
     except Exception as e:
         print('Failed to save the prompt to data/prompt.out:', e)
