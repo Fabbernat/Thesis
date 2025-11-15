@@ -28,7 +28,7 @@ class TorchApiHandler:
             self.handleModelSpecificActions() # This takes up most of the runtime.
 
 
-            modelResponses, generated_ids, tokenizer = self.transformersApiHandler.generateFinalAnswer3(self.convertedIdsTensors)
+            modelResponses, generated_ids, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer3(self.convertedIdsTensors)
             print(f'Model\'s responses: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
             writeToFile( Path('modelResponses.out'), modelResponses)
