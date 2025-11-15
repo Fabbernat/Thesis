@@ -1,8 +1,13 @@
+try:
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
+except Exception:
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
+
 from huggingface_hub.errors import HFValidationError
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
-from src.Framework.HuggingFaceModelInferencer.config import MODEL_NAME, NUMBER_OF_DESIRED_ANSWERS
 
 
 def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):
