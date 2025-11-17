@@ -5,12 +5,13 @@ try:
     from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
 except Exception as e:
-    from .google.google import tokenizeAutoModelForGoogle0
-    from .qwen.qwen import  tokenizeAutoModelForQwenAndSimilar0
+    from .orgs.google import tokenizeAutoModelForGoogle0
+    from .orgs.qwen import  tokenizeAutoModelForQwenAndSimilar0
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
     from modelname import MODEL_NAME
 
 from transformers import AutoTokenizer
+from pathlib import Path
 
 class TransformersApiHandler:
     def __init__(self):

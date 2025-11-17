@@ -7,6 +7,7 @@ except Exception:
 
 import sys
 from time import perf_counter
+from pathlib import Path
 
 print(' ** RUNTIME ENVIRONMENT INFO **')
 print("sys.path: ", str(sys.path))

@@ -5,6 +5,8 @@ except Exception:
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
     from config import NUMBER_OF_DESIRED_ANSWERS
 
+from pathlib import Path
+
 def tokenizeAutoModelForGoogle0():
     from transformers import pipeline
     pipe = pipeline(

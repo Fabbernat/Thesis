@@ -31,13 +31,13 @@ class TorchApiHandler:
             modelResponses, generated_ids, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer3(self.convertedIdsTensors)
             print(f'Model\'s responses: {modelResponses} \ngenerated ids: {generated_ids} \ntokenizer: {tokenizer}')
 
-            writeToFile( Path('modelResponses.out'), modelResponses)
-            writeToFile( Path('generatedIds.out'),generated_ids)
-            writeToFile(Path('tokenizer.out'),tokenizer)
-            writeToFile(Path('generatedIdsTransformersTensors.out'), self.generatedIdsTransformersTensors)
-            writeToFile( Path('convertedIdsTensors.out'),self.convertedIdsTensors)
+            basePath = Path(__file__).parent
+            writeToFile(generated_ids, basePath / "data" / "generatedIds.out")
+            writeToFile(tokenizer, basePath / "data" / "tokenizer.out")
+            writeToFile(self.generatedIdsTransformersTensors, basePath / "data" / "generatedIdsTransformersTensors.out")
+            writeToFile(self.convertedIdsTensors, basePath / "data" / "convertedIdsTensors.out")
 
-            saveOutput(modelResponses)
+            saveOutput(basePath, modelResponses)
 
 
 
@@ -48,8 +48,8 @@ class TorchApiHandler:
             elif MODEL_NAME.startswith('google'):
                 print(f'Model name is {MODEL_NAME}')
                 response = self.transformersApiHandler.google()
-                writeToFile(response, 'modelResponses.out')
-    
+                writeToFile(response, Path(__file__).parent / "data" / "modelResponses.out")
+
             elif MODEL_NAME.startswith('microsoft'):
                 pass
             else:
@@ -60,16 +60,16 @@ class TorchApiHandler:
             print('Exception in handleModelSpecificActions:', e)
 
 
-def saveOutput(results: str):
+def saveOutput(basePath, results: str):
 
-    basePath = Path(__file__).parent.parent
     print('basePath: ', basePath)
-    fullPath = Path(str(basePath) + r'\data\modelResponses.out')
+    fullPath = basePath / "data" / "modelResponses.out"
     print('fullPath: ', fullPath)
-    secondary_path = Path(str(basePath.parent) + r'\ModelOutputProcessor\data\modelResponses.in')
+    secondaryPath = basePath.parent / "ModelOutputProcessor" / "data" / "modelResponses.in"
+
 
     # Always write the base file
-    writeToFile(fullPath, results)
+    writeToFile(results, fullPath)
 
     # Ask user if secondary output should also be saved
     confirmation = input(
@@ -78,17 +78,18 @@ def saveOutput(results: str):
     ).strip().lower()
 
     if confirmation == 'y':
-        writeToFile(secondary_path, results)
+        writeToFile(results, secondaryPath)
 
-def writeToFile(path: Path, content: str):
-    '''Safely write text to a file.'''
+
+def writeToFile(modelResponses, fileNameAsPath: Path):
+    fileNameAsString = str(fileNameAsPath)
     try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with path.open('w', encoding='utf-8') as outFile:
-            outFile.write(str(content))
-        print(f'Successfully written to {path}')
+        with open(fileNameAsString, 'w') as modelResponsesFile:
+            print(str(modelResponses), file=modelResponsesFile)
+        print(f'Successfully written {fileNameAsString}')
     except OSError as oe:
-        sys.stderr.write(f'File writing error ({path}): {oe}\n')
+        sys.stderr.write(f'File writing error ({fileNameAsString}): {oe}\n')
     except ValueError as ve:
-        sys.stderr.write(f'Value error while writing to {path}: {ve}\n')
+        sys.stderr.write(f'Value error while writing to {fileNameAsString}: {ve}\n')
+
 
