@@ -47,17 +47,4 @@ def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):
     return model, modelInputs
 
 
-def generateIds1(model, modelInputs):
-    generatedIds = model.generate(**modelInputs, max_new_tokens=32768)
-    return generatedIds
 
-
-def convertIds2(modelInputs, generatedIds):
-    try:
-        generatedIds = [
-            outputIds[len(inputIds):] for inputIds, outputIds in zip(modelInputs["inputIds"], generatedIds)
-        ]
-    except AttributeError as ae:
-        print("AttributeError in model.generate.", ae)
-
-    return generatedIds

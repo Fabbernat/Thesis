@@ -1,6 +1,6 @@
 import os
 from itertools import islice
-
+from pathlib import Path
 try:
     from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME, INSTRUCTION
 except Exception:
