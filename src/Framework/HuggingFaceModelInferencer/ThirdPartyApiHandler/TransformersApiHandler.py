@@ -6,11 +6,13 @@ try:
         tokenizeAutoModelForQwenAndSimilar0
     from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
+    from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS
 except Exception as e:
     from .orgs.google import tokenizeAutoModelForGoogle0
     from .orgs.qwen import tokenizeAutoModelForQwenAndSimilar0
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
     from modelname import MODEL_NAME
+    from config import NUMBER_OF_DESIRED_ANSWERS
 
 from transformers import AutoTokenizer
 
@@ -57,7 +59,7 @@ class TransformersApiHandler:
         print("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        msgs = getMessagesAsString(1)
+        msgs = getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(
@@ -109,10 +111,8 @@ class TransformersApiHandler:
 
         return decoded, generated_ids
 
-
     def microsoft(self):
         pass
-
 
     def batchDecodeGenerateFinalAnswer3(self, convertedTensors):
         if self.tokenizer is None:

@@ -83,14 +83,13 @@ def saveOutput(basePath, results: str):
 
 
 def writeToFile(modelResponses, fileNameAsPath: Path):
-    fileNameAsString = str(fileNameAsPath)
     try:
-        with open(fileNameAsString, 'w') as modelResponsesFile:
+        with open(fileNameAsPath, 'w') as modelResponsesFile:
             modelResponsesFile.write(str(modelResponses))
-        print(f'Successfully written {fileNameAsString}')
+        print(f'Successfully written to {fileNameAsPath}')
     except OSError as oe:
-        sys.stderr.write(f'File writing error ({fileNameAsString}): {oe}\n')
+        sys.stderr.write(f'File writing error ({fileNameAsPath}): {oe}\n')
     except ValueError as ve:
-        sys.stderr.write(f'Value error while writing to {fileNameAsString}: {ve}\n')
+        sys.stderr.write(f'Value error while writing to {fileNameAsPath}: {ve}\n')
 
 
