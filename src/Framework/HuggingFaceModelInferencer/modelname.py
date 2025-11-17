@@ -16,4 +16,4 @@ unsupportedModels = {
     0: 'google/gemma-2-2b', 1: 'microsoft/phi-4', 2: 'microsoft/Phi-4-mini-instruct', 3: 'google/gemma-3-1b-it', 4: 'google/medgemma-4b-it'
 }  # for your own responsibility
 
-MODEL_NAME = supportedModels[0].strip().lower()
+MODEL_NAME = supportedModels[3].strip().lower()

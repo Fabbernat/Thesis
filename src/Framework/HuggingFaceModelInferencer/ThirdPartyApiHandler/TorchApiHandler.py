@@ -64,7 +64,7 @@ class TorchApiHandler:
 def saveOutput(basePath, results: str):
 
     print('basePath: ', basePath)
-    fullPath = basePath / "data" / "modelResponses.out"
+    fullPath = basePath.parent / "data" / "modelResponses.out"
     print('fullPath: ', fullPath)
     secondaryPath = basePath.parent.parent / "ModelOutputProcessor" / "data" / "modelResponses.in"
 
