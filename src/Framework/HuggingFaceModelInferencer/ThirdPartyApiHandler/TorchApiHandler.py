@@ -10,7 +10,7 @@ except Exception:
     from modelname import MODEL_NAME
 
 print('Is cuda available? ', torch.cuda.is_available())
-
+basePath = Path(__file__).parent / "data"
 
 class TorchApiHandler:
     def __init__(self):
@@ -24,6 +24,7 @@ class TorchApiHandler:
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
 
+            self.transformersApiHandler.DoAutotokenizerFromPretrained()
 
             self.handleModelSpecificActions() # This takes up most of the runtime.
 

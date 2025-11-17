@@ -16,11 +16,17 @@ from pathlib import Path
 class TransformersApiHandler:
     def __init__(self):
         print('TransformersApiHandler() initalized')
-        self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME) # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
+        self.tokenizer = object
         self.model = object
         self.generatedIds = object
         self.response = object
         self.modelInputs = object
+
+    def DoAutotokenizerFromPretrained(self):
+        print("Doing AutoTokenizer.from_pretrained...")
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            MODEL_NAME)  # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
+        print("AutoTokenizer.from_pretrained done!")
 
     # for google models
     def google(self):
