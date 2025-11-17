@@ -114,7 +114,7 @@ class TransformersApiHandler:
     def microsoft(self):
         pass
 
-    def batchDecodeGenerateFinalAnswer3(self, convertedTensors):
+    def batchDecodeGenerateFinalAnswer(self, convertedTensors):
         if self.tokenizer is None:
             print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')
         try:
