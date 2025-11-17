@@ -65,7 +65,7 @@ def saveOutput(basePath, results: str):
     print('basePath: ', basePath)
     fullPath = basePath / "data" / "modelResponses.out"
     print('fullPath: ', fullPath)
-    secondaryPath = basePath.parent / "ModelOutputProcessor" / "data" / "modelResponses.in"
+    secondaryPath = basePath.parent.parent / "ModelOutputProcessor" / "data" / "modelResponses.in"
 
 
     # Always write the base file
