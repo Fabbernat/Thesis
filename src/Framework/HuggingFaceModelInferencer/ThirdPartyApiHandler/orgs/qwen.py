@@ -42,7 +42,7 @@ def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):
         # enable_thinking=True  # For Qwen3-32B
     )
 
-    modelInputs = tokenizer([str(promptAsText)], return_tensors="pt").to(model.device)
+    modelInputs = tokenizer(promptAsText, return_tensors="pt").to(model.device)
 
     return model, modelInputs
 
@@ -55,7 +55,7 @@ def generateIds1(model, modelInputs):
 def convertIds2(modelInputs, generatedIds):
     try:
         generatedIds = [
-            outputIds[len(inputIds):] for inputIds, outputIds in zip(modelInputs.inputIds, generatedIds)
+            outputIds[len(inputIds):] for inputIds, outputIds in zip(modelInputs["inputIds"], generatedIds)
         ]
     except AttributeError as ae:
         print("AttributeError in model.generate.", ae)

@@ -86,7 +86,7 @@ def writeToFile(modelResponses, fileNameAsPath: Path):
     fileNameAsString = str(fileNameAsPath)
     try:
         with open(fileNameAsString, 'w') as modelResponsesFile:
-            print(str(modelResponses), file=modelResponsesFile)
+            modelResponsesFile.write(str(modelResponses))
         print(f'Successfully written {fileNameAsString}')
     except OSError as oe:
         sys.stderr.write(f'File writing error ({fileNameAsString}): {oe}\n')
