@@ -1,6 +1,11 @@
-from src.Framework.ModelInputPreparer.config import LOG_PARTIAL_RESULTS
-from src.Framework.ModelInputPreparer.run import run
+from sys import exception
 
+try:
+    from src.Framework.ModelInputPreparer.config import LOG_PARTIAL_RESULTS
+    from src.Framework.ModelInputPreparer.run import run
+except Exception:
+    from config import LOG_PARTIAL_RESULTS
+    from run import run
 import sys
 from time import perf_counter
 

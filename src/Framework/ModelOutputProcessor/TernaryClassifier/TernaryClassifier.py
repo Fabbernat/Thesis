@@ -1,10 +1,14 @@
 from typing import Any
 from pathlib import Path
 
-from src.Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
-from src.Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
-from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines
-
+try:
+    from src.Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
+    from src.Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
+    from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines
+except Exception:
+    from TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
+    from TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
+    from config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines
 
 def getYesOrNo(modelAnswer: str) -> str:
     if ADAPTIVE_RUN:
@@ -14,6 +18,7 @@ def getYesOrNo(modelAnswer: str) -> str:
 
 
 class TernaryClassifier:
+    modelAnswersLengthInLines = 1400
 
     def __init__(self):
         self.TruePositives = 0
@@ -32,7 +37,7 @@ class TernaryClassifier:
             goldAnswersLines: list[str] = goldFile.readlines()
 
             modelAnswersLengthInLines: int = len(modelAnswersLines)
-
+            self.modelAnswersLengthInLines = modelAnswersLengthInLines
             if modelAnswersLengthInLines % 2 != 0:
                 key = input(
                     'Warning: cannot count consistency when odd number of lines, please fix input. The last line  will be dropped. Do you wish to continue? (y/n)')

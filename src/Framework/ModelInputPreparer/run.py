@@ -1,13 +1,18 @@
 import sys
 from pathlib import Path
 
-from src.Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
-from src.Framework.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
-from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
-from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
-    WordAndSentencesExtractor
-
-from src.Framework.ModelInputPreparer.config import NUMBER_OF_DESIRED_LINES
+try:
+    from src.Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
+    from src.Framework.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
+    from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
+    from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import WordAndSentencesExtractor
+    from src.Framework.ModelInputPreparer.config import NUMBER_OF_DESIRED_LINES
+except Exception:
+    from LabelAdder.LabelAdder import TestFilesMerger
+    from SentenceBuilder.SentenceBuilder import SentenceBuilder
+    from SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
+    from WordAndSentencesExtractor.WordAndSentencesExtractor import WordAndSentencesExtractor
+    from config import NUMBER_OF_DESIRED_LINES
 
 
 def run(advancedDebugIsOn=False):

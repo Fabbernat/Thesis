@@ -1,5 +1,7 @@
-from src.Framework.ModelOutputProcessor.run import run
-
+try:
+    from src.Framework.ModelOutputProcessor.run import run
+except Exception:
+    from run import run
 import sys
 from time import perf_counter
 

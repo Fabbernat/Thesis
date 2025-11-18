@@ -1,16 +1,21 @@
 from datetime import datetime
 from pathlib import Path
 
+try:
+    from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
+except Exception:
+    from TernaryClassifier import TernaryClassifier
 
 def run():
-    from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
 
     tc = TernaryClassifier.TernaryClassifier()
     # Opens files on paths specified in config.py 
     tc.classify0()
 
-
-    from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
+    try:
+        from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
+    except Exception:
+        from TernaryResultsProcessor import TernaryResultsProcessor
 
     basePath = Path(__file__).parent
     ternaryResultsPath = Path(str(basePath) + r'\data\ternaryResults.out')
@@ -23,7 +28,11 @@ def run():
     now = datetime.now()
     formattedDate = now.strftime('%Y. %m. %d. %H:%M')
 
-    from src.Framework.ModelOutputProcessor.config import USERNAME
+    try:
+        from src.Framework.ModelOutputProcessor.config import USERNAME
+    except Exception:
+        from config import USERNAME
+
     print(f'{USERNAME} ran an unknown model at {formattedDate} with results', file=logFile)
     files.append(overallPerformanceReport)
     files.append(logFile)

@@ -1,7 +1,9 @@
 import sys
 
-from src.Framework.ModelOutputProcessor.config import GoldFileLengthInLines
-
+try:
+    from src.Framework.ModelOutputProcessor.config import GoldFileLengthInLines
+except Exception:
+    from config import GoldFileLengthInLines
 
 class TernaryResultsProcessor:
 

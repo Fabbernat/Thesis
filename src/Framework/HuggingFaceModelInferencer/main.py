@@ -3,7 +3,7 @@ try:
     from src.Framework.HuggingFaceModelInferencer import run
 except Exception:
     from modelname import supportedModels, unsupportedModels
-    import run
+    from run import run
 
 import sys
 from time import perf_counter
@@ -20,7 +20,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 def main(GlobalRun=False):
     print('main started')
-    run.run()
+    run()
 
 
 '''
