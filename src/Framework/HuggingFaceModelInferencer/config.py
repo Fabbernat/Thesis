@@ -7,7 +7,7 @@ endings = {
 
 # --- CONFIG ---
 
-
+DEBUG_MODE = True
 
 FILE_NAME = "data/questions.in"
 

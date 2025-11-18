@@ -29,7 +29,7 @@ class TorchApiHandler:
             self.handleModelSpecificActions() # This takes up most of the runtime.
 
 
-            response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer3(self.convertedIdsTensors)
+            response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(self.convertedIdsTensors)
             print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
 
             basePath = Path(__file__).parent

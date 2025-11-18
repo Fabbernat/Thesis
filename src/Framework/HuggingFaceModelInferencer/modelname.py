@@ -1,6 +1,7 @@
-supportedModels = {
-    0: 'Qwen/Qwen2.5-0.5B-Instruct', 3: 'Qwen/Qwen2.5-1.5B-Instruct',
-}  # tested models, that will grantedly work
+supportedModels = [
+    'Qwen/Qwen2.5-0.5B-Instruct',
+    'Qwen/Qwen2.5-1.5B-Instruct',
+]  # tested models, that will grantedly work
 
 unsupportedModels = {
     1: 'Qwen/Qwen2.5-0.5B', 2: 'Qwen/Qwen2.5-1.5B',
@@ -24,12 +25,12 @@ unsupportedModels = {
 }
 
 googleModels = {
-    0: 'google/gemma-2-2b', 3: 'google/gemma-3-1b-it',
+    0: 'google/gemma-2-2b-it', 3: 'google/gemma-3-1b-it',
     4: 'google/medgemma-4b-it'
 }
 
 microsoftModels = {
-    1: 'microsoft/phi-4', 2: 'microsoft/Phi-4-mini-instruct',
+    0: 'microsoft/Phi-4-mini-instruct', 1: 'microsoft/phi-4',
 }
 
-MODEL_NAME = supportedModels[3].strip().lower()
+MODEL_NAME = supportedModels[0].strip().lower()
