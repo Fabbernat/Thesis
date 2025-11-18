@@ -23,11 +23,11 @@ def _dbg(msg, *args, **kwargs):
 class TransformersApiHandler:
     def __init__(self):
         print('TransformersApiHandler() initalized')
-        self.tokenizer = object
-        self.model = object
-        self.generatedIds = object
-        self.response = object
-        self.modelInputs = object
+        self.tokenizer = []
+        self.model = []
+        self.generatedIds = []
+        self.response = []
+        self.modelInputs = []
 
     def DoAutotokenizerFromPretrained(self):
         print("Doing AutoTokenizer.from_pretrained...")

@@ -17,7 +17,7 @@ class TorchApiHandler:
         print('TorchApiHandler initialized')
         self.generatedIdsTransformersTensors = []
         self.convertedIdsTensors = []
-        self.transformersApiHandler = None
+        self.transformersApiHandler = []
 
     def handleRequest(self):
         print('TorchApiHandler.handleRequest() started')
@@ -64,7 +64,8 @@ class TorchApiHandler:
 def saveOutput(basePath, results: str):
 
     print('basePath: ', basePath)
-    fullPath = basePath.parent / "data" / "modelResponses.out"
+    safe_name = MODEL_NAME.split("/")[-1]
+    fullPath = basePath.parent / "data" / f"modelResponses{safe_name}.out"
     print('fullPath: ', fullPath)
     secondaryPath = basePath.parent.parent / "ModelOutputProcessor" / "data" / "modelResponses.in"
 
@@ -85,7 +86,7 @@ def saveOutput(basePath, results: str):
 def writeToFile(modelResponses, fileNameAsPath: Path):
     try:
         with open(fileNameAsPath, 'w') as modelResponsesFile:
-            modelResponsesFile.write(str(modelResponses))
+            modelResponsesFile.write(str(modelResponses).replace('\\n', '\n'))
         print(f'Successfully written to {fileNameAsPath}')
     except OSError as oe:
         sys.stderr.write(f'File writing error ({fileNameAsPath}): {oe}\n')
