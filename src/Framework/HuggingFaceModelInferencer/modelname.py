@@ -1,6 +1,6 @@
 supportedModels = [
-    'Qwen/Qwen2.5-0.5B-Instruct',
     'Qwen/Qwen2.5-1.5B-Instruct',
+    'Qwen/Qwen2.5-0.5B-Instruct',
 ]  # tested models, that will grantedly work
 
 unsupportedModels = [
