@@ -11,7 +11,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 
 \* almost any. You need to make your own scripts to test unsupported models. src/Framework has been thoroughly tested on [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) though, so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work. 
 
-### How to run?
+### How to run the app?
 ##### In PowerShell
 1. clone the repository to a folder e.g.
    ```powershell
@@ -36,6 +36,14 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
     ```powershell
     ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.globalMain
     ```
+
+##### In PyCharm
+1. Clone the Repo. Python interpreter needed. It is recommended to use PyCharm
+2. navigate to `src/Framework/ModelInputPreparer/main.py` and run `main()` (in PyCharm just click the green triangle)
+3. You see the results in the `.out` files
+4. do the same with the `HuggingFaceModelInferencer` and the `ModelOutputProcessor` modules, or just run the `src/Framework/globalMain.py` to execute all three modules at once
+5. Check the results in the .out files
+6. That's it!
 
 ## The paper [Overleaf Project]:
 [Analyzing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
@@ -62,13 +70,6 @@ over supersenses (Pilehvar and Camacho-Collados,
 in two different supersenses and the positive ones
 include a word used in the same supersense.
 
-#### How to use the app?
-1. Clone the Repo. Python interpreter needed. It is recommended to use PyCharm
-2. navigate to `src/Framework/ModelInputPreparer/main.py` and run `main()` (in PyCharm just click the green triangle)
-3. You see the results in the `.out` files
-4. do the same with the `HuggingFaceModelInferencer` and the `ModelOutputProcessor` modules, or just run the `src/Framework/globalMain.py` to execute all three modules at once
-5. Check the results in the .out files
-6. That's it!
 
 #### Example result:
 <img width="1919" height="1029" alt="image" src="https://github.com/user-attachments/assets/a5049ee9-e84b-48fc-a917-5b6bb66556fd" />
