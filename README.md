@@ -15,26 +15,26 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 ##### In PowerShell
 1. clone the repository to a folder e.g.
    ```powershell
-   > cd ~\PycharmProjects
-   ~\PycharmProjects> git clone https://github.com/Fabbernat/Thesis
+   cd ~\PycharmProjects
+   git clone https://github.com/Fabbernat/Thesis
    ```
    Install required packages (may vary based on the chosen model)
    ```powershell
-   ~\PycharmProjects> cd Thesis
-   ~\PycharmProjects\Thesis> pip install torch transformers accelerate huggingface_hub
+   cd Thesis
+   pip install torch transformers accelerate huggingface_hub
    ```
    
    Then run the modules one by one:
     ```powershell
-    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.ModelInputPreparer.main
+   py -3.13 -m src.Framework.ModelInputPreparer.main
     
-    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.HuggingFaceModelInferencer.main
+   py -3.13 -m src.Framework.HuggingFaceModelInferencer.main
 
-    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.ModelOutputProcessor.main
+   py -3.13 -m src.Framework.ModelOutputProcessor.main
     ```
     Or run all three:
     ```powershell
-    ~\PycharmProjects\Thesis> py -3.13 -m src.Framework.globalMain
+   py -3.13 -m src.Framework.globalMain
     ```
 
 ##### In PyCharm
