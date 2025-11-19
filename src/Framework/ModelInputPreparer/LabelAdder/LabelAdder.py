@@ -8,6 +8,7 @@ class FileReader:
 class TestFilesMerger:
     def mergeTestfiles(self) -> str:
         try:
+            basePath = Path(__file__).parent.parent
             dataFilePath = Path(str(basePath) + r'\data\test.data.in')
             goldFilePath = Path(str(basePath) + r'\data\test.gold.in')
             with open(dataFilePath, 'r') as testDataFile, open(goldFilePath, 'r') as testGoldFile:

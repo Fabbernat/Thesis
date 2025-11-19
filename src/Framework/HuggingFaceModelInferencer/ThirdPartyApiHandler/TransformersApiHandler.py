@@ -84,7 +84,8 @@ class TransformersApiHandler:
         print("Calling model.generate...")
         output = self.model.generate(
             **inputs,
-            max_new_tokens=512,
+            max_new_tokens=1,
+            do_sample=False
         )
 
         print("Generate() output:")

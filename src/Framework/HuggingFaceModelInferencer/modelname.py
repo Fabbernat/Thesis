@@ -52,4 +52,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-MODEL_NAME = supportedModels[0].strip().lower()
+MODEL_NAME = supportedModels[1].strip().lower()

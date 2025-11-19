@@ -15,8 +15,8 @@ basePath = Path(__file__).parent / "data"
 class TorchApiHandler:
     def __init__(self):
         print('TorchApiHandler initialized')
-        self.generatedIdsTransformersTensors = []
-        self.convertedIdsTensors = []
+        self.GeneratedIdsTransformersTensorsList = []
+        self.convertedIdsTensorsList = []
         self.transformersApiHandler = []
 
     def handleRequest(self):
@@ -29,7 +29,7 @@ class TorchApiHandler:
             self.handleModelSpecificActions() # This takes up most of the runtime.
 
 
-            response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(self.convertedIdsTensors)
+            response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(elem for elem in self.convertedIdsTensorsList)
             print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
 
             basePath = Path(__file__).parent
@@ -45,7 +45,10 @@ class TorchApiHandler:
     def handleModelSpecificActions(self):
         try:
             if MODEL_NAME.startswith('qwen'):
-                self.generatedIdsTransformersTensors, self.convertedIdsTensors = self.transformersApiHandler.qwen()
+                for i in range(NUMBER_OF_DESIRED_ANSWERS):
+                    generatedIdsTransformersTensors, convertedIdsTensors  = self.transformersApiHandler.qwen()
+                    self.generatedIdsTransformersTensorsList.append(generatedIdsTransformersTensors)
+                    self.convertedIdsTensorsList.append(convertedIdsTensors)
             elif MODEL_NAME.startswith('google'):
                 print(f'Model name is {MODEL_NAME}')
                 response = self.transformersApiHandler.google()
