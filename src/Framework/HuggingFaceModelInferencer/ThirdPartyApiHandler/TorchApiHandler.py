@@ -5,19 +5,20 @@ from pathlib import Path
 try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
+    from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS
 except Exception:
     from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
     from modelname import MODEL_NAME
+    from config import NUMBER_OF_DESIRED_ANSWERS
 
 print('Is cuda available? ', torch.cuda.is_available())
-basePath = Path(__file__).parent / "data"
 
 class TorchApiHandler:
     def __init__(self):
         print('TorchApiHandler initialized')
-        self.GeneratedIdsTransformersTensorsList = []
+        self.generatedIdsTransformersTensorsList = []
         self.convertedIdsTensorsList = []
-        self.transformersApiHandler = []
+        self.transformersApiHandler = None
 
     def handleRequest(self):
         print('TorchApiHandler.handleRequest() started')
@@ -35,14 +36,16 @@ class TorchApiHandler:
             basePath = Path(__file__).parent
             writeToFile(generatedIds, basePath / "data" / "generatedIds.out")
             writeToFile(tokenizer, basePath / "data" / "tokenizer.out")
-            writeToFile(self.generatedIdsTransformersTensors, basePath / "data" / "generatedIdsTransformersTensors.out")
-            writeToFile(self.convertedIdsTensors, basePath / "data" / "convertedIdsTensors.out")
+            writeToFile(self.generatedIdsTransformersTensorsList, basePath / "data" / "generatedIdsTransformersTensors.out")
+            writeToFile(self.convertedIdsTensorsList, basePath / "data" / "convertedIdsTensors.out")
 
             saveOutput(basePath, response)
 
 
 
     def handleModelSpecificActions(self):
+        generatedIdsTransformersTensors = None
+        convertedIdsTensors = None
         try:
             if MODEL_NAME.startswith('qwen'):
                 for i in range(NUMBER_OF_DESIRED_ANSWERS):
@@ -58,11 +61,9 @@ class TorchApiHandler:
                 pass
             else:
                 raise NotImplementedError
-    
-    
+
         except Exception as e:
             print('Exception in handleModelSpecificActions:', e)
-
 
 def saveOutput(basePath, results: str):
 
