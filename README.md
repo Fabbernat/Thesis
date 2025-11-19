@@ -72,7 +72,7 @@ include a word used in the same supersense.
 
 
 #### Example result:
-<img width="1919" height="1029" alt="image" src="https://github.com/user-attachments/assets/a5049ee9-e84b-48fc-a917-5b6bb66556fd" />
+<img width="1912" height="1027" alt="image" src="https://github.com/user-attachments/assets/e0602229-f699-4989-88b4-95bdad915ada" />
 
 
 #### The Colab Notebook [outdated]:
