@@ -19,9 +19,9 @@ def run():
 
     basePath = Path(__file__).parent
     ternaryResultsPath = Path(str(basePath) + r'\data\ternaryResults.out')
-    tre = TernaryResultsProcessor.TernaryResultsProcessor(ternaryResultsPath)
+    trp = TernaryResultsProcessor.TernaryResultsProcessor(ternaryResultsPath)
 
-    files = []
+
     overallPerformanceReport = open(Path(str(basePath) + r'\data\overallPerformanceReport.out'), 'w')
     logFile = open(Path(str(basePath) + r'\data\logFile.out'), 'a')
 
@@ -34,20 +34,22 @@ def run():
         from config import USERNAME
 
     print(f'{USERNAME} ran an unknown model at {formattedDate} with results', file=logFile)
-    files.append(overallPerformanceReport)
-    files.append(logFile)
+
+    files = [overallPerformanceReport, logFile]
 
     tp = tc.getTruePositives()
     fp = tc.getFalsePositives()
     fn = tc.getFalseNegatives()
     tn = tc.getTrueNegatives()
-
+    matchPercentage = trp.getMatchPercentage()
+    consistencyPercentage = trp.getConsistencyPercentage()
 
     length = tc.modelAnswersLengthInLines
 
     for file in files:
-        print(f'MatchPercentage: {tre.getMatchPercentage()}%', file=file)
-        print(f'Consistency: {tre.getConsistencyPercentage()}%', file=file)
+        print(f'MatchPercentage: {matchPercentage:.2f}%', file=file)
+        print(f'Consistency: {consistencyPercentage:.2f}%', file=file)
+        print(f'Consistently accurate: {matchPercentage * consistencyPercentage:.2f}% ', file=file)
 
         print(f'True positives: {tp}\t\t{tp * 100 / length:.2f} %', file=file)
         print(f'False positives: {fp}\t\t{fp * 100 / length:.2f} %', file=file)
