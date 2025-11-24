@@ -31,15 +31,16 @@ def run():
     thisModelName = 'an unknown model'
     try:
         from src.Framework.ModelOutputProcessor.config import USERNAME
-        from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
+        from Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
         thisModelName = MODEL_NAME
-    except Exception:
+    except Exception as e:
+        print('Exception:', e)
         from config import USERNAME
         try:
-            from .HuggingFaceModelInferencer.modelname import MODEL_NAME
+            from ..HuggingFaceModelInferencer.modelname import MODEL_NAME
             thisModelName = MODEL_NAME
-        except Exception:
-            pass
+        except Exception as e:
+            print('Exception:', e)
 
     print(f'{USERNAME} ran {thisModelName} at {formattedDate} with results', file=logFile)
 
