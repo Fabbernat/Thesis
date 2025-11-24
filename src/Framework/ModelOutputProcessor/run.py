@@ -28,12 +28,20 @@ def run():
     now = datetime.now()
     formattedDate = now.strftime('%Y. %m. %d. %H:%M')
 
+    thisModelName = 'an unknown model'
     try:
         from src.Framework.ModelOutputProcessor.config import USERNAME
+        from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
+        thisModelName = MODEL_NAME
     except Exception:
         from config import USERNAME
+        try:
+            from .HuggingFaceModelInferencer.modelname import MODEL_NAME
+            thisModelName = MODEL_NAME
+        except Exception:
+            pass
 
-    print(f'{USERNAME} ran an unknown model at {formattedDate} with results', file=logFile)
+    print(f'{USERNAME} ran {thisModelName} at {formattedDate} with results', file=logFile)
 
     files = [overallPerformanceReport, logFile]
 
