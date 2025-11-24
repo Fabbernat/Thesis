@@ -1,6 +1,9 @@
 import torch
 import sys
 from pathlib import Path
+import random
+import numpy as np
+
 
 try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
@@ -44,8 +47,7 @@ class TorchApiHandler:
 
 
     def handleModelSpecificActions(self):
-        generatedIdsTransformersTensors = None
-        convertedIdsTensors = None
+        set_seed(42)
         try:
             if MODEL_NAME.startswith('qwen'):
                 for i in range(NUMBER_OF_DESIRED_ANSWERS):
@@ -64,6 +66,17 @@ class TorchApiHandler:
 
         except Exception as e:
             print('Exception in handleModelSpecificActions:', e)
+
+
+def set_seed(seed=42):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+
 
 def saveOutput(basePath, results: str):
 
