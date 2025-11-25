@@ -11,7 +11,7 @@ DEBUG_MODE = True
 
 FILE_NAME = "data/questions.in"
 
-NUMBER_OF_DESIRED_ANSWERS = 60
+NUMBER_OF_DESIRED_ANSWERS = 10
 
 
 endOfSentence = endings[0]

@@ -35,6 +35,7 @@ class TorchApiHandler:
 
             response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(elem for elem in self.convertedIdsTensorsList)
             print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
+            response = ' '.join([str(elem) for elem in response])
 
             basePath = Path(__file__).parent
             writeToFile(generatedIds, basePath / "data" / "generatedIds.out")

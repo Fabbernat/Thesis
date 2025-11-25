@@ -68,6 +68,7 @@ class TransformersApiHandler:
             msgs,
             tokenize=False,
             add_generation_prompt=True,
+            TRANSFORMERS_VERBOSITY=info
         )
         print("Prompt:")
         print(prompt)
@@ -101,7 +102,7 @@ class TransformersApiHandler:
         print("  tensor:", generated_ids)
 
         # 7) Decode
-        decoded = self.tokenizer.batch_decode(
+        decoded: list[str] = self.tokenizer.batch_decode(
             generated_ids,
             skip_special_tokens=True
         )
@@ -179,7 +180,7 @@ class TransformersApiHandler:
         generated_ids = output[:, input_len:]
         _dbg("Sliced generated_ids shape:", generated_ids.shape)
 
-        decoded = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
+        decoded: list[str] = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         _dbg("Decoded:", decoded)
         _dbg("=== GEMMA PATH END ===")
         return decoded, generated_ids
@@ -248,7 +249,7 @@ class TransformersApiHandler:
         generated_ids = output[:, input_len:]
         _dbg("Sliced generated_ids shape:", generated_ids.shape)
 
-        decoded = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
+        decoded: list[str] = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         _dbg("Decoded:", decoded)
         _dbg("=== PHI-4 MINI PATH END ===")
         return decoded, generated_ids
@@ -258,7 +259,7 @@ class TransformersApiHandler:
             print('failed to give self.tokenizer a value using AutoTokenizer.from_pretrained(MODEL_NAME.strip()).')
         try:
             print(convertedTensors)
-            self.response = self.tokenizer.batch_decode(convertedTensors,
+            self.response: list[str] = self.tokenizer.batch_decode(convertedTensors,
                                                         skip_special_tokens=True)  # [NUMBER_OF_DESIRED_ANSWERS] # [0] makes the answers longer for some reason, so [NUMBER_OF_DESIRED_ANSWERS] is not needed.
         except AttributeError as ae:
             print('AttributeError trying to batch_decode generatedIds:', ae)
