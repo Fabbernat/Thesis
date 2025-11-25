@@ -47,8 +47,8 @@ def main():
     for name, model_list in models.items():
         print(f'list {model_index} of {len(models)}: {name}')
         model_index += 1
-        for i, m in enumerate(model_list):
-            print(i, m)
+        for i, model in enumerate(model_list):
+            print(i, model)
 
 
 if __name__ == "__main__":
