@@ -10,7 +10,7 @@ unsupportedModels = [
     'Qwen/Qwen2.5-3B', 'Qwen/Qwen2.5-3B-Instruct', 'Qwen/Qwen2.5-7B', 'Qwen/Qwen2.5-7B-Instruct',
     'Qwen/Qwen2.5-14B', 'Qwen/Qwen2.5-14B-Instruct', 'Qwen/Qwen2.5-32B', 'Qwen/Qwen2.5-32B-Instruct',
     'Qwen/Qwen2.5-72B', 'Qwen/Qwen2.5-72B-Instruct',
-    'Qwen/Qwen2.5-0.5B-Instruct-GGUF',  # pip install protobuf
+    'Qwen/Qwen2.5-0.5B-Instruct-GGUF',  # requires ` pip install protobuf `
 
     'Qwen/Qwen2.5-1.5B-Instruct-GGUF', 'Qwen/Qwen2.5-1.5B-Instruct-AWQ',
     'Qwen/Qwen2.5-1.5B-Instruct-GPTQ-Int4', 'Qwen/Qwen2.5-1.5B-Instruct-GPTQ-Int8',
