@@ -77,6 +77,7 @@ def checkIfHalfOfFileContentsIsReversed(questionsFileContents: str):
 
 def getMessagesAsString(numberOfLines=None):
     currentFilesDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     questionsPath = os.path.join(currentFilesDir, FILE_NAME)
     print(f'Questions file path={questionsPath}')
 
