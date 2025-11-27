@@ -41,11 +41,11 @@ class TernaryClassifier:
             if modelAnswersLengthInLines % 2 != 0:
                 key = input(
                     'Warning: cannot count consistency when odd number of lines, please fix input. The last line  will be dropped. Do you wish to continue? (y/n)')
+
                 if key == 'n':
                     exit(0)
 
-            while modelAnswersLengthInLines % 2 != 0:
-                modelAnswersLengthInLines -= 1
+            modelAnswersLengthInLines -= 1
 
 
             for i in range(modelAnswersLengthInLines):
