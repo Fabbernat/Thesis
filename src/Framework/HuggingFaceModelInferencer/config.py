@@ -8,6 +8,8 @@ endings = {
 # --- CONFIG ---
 
 DEBUG_MODE = True
+DETERMINISTIC_MODE = False
+ISOLATED_MODE = True
 
 FILE_NAME = 'data/questions.in'
 

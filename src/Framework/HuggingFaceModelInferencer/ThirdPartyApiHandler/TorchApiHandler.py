@@ -9,10 +9,13 @@ try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
     from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS
+    from src.Framework.HuggingFaceModelInferencer.config import DETERMINISTIC_MODE
+
 except Exception:
     from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
     from modelname import MODEL_NAME
     from config import NUMBER_OF_DESIRED_ANSWERS
+    from config import DETERMINISTIC_MODE
 
 print('Is cuda available? ', torch.cuda.is_available())
 
@@ -48,7 +51,8 @@ class TorchApiHandler:
 
 
     def handleModelSpecificActions(self):
-        set_seed(42)
+        if DETERMINISTIC_MODE:
+            set_seed(42)
         try:
             if MODEL_NAME.startswith('qwen'):
                 for i in range(NUMBER_OF_DESIRED_ANSWERS):
