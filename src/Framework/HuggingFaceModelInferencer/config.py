@@ -20,10 +20,10 @@ if NUMBER_OF_DESIRED_ANSWERS % 2 != 0:
         exit(0)
     NUMBER_OF_DESIRED_ANSWERS -= 1
 
-numberOfDesiredAnswersAsString = ['', f'{NUMBER_OF_DESIRED_ANSWERS} ']
+numberOfDesiredAnswersAsString = ['', f'{NUMBER_OF_DESIRED_ANSWERS // 2} ']
 
 endOfSentence = endings[0]
-INSTRUCTION = f'Answer all {numberOfDesiredAnswersAsString[0]}questions with either `Yes` or `No`{endOfSentence}.\n'
+INSTRUCTION = f'Answer all {numberOfDesiredAnswersAsString[0]}questions and their reversed pairs with either `Yes` or `No`{endOfSentence}.\n'
 
 # --- end of config ---
 print(INSTRUCTION)
