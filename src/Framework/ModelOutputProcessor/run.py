@@ -1,14 +1,15 @@
+# run.py
 from datetime import datetime
 from pathlib import Path
 
 
 try:
     from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
-    from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import balancedAccuracyCalculator
+    from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import BalancedAccuracyCalculator
 
 except Exception:
     from TernaryClassifier import TernaryClassifier
-    from TernaryResultsProcessor import balancedAccuracyCalculator
+    from TernaryResultsProcessor import BalancedAccuracyCalculator
 
 
 def run():
@@ -57,7 +58,7 @@ def run():
     tn = tc.getTrueNegatives()
     matchPercentage = trp.getMatchPercentage()
     consistencyPercentage = trp.getConsistencyPercentage()
-    balancedAccuracyPercentage = balancedAccuracyCalculator.calculateBalancedAccuracy(modelAnswerLineTsOrFs, goldAnswerLineTsOrFs)
+    balancedAccuracyPercentage = BalancedAccuracyCalculator.calculateBalancedAccuracy(modelAnswerLineTsOrFs, goldAnswerLineTsOrFs, tp, fp, fn, tn)
     length = tc.modelAnswersLengthInLines
 
     for file in files:
