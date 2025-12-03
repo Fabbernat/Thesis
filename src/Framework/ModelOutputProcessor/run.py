@@ -1,10 +1,14 @@
 from datetime import datetime
 from pathlib import Path
 
+
 try:
     from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
+    from src.Framework.ModelOutputProcessor.TernaryResultsProcessor.balancedAccuracyCalculator import balancedAccuracyPercentage
+
 except Exception:
     from TernaryClassifier import TernaryClassifier
+    from TernaryResultsProcessor.balancedAccuracyCalculator import balancedAccuracyPercentage
 
 def run():
 
@@ -59,7 +63,7 @@ def run():
         print(f'MatchPercentage: {matchPercentage:.2f}%', file=file)
         print(f'Consistency: {consistencyPercentage:.2f}%', file=file)
         print(f'Consistently accurate: {(matchPercentage / 100 * consistencyPercentage / 100) * 100:.2f}% ', file=file)
-
+        print(f'Balanced accuracy: {balancedAccuracyPercentage:.2f}')
         print(f'True positives: {tp}\t\t{tp * 100 / length:.2f} %', file=file)
         print(f'False positives: {fp}\t\t{fp * 100 / length:.2f} %', file=file)
         print(f'False negatives: {fn}\t\t{fn * 100 / length:.2f} %', file=file)

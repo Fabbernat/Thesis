@@ -1,14 +1,16 @@
 from typing import Any
 from pathlib import Path
 
+
 try:
     from src.Framework.ModelOutputProcessor.TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
     from src.Framework.ModelOutputProcessor.TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
-    from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines
+    from src.Framework.ModelOutputProcessor.config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines, ModelAnswersLengthInLines
 except Exception:
     from TernaryClassifier.AnswerAwareClassificationRule.AnswerAwareClassificationRule import setAnswerAwareClassificationRule
     from TernaryClassifier.SentenceClassifier.SentenceClassifier import classifySentence
-    from config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines
+    from config import MODEL_PATH, GOLD_PATH, ADAPTIVE_RUN, GoldFileLengthInLines, ModelAnswersLengthInLines
+
 
 def getYesOrNo(modelAnswer: str) -> str:
     if ADAPTIVE_RUN:
@@ -18,7 +20,7 @@ def getYesOrNo(modelAnswer: str) -> str:
 
 
 class TernaryClassifier:
-    modelAnswersLengthInLines = 1400
+    modelAnswersLengthInLines = ModelAnswersLengthInLines
 
     def __init__(self):
         self.TruePositives = 0
@@ -28,7 +30,8 @@ class TernaryClassifier:
 
 
     def classify0(self) -> Any:
-        answerCorrectnessValidityFlagsAsBools: list[bool] = []
+        answerCorrectnessValidityFlagsAsBools: list[bool] = [] # TODO global
+        modelAnswerLineYesOrNos = []
         confusionMatrixValues: list[str] = []
 
         basePath = Path(__file__).parent.parent
@@ -54,6 +57,7 @@ class TernaryClassifier:
                 goldAnswerLine: str = goldAnswersLines[i % GoldFileLengthInLines].strip() # need to reset at half, because `modelAnswersLengthInLines` is about twice as long as `GoldFileLengthInLines`
 
                 modelAnswerLineYesOrNo = getYesOrNo(modelAnswerLine) # returns `T`, `F` or `?`
+                modelAnswerLineYesOrNos.append(modelAnswerLineYesOrNo)
 
                 print(f'Comparing {i + 1}th line:')
                 print(modelAnswerLineYesOrNo)
