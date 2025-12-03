@@ -1,7 +1,7 @@
 MatchPercentage: 52.17 %
 Consistency: 45.45 %
 Consistently accurate: 23.72 % 
-Balanced accuracy: 16.67 %
+Balanced accuracy: 52.65 %
 True positives: 5		20.83 %
 False positives: 4		16.67 %
 False negatives: 7		29.17 %

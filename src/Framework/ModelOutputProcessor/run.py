@@ -4,17 +4,18 @@ from pathlib import Path
 
 try:
     from src.Framework.ModelOutputProcessor.TernaryClassifier import TernaryClassifier
-    from src.Framework.ModelOutputProcessor.TernaryResultsProcessor.balancedAccuracyCalculator import balancedAccuracyPercentage
+    from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import balancedAccuracyCalculator
 
 except Exception:
     from TernaryClassifier import TernaryClassifier
-    from TernaryResultsProcessor.balancedAccuracyCalculator import balancedAccuracyPercentage
+    from TernaryResultsProcessor import balancedAccuracyCalculator
+
 
 def run():
 
     tc = TernaryClassifier.TernaryClassifier()
     # Opens files on paths specified in config.py 
-    tc.classify0()
+    modelAnswerLineTsOrFs, goldAnswerLineTsOrFs = tc.classify0()
 
     try:
         from src.Framework.ModelOutputProcessor.TernaryResultsProcessor import TernaryResultsProcessor
@@ -56,7 +57,7 @@ def run():
     tn = tc.getTrueNegatives()
     matchPercentage = trp.getMatchPercentage()
     consistencyPercentage = trp.getConsistencyPercentage()
-
+    balancedAccuracyPercentage = balancedAccuracyCalculator.calculateBalancedAccuracy(modelAnswerLineTsOrFs, goldAnswerLineTsOrFs)
     length = tc.modelAnswersLengthInLines
 
     for file in files:

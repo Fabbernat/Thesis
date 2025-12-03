@@ -31,7 +31,8 @@ class TernaryClassifier:
 
     def classify0(self) -> Any:
         answerCorrectnessValidityFlagsAsBools: list[bool] = [] # TODO global
-        modelAnswerLineYesOrNos = []
+        modelAnswerLineTsOrFs = []
+        goldAnswerLineTsOrFs = []
         confusionMatrixValues: list[str] = []
 
         basePath = Path(__file__).parent.parent
@@ -54,30 +55,34 @@ class TernaryClassifier:
             for i in range(modelAnswersLengthInLines):
                 modelAnswerLine: str = modelAnswersLines[i].strip()
 
-                goldAnswerLine: str = goldAnswersLines[i % GoldFileLengthInLines].strip() # need to reset at half, because `modelAnswersLengthInLines` is about twice as long as `GoldFileLengthInLines`
+                goldAnswerLineTOrF: str = goldAnswersLines[i % GoldFileLengthInLines].strip() # need to reset at half, because `modelAnswersLengthInLines` is about twice as long as `GoldFileLengthInLines`
 
-                modelAnswerLineYesOrNo = getYesOrNo(modelAnswerLine) # returns `T`, `F` or `?`
-                modelAnswerLineYesOrNos.append(modelAnswerLineYesOrNo)
+                modelAnswerLineTOrF = getYesOrNo(modelAnswerLine) # returns `T`, `F` or `?`
+                modelAnswerLineTsOrFs.append(modelAnswerLineTOrF)
+                goldAnswerLineTsOrFs.append(goldAnswerLineTOrF)
 
                 print(f'Comparing {i + 1}th line:')
-                print(modelAnswerLineYesOrNo)
-                print(goldAnswerLine)
-                isEqual = (modelAnswerLineYesOrNo == goldAnswerLine)
+                print(modelAnswerLineTOrF)
+                print(goldAnswerLineTOrF)
+                isEqual = (modelAnswerLineTOrF == goldAnswerLineTOrF)
 
                 if not isEqual:
-                    print(f'MISTAKE IN LINE {i + 1}! Model falsely predicted {modelAnswerLineYesOrNo} instead of {goldAnswerLine}')
+                    print(f'MISTAKE IN LINE {i + 1}! Model falsely predicted {modelAnswerLineTOrF} instead of {goldAnswerLineTOrF}')
 
 
                 if not isinstance(isEqual, bool):
                     raise TypeError(f'Only boolean values can be stored in answerCorrectnessValidityFlagsAsBools!')
 
                 answerCorrectnessValidityFlagsAsBools.append(isEqual)
-                confusionMatrixValues.append(self.categorize(modelAnswerLineYesOrNo, goldAnswerLine))
+                confusionMatrixValues.append(self.categorize(modelAnswerLineTOrF, goldAnswerLineTOrF))
 
         with open(Path(str(basePath) + r'\data\ternaryResults.out'), 'w') as ternaryResultsFile, open(Path(str(basePath) + r'\data\confusionMatrix.out'), 'w') as confusionMatrixFile:
             print(ternaryResultsFile, confusionMatrixFile)
             print('\n'.join((str(answer) for answer in answerCorrectnessValidityFlagsAsBools)), file=ternaryResultsFile)
             print('\n'.join((str(answer) for answer in confusionMatrixValues)), file=confusionMatrixFile)
+
+
+        return modelAnswerLineTsOrFs, goldAnswerLineTsOrFs
 
 
     def categorize(self, modelAnswerLineYesOrNo, goldAnswerLine):
