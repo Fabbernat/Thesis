@@ -48,11 +48,12 @@ class TernaryClassifier:
 
                 if key == 'n':
                     exit(0)
+                modelAnswersLengthToProcess = modelAnswersLengthInLines - 1
+            else:
+                modelAnswersLengthToProcess = modelAnswersLengthInLines
 
-            modelAnswersLengthInLines -= 1
 
-
-            for i in range(modelAnswersLengthInLines):
+            for i in range(modelAnswersLengthToProcess):
                 modelAnswerLine: str = modelAnswersLines[i].strip()
 
                 goldAnswerLineTOrF: str = goldAnswersLines[i % GoldFileLengthInLines].strip() # need to reset at half, because `modelAnswersLengthInLines` is about twice as long as `GoldFileLengthInLines`
