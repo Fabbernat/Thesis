@@ -56,7 +56,7 @@ def saveOutput(results: str):
     print('basePath: ', basePath)
     fullPath = basePath / 'data' / 'formattedQuestions.out'
     print('fullPath: ', fullPath)
-    secondary_path = basePath / 'HuggingFaceModelInferencer' / 'data' / 'questions.in'
+    secondary_path = basePath.parent / 'HuggingFaceModelInferencer' / 'data' / 'questions.in'
 
     # Always write the base file
     writeToFile(fullPath, results)

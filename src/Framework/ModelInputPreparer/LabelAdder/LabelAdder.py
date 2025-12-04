@@ -25,9 +25,12 @@ class TestFilesMerger:
                 try:
                     from src.Framework.ModelInputPreparer.config import RANDOM_SAMPLES
                 except Exception:
-                    from Framework.ModelInputPreparer.config import RANDOM_SAMPLES
+                    from config import RANDOM_SAMPLES
                 if RANDOM_SAMPLES:
-                    from Framework.ModelInputPreparer.randomsamples import randomEntries
+                    try:
+                        from src.Framework.ModelInputPreparer.randomsamples import randomEntries
+                    except Exception:
+                        from randomsamples import randomEntries
                     rawTestDataValues =fileReader.readEntries(testDataFile, randomEntries)
                     rawTestGoldValues =fileReader.readEntries(testGoldFile, randomEntries)
                 else:
