@@ -5,7 +5,8 @@ try:
     from src.Framework.ModelInputPreparer.LabelAdder.LabelAdder import TestFilesMerger
     from src.Framework.ModelInputPreparer.SentenceBuilder.SentenceBuilder import SentenceBuilder
     from src.Framework.ModelInputPreparer.SentenceNormalizer.SentenceNormalizer import SentenceNormalizer
-    from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import WordAndSentencesExtractor
+    from src.Framework.ModelInputPreparer.WordAndSentencesExtractor.WordAndSentencesExtractor import \
+        WordAndSentencesExtractor
     from src.Framework.ModelInputPreparer.config import NUMBER_OF_DESIRED_LINES
 except Exception:
     from LabelAdder.LabelAdder import TestFilesMerger
@@ -17,13 +18,13 @@ except Exception:
 
 def run(advancedDebugIsOn=False):
     testFilesMerger: TestFilesMerger = TestFilesMerger()
-    mergedTestValues = testFilesMerger.mergeTestfiles() # this line assumes that there are 'test.data.in' and 'test.gold.in' in the 'data' folder
+    mergedTestValues = testFilesMerger.mergeTestfiles()  # this line assumes that there are 'test.data.in' and 'test.gold.in' in the 'data' folder
 
     if advancedDebugIsOn:
-        print(mergedTestValues) #eddig okés
+        print(mergedTestValues)  # eddig okés
 
-    targetWordAndSentencesExtractor: WordAndSentencesExtractor =  WordAndSentencesExtractor()
-    sentenceBuilder: SentenceBuilder  = SentenceBuilder()
+    targetWordAndSentencesExtractor: WordAndSentencesExtractor = WordAndSentencesExtractor()
+    sentenceBuilder: SentenceBuilder = SentenceBuilder()
     sentenceNormalizer: SentenceNormalizer = SentenceNormalizer()
     straightSentences = []
     reversedSentences = []
@@ -34,7 +35,7 @@ def run(advancedDebugIsOn=False):
         targetWord, sentenceA, sentenceB = targetWordAndSentencesExtractor.extract(rowValues)
 
         if advancedDebugIsOn:
-            print('\n--\n', targetWord, sentenceA, sentenceB) # ez is okés
+            print('\n--\n', targetWord, sentenceA, sentenceB)  # ez is okés
 
         normalizedSentenceA = sentenceNormalizer.makeSentenceHumanReadable(sentenceA)
         normalizedSentenceB = sentenceNormalizer.makeSentenceHumanReadable(sentenceB)
@@ -49,13 +50,13 @@ def run(advancedDebugIsOn=False):
 
     saveOutput(results)
 
-def saveOutput(results: str):
 
+def saveOutput(results: str):
     basePath = Path(__file__).parent
     print('basePath: ', basePath)
-    fullPath = Path(str(basePath) + r'\data\formattedQuestions.out')
+    fullPath = basePath / 'data' / 'formattedQuestions.out'
     print('fullPath: ', fullPath)
-    secondary_path = Path(str(basePath) + r'\HuggingFaceModelInferencer\data\questions.in')
+    secondary_path = basePath / 'HuggingFaceModelInferencer' / 'data' / 'questions.in'
 
     # Always write the base file
     writeToFile(fullPath, results)
@@ -68,6 +69,7 @@ def saveOutput(results: str):
 
     if confirmation == 'y':
         writeToFile(secondary_path, results)
+
 
 def writeToFile(path: Path, content: str):
     '''Safely write text to a file.'''
