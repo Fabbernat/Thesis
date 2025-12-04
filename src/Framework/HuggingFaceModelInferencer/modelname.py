@@ -32,7 +32,8 @@ googleModels = [
 ]
 
 microsoftModels = [
-    'microsoft/Phi-4-mini-instruct', 'microsoft/phi-4'
+    'microsoft/Phi-4-mini-instruct', # This works well
+    'microsoft/phi-4'
 ]
 
 models = {
