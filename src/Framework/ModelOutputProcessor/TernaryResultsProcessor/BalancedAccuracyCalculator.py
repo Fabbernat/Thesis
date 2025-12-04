@@ -8,38 +8,26 @@ from itertools import count
 modelAnswerLineYesOrNos = ['T', 'F', 'F', 'T']
 groundTruth = ['T', 'T', 'T', 'F']
 
-def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruth):
-    TP = TN = FP = FN = 0
-
-
-    for pred, true in zip(modelAnswerLineYesOrNos, groundTruth):
-        if pred == 'T' and true == 'T':
-            TP += 1  # True Positive
-        elif pred == 'F' and true == 'F':
-            TN += 1  # True Negative
-        elif pred == 'T' and true == 'F':
-            FP += 1  # False Positive
-        elif pred == 'F' and true == 'T':
-            FN += 1  # False Negative
-
+def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruth, tp, fp, fn, tn):
+    
 
     print(modelAnswerLineYesOrNos)
     print(groundTruth)
 
     print(f"\nConfusion Matrix:")
-    print(f"True Positives (TP): {TP}")
-    print(f"True Negatives (TN): {TN}")
-    print(f"False Positives (FP): {FP}")
-    print(f"False Negatives (FN): {FN}")
+    print(f"True Positives (tp): {tp}")
+    print(f"True Negatives (tn): {tn}")
+    print(f"False Positives (fp): {fp}")
+    print(f"False Negatives (fn): {fn}")
 
     # Calculate balanced accuracy according to your formula
-    if TP + FN > 0:
-        sensitivity = TP / (TP + FN)  # True Positive Rate / Recall
+    if tp + fn > 0:
+        sensitivity = tp / (tp + fn)  # True Positive Rate / Recall
     else:
         sensitivity = 0
 
-    if TN + FP > 0:
-        specificity = TN / (TN + FP)  # True Negative Rate
+    if tn + fp > 0:
+        specificity = tn / (tn + fp)  # True Negative Rate
     else:
         specificity = 0
 
@@ -50,7 +38,7 @@ def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruth):
     print(f"Balanced Accuracy: {balancedAccuracyPercentage:.2f}%")
 
     # For comparison, let's also calculate regular accuracy
-    regular_accuracy = (TP + TN) / len(modelAnswerLineYesOrNos) * 100
+    regular_accuracy = (tp + tn) / len(modelAnswerLineYesOrNos) * 100
     print(f"\nRegular Accuracy: {regular_accuracy:.2f}%")
 
     # Show why balanced accuracy is important
