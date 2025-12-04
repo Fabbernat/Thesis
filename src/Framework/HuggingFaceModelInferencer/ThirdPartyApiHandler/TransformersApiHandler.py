@@ -1,22 +1,21 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
-    from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import \
-        tokenizeAutoModelForQwenAndSimilar0
+    from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0
     from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
-    from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS
+    from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 except Exception as e:
     from .orgs.google import tokenizeAutoModelForGoogle0
     from .orgs.qwen import tokenizeAutoModelForQwenAndSimilar0
     from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
     from modelname import MODEL_NAME
-    from config import NUMBER_OF_DESIRED_ANSWERS
+    from config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 
 from transformers import AutoTokenizer
 
 
 def _dbg(msg, *args, **kwargs):
-    if ENABLE_MODEL_DEBUG:
+    if DEBUG_MODE:
         print(msg, *args, **kwargs)
 
 class TransformersApiHandler:
@@ -39,7 +38,7 @@ class TransformersApiHandler:
         print('google path chosen')
         tokenizeAutoModelForGoogle0()
 
-    def qwen(self):
+    def qwen(self, creative: bool = False, max_new_tokens: int = 1):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         print('====== QWEN PATH STARTED ======')
@@ -67,8 +66,7 @@ class TransformersApiHandler:
         prompt = self.tokenizer.apply_chat_template(
             msgs,
             tokenize=False,
-            add_generation_prompt=True,
-            TRANSFORMERS_VERBOSITY=info
+            add_generation_prompt=True
         )
         print("Prompt:")
         print(prompt)
@@ -76,9 +74,13 @@ class TransformersApiHandler:
         # 4) Tokenize
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
         print("Tokenized inputs:")
+
         for k, v in inputs.items():
             print(f"  {k}: shape={v.shape}, dtype={v.dtype}, device={v.device}")
         print("inputs object:", inputs)
+
+        gen_kwargs = {"max_new_tokens": max_new_tokens, "eos_token_id": self.tokenizer.eos_token_id}
+        gen_kwargs.update(_generate_args(creative))
 
         # 5) Generate
         print("Calling model.generate...")
@@ -115,7 +117,7 @@ class TransformersApiHandler:
 
         return decoded, generated_ids
 
-    def google(self, creative: bool = False, max_new_tokens: int = 128, use_torch_compile: bool = False):
+    def google(self, creative: bool = False, max_new_tokens: int = 1, use_torch_compile: bool = False):
         """
         Run google/gemma-2-2b-it (instruction-tuned).
         Returns (decoded_list, generated_ids_tensor)
@@ -156,18 +158,17 @@ class TransformersApiHandler:
         # Build prompt using chat template for instruction models
         msgs = getMessagesAsString(1)
         _dbg("MessagesAsString:", msgs)
-        prompt = self.tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+        prompt = self.tokenizer.apply_chat_template(
+            msgs,
+            tokenize=False,
+            add_generation_prompt=True
+        )
         _dbg("Prompt:\n", prompt)
 
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
         _dbg("Tokenized inputs shapes:", {k: v.shape for k, v in inputs.items()})
 
-        # generation args helper
-        def _generate_args(creative_flag: bool):
-            if creative_flag:
-                return {"do_sample": True, "temperature": 0.8, "top_p": 0.9}
-            else:
-                return {"do_sample": False}
+
 
         gen_kwargs = {"max_new_tokens": max_new_tokens, "eos_token_id": self.tokenizer.eos_token_id}
         gen_kwargs.update(_generate_args(creative))
@@ -185,7 +186,7 @@ class TransformersApiHandler:
         _dbg("=== GEMMA PATH END ===")
         return decoded, generated_ids
 
-    def microsoft(self, creative: bool = False, max_new_tokens: int = 128):
+    def microsoft(self, creative: bool = False, max_new_tokens: int = 1):
         """
         Run microsoft/phi-4-mini-instruct.
         Returns (decoded_list, generated_ids_tensor)
@@ -223,7 +224,11 @@ class TransformersApiHandler:
         _dbg("MessagesAsString:", msgs)
         # Some tokenizers/models don't have apply_chat_template; guard it
         try:
-            prompt = self.tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+            prompt = self.tokenizer.apply_chat_template(
+                msgs,
+                tokenize=False,
+                add_generation_prompt=True
+            )
         except Exception:
             # fallback: join roles into a single prompt
             prompt = "\n".join([m.get("content", "") for m in msgs])
@@ -232,11 +237,6 @@ class TransformersApiHandler:
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
         _dbg("Tokenized inputs shapes:", {k: v.shape for k, v in inputs.items()})
 
-        def _generate_args(creative_flag: bool):
-            if creative_flag:
-                return {"do_sample": True, "temperature": 0.7, "top_p": 0.9}
-            else:
-                return {"do_sample": False}
 
         gen_kwargs = {"max_new_tokens": max_new_tokens, "eos_token_id": self.tokenizer.eos_token_id}
         gen_kwargs.update(_generate_args(creative))
@@ -272,3 +272,11 @@ class TransformersApiHandler:
             self.tokenizer.decode(self.generatedIds, skip_special_tokens=True)
         except AttributeError as ae:
             raise Exception("AttributeError while trying to decode outputs skipping special tokens.", ae)
+
+
+# generation args helper
+def _generate_args(creative_flag: bool):
+    if creative_flag:
+        return {"do_sample": True, "temperature": 0.8, "top_p": 0.9}
+    else:
+        return {"do_sample": False}

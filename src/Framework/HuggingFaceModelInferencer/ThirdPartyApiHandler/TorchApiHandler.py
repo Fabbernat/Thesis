@@ -36,7 +36,11 @@ class TorchApiHandler:
             self.handleModelSpecificActions() # This takes up most of the runtime.
 
 
+            #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
             response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(elem for elem in self.convertedIdsTensorsList)
+            # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(list(self.convertedIdsTensorsList))
+
+
             print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
             response = ' '.join([str(elem) for elem in response])
 
