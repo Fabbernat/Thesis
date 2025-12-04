@@ -51,7 +51,7 @@ def run(advancedDebugIsOn=False):
 
 def saveOutput(results: str):
 
-    basePath = Path(__file__).parent.parent
+    basePath = Path(__file__).parent
     print('basePath: ', basePath)
     fullPath = Path(str(basePath) + r'\data\formattedQuestions.out')
     print('fullPath: ', fullPath)
