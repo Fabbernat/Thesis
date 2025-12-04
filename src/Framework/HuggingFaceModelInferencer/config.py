@@ -13,7 +13,7 @@ ISOLATED_MODE = False
 
 FILE_NAME = 'data/questions.in'
 
-NUMBER_OF_DESIRED_ANSWERS = 60
+NUMBER_OF_DESIRED_ANSWERS = 200 # mert 100 random kérdést nézünk egyenes és fordított sorrendben
 if NUMBER_OF_DESIRED_ANSWERS % 2 != 0:
     key = input('Warning: cannot count consistency when odd number of lines, please fix input. The last line  will be dropped. Do you wish to continue? (y/n)')
     if key == 'n':
@@ -23,7 +23,8 @@ if NUMBER_OF_DESIRED_ANSWERS % 2 != 0:
 numberOfDesiredAnswersAsString = ['', f'{NUMBER_OF_DESIRED_ANSWERS // 2} ']
 
 endOfSentence = endings[0]
-INSTRUCTION = f'Answer all {numberOfDesiredAnswersAsString[0]}questions and their reversed pairs with just a single `Yes` or `No`{endOfSentence}.\n'
+INSTRUCTION = f'Answer all {numberOfDesiredAnswersAsString[1]}questions and their reversed pairs with just a single `Yes` or `No`{endOfSentence}.\n'
 
 # --- end of config ---
-print(INSTRUCTION)
+if __name__ == '__main__':
+    print(INSTRUCTION)

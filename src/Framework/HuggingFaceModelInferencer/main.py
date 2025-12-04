@@ -9,9 +9,9 @@ import sys
 from time import perf_counter
 from pathlib import Path
 
-print(' ** RUNTIME ENVIRONMENT INFO **')
-print("sys.path: ", str(sys.path))
-print(' ** end of runtime environment info ** ')
+# print(' ** RUNTIME ENVIRONMENT INFO **')
+# print("sys.path: ", str(sys.path))
+# print(' ** end of runtime environment info ** ')
 
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
