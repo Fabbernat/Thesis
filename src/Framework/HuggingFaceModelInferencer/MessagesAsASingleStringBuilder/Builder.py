@@ -92,7 +92,7 @@ def getMessagesAsString(numberOfLines=None):
             questionsFileContents = ''.join(islice(questionsFile, numberOfLines))
             print('reading:', questionsFileContents)
 
-    checkIfHalfOfFileContentsIsReversed()
+    checkIfHalfOfFileContentsIsReversed(questionsFileContents)
 
     messages = [
         {'role': 'system', 'content': str(INSTRUCTION)},
