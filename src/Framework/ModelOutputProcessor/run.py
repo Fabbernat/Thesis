@@ -64,8 +64,9 @@ def run():
     for file in files:
         print(f'MatchPercentage: {matchPercentage:.2f} %', file=file)
         print(f'Consistency: {consistencyPercentage:.2f} %', file=file)
-        print(f'Consistently accurate: {(matchPercentage / 100 * consistencyPercentage / 100) * 100:.2f} % ', file=file)
+        print(f'Consistently accurate: {(:.2f} % ', file=file)
         print(f'Balanced accuracy: {balancedAccuracyPercentage:.2f} %', file=file)
+
         print(f'True positives: {tp}\t\t{tp * 100 / length:.2f} %', file=file)
         print(f'False positives: {fp}\t\t{fp * 100 / length:.2f} %', file=file)
         print(f'False negatives: {fn}\t\t{fn * 100 / length:.2f} %', file=file)
