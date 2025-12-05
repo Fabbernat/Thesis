@@ -50,7 +50,7 @@ def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruth, tp, fp, fn, 
         print(f"- Balanced accuracy is lower because the model is biased toward '{modelAnswerLineYesOrNos[0]}'")
 
 
-    return balancedAccuracyPercentage
+    return ambiguous,consistentlyAmbiguous
 
 
 # ModelAnswersLengthInLines = len(modelAnswerLineYesOrNos)
