@@ -5,8 +5,6 @@ from itertools import count
 # except Exception:
 #     from config import ModelAnswersLengthInLines
 
-modelAnswerLineYesOrNos = ['T', 'F', 'F', 'T']
-groundTruth = ['T', 'T', 'T', 'F']
 
 def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruth, tp, fp, fn, tn):
     
