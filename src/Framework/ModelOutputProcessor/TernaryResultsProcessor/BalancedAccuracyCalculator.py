@@ -6,9 +6,16 @@ from itertools import count
 #     from config import ModelAnswersLengthInLines
 
 
-def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruth, tp, fp, fn, tn):
-    
+def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruths, tp, fp, fn, tn):
+    if len(modelAnswerLineYesOrNos)%2!=0 or if not checkIfHalfIsReversed():
+keyInput=input('')
+if keyInput='n':
+exit(0)
 
+ambiguous:list[bool]=[]
+consistentlyAmbiguous:list[bool]=[]
+for index, elem in enumerate (threeAnswersToCompareListOfTuples): # a threeAnswersToCompareListOfTuples elérhető kell hogy legyen itt is
+    if getYesOrNo(elem) == '?':
     print(modelAnswerLineYesOrNos)
     print(groundTruth)
 
