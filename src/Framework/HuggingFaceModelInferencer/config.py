@@ -9,7 +9,7 @@ endings = {
 
 DEBUG_MODE = True
 DETERMINISTIC_MODE = False
-ISOLATED_MODE = False
+ISOLATED_MODE = True
 
 FILE_NAME = 'data/questions.in'
 
@@ -23,7 +23,11 @@ if NUMBER_OF_DESIRED_ANSWERS % 2 != 0:
 numberOfDesiredAnswersAsString = ['', f'{NUMBER_OF_DESIRED_ANSWERS // 2} ']
 
 endOfSentence = endings[0]
-INSTRUCTION = f'Answer all {numberOfDesiredAnswersAsString[1]}questions and their reversed pairs with just a single `Yes` or `No`{endOfSentence}.\n'
+
+if ISOLATED_MODE:
+    INSTRUCTION = f'Answer the question with just a single `Yes` or `No`.'
+else:
+    INSTRUCTION = f'Answer all {numberOfDesiredAnswersAsString[1]}questions and their reversed pairs with just a single `Yes` or `No`{endOfSentence}.\n'
 
 # --- end of config ---
 if __name__ == '__main__':

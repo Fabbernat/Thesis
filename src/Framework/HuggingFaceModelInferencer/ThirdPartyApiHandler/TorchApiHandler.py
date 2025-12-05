@@ -12,7 +12,7 @@ try:
     from src.Framework.HuggingFaceModelInferencer.config import DETERMINISTIC_MODE
 
 except Exception:
-    from ThirdPartyApiHandler.TransformersApiHandler import TransformersApiHandler
+    from .TransformersApiHandler import TransformersApiHandler
     from modelname import MODEL_NAME
     from config import NUMBER_OF_DESIRED_ANSWERS
     from config import DETERMINISTIC_MODE
@@ -22,8 +22,8 @@ print('Is cuda available? ', torch.cuda.is_available())
 class TorchApiHandler:
     def __init__(self):
         print('TorchApiHandler initialized')
-        self.generatedIdsTransformersTensorsList = []
-        self.convertedIdsTensorsList = []
+        self.responses = []
+        self.generatedIds = []
         self.transformersApiHandler = None
 
     def handleRequest(self):
@@ -31,26 +31,28 @@ class TorchApiHandler:
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
 
-            self.transformersApiHandler.DoAutotokenizerFromPretrained()
+            for i in range(NUMBER_OF_DESIRED_ANSWERS):
 
-            self.handleModelSpecificActions() # This takes up most of the runtime.
+                self.transformersApiHandler.DoAutotokenizerFromPretrained()
 
-
-            #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
-            response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(elem for elem in self.convertedIdsTensorsList)
-            # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(list(self.convertedIdsTensorsList))
+                self.handleModelSpecificActions() # This takes up most of the runtime.
 
 
-            print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
-            response = ' '.join([str(elem) for elem in response])
+                #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
+                # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(elem for elem in self.convertedIdsTensorsList)
+                # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(list(self.convertedIdsTensorsList))
 
-            basePath = Path(__file__).parent
-            writeToFile(generatedIds, basePath / "data" / "generatedIds.out")
-            writeToFile(tokenizer, basePath / "data" / "tokenizer.out")
-            writeToFile(self.generatedIdsTransformersTensorsList, basePath / "data" / "generatedIdsTransformersTensors.out")
-            writeToFile(self.convertedIdsTensorsList, basePath / "data" / "convertedIdsTensors.out")
 
-            saveOutput(basePath, response)
+                # print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
+                # response = ' '.join([str(elem) for elem in response])
+                #
+                # basePath = Path(__file__).parent
+                # writeToFile(generatedIds, basePath / "data" / "generatedIds.out")
+                # writeToFile(tokenizer, basePath / "data" / "tokenizer.out")
+                # writeToFile(self.generatedIdsTransformersTensorsList, basePath / "data" / "generatedIdsTransformersTensors.out")
+                # writeToFile(self.convertedIdsTensorsList, basePath / "data" / "convertedIdsTensors.out")
+                #
+                # saveOutput(basePath, response)
 
 
 
@@ -59,19 +61,18 @@ class TorchApiHandler:
             set_seed(42)
         try:
             if MODEL_NAME.startswith('qwen'):
-                for i in range(NUMBER_OF_DESIRED_ANSWERS):
-                    generatedIdsTransformersTensors, convertedIdsTensors  = self.transformersApiHandler.qwen()
-                    self.generatedIdsTransformersTensorsList.append(generatedIdsTransformersTensors)
-                    self.convertedIdsTensorsList.append(convertedIdsTensors)
+                response, generatedIds  = self.transformersApiHandler.qwen()
+                self.responses.append(response)
+                self.generatedIds.append(generatedIds)
             elif MODEL_NAME.startswith('google'):
                 print(f'Model name is {MODEL_NAME}')
-                response = self.transformersApiHandler.google()
+                response, _ = self.transformersApiHandler.google()
                 writeToFile(response, Path(__file__).parent / "data" / "modelResponses.out")
 
             elif MODEL_NAME.startswith('microsoft'):
                 pass
             else:
-                raise NotImplementedError
+                raise NotImplementedError('Not implemented yet.')
 
         except Exception as e:
             print('Exception in handleModelSpecificActions:', e)

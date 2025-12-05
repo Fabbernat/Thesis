@@ -86,8 +86,7 @@ class TransformersApiHandler:
         print("Calling model.generate...")
         output = self.model.generate(
             **inputs,
-            max_new_tokens=1,
-            do_sample=False
+            max_new_tokens=1
         )
 
         print("Generate() output:")
@@ -112,6 +111,7 @@ class TransformersApiHandler:
         print("Decoded output:")
         for i, d in enumerate(decoded):
             print(f"  decoded[{i}]: {repr(d)}")
+
 
         print("====== QWEN PATH END ======")
 
