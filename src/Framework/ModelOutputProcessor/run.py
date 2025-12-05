@@ -58,15 +58,15 @@ def run():
     tn = tc.getTrueNegatives()
     matchPercentage = trp.getMatchPercentage()
     consistencyPercentage = trp.getConsistencyPercentage()
-    balancedAccuracyPercentage = BalancedAccuracyCalculator.calculateBalancedAccuracy(modelAnswerLineTsOrFs, goldAnswerLineTsOrFs, tp, fp, fn, tn)
+    ambiguous, consistentlyAmbiguous = BalancedAccuracyCalculator.calculateBalancedAccuracy(modelAnswerLineTsOrFs, goldAnswerLineTsOrFs, tp, fp, fn, tn)
     length = tc.modelAnswersLengthInLines
 
     for file in files:
         print(f'MatchPercentage: {matchPercentage:.2f} %', file=file)
         print(f'Consistency: {consistencyPercentage:.2f} %', file=file)
-        print(f'Consistently accurate: {(sum(1 if forwardAnswer==reversedAndwer==gold else 0 for forwardAnswer, reversedAndwer, gold in theeAnswersToCompareListOfTuples):.2f} % ', file=file)
-        print(f'Ambiguous: {balancedAccuracyPercentage:.2f} %', file=file)
-        print(f'Consistently ambiguous: {balancedAccuracyPercentage:.2f} %', file=file)
+        print(f'Consistently accurate: {(sum(1 if forwardAnswer==reversedAndwer==gold else 0 for forwardAnswer, reversedAndwer, gold in threeAnswersToCompareListOfTuples):.2f} % ', file=file)
+        print(f'Ambiguous: {ambiguous:.2f} %', file=file)
+        print(f'Consistently ambiguous: {consistentlyAmbiguous:.2f} %', file=file)
 
         print(f'True positives: {tp}\t\t{tp * 100 / length:.2f} %', file=file)
         print(f'False positives: {fp}\t\t{fp * 100 / length:.2f} %', file=file)
