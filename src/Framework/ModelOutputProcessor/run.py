@@ -64,7 +64,7 @@ def run():
     for file in files:
         print(f'MatchPercentage: {matchPercentage:.2f} %', file=file)
         print(f'Consistency: {consistencyPercentage:.2f} %', file=file)
-        print(f'Consistently accurate: {(sum(1 if forwardAnswer==reversedAndwer==gold else 0 for forwardAnswer, reversedAndwer, gold in threeAnswersToCompareListOfTuples):.2f} % ', file=file)
+        print(f'Consistently accurate: {(sum(1 if forwardAnswer==reversedAndwer==gold else 0 for forwardAnswer, reversedAnswer, gold in threeAnswersToCompareListOfTuples)):.2f} % ', file=file)
         print(f'Ambiguous: {ambiguous:.2f} %', file=file)
         print(f'Consistently ambiguous: {consistentlyAmbiguous:.2f} %', file=file)
 

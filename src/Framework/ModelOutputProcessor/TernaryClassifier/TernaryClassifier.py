@@ -18,7 +18,7 @@ def getYesOrNo(modelAnswer: str) -> str:
     else:
         return classifySentence(modelAnswer)
 
-
+threeAnswersToCompareListOfTuples = []
 class TernaryClassifier:
     modelAnswersLengthInLines = ModelAnswersLengthInLines
 
@@ -53,7 +53,8 @@ class TernaryClassifier:
                 modelAnswersLengthToProcess = modelAnswersLengthInLines
 
 
-            for i in range(modelAnswersLengthToProcess):
+            for i in range(modelAnswersLengthToProcess // 2):
+                threeAnswersToCompareListOfTuples.append((modelAnswersLines[i], modelAnswersLines[i + modelAnswersLengthToProcess // 2], goldAnswersLines[i]))
                 modelAnswerLine: str = modelAnswersLines[i].strip()
 
                 goldAnswerLineTOrF: str = goldAnswersLines[i % GoldFileLengthInLines].strip() # need to reset at half, because `modelAnswersLengthInLines` is about twice as long as `GoldFileLengthInLines`

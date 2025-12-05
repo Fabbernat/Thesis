@@ -7,25 +7,28 @@ from itertools import count
 
 
 def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruths, tp, fp, fn, tn):
-    if len(modelAnswerLineYesOrNos)%2!=0 or if not checkIfHalfIsReversed():
-keyInput=input('')
-if keyInput='n':
-exit(0)
-half= threeAnswersToCompareListOfTuples
-ambiguous:list[bool]=[]
-consistentlyAmbiguous:list[bool]=[]
-for index, elem in enumerate (threeAnswersToCompareListOfTuples): # a threeAnswersToCompareListOfTuples elérhető kell hogy legyen itt is
-    if getYesOrNo(elem) == '?'  
-ambiguous[index] = True
-        if getYesOrNo(threeAnswersToCompareListOfTuples[half] == '?'):
-consistentlyAmbiguous[index]= True
-        else:
-consistentlyAmbiguous[index]= False
-else:
-ambiguous[index]=False
+    if len(modelAnswerLineYesOrNos) % 2 != 0:
+        keyInput = input('')
+        if keyInput == 'n':
+            exit(0)
 
-if i + 1 == half:
-    break # túlindexelni azért itt sem kéne.
+
+    half = threeAnswersToCompareListOfTuples
+    ambiguous: list[bool] = []
+    consistentlyAmbiguous: list[bool] = []
+    for index, elem in enumerate(
+        threeAnswersToCompareListOfTuples):  # a threeAnswersToCompareListOfTuples elérhető kell hogy legyen itt is
+        if getYesOrNo(elem) == '?' :
+            ambiguous[index] = True
+            if getYesOrNo(threeAnswersToCompareListOfTuples[half] == '?'):
+                consistentlyAmbiguous[index]= True
+            else:
+                consistentlyAmbiguous[index]= False
+        else:
+            ambiguous[index]=False
+
+        if i + 1 == half:
+            break # túlindexelni azért itt sem kéne.
     print(modelAnswerLineYesOrNos)
     print(groundTruth)
 
@@ -34,7 +37,7 @@ if i + 1 == half:
     print(f"True Negatives (tn): {tn}")
     print(f"False Positives (fp): {fp}")
     print(f"False Negatives (fn): {fn}")
- 
+
 
 
     return ambiguous,consistentlyAmbiguous # csak az interfész biztosított, az implementacio nem
