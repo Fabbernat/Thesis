@@ -4,9 +4,12 @@ from itertools import count
 #     from src.Framework.ModelOutputProcessor.config import ModelAnswersLengthInLines
 # except Exception:
 #     from config import ModelAnswersLengthInLines
+try:
+    from src.Framework.ModelOutputProcessor.TernaryClassifier.TernaryClassifier import getYesOrNo
+except Exception:
+    from TernaryClassifier.TernaryClassifier import getYesOrNo
 
-
-def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruths, tp, fp, fn, tn):
+def calculateAmbiguousness(threeAnswersToCompareListOfTuples, modelAnswerLineYesOrNos, groundTruths, tp, fp, fn, tn):
     if len(modelAnswerLineYesOrNos) % 2 != 0:
         keyInput = input('')
         if keyInput == 'n':
@@ -18,19 +21,19 @@ def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruths, tp, fp, fn,
     consistentlyAmbiguous: list[bool] = []
     for index, elem in enumerate(
         threeAnswersToCompareListOfTuples):  # a threeAnswersToCompareListOfTuples elérhető kell hogy legyen itt is
-        if getYesOrNo(elem) == '?' :
-            ambiguous[index] = True
-            if getYesOrNo(threeAnswersToCompareListOfTuples[half] == '?'):
-                consistentlyAmbiguous[index]= True
+        if getYesOrNo(elem[0]) == '?' or getYesOrNo(elem[1]) == '?':
+            ambiguous.append(True)
+            if elem[2] == '?':
+                consistentlyAmbiguous.append(True)
             else:
-                consistentlyAmbiguous[index]= False
+                consistentlyAmbiguous.append(False)
         else:
-            ambiguous[index]=False
+            ambiguous.append(False)
 
-        if i + 1 == half:
-            break # túlindexelni azért itt sem kéne.
+        if index + 1 == half:
+            break # Ez nem biztos h kell túlindexelni azért itt sem kéne.
     print(modelAnswerLineYesOrNos)
-    print(groundTruth)
+    print(groundTruths)
 
     print(f"\nConfusion Matrix:")
     print(f"True Positives (tp): {tp}")
@@ -40,7 +43,7 @@ def calculateBalancedAccuracy(modelAnswerLineYesOrNos, groundTruths, tp, fp, fn,
 
 
 
-    return ambiguous,consistentlyAmbiguous # csak az interfész biztosított, az implementacio nem
+    return ambiguous,consistentlyAmbiguous, threeAnswersToCompareListOfTuples # csak az interfész biztosított, az implementacio nem
 
 
 # ModelAnswersLengthInLines = len(modelAnswerLineYesOrNos)
