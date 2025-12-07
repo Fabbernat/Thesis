@@ -38,7 +38,7 @@ class TransformersApiHandler:
         print('google path chosen')
         tokenizeAutoModelForGoogle0()
 
-    def qwen(self, creative: bool = False, max_new_tokens: int = 1):
+    def qwen(self, questions, creative: bool = False, max_new_tokens: int = 1):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         print('====== QWEN PATH STARTED ======')
@@ -60,7 +60,7 @@ class TransformersApiHandler:
         print("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        msgs = getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS, questions)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(

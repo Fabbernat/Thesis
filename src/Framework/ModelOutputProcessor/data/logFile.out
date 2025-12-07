@@ -517,3 +517,51 @@ Fabbernat ran an unknown model at 2025. 12. 05. 21:50 with results
 Fabbernat ran an unknown model at 2025. 12. 05. 21:56 with results
 Fabbernat ran an unknown model at 2025. 12. 05. 22:08 with results
 Fabbernat ran an unknown model at 2025. 12. 05. 22:18 with results
+Fabbernat ran an unknown model at 2025. 12. 05. 22:20 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:12 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:15 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:19 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:21 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:25 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:27 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:27 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:28 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:28 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:28 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:29 with results
+Fabbernat ran an unknown model at 2025. 12. 06. 08:29 with results
+MatchPercentage: 50.00 %
+Consistency: 44.00 %
+Ambiguous: [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False] %
+Consistently ambiguous: [] %
+True positives: 8		8.00 %
+False positives: 7		7.00 %
+False negatives: 18		18.00 %
+True negatives: 17		17.00 %
+--------
+
+
+Fabbernat ran an unknown model at 2025. 12. 06. 08:30 with results
+MatchPercentage: 50.00 %
+Consistency: 44.00 %
+Ambiguous: [False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False] %
+Consistently ambiguous: [] %
+True positives: 8		8.00 %
+False positives: 7		7.00 %
+False negatives: 18		18.00 %
+True negatives: 17		17.00 %
+--------
+
+
+Fabbernat ran an unknown model at 2025. 12. 06. 08:31 with results
+MatchPercentage: 50.00 %
+Consistency: 44.00 %
+Ambiguous: 0 %
+Consistently ambiguous: 0 %
+True positives: 8		8.00 %
+False positives: 7		7.00 %
+False negatives: 18		18.00 %
+True negatives: 17		17.00 %
+--------
+
+

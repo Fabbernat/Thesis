@@ -26,16 +26,16 @@ class TorchApiHandler:
         self.generatedIds = []
         self.transformersApiHandler = None
 
-    def handleRequest(self):
+    def handleRequest(self, questions):
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
 
-            for i in range(NUMBER_OF_DESIRED_ANSWERS):
+            for i in range(min(NUMBER_OF_DESIRED_ANSWERS, len(questions))):
 
                 self.transformersApiHandler.DoAutotokenizerFromPretrained()
 
-                self.handleModelSpecificActions() # This takes up most of the runtime.
+                response = self.handleModelSpecificActions(questions) # This takes up most of the runtime.
 
 
                 #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
@@ -46,22 +46,22 @@ class TorchApiHandler:
                 # print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
                 # response = ' '.join([str(elem) for elem in response])
                 #
-                # basePath = Path(__file__).parent
+                basePath = Path(__file__).parent
                 # writeToFile(generatedIds, basePath / "data" / "generatedIds.out")
                 # writeToFile(tokenizer, basePath / "data" / "tokenizer.out")
                 # writeToFile(self.generatedIdsTransformersTensorsList, basePath / "data" / "generatedIdsTransformersTensors.out")
                 # writeToFile(self.convertedIdsTensorsList, basePath / "data" / "convertedIdsTensors.out")
                 #
-                # saveOutput(basePath, response)
+                saveOutput(basePath, response)
 
 
 
-    def handleModelSpecificActions(self):
+    def handleModelSpecificActions(self, questions):
         if DETERMINISTIC_MODE:
             set_seed(42)
         try:
             if MODEL_NAME.startswith('qwen'):
-                response, generatedIds  = self.transformersApiHandler.qwen()
+                response, generatedIds  = self.transformersApiHandler.qwen(questions)
                 self.responses.append(response)
                 self.generatedIds.append(generatedIds)
             elif MODEL_NAME.startswith('google'):
@@ -77,6 +77,8 @@ class TorchApiHandler:
         except Exception as e:
             print('Exception in handleModelSpecificActions:', e)
 
+        print('handleModelSpecificActions is returning responses', self.responses)
+        return self.responses
 
 def set_seed(seed=42):
     random.seed(seed)

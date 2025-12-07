@@ -5,6 +5,6 @@ except Exception:
 
 from pathlib import Path
 
-def run():
+def run(questions):
     print('run started')
-    TorchApiHandler.TorchApiHandler().handleRequest()
+    TorchApiHandler.TorchApiHandler().handleRequest(questions)

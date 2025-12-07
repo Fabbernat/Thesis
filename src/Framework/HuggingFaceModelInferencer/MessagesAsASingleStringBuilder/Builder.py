@@ -75,22 +75,14 @@ def checkIfHalfOfFileContentsIsReversed(questionsFileContents: str):
             exit(0)
 
 
-def getMessagesAsString(numberOfLines=None):
-    currentFilesDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+def getMessagesAsString(questions, numberOfLines=None):
 
-    questionsPath = os.path.join(currentFilesDir, FILE_NAME)
-    print(f'Questions file path={questionsPath}')
 
-    if not os.path.exists(questionsPath):
-        raise FileNotFoundError(f'Expected questions file not found at: {questionsPath}')
-
-    questionsFileContents = ''
-    with open(questionsPath, 'r', encoding='utf-8') as questionsFile:
-        if numberOfLines is None:
-            questionsFileContents = questionsFile.read()
-        else:
-            questionsFileContents = ''.join(islice(questionsFile, numberOfLines))
-            print('reading:', questionsFileContents)
+    if numberOfLines is None:
+        questionsFileContents = questions
+    else:
+        questionsFileContents = ''.join(islice(questions, numberOfLines))
+        print('reading:', questionsFileContents)
 
     # checkIfHalfOfFileContentsIsReversed(questionsFileContents) # egyesével lesznek beadva a kerdesek igy ez nem kell
     message = [
