@@ -36,7 +36,9 @@ def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):
 
     print(f'tokenizer after={tokenizer}')
     promptAsText: str = tokenizer.apply_chat_template(
-        getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS),
+        getMessagesAsString("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
+Does the word "crisscross" mean the same thing in sentences "Wrinkles crisscrossed her face." and "Crisscross the sheet of paper."?
+""", NUMBER_OF_DESIRED_ANSWERS),
         tokenize=False,
         add_generation_prompt=True,
         # enable_thinking=True  # For Qwen3-32B

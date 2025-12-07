@@ -60,7 +60,7 @@ class TransformersApiHandler:
         print("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        msgs = getMessagesAsString(NUMBER_OF_DESIRED_ANSWERS, questions)
+        msgs = getMessagesAsString( questions, NUMBER_OF_DESIRED_ANSWERS)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(
@@ -156,7 +156,7 @@ class TransformersApiHandler:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        msgs = getMessagesAsString(1)
+        msgs = getMessagesAsString(questions, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         prompt = self.tokenizer.apply_chat_template(
             msgs,
@@ -220,7 +220,7 @@ class TransformersApiHandler:
         _dbg("Model loaded:", type(self.model), "device_map:", getattr(self.model, "hf_device_map", None))
 
         # Build prompt — phi-mini-instruct is instruction-tuned, use same chat-template approach if available
-        msgs = getMessagesAsString(1)
+        msgs = getMessagesAsString(questions, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         # Some tokenizers/models don't have apply_chat_template; guard it
         try:

@@ -25,7 +25,7 @@ def main(GlobalRun=False):
 
     # directory 1 level up from current file
     current_files_dir = Path(__file__).resolve().parent
-    print("Current Files Dir:", current_files_dir)
+    print("Current file is located at:", current_files_dir)
 
     questions_path = current_files_dir / FILE_NAME
     print(f"Questions file path={questions_path}")

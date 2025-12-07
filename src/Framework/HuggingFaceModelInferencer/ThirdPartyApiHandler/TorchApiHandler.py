@@ -72,7 +72,42 @@ class TorchApiHandler:
             elif MODEL_NAME.startswith('microsoft'):
                 pass
             else:
-                raise NotImplementedError('Not implemented yet.')
+                print(f"No specific handler for model '{MODEL_NAME}', using generic transformers generate().")
+
+                # Tokenize the questions list (joined or single string)
+                # If `questions` is a list of multiple questions, handle first one:
+                if isinstance(questions, (list, tuple)):
+                    input_text = questions[0]
+                else:
+                    input_text = questions
+
+                enc = self.transformersApiHandler.tokenizer(
+                    input_text,
+                    return_tensors="pt",
+                    truncation=True
+                )
+
+                # Move tensors to device if needed
+                if torch.cuda.is_available():
+                    enc = {k: v.cuda() for k, v in enc.items()}
+
+                # Default generation settings (safe fallback)
+                gen = self.transformersApiHandler.model.generate(
+                    **enc,
+                    max_new_tokens=128,
+                    do_sample=not DETERMINISTIC_MODE,
+                    temperature=0.7 if not DETERMINISTIC_MODE else 0.0,
+                    num_return_sequences=1
+                )
+
+                # Decode
+                response = self.transformersApiHandler.tokenizer.batch_decode(
+                    gen, skip_special_tokens=True
+                )
+
+                # Store
+                self.responses.append(response)
+                self.generatedIds.append(gen)
 
         except Exception as e:
             print('Exception in handleModelSpecificActions:', e)
@@ -103,10 +138,12 @@ def saveOutput(basePath, results: str):
     writeToFile(results, fullPath)
 
     # Ask user if secondary output should also be saved
-    confirmation = input(
-        'Program successfully ran.\n'
-        'Do you also want to store the result as the next module\'s input? (y/n): '
-    ).strip().lower()
+
+    confirmation = 'y'
+    # confirmation = input(
+    #     'Program successfully ran.\n'
+    #     'Do you also want to store the result as the next module\'s input? (y/n): '
+    # ).strip().lower()
 
     if confirmation == 'y':
         writeToFile(results, secondaryPath)
@@ -114,7 +151,7 @@ def saveOutput(basePath, results: str):
 
 def writeToFile(modelResponses, fileNameAsPath: Path):
     try:
-        with open(fileNameAsPath, 'w') as modelResponsesFile:
+        with open(fileNameAsPath, 'a') as modelResponsesFile:
             modelResponsesFile.write(str(modelResponses).replace('\\n', '\n'))
         print(f'Successfully written to {fileNameAsPath}')
     except OSError as oe:

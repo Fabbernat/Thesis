@@ -81,7 +81,13 @@ def getMessagesAsString(questions, numberOfLines=None):
     if numberOfLines is None:
         questionsFileContents = questions
     else:
-        questionsFileContents = ''.join(islice(questions, numberOfLines))
+        try:
+            numberOfLines = int(numberOfLines)
+        except ValueError:
+            raise ValueError(f"numberOfLines must be integer or None, got: {numberOfLines!r}")
+
+        # questionsFileContents = ''.join(islice(questions, numberOfLines)) # ez hibásan levágja a numberOfLines-adik karakter után, sor helyett.
+        questionsFileContents = ''.join(questions)
         print('reading:', questionsFileContents)
 
     # checkIfHalfOfFileContentsIsReversed(questionsFileContents) # egyesével lesznek beadva a kerdesek igy ez nem kell
@@ -98,12 +104,14 @@ def getMessagesAsString(questions, numberOfLines=None):
     print("Writing prompt to:", os.path.abspath(basePath / 'data' / 'prompt.out'))
     try:
         os.makedirs(Path( str(basePath) + r'/data'), exist_ok=True)
-        with open(os.path.abspath(basePath / 'data' / 'prompt.out'), 'w') as promptFile:
+        with open(os.path.abspath(basePath / 'data' / 'prompt.out'), 'a') as promptFile:
             print(log, file=promptFile)
     except Exception as e:
         print('Failed to save the prompt to data/prompt.out:', e)
     return message
 
 if __name__ == '__main__':
-    print(getMessagesAsString())
+    print(getMessagesAsString("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
+Does the word "crisscross" mean the same thing in sentences "Wrinkles crisscrossed her face." and "Crisscross the sheet of paper."?
+"""))
 

@@ -8,10 +8,18 @@ class FileReader:
         return [line.strip() for line in file]
 
     def readEntries(self, file, randomEntries: list[int]) -> list[Any]:
-        """Read only the lines at the specified indices."""
+        """Read the lines at the specified indices and save the indices to a file."""
         lines = [line.strip() for line in file]
+        basePath = Path(__file__).parent.parent
 
-        return [lines[i] for i in randomEntries if i < len(lines)]
+        results = []
+        with open(basePath / 'data' / 'indices.out', 'a') as indicesFile:
+              for i in randomEntries:
+                  if i < len(lines):
+                    results.append(lines[i])
+                    print(i, file=indicesFile)
+
+        return results
 
 
 class TestFilesMerger:
