@@ -35,7 +35,7 @@ def main(GlobalRun=False):
 
     # The questions file is always in data/questions.in, this is simpler:
     questions = (current_files_dir / "data" / "questions.in").read_text()
-
+    checkIfHalfOfFileContentsIsReversed(questionsFileContents)
     run(questions)
 
 '''
