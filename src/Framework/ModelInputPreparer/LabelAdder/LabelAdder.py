@@ -2,6 +2,8 @@ import traceback
 from pathlib import Path
 from typing import Any
 
+from numpy.ma.core import max_val
+
 
 class FileReader:
     def readWholeFile(self, file) -> list[Any]:
@@ -38,10 +40,10 @@ class TestFilesMerger:
                     from src.Framework.ModelInputPreparer.randomsamples import randomEntries
                 except Exception:
                     from randomsamples import randomEntries
-                data_lines = [line.strip() for line in testDataFile]
-                gold_lines = [line.strip() for line in testGoldFile]
-                max_valid = min(len(data_lines), len(gold_lines))
-                filteredEntries = [i for i in randomEntries if 0 <= i < max_valid]
+                dataLines = [line.strip() for line in testDataFile]
+                goldLines = [line.strip() for line in testGoldFile]
+                maxValid = min(len(dataLines), len(goldLines))
+                filteredEntries = [i for i in randomEntries if 0 <= i < maxValid]
 
                 # Because readEntries() reads from the file pointer, we must:
                 #
