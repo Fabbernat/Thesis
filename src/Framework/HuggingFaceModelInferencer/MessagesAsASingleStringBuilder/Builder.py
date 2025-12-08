@@ -1,6 +1,7 @@
 import os
 from itertools import islice
 from pathlib import Path
+
 try:
     from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME, INSTRUCTION
 except Exception:
@@ -9,8 +10,12 @@ except Exception:
 
 
 def getMessagesAsString(questions, i, numberOfLines=None):
-    if i < 0 or i >= len(lines):
-        raise IndexError(f"Line index {i} out of range (0..{len(lines) - 1})")
+    try:
+        if i < 0 or i >= len(numberOfLines):
+            raise IndexError(f"Line index {i} out of range (0..{len(numberOfLines) - 1})")
+    except TypeError as te:
+        print('numberOfLines has no length', te)
+
 
     questionsAsList = questions.splitlines()
 
@@ -18,7 +23,7 @@ def getMessagesAsString(questions, i, numberOfLines=None):
 
     message = [
         {'role': 'system', 'content': str(INSTRUCTION)},
-        {'role': 'user', 'content': str(questionsAsList[i])},
+        {'role': 'user', 'content': str(selectedLine)},
     ]
 
     if numberOfLines is not None:

@@ -1,9 +1,9 @@
-def checkIfHalfOfFileContentsIsReversed(questionsFileContents: str):
+def checkIfHalfOfFileContentsIsReversed(questionsAsStr: str):
     """
     Checks whether exactly half of the lines are reversed sentence-pairs.
     If not, triggers a warning (input("Warning")).
     """
-    lines = [line.strip() for line in questionsFileContents.splitlines() if line.strip()]
+    lines = [line.strip() for line in questionsAsStr.splitlines() if line.strip()]
 
     straight_count = 0
     reversed_count = 0
@@ -44,12 +44,12 @@ def checkIfHalfOfFileContentsIsReversed(questionsFileContents: str):
                     A = A.strip().strip('"')
                     B = B.strip().rstrip('?"').strip('"')
 
-                    # Now detect reversed by checking if reversed pattern matches
+                    # Detect reversed by checking if reversed pattern matches
                     # A straight pair has A then B
                     # A reversed pair has B then A
-                    # So we detect reversed by looking at the order in the actual string
+                    # Detect reversed by looking at the order in the actual string
 
-                    # We could detect reversed simply by checking the original string:
+                    # Detect reversed simply by checking the original string:
                     #   ... sentences "{sentence_b}" and "{sentence_a}"?
                     # So:
                     if f'sentences "{B}" and "{A}"?' in line:

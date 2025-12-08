@@ -2,10 +2,12 @@ try:
     from src.Framework.HuggingFaceModelInferencer.modelname import supportedModels, unsupportedModels
     from src.Framework.HuggingFaceModelInferencer import run
     from src.Framework.HuggingFaceModelInferencer.config import FILE_NAME
+    from src.Framework.HuggingFaceModelInferencer.checks import checkIfHalfOfFileContentsIsReversed
 except Exception:
     from modelname import supportedModels, unsupportedModels
     from run import run
     from config import FILE_NAME
+    from checks import checkIfHalfOfFileContentsIsReversed
 
 import sys
 from time import perf_counter
@@ -35,7 +37,7 @@ def main(GlobalRun=False):
 
     # The questions file is always in data/questions.in, this is simpler:
     questions = (current_files_dir / "data" / "questions.in").read_text()
-    checkIfHalfOfFileContentsIsReversed(questionsFileContents)
+    checkIfHalfOfFileContentsIsReversed(questions)
     run(questions)
 
 '''
