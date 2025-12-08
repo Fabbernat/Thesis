@@ -35,7 +35,7 @@ class TorchApiHandler:
 
                 self.transformersApiHandler.DoAutotokenizerFromPretrained()
 
-                response = self.handleModelSpecificActions(questions) # This takes up most of the runtime.
+                response = self.handleModelSpecificActions(i, questions) # This takes up most of the runtime.
 
 
                 #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
@@ -52,16 +52,18 @@ class TorchApiHandler:
                 # writeToFile(self.generatedIdsTransformersTensorsList, basePath / "data" / "generatedIdsTransformersTensors.out")
                 # writeToFile(self.convertedIdsTensorsList, basePath / "data" / "convertedIdsTensors.out")
                 #
-                saveOutput(basePath, response)
+                flat = [elem[0] for elem in response]  # extract inner strings
+                result = '\n'.join(flat)
+                saveOutput(basePath, result)
 
 
 
-    def handleModelSpecificActions(self, questions):
+    def handleModelSpecificActions(self, i: int, questions: str):
         if DETERMINISTIC_MODE:
             set_seed(42)
         try:
             if MODEL_NAME.startswith('qwen'):
-                response, generatedIds  = self.transformersApiHandler.qwen(questions)
+                response, generatedIds  = self.transformersApiHandler.qwen(i, questions)
                 self.responses.append(response)
                 self.generatedIds.append(generatedIds)
             elif MODEL_NAME.startswith('google'):
@@ -139,11 +141,14 @@ def saveOutput(basePath, results: str):
 
     # Ask user if secondary output should also be saved
 
-    confirmation = 'y'
-    # confirmation = input(
-    #     'Program successfully ran.\n'
-    #     'Do you also want to store the result as the next module\'s input? (y/n): '
-    # ).strip().lower()
+    production = False
+    if production:
+        confirmation = input(
+            'Program successfully ran.\n'
+            'Do you also want to store the result as the next module\'s input? (y/n): '
+        ).strip().lower()
+    else:
+        confirmation = 'n'
 
     if confirmation == 'y':
         writeToFile(results, secondaryPath)
@@ -152,7 +157,7 @@ def saveOutput(basePath, results: str):
 def writeToFile(modelResponses, fileNameAsPath: Path):
     try:
         with open(fileNameAsPath, 'a') as modelResponsesFile:
-            modelResponsesFile.write(str(modelResponses).replace('\\n', '\n'))
+            modelResponsesFile.write(str(modelResponses).replace('\\n', '\n')) # Mivel sokszor `\n` karaktert köp a modell plaint textként, akkor azt azért át kell alakítani újsor karakterré
         print(f'Successfully written to {fileNameAsPath}')
     except OSError as oe:
         sys.stderr.write(f'File writing error ({fileNameAsPath}): {oe}\n')

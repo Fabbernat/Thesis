@@ -38,7 +38,7 @@ class TransformersApiHandler:
         print('google path chosen')
         tokenizeAutoModelForGoogle0()
 
-    def qwen(self, questions, creative: bool = False, max_new_tokens: int = 1):
+    def qwen(self, i, questions, creative: bool = False, max_new_tokens: int = 1):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         print('====== QWEN PATH STARTED ======')
@@ -60,7 +60,7 @@ class TransformersApiHandler:
         print("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        msgs = getMessagesAsString( questions, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString( questions, i, NUMBER_OF_DESIRED_ANSWERS)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(
@@ -117,7 +117,7 @@ class TransformersApiHandler:
 
         return decoded, generated_ids
 
-    def google(self, creative: bool = False, max_new_tokens: int = 1, use_torch_compile: bool = False):
+    def google(self, i, creative: bool = False, max_new_tokens: int = 1, use_torch_compile: bool = False):
         """
         Run google/gemma-2-2b-it (instruction-tuned).
         Returns (decoded_list, generated_ids_tensor)
@@ -156,7 +156,7 @@ class TransformersApiHandler:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        msgs = getMessagesAsString(questions, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         prompt = self.tokenizer.apply_chat_template(
             msgs,
@@ -186,7 +186,7 @@ class TransformersApiHandler:
         _dbg("=== GEMMA PATH END ===")
         return decoded, generated_ids
 
-    def microsoft(self, creative: bool = False, max_new_tokens: int = 1):
+    def microsoft(self, i, creative: bool = False, max_new_tokens: int = 1):
         """
         Run microsoft/phi-4-mini-instruct.
         Returns (decoded_list, generated_ids_tensor)
@@ -220,7 +220,7 @@ class TransformersApiHandler:
         _dbg("Model loaded:", type(self.model), "device_map:", getattr(self.model, "hf_device_map", None))
 
         # Build prompt — phi-mini-instruct is instruction-tuned, use same chat-template approach if available
-        msgs = getMessagesAsString(questions, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         # Some tokenizers/models don't have apply_chat_template; guard it
         try:

@@ -75,7 +75,7 @@ def checkIfHalfOfFileContentsIsReversed(questionsFileContents: str):
             exit(0)
 
 
-def getMessagesAsString(questions, numberOfLines=None):
+def getMessagesAsString(questions, i, numberOfLines=None):
 
 
     if numberOfLines is None:
@@ -93,7 +93,7 @@ def getMessagesAsString(questions, numberOfLines=None):
     # checkIfHalfOfFileContentsIsReversed(questionsFileContents) # egyesével lesznek beadva a kerdesek igy ez nem kell
     message = [
         {'role': 'system', 'content': str(INSTRUCTION)},
-        {'role': 'user', 'content': str(questionsFileContents)},
+        {'role': 'user', 'content': str(questionsFileContents[i])},
     ]
 
     messagesAsStr = message[0]['content']+'\n---------------\n'+ message[1]['content']
