@@ -65,7 +65,7 @@ def run():
         print('Answers ratios (True/all)')
         print(f'Consistent: {consistent:.2f} %', file=file)
         print(f'Accurate: {accurate:.2f} %', file=file)
-        print(f'Consistently accurate: {consitentlyAccurate} %', file=file)
+        print(f'Consistently accurate: {consitentlyAccurate:.2f} %', file=file)
         # print(f'Consistently accurate: {(sum(1 if forwardAnswer==reversedAndwer==gold else 0 for forwardAnswer, reversedAnswer, gold in threeAnswersToCompareListOfTuples)):.2f} % ', file=file)
         print(f'Ambiguous: {sum(int(elem) for elem in ambiguous)} %', file=file)
         print(f'Consistently ambiguous: {sum(int(elem) for elem in consistentlyAmbiguous)} %', file=file)
