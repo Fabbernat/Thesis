@@ -22,7 +22,7 @@ class TernaryResultsProcessor:
                 matches += 1
         return matches
 
-    def getMatchPercentage(self) -> float:
+    def getAccuracy(self) -> float:
         return (self.countMatches() / int(len(self.ternaryResultsLines))) * 100
 
     def countConsistentAnswers(self) -> int:
