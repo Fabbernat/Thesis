@@ -1,8 +1,8 @@
-MatchPercentage: 50.00 %
-Consistency: 44.00 %
+MatchPercentage: 42.86 %
+Consistency: 46.43 %
 Ambiguous: 0 %
 Consistently ambiguous: 0 %
-True positives: 8		8.00 %
-False positives: 7		7.00 %
-False negatives: 18		18.00 %
-True negatives: 17		17.00 %
+True positives: 6		5.36 %
+False positives: 9		8.04 %
+False negatives: 23		20.54 %
+True negatives: 18		16.07 %
