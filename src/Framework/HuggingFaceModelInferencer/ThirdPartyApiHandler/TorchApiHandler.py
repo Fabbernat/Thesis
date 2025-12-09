@@ -54,7 +54,12 @@ class TorchApiHandler:
                 #
                 flat = [elem[0] for elem in response]  # extract inner strings
                 result = '\n'.join(flat)
-                saveOutput(basePath, result)
+
+                # A kérdést is eltároljuk, hogy lássuk, mire érkezett a válasz
+                questionsAsList = questions.splitlines()
+                selectedLine = questionsAsList[i]
+
+                saveOutput(basePath, str(selectedLine + '\t' + result))
 
 
 
@@ -62,13 +67,14 @@ class TorchApiHandler:
         if DETERMINISTIC_MODE:
             set_seed(42)
 
+
         if MODEL_NAME.startswith('qwen'):
-            response, generatedIds  = self.transformersApiHandler.qwen(i, questions)
+            _, response, generatedIds  = self.transformersApiHandler.qwen(i, questions)
             self.responses.append(response)
             self.generatedIds.append(generatedIds)
         elif MODEL_NAME.startswith('google'):
             print(f'Model name is {MODEL_NAME}')
-            response, _ = self.transformersApiHandler.google()
+            _, response, _ = self.transformersApiHandler.google()
             writeToFile(response, Path(__file__).parent / "data" / "modelResponses.out")
 
         elif MODEL_NAME.startswith('microsoft'):

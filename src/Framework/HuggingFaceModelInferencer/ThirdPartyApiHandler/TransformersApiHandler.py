@@ -33,10 +33,7 @@ class TransformersApiHandler:
             MODEL_NAME)  # should be of type TextKwargs(), but TextKwargs is inaccessible from here for some reason
         print("AutoTokenizer.from_pretrained done!")
 
-    # for google models
-    def google(self):
-        print('google path chosen')
-        tokenizeAutoModelForGoogle0()
+
 
     def qwen(self, i, questions, creative: bool = False, max_new_tokens: int = 1):
         from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -60,7 +57,7 @@ class TransformersApiHandler:
         print("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        msgs = getMessagesAsString( questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        _, msgs = getMessagesAsString( questions, i, NUMBER_OF_DESIRED_ANSWERS)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(
@@ -115,7 +112,7 @@ class TransformersApiHandler:
 
         print("====== QWEN PATH END ======")
 
-        return decoded, generated_ids
+        return _, decoded, generated_ids
 
     def google(self, i, creative: bool = False, max_new_tokens: int = 1, use_torch_compile: bool = False):
         """
@@ -156,7 +153,7 @@ class TransformersApiHandler:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        _, msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         prompt = self.tokenizer.apply_chat_template(
             msgs,
@@ -184,7 +181,7 @@ class TransformersApiHandler:
         decoded: list[str] = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         _dbg("Decoded:", decoded)
         _dbg("=== GEMMA PATH END ===")
-        return decoded, generated_ids
+        return _, decoded, generated_ids
 
     def microsoft(self, i, creative: bool = False, max_new_tokens: int = 1):
         """
@@ -220,7 +217,7 @@ class TransformersApiHandler:
         _dbg("Model loaded:", type(self.model), "device_map:", getattr(self.model, "hf_device_map", None))
 
         # Build prompt — phi-mini-instruct is instruction-tuned, use same chat-template approach if available
-        msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        _, msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         # Some tokenizers/models don't have apply_chat_template; guard it
         try:
@@ -252,7 +249,7 @@ class TransformersApiHandler:
         decoded: list[str] = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         _dbg("Decoded:", decoded)
         _dbg("=== PHI-4 MINI PATH END ===")
-        return decoded, generated_ids
+        return _, decoded, generated_ids
 
     def batchDecodeGenerateFinalAnswer(self, convertedTensors):
         if self.tokenizer is None:

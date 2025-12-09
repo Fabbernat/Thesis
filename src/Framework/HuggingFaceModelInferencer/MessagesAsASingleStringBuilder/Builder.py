@@ -49,7 +49,7 @@ def getMessagesAsString(questions, i, numberOfLines=None):
             print(log, file=promptFile)
     except Exception as e:
         print('Failed to save the prompt to data/prompt.out:', e)
-    return message
+    return selectedLine, message
 
 if __name__ == '__main__':
     print(getMessagesAsString("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
