@@ -577,3 +577,9 @@ True negatives: 18		16.07 %
 --------
 
 
+Answers ratios (True/all)
+Consistent: 45.00 %
+Accurate: 99.00 %
+Consistently accurate: 23.00 %
+Ambiguous: 4.00 %
+Consistently ambiguous: 0.00 %

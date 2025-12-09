@@ -1,7 +1,9 @@
 try:
     from src.Framework.ModelOutputProcessor.run import run
+    from src.Framework.ModelOutputProcessor.indexer import indexer
 except Exception:
     from run import run
+    from indexer import indexer
 import sys
 from time import perf_counter
 
@@ -10,8 +12,11 @@ print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
 
-def main(GlobalRun=False):
-    run()
+def main(GlobalRun=False, index = True):
+    if index:
+        indexer.main()
+    else:
+        run()
 
 
 if __name__ == '__main__':

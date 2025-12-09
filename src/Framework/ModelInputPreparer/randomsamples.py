@@ -10,3 +10,7 @@ def get_random_entries(total: int = 1400, k: int = 100, seed: int | None = None)
 
 # module-level variable kept for backward compatibility
 randomEntries = get_random_entries()
+
+if __name__ == '__main__':
+    print(randomEntries)
+    print(len(randomEntries))
