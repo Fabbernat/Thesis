@@ -74,8 +74,9 @@ class TorchApiHandler:
             self.generatedIds.append(generatedIds)
         elif MODEL_NAME.startswith('google'):
             print(f'Model name is {MODEL_NAME}')
-            _, response, _ = self.transformersApiHandler.google()
-            writeToFile(response, Path(__file__).parent / "data" / "modelResponses.out")
+            _, response, generatedIds = self.transformersApiHandler.google(i, questions)
+            self.responses.append(response)
+            self.generatedIds.append(generatedIds)
 
         elif MODEL_NAME.startswith('microsoft'):
             pass

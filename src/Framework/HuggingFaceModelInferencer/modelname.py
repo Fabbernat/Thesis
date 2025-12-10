@@ -55,6 +55,8 @@ def main():
 if __name__ == "__main__":
     main()
 
-MODEL_NAME = supportedModels[1]
+# MODEL_NAME = supportedModels[1] # part 1 of the experiment
+
+MODEL_NAME = googleModels[0] # part 2 of the experiment
 
 MODEL_NAME = MODEL_NAME.strip().lower()

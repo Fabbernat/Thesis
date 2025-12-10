@@ -114,7 +114,7 @@ class TransformersApiHandler:
 
         return _, decoded, generated_ids
 
-    def google(self, i, creative: bool = False, max_new_tokens: int = 1, use_torch_compile: bool = False):
+    def google(self, i, questions, creative: bool = False, max_new_tokens: int = 1, use_torch_compile: bool = False):
         """
         Run google/gemma-2-2b-it (instruction-tuned).
         Returns (decoded_list, generated_ids_tensor)
@@ -153,15 +153,19 @@ class TransformersApiHandler:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        _, msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
+
+        _dbg("Applying chat template...")
+
         prompt = self.tokenizer.apply_chat_template(
             msgs,
             tokenize=False,
             add_generation_prompt=True
         )
-        _dbg("Prompt:\n", prompt)
+        _dbg("Prompt:\n" + prompt)
 
+        # tokenize the prompt
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
         _dbg("Tokenized inputs shapes:", {k: v.shape for k, v in inputs.items()})
 
@@ -181,7 +185,7 @@ class TransformersApiHandler:
         decoded: list[str] = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         _dbg("Decoded:", decoded)
         _dbg("=== GEMMA PATH END ===")
-        return _, decoded, generated_ids
+        return decoded, generated_ids
 
     def microsoft(self, i, creative: bool = False, max_new_tokens: int = 1):
         """

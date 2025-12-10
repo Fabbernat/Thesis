@@ -182,6 +182,11 @@ def test_indexer():
         printEverywhere(f'Consistently accurate: {consistentlyAccurates * 100:.2f} %', f)
         printEverywhere(f'Ambiguous: {ambiguouses * 100:.2f} %', f)
         printEverywhere(f'Consistently ambiguous: {consistentlyAmbiguouses * 100:.2f} %', f)
+        # printEverywhere(f'Ratio of "Yes" answers', f)
+        # printEverywhere(f'Ratio of "No" answers', f)
+        # printEverywhere(f'True positives', f)
+        # printEverywhere(f'fn, fp, tn', f)
+
 
 
 def printEverywhere(msg: str, file):
