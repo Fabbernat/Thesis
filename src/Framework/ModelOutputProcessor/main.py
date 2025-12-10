@@ -1,9 +1,9 @@
 try:
     from src.Framework.ModelOutputProcessor.run import run
-    from src.Framework.ModelOutputProcessor.indexer import indexer
+    from src.Framework.ModelOutputProcessor.indexer import QwenIndexer
 except Exception:
     from run import run
-    from indexer import indexer
+    from indexer import QwenIndexer
 import sys
 from time import perf_counter
 
@@ -14,7 +14,7 @@ print(' ** end of runtime environment info ** ')
 
 def main(GlobalRun=False, index = True):
     if index:
-        indexer.main()
+        QwenIndexer.main()
     else:
         run()
 
