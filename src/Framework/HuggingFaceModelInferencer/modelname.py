@@ -55,8 +55,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-# MODEL_NAME = supportedModels[1] # part 1 of the experiment
-
-MODEL_NAME = googleModels[0] # part 2 of the experiment
+# MODEL_NAME = supportedModels[1] # A kísérlet 1. fele, Qwen/Qwen2.5-0.5B-Instruct
+MODEL_NAME = googleModels[0] # A kísérlet 2. fele, google/gemma-2-2b-it
 
 MODEL_NAME = MODEL_NAME.strip().lower()
