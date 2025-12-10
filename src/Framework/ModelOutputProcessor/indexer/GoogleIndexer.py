@@ -225,7 +225,7 @@ def test_indexer():
         780,
         616,
         1213,
-        204
+        349
     ]
 
     print(len(googleStraightAnswers), len(googleReversedAnswers), len(guids))
