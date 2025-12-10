@@ -7,7 +7,7 @@ endings = {
 
 # --- CONFIG ---
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 DETERMINISTIC_MODE = False
 ISOLATED_MODE = True
 

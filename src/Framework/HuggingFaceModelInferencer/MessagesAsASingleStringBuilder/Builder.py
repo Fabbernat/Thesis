@@ -46,7 +46,7 @@ def getMessagesAsString(questions, i, numberOfLines=None):
     try:
         os.makedirs(Path( str(basePath) + r'/data'), exist_ok=True)
         with open(os.path.abspath(basePath / 'data' / 'prompt.out'), 'a') as promptFile:
-            print(log, file=promptFile)
+            print(messagesAsStr, file=promptFile)
     except Exception as e:
         print('Failed to save the prompt to data/prompt.out:', e)
     return selectedLine, message
