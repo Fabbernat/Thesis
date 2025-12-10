@@ -38,8 +38,8 @@ def getMessagesAsString(questions, i, numberOfLines=None):
         print('reading:', questionsFileContents)
 
     messagesAsStr = message[0]['content']+'\n---------------\n'+ message[1]['content']
-    log = '\n *** The prompt: *** \n'+ str(messagesAsStr) + '\n *** End of the prompt *** \n'
-    print(log)
+    # log = '\n *** The prompt: *** \n'+ str(messagesAsStr) + '\n *** End of the prompt *** \n'
+    # print(log)
 
     basePath = Path(__file__).parent.parent
     print("Writing prompt to:", os.path.abspath(basePath / 'data' / 'prompt.out'))
