@@ -1,13 +1,13 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForQwenForGoogle
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForGoogle
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
     from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 except Exception as e:
     from .orgs.google import tokenizeAutoModelForGoogle0
     from .orgs.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForQwenForGoogle
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForGoogle
     from modelname import MODEL_NAME
     from config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 
@@ -153,7 +153,7 @@ class TransformersApiHandler:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        msgs = getMessagesAsStringForQwenForGoogle(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsStringForGoogle(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         # Add an assistant message if missing
 
         _dbg("MessagesAsString:", msgs)

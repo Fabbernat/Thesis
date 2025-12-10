@@ -10,6 +10,7 @@ except Exception:
 
 
 def getMessagesAsStringForQwen(questions, i, numberOfLines=None):
+    print('getMessagesAsStringForQwen started')
     try:
         if i < 0 or i >= len(numberOfLines):
             raise IndexError(f"Line index {i} out of range (0..{len(numberOfLines) - 1})")
@@ -52,7 +53,8 @@ def getMessagesAsStringForQwen(questions, i, numberOfLines=None):
     return message
 
 
-def getMessagesAsStringForQwenForGoogle(questions, i, numberOfLines=None):
+def getMessagesAsStringForGoogle(questions, i, numberOfLines=None):
+    print('getMessagesAsStringForGoogle started')
     try:
         if i < 0 or i >= len(numberOfLines):
             raise IndexError(f"Line index {i} out of range (0..{len(numberOfLines) - 1})")
