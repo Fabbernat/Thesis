@@ -3655,3 +3655,6 @@ Does the word "model" mean the same thing in sentences "Model the latest fashion
 Answer the question with just a single `Yes` or `No`.
 ---------------
 Does the word "bank" mean the same thing in sentences "He sat on the bank of the river and watched the currents." and "That bank holds the mortgage on my home."?
+Answer the question with just a single `Yes` or `No`.
+---------------
+Does the word "extract" mean the same thing in sentences "To extract an essential oil from a plant." and "I extracted a promise from the Dean for two new positions."?
