@@ -165,7 +165,7 @@ class TransformersApiHandler:
             tokenize=False,
             add_generation_prompt=True
         )
-        _dbg("Prompt:\n" + prompt)
+        print("Prompt:\n" + prompt)
 
         # tokenize the prompt
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
