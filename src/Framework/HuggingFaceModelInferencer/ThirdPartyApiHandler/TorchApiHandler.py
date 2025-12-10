@@ -31,8 +31,8 @@ class TorchApiHandler:
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
 
-            for i in range(min(NUMBER_OF_DESIRED_ANSWERS, len(questions))):
-
+            #for i in range(min(NUMBER_OF_DESIRED_ANSWERS, len(questions))):
+            for i in range(1):
                 self.transformersApiHandler.DoAutotokenizerFromPretrained()
 
                 response = self.handleModelSpecificActions(i, questions) # This takes up most of the runtime.
