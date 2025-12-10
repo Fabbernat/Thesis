@@ -54,5 +54,5 @@ def getMessagesAsString(questions, i, numberOfLines=None):
 if __name__ == '__main__':
     print(getMessagesAsString("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
 Does the word "crisscross" mean the same thing in sentences "Wrinkles crisscrossed her face." and "Crisscross the sheet of paper."?
-"""))
+""", 0))
 
