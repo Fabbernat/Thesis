@@ -1,12 +1,12 @@
-def indexer(straightAnswers: dict[str, str],
-            reversedAnswers: dict[str, str],
+def indexer(qwenStraightAnswers: dict[str, str],
+            qwenReversedAnswers: dict[str, str],
             guids: list[int],
             goldStandard: list[bool]):
     """"""
-    keys = list(straightAnswers.keys())
+    keys = list(qwenStraightAnswers.keys())
 
-    if len(straightAnswers) != len(reversedAnswers) or len(straightAnswers) != len(guids) or len(
-            reversedAnswers) != len(guids):
+    if len(qwenStraightAnswers) != len(qwenReversedAnswers) or len(qwenStraightAnswers) != len(guids) or len(
+            qwenReversedAnswers) != len(guids):
         import sys
         sys.stderr.write(
             "Error: the lengths of the straight and reversed questions, as well as the GUIDs, must match! Do you wish to continue? (y/n) ")
@@ -14,7 +14,7 @@ def indexer(straightAnswers: dict[str, str],
         if key.lower().strip() == 'n':
             exit(0)
 
-    length = min(len(straightAnswers), len(reversedAnswers), len(guids),
+    length = min(len(qwenStraightAnswers), len(qwenReversedAnswers), len(guids),
                  len(goldStandard))  # elvileg mindegyiknek ugyanolyan hosszúnak kéne lennie, de a gyakorlatban általában nem az.
     consistents = accurates = consistentlyAccurates = ambiguouses = consistentlyAmbiguouses = 0
 
@@ -22,11 +22,11 @@ def indexer(straightAnswers: dict[str, str],
 
         key = keys[i]  # pl. 'sound'
 
-        token1 = straightAnswers.get(key, None)
+        token1 = qwenStraightAnswers.get(key, None)
         if token1 is None:
             ambiguouses += 1
             token1 = '?'
-        token2 = reversedAnswers.get(key, None)
+        token2 = qwenReversedAnswers.get(key, None)
         if token2 is None:
             ambiguouses += 1
             token2 = '?'
@@ -71,7 +71,7 @@ def indexer(straightAnswers: dict[str, str],
 
 
 def test_indexer():
-    straightAnswers: dict[str, str] = {
+    qwenStraightAnswers: dict[str, str] = {
         'sound': 'Yes', 'grow': 'No', 'audience': 'No',
         'insufficiency': 'No',
         'batch': 'No', 'extent': 'No','extract':'No' , 'agency': 'No', 'narcolepsy': 'No',
@@ -85,7 +85,7 @@ def test_indexer():
         'nursing': 'No', 'repression': 'No', 'ice': 'No', 'lubricate': 'No',
         'strain': 'No', 'construction': 'No', 'mate': 'No', 'sewer': 'No',
         'origin': 'No', 'manner': 'No', 'model': 'No', 'bank': 'No'}
-    reversedAnswers: dict[str, str] = {
+    qwenReversedAnswers: dict[str, str] = {
         'sound': 'No', 'grow': 'No', 'audience': 'No', 'insufficiency': 'No',
         'batch': 'No', 'extent': 'No', 'extract': 'No', 'agency': 'No',
         'narcolepsy': 'Yes', 'score': 'No', 'instill': 'No', 'amount': 'No',
@@ -152,7 +152,7 @@ def test_indexer():
         1213,
         204
     ]
-    print(len(straightAnswers), len(reversedAnswers), len(guids))
+    print(len(qwenStraightAnswers), len(qwenReversedAnswers), len(guids))
 
     goldStandard: list[bool] = []
     lines: list[str] = []
@@ -165,8 +165,8 @@ def test_indexer():
 
     goldStandard = [line.strip() == 'T' for line in lines] # biztosítja, hogy bool legyen, True ha 'T', egyébként False
 
-    consistents, accurates, consistentlyAccurates, ambiguouses, consistentlyAmbiguouses = indexer(straightAnswers,
-                                                                                                  reversedAnswers,
+    consistents, accurates, consistentlyAccurates, ambiguouses, consistentlyAmbiguouses = indexer(qwenStraightAnswers,
+                                                                                                  qwenReversedAnswers,
                                                                                                   guids, goldStandard)
 
     here = Path(__file__).resolve().parent

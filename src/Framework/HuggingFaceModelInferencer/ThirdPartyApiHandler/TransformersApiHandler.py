@@ -1,13 +1,13 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForQwenForGoogle
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
     from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 except Exception as e:
     from .orgs.google import tokenizeAutoModelForGoogle0
     from .orgs.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForQwenForGoogle
     from modelname import MODEL_NAME
     from config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 
@@ -57,7 +57,7 @@ class TransformersApiHandler:
         print("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        _, msgs = getMessagesAsString( questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsStringForQwen( questions, i, NUMBER_OF_DESIRED_ANSWERS)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(
@@ -112,7 +112,7 @@ class TransformersApiHandler:
 
         print("====== QWEN PATH END ======")
 
-        return _, decoded, generated_ids
+        return decoded, generated_ids
 
     def google(self, i, questions, creative: bool = False, max_new_tokens: int = 1, use_torch_compile: bool = False):
         """
@@ -153,7 +153,9 @@ class TransformersApiHandler:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsStringForQwenForGoogle(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        # Add an assistant message if missing
+
         _dbg("MessagesAsString:", msgs)
 
         _dbg("Applying chat template...")
@@ -187,7 +189,7 @@ class TransformersApiHandler:
         _dbg("=== GEMMA PATH END ===")
         return decoded, generated_ids
 
-    def microsoft(self, i, creative: bool = False, max_new_tokens: int = 1):
+    def microsoft(self, i, questions, creative: bool = False, max_new_tokens: int = 1):
         """
         Run microsoft/phi-4-mini-instruct.
         Returns (decoded_list, generated_ids_tensor)
@@ -221,7 +223,7 @@ class TransformersApiHandler:
         _dbg("Model loaded:", type(self.model), "device_map:", getattr(self.model, "hf_device_map", None))
 
         # Build prompt — phi-mini-instruct is instruction-tuned, use same chat-template approach if available
-        _, msgs = getMessagesAsString(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsStringForQwen(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         # Some tokenizers/models don't have apply_chat_template; guard it
         try:
@@ -253,7 +255,7 @@ class TransformersApiHandler:
         decoded: list[str] = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         _dbg("Decoded:", decoded)
         _dbg("=== PHI-4 MINI PATH END ===")
-        return _, decoded, generated_ids
+        return decoded, generated_ids
 
     def batchDecodeGenerateFinalAnswer(self, convertedTensors):
         if self.tokenizer is None:

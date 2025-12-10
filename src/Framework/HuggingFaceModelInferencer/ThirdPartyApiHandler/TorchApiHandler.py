@@ -69,12 +69,12 @@ class TorchApiHandler:
 
 
         if MODEL_NAME.startswith('qwen'):
-            _, response, generatedIds  = self.transformersApiHandler.qwen(i, questions)
+            response, generatedIds  = self.transformersApiHandler.qwen(i, questions)
             self.responses.append(response)
             self.generatedIds.append(generatedIds)
         elif MODEL_NAME.startswith('google'):
             print(f'Model name is {MODEL_NAME}')
-            _, response, generatedIds = self.transformersApiHandler.google(i, questions)
+            response, generatedIds = self.transformersApiHandler.google(i, questions)
             self.responses.append(response)
             self.generatedIds.append(generatedIds)
 

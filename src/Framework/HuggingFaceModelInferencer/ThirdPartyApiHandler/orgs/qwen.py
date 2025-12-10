@@ -1,9 +1,9 @@
 try:
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen
     from src.Fravmework.HuggingFaceModelInferencer.modelname import MODEL_NAME
     from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS
 except Exception:
-    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen
     from modelname import MODEL_NAME
     from config import  NUMBER_OF_DESIRED_ANSWERS
 
@@ -36,7 +36,7 @@ def tokenizeAutoModelForQwenAndSimilar0(model, tokenizer):
 
     print(f'tokenizer after={tokenizer}')
     promptAsText: str = tokenizer.apply_chat_template(
-        getMessagesAsString("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
+        getMessagesAsStringForQwen("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
 Does the word "crisscross" mean the same thing in sentences "Wrinkles crisscrossed her face." and "Crisscross the sheet of paper."?
 """, NUMBER_OF_DESIRED_ANSWERS),
         tokenize=False,
