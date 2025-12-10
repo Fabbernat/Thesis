@@ -1,9 +1,9 @@
 try:
     from src.Framework.ModelOutputProcessor.run import run
-    from src.Framework.ModelOutputProcessor.indexer import QwenIndexer
+    from src.Framework.ModelOutputProcessor.indexer import QwenIndexer, GoogleIndexer
 except Exception:
     from run import run
-    from indexer import QwenIndexer
+    from indexer import QwenIndexer, GoogleIndexer
 import sys
 from time import perf_counter
 
@@ -12,9 +12,11 @@ print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
 
-def main(GlobalRun=False, index = True):
-    if index:
+def main(GlobalRun=False, model = 'google'):
+    if model == 'qwen':
         QwenIndexer.main()
+    elif model == 'google':
+        GoogleIndexer.main()
     else:
         run()
 
