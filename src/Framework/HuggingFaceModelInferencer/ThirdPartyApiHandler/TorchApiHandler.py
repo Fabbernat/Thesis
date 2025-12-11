@@ -136,7 +136,7 @@ def saveOutput(basePath, results: str):
 
     print('basePath: ', basePath)
     safe_name = MODEL_NAME.split("/")[-1]
-    fullPath = basePath.parent / "data" / f"modelResponses{safe_name}.out"
+    fullPath = basePath.parent / "data" / f"modelResponses_{safe_name}.out"
     print('fullPath: ', fullPath)
     secondaryPath = basePath.parent.parent / "ModelOutputProcessor" / "data" / "modelResponses.in"
 
