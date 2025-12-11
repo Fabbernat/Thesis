@@ -44,8 +44,8 @@ class TransformersApiHandler:
         print(f"Loading model: {MODEL_NAME}")
         self.model = AutoModelForCausalLM.from_pretrained(
             MODEL_NAME,
-            device_map="auto",
-            dtype="auto"
+            device_map={"": "cpu"},
+            dtype="bfloat16" # float32 or bfloat16 if supported
         )
         print("Model loaded:")
         print("  model class:", type(self.model))
