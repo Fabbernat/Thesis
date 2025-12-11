@@ -49,12 +49,12 @@ class TransformersApiHandler:
         )
         print("Model loaded:")
         print("  model class:", type(self.model))
-        print("  device map:", self.model.hf_device_map)
+        _dbg("  device map:", self.model.hf_device_map)
 
         # 2) Load tokenizer
-        print(f"Loading tokenizer: {MODEL_NAME}")
+        _dbg(f"Loading tokenizer: {MODEL_NAME}")
         self.tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-        print("Tokenizer loaded:", self.tokenizer)
+        _dbg("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
         msgs = getMessagesAsStringForQwen( questions, i, NUMBER_OF_DESIRED_ANSWERS)
@@ -70,11 +70,11 @@ class TransformersApiHandler:
 
         # 4) Tokenize
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
-        print("Tokenized inputs:")
+        _dbg("Tokenized inputs:")
 
         for k, v in inputs.items():
-            print(f"  {k}: shape={v.shape}, dtype={v.dtype}, device={v.device}")
-        print("inputs object:", inputs)
+            _dbg(f"  {k}: shape={v.shape}, dtype={v.dtype}, device={v.device}")
+        _dbg("inputs object:", inputs)
 
         gen_kwargs = {"max_new_tokens": max_new_tokens, "eos_token_id": self.tokenizer.eos_token_id}
         gen_kwargs.update(_generate_args(creative))
