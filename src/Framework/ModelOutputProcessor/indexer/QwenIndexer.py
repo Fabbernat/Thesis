@@ -1,3 +1,5 @@
+modelSize = 0.5 # 0.5 for Qwen/Qwen2.5-0.5B-Instruct, 1.5 for Qwen/Qwen2.5-1.5B-Instruct
+
 def indexer(qwenStraightAnswers: dict[str, str],
             qwenReversedAnswers: dict[str, str],
             guids: list[int],

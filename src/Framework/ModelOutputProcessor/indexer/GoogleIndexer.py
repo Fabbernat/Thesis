@@ -1,5 +1,3 @@
-mode = '0.5B' # 0.5B for
-
 def indexer(googleStraightAnswers: dict[str, str],
             googleReversedAnswers: dict[str, str],
             guids: list[int],
