@@ -728,3 +728,17 @@ Accurate: 76.00 %
 Consistently accurate: 49.00 %
 Ambiguous: 0.00 %
 Consistently ambiguous: 0.00 %
+Fabbernat ran Qwen/Qwen2.5-0.5B-Instruct at 2025. 12. 11. 15:01
+Answers ratios (True/all)
+Consistent: 79.00 %
+Accurate: 131.00 %
+Consistently accurate: 55.00 %
+Ambiguous: 0.00 %
+Consistently ambiguous: 0.00 %
+Fabbernat ran Qwen/Qwen2.5-0.5B-Instruct at 2025. 12. 11. 15:05
+Answers ratios (True/all)
+Consistent: 79.00 %
+Accurate: 65.50 %
+Consistently accurate: 55.00 %
+Ambiguous: 0.00 %
+Consistently ambiguous: 0.00 %

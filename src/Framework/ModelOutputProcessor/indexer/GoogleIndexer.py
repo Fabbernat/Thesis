@@ -16,7 +16,7 @@ def indexer(googleStraightAnswers: dict[str, str],
 
     length = min(len(googleStraightAnswers), len(googleReversedAnswers), len(guids),
                  len(goldStandard))  # elvileg mindegyiknek ugyanolyan hosszúnak kéne lennie, de a gyakorlatban általában nem az.
-    consistents = accurates = consistentlyAccurates = ambiguouses = consistentlyAmbiguouses = 0
+    consistents = accurates = consistentlyAccurates = ambiguouses = consistentlyAmbiguouses = 0 # Mivel párokra van értve, Mindegyik végeredménye maximum `length` lehet.
 
     for i in range(length):
 
@@ -60,9 +60,9 @@ def indexer(googleStraightAnswers: dict[str, str],
         )
 
         if straightCorrect:
-            accurates += 1
+            accurates += 0.5
         if reversedCorrect:
-            accurates += 1
+            accurates += 0.5
 
         if token1 == 'Yes' and token2 == 'Yes' and groundTruth:
             consistentlyAccurates += 1
