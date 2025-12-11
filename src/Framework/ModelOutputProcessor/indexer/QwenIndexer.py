@@ -271,6 +271,14 @@ def test_indexer():
     logPath = root / "data" / "logFile.out"
 
     with open(logPath, "a", encoding="utf-8") as f:
+        from datetime import datetime
+        now = datetime.now()
+        formattedDate = now.strftime('%Y. %m. %d. %H:%M')
+        try:
+            from src.Framework.ModelOutputProcessor.config import USERNAME
+        except Exception:
+            from Framework.ModelOutputProcessor.config import USERNAME
+        printEverywhere(f'{USERNAME} ran Qwen/Qwen2.5-0.5B-Instruct at {formattedDate}', f)
         printEverywhere('Answers ratios (True/all)', f)
         printEverywhere(f'Consistent: {consistents * 100:.2f} %', f)
         printEverywhere(f'Accurate: {accurates * 100:.2f} %', f)
