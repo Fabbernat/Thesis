@@ -9,7 +9,9 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 ### Output: 
 - Detailed statistics and analytics of the model's answers to the input.
 
-\* almost any. You need to make your own scripts to test unsupported models. src/Framework has been thoroughly tested on [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) though, so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work. 
+\* almost any, qwen and google models are the most compatible. You need to make your own scripts to test unsupported models. The framework has been thoroughly tested on 
+1. [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work.
+2. [google/gemma-2-2b-it](https://huggingface.co/google/gemma-2-2b-it) has been tested a lot too, so this and similar models will work. Note: As gemma is a [gated model](https://huggingface.co/docs/hub/en/models-gated), you'll need to log in to use it.
 
 ### How to run the app?
 ##### In PowerShell
@@ -71,7 +73,8 @@ in two different supersenses and the positive ones
 include a word used in the same supersense.
 
 
-#### Example result:
+#### Example results:
+<img width="706" height="532" alt="image" src="https://github.com/user-attachments/assets/5b5723e2-8a81-4da1-ab62-7144dbfe073e" />
 <img width="1912" height="1027" alt="image" src="https://github.com/user-attachments/assets/e0602229-f699-4989-88b4-95bdad915ada" />
 
 
