@@ -714,3 +714,17 @@ Accurate: 76.00 %
 Consistently accurate: 49.00 %
 Ambiguous: 0.00 %
 Consistently ambiguous: 0.00 %
+Fabbernat ran Qwen/Qwen2.5-0.5B-Instruct at 2025. 12. 11. 12:22
+Answers ratios (True/all)
+Consistent: 79.00 %
+Accurate: 76.00 %
+Consistently accurate: 55.00 %
+Ambiguous: 0.00 %
+Consistently ambiguous: 0.00 %
+Fabbernat ran google/gemma-2-2b-it at 2025. 12. 11. 12:22
+Answers ratios (True/all)
+Consistent: 73.00 %
+Accurate: 76.00 %
+Consistently accurate: 49.00 %
+Ambiguous: 0.00 %
+Consistently ambiguous: 0.00 %
