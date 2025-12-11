@@ -1,3 +1,5 @@
+mode = '0.5B' # 0.5B for
+
 def indexer(googleStraightAnswers: dict[str, str],
             googleReversedAnswers: dict[str, str],
             guids: list[int],
@@ -125,26 +127,26 @@ def test_indexer():
         'deflate': 'Yes',
         'local': 'Yes',
         'drive': 'No',
-        'have': 'No',
-        'inspire': 'No',
-        'afterthought': 'No',
-        'property': 'No', 'awareness': 'No',
-        'prefer': 'Yes', 'bend': 'No', 'mark': 'Yes',
-        'have2': 'No', 'rounding': 'No',
-        'steamroller': 'No', 'zero': 'No', 'nest': 'No',
-        'land': 'No', 'deliberation': 'No',
-        'consist': 'No', 'restraint ': 'No', 'feedstock': 'Yes',
+        'have': 'Yes',
+        'inspire': 'Yes',
+        'afterthought': 'Yes',
+        'property': 'No', 'awareness': 'Yes',
+        'prefer': 'Yes', 'bend': 'Yes', 'mark': 'No',
+        'possess': 'Yes', 'rounding': 'No',
+        'steamroller': 'Yes', 'zero': 'Yes', 'nest': 'Yes',
+        'land': 'No', 'deliberation': 'Yes',
+        'consist': 'No', 'restraint ': 'No', 'feedstock': 'No',
         'engage': 'Yes', 'sneak': 'No',
-        'justify': 'Yes', 'grain': 'No', 'pass': 'No',
+        'justify': 'No', 'grain': 'No', 'pass': 'No',
         'topic': 'No', 'holder': 'Yes',
-        'crystallize': 'No', 'recapitulate': 'No', 'rag': 'No',
-        'complaint': 'No', 'fiddle': 'No',
-        'wax': 'No', 'tease': 'No', 'access': 'No',
+        'crystallize': 'Yes', 'recapitulate': 'Yes', 'rag': 'No',
+        'complaint': 'No', 'fiddle': 'Yes',
+        'wax': 'No', 'tease': 'No', 'access': 'Yes',
         'union': 'No', 'cross': 'No',
-        'morale': 'No', 'back': 'No', 'bother': 'No',
+        'morale': 'Yes', 'back': 'Yes', 'bother': 'Yes',
         'organize': 'No', 'dash': 'No',
-        'loop': 'No', 'resolve': 'No', 'underlay': 'No',
-        'submit': 'No', 'blood': 'Yes',
+        'loop': 'Yes', 'resolve': 'No', 'underlay': 'Yes',
+        'submit': 'Yes', 'blood': 'No',
         'violence': 'No', 'lot': 'No',
     }
     googleReversedAnswers: dict[str, str] = {
@@ -198,12 +200,19 @@ def test_indexer():
         'manner': 'No',
         'model': 'No',
         'bank': 'No',
-        'deflate': 'No', 'local': 'No',
-        'drive': 'No', 'have': 'No',
-        'inspire': 'No', 'afterthought': 'No',
-        'property': 'No', 'awareness': 'No',
-        'prefer': 'Yes', 'bend': 'No', 'mark': 'Yes',
-        'have2': 'No', 'rounding': 'No',
+        'deflate': 'Yes',
+        'local': 'Yes',
+        'drive': 'No',
+        'have': 'No',
+        'inspire': 'No',
+        'afterthought': 'No',
+        'property': 'No',
+        'awareness': 'No',
+        'prefer': 'Yes',
+        'bend': 'No',
+        'mark': 'Yes',
+        'possess': 'No',
+        'rounding': 'No',
         'steamroller': 'No', 'zero': 'No', 'nest': 'No',
         'land': 'No', 'deliberation': 'No',
         'consist': 'No', 'restraint ': 'No', 'feedstock': 'Yes',
@@ -347,6 +356,14 @@ def test_indexer():
     logPath = root / "data" / "logFile.out"
 
     with open(logPath, "a", encoding="utf-8") as f:
+        from datetime import datetime
+        now = datetime.now()
+        formattedDate = now.strftime('%Y. %m. %d. %H:%M')
+        try:
+            from src.Framework.ModelOutputProcessor.config import USERNAME
+        except Exception:
+            from Framework.ModelOutputProcessor.config import USERNAME
+        printEverywhere(f'{USERNAME} ran google/gemma-2-2b-it at {formattedDate}', f)
         printEverywhere('Answers ratios (True/all)', f)
         printEverywhere(f'Consistent: {consistents * 100:.2f} %', f)
         printEverywhere(f'Accurate: {accurates * 100:.2f} %', f)
