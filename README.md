@@ -48,7 +48,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 ## The paper [Overleaf Project]:
 [Analyzing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
 ## Pdf TeX Source:
-[GitHub](https://github.com/Fabbernat/Thesis-paper)  
+[GitHub Thesis-paper](https://github.com/Fabbernat/Thesis-paper)  
 
 ## My home page:
 [Bernát Fábián](https://fabbernat.github.io/)
