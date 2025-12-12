@@ -281,8 +281,11 @@ def test_indexer():
         try:
             from src.Framework.ModelOutputProcessor.config import USERNAME
         except Exception:
-            from Framework.ModelOutputProcessor.config import USERNAME
-        printEverywhere(f'{USERNAME} ran Qwen/Qwen2.5-0.5B-Instruct at {formattedDate}', f)
+            try:
+                from Framework.ModelOutputProcessor.config import USERNAME
+            except Exception:
+                from config import USERNAME
+        printEverywhere(f'{USERNAME} ran Qwen/Qwen2.5-1.5B-Instruct at {formattedDate}', f)
         printEverywhere('Answers ratios (True/all)', f)
         printEverywhere(f'Consistent: {consistents * 100:.2f} %', f)
         printEverywhere(f'Accurate: {accurates * 100:.2f} %', f)
