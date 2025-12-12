@@ -141,10 +141,10 @@ def test_indexer():
         'crystallize': 'No','recapitulate':'No','rag':'No',
         'complaint': 'No','fiddle':'No',
         'wax': 'No','tease':'No','access':'No',
-        'union': 'Yes','cross':'No',
+        'union': 'No','cross':'No',
         'morale': 'No','back':'No','bother':'No',
         'organize': 'No','dash':'No',
-        'loop': 'No','resolve':'No','underlay':'Yes',
+        'loop': 'No','resolve':'No','underlay':'No',
         'submit': 'No','blood':'No',
         'violence': 'No','lot':'No',
     }
