@@ -38,7 +38,7 @@ def indexer(googleStraightAnswers: dict[str, str],
             ambiguousPairs += 1
         if token2 not in valid:
             ambiguousPairs += 1
-        
+
         if token1 == 'Yes':
             yeses += 1
         if token1 == 'No':
@@ -90,8 +90,7 @@ def indexer(googleStraightAnswers: dict[str, str],
         if token1 == 'No' and token2 == 'No' and not groundTruth:
             consistentlyAccuratePairsPairs += 1
 
-    return consistentPairs / length, accurates / length, consistentlyAccuratePairsPairs / length, ambiguousPairs / length, consistentlyambiguousPairs / length  # 0 és 1 közé normalizáljuk
-
+    return consistentPairs / length, accurates / length, accuratePairs / length, consistentlyAccuratePairsPairs / length, ambiguousPairs / length, consistentlyambiguousPairs / length, yeses, nos # # 0 és 1 közé normalizáljuk, kivéve a yeseket és a nokat
 
 def test_indexer():
     googleStraightAnswers: dict[str, str] = {
@@ -366,7 +365,7 @@ def test_indexer():
 
     goldStandard = [line.strip() == 'T' for line in lines] # biztosítja, hogy bool legyen, True ha 'T', egyébként False
 
-    consistentPairs, accurates, consistentlyAccuratePairsPairs, ambiguousPairs, consistentlyambiguousPairs = indexer(googleStraightAnswers,
+    consistentPairs, accurates, accuratePairs, consistentlyAccuratePairsPairs, ambiguousPairs, consistentlyambiguousPairs, yeses, nos = indexer(googleStraightAnswers,
                                                                                                   googleReversedAnswers,
                                                                                                   guids, goldStandard)
 
@@ -383,18 +382,20 @@ def test_indexer():
         try:
             from src.Framework.ModelOutputProcessor.config import USERNAME
         except Exception:
-            from config import USERNAME
+            try:
+                from Framework.ModelOutputProcessor.config import USERNAME
+            except Exception:
+                from config import USERNAME
         printEverywhere(f'{USERNAME} ran google/gemma-2-2b-it at {formattedDate}', f)
         printEverywhere('Answers ratios (True/all)', f)
-        printEverywhere(f'Consistent: {consistentPairs * 100:.2f} %', f)
-        printEverywhere(f'Accurate: {accurates * 100:.2f} %', f)
-        printEverywhere(f'Consistently accurate: {consistentlyAccuratePairsPairs * 100:.2f} %', f)
-        printEverywhere(f'Ambiguous: {ambiguousPairs * 100:.2f} %', f)
-        printEverywhere(f'Consistently ambiguous: {consistentlyambiguousPairs * 100:.2f} %', f)
+        printEverywhere(f'Consistent pairs: {consistentPairs * 100:.2f} %', f)
+        printEverywhere(f'Accurates: {accurates * 100:.2f} %', f)
+        printEverywhere(f'Accurate Pairs {accuratePairs * 100:.2f} %', f)
+        printEverywhere(f'Consistently accurate pairs: {consistentlyAccuratePairsPairs * 100:.2f} %', f)
+        printEverywhere(f'Ambiguous pairs: {ambiguousPairs * 100:.2f} %', f)
+        printEverywhere(f'Consistently ambiguous pairs: {consistentlyambiguousPairs * 100:.2f} %', f)
         printEverywhere(f'Ratio of "Yes" answers {yeses}', f)
         printEverywhere(f'Ratio of "No" answers {nos}', f)
-        # printEverywhere(f'Ratio of "Yes" answers', f)
-        # printEverywhere(f'Ratio of "No" answers', f)
         # printEverywhere(f'True positives', f)
         # printEverywhere(f'fn, fp, tn', f)
 

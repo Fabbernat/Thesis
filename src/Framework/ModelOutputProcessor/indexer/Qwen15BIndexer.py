@@ -49,7 +49,16 @@ def indexer(qwenStraightAnswers: dict[str, str],
             yeses += 1
         if token2 == 'No':
             nos += 1
-            
+
+        if token1 == 'Yes':
+            yeses += 1
+        if token1 == 'No':
+            nos += 1
+        if token2 == 'Yes':
+            yeses += 1
+        if token2 == 'No':
+            nos += 1
+
         if token1 == 'Yes' and token2 == 'Yes':
             consistentPairs += 1
         if token1 == 'No' and token2 == 'No':
@@ -83,8 +92,7 @@ def indexer(qwenStraightAnswers: dict[str, str],
         if token1 == 'No' and token2 == 'No' and not groundTruth:
             consistentlyAccuratePairsPairs += 1
 
-    return consistentPairs / length, accurates / length, consistentlyAccuratePairsPairs / length, ambiguousPairs / length, consistentlyambiguousPairs / length  # 0 és 1 közé normalizáljuk
-
+    return consistentPairs / length, accurates / length, accuratePairs / length, consistentlyAccuratePairsPairs / length, ambiguousPairs / length, consistentlyambiguousPairs / length, yeses, nos # # 0 és 1 közé normalizáljuk, kivéve a yeseket és a nokat
 
 def test_indexer():
     qwenStraightAnswers: dict[str, str] = {
@@ -276,7 +284,7 @@ def test_indexer():
 
     goldStandard = [line.strip() == 'T' for line in lines] # biztosítja, hogy bool legyen, True ha 'T', egyébként False
 
-    consistentPairs, accurates, consistentlyAccuratePairsPairs, ambiguousPairs, consistentlyambiguousPairs = indexer(qwenStraightAnswers,
+    consistentPairs, accurates, accuratePairs, consistentlyAccuratePairsPairs, ambiguousPairs, consistentlyambiguousPairs, yeses, nos = indexer(qwenStraightAnswers,
                                                                                                   qwenReversedAnswers,
                                                                                                   guids, goldStandard)
 

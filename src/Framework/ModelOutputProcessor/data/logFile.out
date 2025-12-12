@@ -830,3 +830,73 @@ Fabbernat ran Qwen/Qwen2.5-1.5B-Instruct at 2025. 12. 12. 17:27
 Answers ratios (True/all)
 Consistent pairs: 94.00 %
 Accurates: 68.00 %
+Fabbernat ran Qwen/Qwen2.5-1.5B-Instruct at 2025. 12. 12. 17:35
+Answers ratios (True/all)
+Consistent pairs: 94.00 %
+Accurates: 68.00 %
+Accurate Pairs 71.00 %
+Consistently accurate pairs: 65.00 %
+Ambiguous pairs: 0.00 %
+Consistently ambiguous pairs: 0.00 %
+Ratio of "Yes" answers 12
+Ratio of "No" answers 188
+Fabbernat ran Qwen/Qwen2.5-1.5B-Instruct at 2025. 12. 12. 17:37
+Answers ratios (True/all)
+Consistent pairs: 79.00 %
+Accurates: 65.50 %
+Accurate Pairs 76.00 %
+Consistently accurate pairs: 55.00 %
+Ambiguous pairs: 0.00 %
+Consistently ambiguous pairs: 0.00 %
+Ratio of "Yes" answers 21
+Ratio of "No" answers 179
+Fabbernat ran Qwen/Qwen2.5-1.5B-Instruct at 2025. 12. 12. 17:39
+Answers ratios (True/all)
+Consistent pairs: 79.00 %
+Accurates: 65.50 %
+Accurate Pairs 76.00 %
+Consistently accurate pairs: 55.00 %
+Ambiguous pairs: 0.00 %
+Consistently ambiguous pairs: 0.00 %
+Ratio of "Yes" answers 42
+Ratio of "No" answers 358
+Fabbernat ran Qwen/Qwen2.5-1.5B-Instruct at 2025. 12. 12. 17:39
+Answers ratios (True/all)
+Consistent pairs: 73.00 %
+Accurates: 62.50 %
+Accurate Pairs 76.00 %
+Consistently accurate pairs: 49.00 %
+Ambiguous pairs: 0.00 %
+Consistently ambiguous pairs: 0.00 %
+Ratio of "Yes" answers 162
+Ratio of "No" answers 238
+Fabbernat ran google/gemma-2-2b-it at 2025. 12. 12. 17:40
+Answers ratios (True/all)
+Consistent pairs: 73.00 %
+Accurates: 62.50 %
+Accurate Pairs 76.00 %
+Consistently accurate pairs: 49.00 %
+Ambiguous pairs: 0.00 %
+Consistently ambiguous pairs: 0.00 %
+Ratio of "Yes" answers 162
+Ratio of "No" answers 238
+Fabbernat ran Qwen/Qwen2.5-1.5B-Instruct at 2025. 12. 12. 17:42
+Answers ratios (True/all)
+Consistent pairs: 79.00 %
+Accurates: 65.50 %
+Accurate Pairs 76.00 %
+Consistently accurate pairs: 55.00 %
+Ambiguous pairs: 0.00 %
+Consistently ambiguous pairs: 0.00 %
+Ratio of "Yes" answers 42
+Ratio of "No" answers 358
+Fabbernat ran Qwen/Qwen2.5-1.5B-Instruct at 2025. 12. 12. 17:42
+Answers ratios (True/all)
+Consistent pairs: 94.00 %
+Accurates: 68.00 %
+Accurate Pairs 71.00 %
+Consistently accurate pairs: 65.00 %
+Ambiguous pairs: 0.00 %
+Consistently ambiguous pairs: 0.00 %
+Ratio of "Yes" answers 12
+Ratio of "No" answers 188
