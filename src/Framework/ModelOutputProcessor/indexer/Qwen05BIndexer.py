@@ -71,9 +71,9 @@ def indexer(qwenStraightAnswers: dict[str, str],
         )
 
         if straightCorrect:
-            accurates += 0.5
+            accurates += 1
         if reversedCorrect:
-            accurates += 0.5
+            accurates += 1
 
         if straightCorrect or reversedCorrect:
             accuratePairs += 1
@@ -298,12 +298,12 @@ def test_indexer():
                 from config import USERNAME
         printEverywhere(f'{USERNAME} ran Qwen/Qwen2.5-0.5B-Instruct at {formattedDate}', f)
         printEverywhere('Answers ratios (True/all)', f)
-        printEverywhere(f'Consistent pairs: {consistentPairs * 100:.2f} %', f)
-        printEverywhere(f'Accurates: {accurates * 100:.2f} %', f)
-        printEverywhere(f'Accurate Pairs {accuratePairs * 100:.2f} %', f)
-        printEverywhere(f'Consistently accurate pairs: {consistentlyAccuratePairsPairs * 100:.2f} %', f)
-        printEverywhere(f'Ambiguous pairs: {ambiguousPairs * 100:.2f} %', f)
-        printEverywhere(f'Consistently ambiguous pairs: {consistentlyambiguousPairs * 100:.2f} %', f)
+        printEverywhere(f'Consistent pairs: {consistentPairs * 100:.2f} entries.', f)
+        printEverywhere(f'Accurates: {accurates * 100:.2f} entries.', f)
+        printEverywhere(f'Accurate Pairs {accuratePairs * 100:.2f} entries.', f)
+        printEverywhere(f'Consistently accurate pairs: {consistentlyAccuratePairsPairs * 100:.2f} entries.', f)
+        printEverywhere(f'Ambiguous pairs: {ambiguousPairs * 100:.2f} entries.', f)
+        printEverywhere(f'Consistently ambiguous pairs: {consistentlyambiguousPairs * 100:.2f} entries.', f)
         printEverywhere(f'Ratio of "Yes" answers {yeses}', f)
         printEverywhere(f'Ratio of "No" answers {nos}', f)
         # printEverywhere(f'True positives', f)
