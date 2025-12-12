@@ -16,7 +16,7 @@ def indexer(googleStraightAnswers: dict[str, str],
 
     length = min(len(googleStraightAnswers), len(googleReversedAnswers), len(guids),
                  len(goldStandard))  # elvileg mindegyiknek ugyanolyan hosszúnak kéne lennie, de a gyakorlatban általában nem az.
-    consistents = accurates = consistentlyAccurates = ambiguouses = consistentlyAmbiguouses = 0 # Mivel párokra van értve, Mindegyik végeredménye maximum `length` lehet.
+    consistentPairs = accurates = accuratePairs = consistentlyAccuratePairsPairs = ambiguousPairs = consistentlyambiguousPairs = yeses = nos = 0 # Mivel párokra van értve, Mindegyik végeredménye maximum `length` lehet.
 
     for i in range(length):
 
@@ -24,28 +24,46 @@ def indexer(googleStraightAnswers: dict[str, str],
 
         token1 = googleStraightAnswers.get(key, None)
         if token1 is None:
-            ambiguouses += 1
+            ambiguousPairs += 1
             token1 = '?'
         token2 = googleReversedAnswers.get(key, None)
         if token2 is None:
-            ambiguouses += 1
+            ambiguousPairs += 1
             token2 = '?'
-
+        
         groundTruth = goldStandard[guids[i]]  # egész szám index a goldStandard listához
 
         valid = {'Yes', 'No'}
         if token1 not in valid:
-            ambiguouses += 1
+            ambiguousPairs += 1
         if token2 not in valid:
-            ambiguouses += 1
-
+            ambiguousPairs += 1
+        
+        if token1 == 'Yes':
+            yeses += 1
+        if token1 == 'No':
+            nos += 1
+        if token2 == 'Yes':
+            yeses += 1
+        if token2 == 'No':
+            nos += 1
+            
+        if token1 == 'Yes':
+            yeses += 1
+        if token1 == 'No':
+            nos += 1
+        if token2 == 'Yes':
+            yeses += 1
+        if token2 == 'No':
+            nos += 1
+            
         if token1 == 'Yes' and token2 == 'Yes':
-            consistents += 1
+            consistentPairs += 1
         if token1 == 'No' and token2 == 'No':
-            consistents += 1
+            consistentPairs += 1
         if token1 not in valid and token2 not in valid:
-            consistents += 1
-            consistentlyAmbiguouses += 1
+            consistentPairs += 1
+            consistentlyambiguousPairs += 1
 
         # helyes-e a straight válasz?
         straightCorrect = (
@@ -59,15 +77,20 @@ def indexer(googleStraightAnswers: dict[str, str],
                 (token2 == 'No' and not groundTruth)
         )
 
+        if straightCorrect:
+            accurates += 0.5
+        if reversedCorrect:
+            accurates += 0.5
+
         if straightCorrect or reversedCorrect:
-            accurates += 1
+            accuratePairs += 1
 
         if token1 == 'Yes' and token2 == 'Yes' and groundTruth:
-            consistentlyAccurates += 1
+            consistentlyAccuratePairsPairs += 1
         if token1 == 'No' and token2 == 'No' and not groundTruth:
-            consistentlyAccurates += 1
+            consistentlyAccuratePairsPairs += 1
 
-    return consistents / length, accurates / length, consistentlyAccurates / length, ambiguouses / length, consistentlyAmbiguouses / length  # 0 és 1 közé normalizáljuk
+    return consistentPairs / length, accurates / length, consistentlyAccuratePairsPairs / length, ambiguousPairs / length, consistentlyambiguousPairs / length  # 0 és 1 közé normalizáljuk
 
 
 def test_indexer():
@@ -343,7 +366,7 @@ def test_indexer():
 
     goldStandard = [line.strip() == 'T' for line in lines] # biztosítja, hogy bool legyen, True ha 'T', egyébként False
 
-    consistents, accurates, consistentlyAccurates, ambiguouses, consistentlyAmbiguouses = indexer(googleStraightAnswers,
+    consistentPairs, accurates, consistentlyAccuratePairsPairs, ambiguousPairs, consistentlyambiguousPairs = indexer(googleStraightAnswers,
                                                                                                   googleReversedAnswers,
                                                                                                   guids, goldStandard)
 
@@ -360,14 +383,16 @@ def test_indexer():
         try:
             from src.Framework.ModelOutputProcessor.config import USERNAME
         except Exception:
-            from Framework.ModelOutputProcessor.config import USERNAME
+            from config import USERNAME
         printEverywhere(f'{USERNAME} ran google/gemma-2-2b-it at {formattedDate}', f)
         printEverywhere('Answers ratios (True/all)', f)
-        printEverywhere(f'Consistent: {consistents * 100:.2f} %', f)
+        printEverywhere(f'Consistent: {consistentPairs * 100:.2f} %', f)
         printEverywhere(f'Accurate: {accurates * 100:.2f} %', f)
-        printEverywhere(f'Consistently accurate: {consistentlyAccurates * 100:.2f} %', f)
-        printEverywhere(f'Ambiguous: {ambiguouses * 100:.2f} %', f)
-        printEverywhere(f'Consistently ambiguous: {consistentlyAmbiguouses * 100:.2f} %', f)
+        printEverywhere(f'Consistently accurate: {consistentlyAccuratePairsPairs * 100:.2f} %', f)
+        printEverywhere(f'Ambiguous: {ambiguousPairs * 100:.2f} %', f)
+        printEverywhere(f'Consistently ambiguous: {consistentlyambiguousPairs * 100:.2f} %', f)
+        printEverywhere(f'Ratio of "Yes" answers {yeses}', f)
+        printEverywhere(f'Ratio of "No" answers {nos}', f)
         # printEverywhere(f'Ratio of "Yes" answers', f)
         # printEverywhere(f'Ratio of "No" answers', f)
         # printEverywhere(f'True positives', f)

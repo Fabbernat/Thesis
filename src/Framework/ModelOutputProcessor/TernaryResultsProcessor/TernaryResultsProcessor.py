@@ -40,5 +40,5 @@ class TernaryResultsProcessor:
     def getConsistencyPercentage(self) -> float:
         return (self.countConsistentAnswers() / int(len(self.ternaryResultsLines) / 2)) * 100
 
-    def getConsistentlyAccuratePercentage(self):
+    def getconsistentlyAccuratePairsPercentage(self):
         return 0 #
