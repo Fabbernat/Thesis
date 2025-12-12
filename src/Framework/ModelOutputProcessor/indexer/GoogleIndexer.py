@@ -59,10 +59,8 @@ def indexer(googleStraightAnswers: dict[str, str],
                 (token2 == 'No' and not groundTruth)
         )
 
-        if straightCorrect:
-            accurates += 0.5
-        if reversedCorrect:
-            accurates += 0.5
+        if straightCorrect or reversedCorrect:
+            accurates += 1
 
         if token1 == 'Yes' and token2 == 'Yes' and groundTruth:
             consistentlyAccurates += 1

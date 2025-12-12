@@ -1,4 +1,4 @@
-modelSize = 0.5 # 0.5 for Qwen/Qwen2.5-0.5B-Instruct, 1.5 for Qwen/Qwen2.5-1.5B-Instruct
+modelSize = 1.5 # 0.5 for Qwen/Qwen2.5-0.5B-Instruct, 1.5 for Qwen/Qwen2.5-1.5B-Instruct
 
 def indexer(qwenStraightAnswers: dict[str, str],
             qwenReversedAnswers: dict[str, str],
@@ -61,10 +61,8 @@ def indexer(qwenStraightAnswers: dict[str, str],
                 (token2 == 'No' and not groundTruth)
         )
 
-        if straightCorrect:
-            accurates += 0.5
-        if reversedCorrect:
-            accurates += 0.5
+        if straightCorrect or reversedCorrect:
+            accurates += 1
 
         if token1 == 'Yes' and token2 == 'Yes' and groundTruth:
             consistentlyAccurates += 1
