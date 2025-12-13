@@ -94,5 +94,5 @@ include a word used in the same supersense.
 
 
 - The Google Colab notebook running the models can be found [at this link](https://colab.research.google.com/drive/1yA8IAd5z2oreKUXha-16Du2YrNhemNiU?usp=sharing).
-- The evaluation framework and function library can be downloaded from the [github.com/Fabbernat/Thesis](https://github.com/Fabbernat/Thesis) GitHub repository.
+- This software can be downloaded from the [github.com/Fabbernat/Thesis](https://github.com/Fabbernat/Thesis) GitHub repository.
 - Testing and evaluation of language models can be viewed in the [Generative Language Models](https://docs.google.com/spreadsheets/d/1y49lg52LHVFmTom-0ibCqYqWA1pKKhiUny-Pf3KVTIg/edit?usp=sharing) spreadsheet.
