@@ -73,8 +73,11 @@ in two different supersenses and the positive ones
 include a word used in the same supersense.
 
 
-#### Example results:
-<img width="706" height="532" alt="image" src="https://github.com/user-attachments/assets/5b5723e2-8a81-4da1-ab62-7144dbfe073e" />
+#### Example results (Hungarian):
+<img width="685" height="526" alt="image" src="https://github.com/user-attachments/assets/afd87786-b2e8-4b73-b6da-26b3bd495e57" />
+<img width="718" height="555" alt="image" src="https://github.com/user-attachments/assets/5b517f1a-f649-4f30-841c-c6e07f85989b" />
+<img width="706" height="528" alt="image" src="https://github.com/user-attachments/assets/464e349c-a461-4f58-bb7b-14b66073696d" />
+
 <img width="1912" height="1027" alt="image" src="https://github.com/user-attachments/assets/e0602229-f699-4989-88b4-95bdad915ada" />
 
 
@@ -82,9 +85,6 @@ include a word used in the same supersense.
 [WiC POS Tagging Word Comparison Notebook](https://colab.research.google.com/drive/1_UdMjugchWWHVrgETc9T1wsYs0R-67wh#scrollTo=9OlQSKyWfH9Y)
 
 
-#### Illustration of results [outdated]:
-![Large Language Models Table](https://github.com/user-attachments/assets/b5c7e5db-df58-4cbb-815b-d23d88f1f1da)
-![image](https://github.com/user-attachments/assets/40cec6ac-9306-49ab-9749-156a22308541)
 
 #### Usage of the scripts [outdated]:
 ![image](https://github.com/user-attachments/assets/ae79159c-16c2-4018-a51c-c483ade90183)
@@ -94,5 +94,5 @@ include a word used in the same supersense.
 
 
 - The Google Colab notebook running the models can be found [at this link](https://colab.research.google.com/drive/1yA8IAd5z2oreKUXha-16Du2YrNhemNiU?usp=sharing).
-- The evaluation framework and function library can be downloaded from the [github.com/Fabbernat/Thesis](https://github.com/Fabbernat/Thesis) GitHub repository.
+- This software can be downloaded from the [github.com/Fabbernat/Thesis](https://github.com/Fabbernat/Thesis) GitHub repository.
 - Testing and evaluation of language models can be viewed in the [Generative Language Models](https://docs.google.com/spreadsheets/d/1y49lg52LHVFmTom-0ibCqYqWA1pKKhiUny-Pf3KVTIg/edit?usp=sharing) spreadsheet.
