@@ -74,9 +74,12 @@ include a word used in the same supersense.
 
 
 #### Example results (Hungarian):
-<img width="685" height="526" alt="image" src="https://github.com/user-attachments/assets/afd87786-b2e8-4b73-b6da-26b3bd495e57" />
-<img width="718" height="555" alt="image" src="https://github.com/user-attachments/assets/5b517f1a-f649-4f30-841c-c6e07f85989b" />
-<img width="706" height="528" alt="image" src="https://github.com/user-attachments/assets/464e349c-a461-4f58-bb7b-14b66073696d" />
+<img width="792" height="468" alt="image" src="https://github.com/user-attachments/assets/e6246427-a2be-4bcd-93b7-f074731334ec" />
+<img width="785" height="332" alt="image" src="https://github.com/user-attachments/assets/34233d85-9625-4630-8f0f-0890e840a8e0" />
+<img width="793" height="487" alt="image" src="https://github.com/user-attachments/assets/255ff9fe-f4ce-4d28-9fae-e69a21c2531a" />
+
+
+
 
 <img width="1912" height="1027" alt="image" src="https://github.com/user-attachments/assets/e0602229-f699-4989-88b4-95bdad915ada" />
 
