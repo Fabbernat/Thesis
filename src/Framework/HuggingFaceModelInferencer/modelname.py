@@ -55,7 +55,9 @@ def main():
 if __name__ == "__main__":
     main()
 
-# MODEL_NAME = supportedModels[1] # A kísérlet 1. fele, Qwen/Qwen2.5-0.5B-Instruct
+MODEL_NAME = supportedModels[1] # A kísérlet 1. fele, Qwen/Qwen2.5-0.5B-Instruct
 # MODEL_NAME = googleModels[0] # A kísérlet 2. fele, google/gemma-2-2b-it
-MODEL_NAME = supportedModels[0] # Extra, a kísérlet 3. fele
+# MODEL_NAME = supportedModels[0] # Extra, a kísérlet 3. fele
+# MODEL_NAME = microsoftModels[0] # Extra, a kísérlet 4. fele
 MODEL_NAME = MODEL_NAME.strip().lower()
+

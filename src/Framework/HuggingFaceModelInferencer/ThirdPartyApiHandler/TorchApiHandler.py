@@ -69,6 +69,7 @@ class TorchApiHandler:
 
 
         if MODEL_NAME.startswith('qwen'):
+            print(f'Model name is {MODEL_NAME}')
             response, generatedIds  = self.transformersApiHandler.qwen(i, questions)
             self.responses.append(response)
             self.generatedIds.append(generatedIds)
@@ -79,7 +80,10 @@ class TorchApiHandler:
             self.generatedIds.append(generatedIds)
 
         elif MODEL_NAME.startswith('microsoft'):
-            pass
+            print(f'Model name is {MODEL_NAME}')
+            response, generatedIds = self.transformersApiHandler.microsoft(i, questions)
+            self.responses.append(response)
+            self.generatedIds.append(generatedIds)
         else:
             print(f"No specific handler for model '{MODEL_NAME}', using generic transformers generate().")
 

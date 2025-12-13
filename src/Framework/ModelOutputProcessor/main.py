@@ -1,9 +1,9 @@
 try:
     from src.Framework.ModelOutputProcessor.run import run
-    from src.Framework.ModelOutputProcessor.indexer import Qwen05BIndexer, Qwen15BIndexer, GoogleIndexer
+    from src.Framework.ModelOutputProcessor.indexer import Qwen05BIndexer, Qwen15BIndexer, GoogleIndexer, MicrosoftIndexer
 except Exception:
     from run import run
-    from indexer import Qwen05BIndexer, Qwen15BIndexer, GoogleIndexer
+    from indexer import Qwen05BIndexer, Qwen15BIndexer, GoogleIndexer, MicrosoftIndexer
 import sys
 from time import perf_counter
 
@@ -12,13 +12,15 @@ print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
 
-def main(GlobalRun=False, model = 'google'):
+def main(GlobalRun=False, model = 'qwen05'):
     if model == 'qwen05':
         Qwen05BIndexer.main()
     elif model == 'qwen15':
         Qwen15BIndexer.main()
     elif model == 'google':
         GoogleIndexer.main()
+    elif model == 'microsoft': # unreleased
+        MicrosoftIndexer.main()
     else:
         run()
 
