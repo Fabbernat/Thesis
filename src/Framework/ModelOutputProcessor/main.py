@@ -12,7 +12,7 @@ print("sys.path: ", str(sys.path))
 print(' ** end of runtime environment info ** ')
 
 
-def main(GlobalRun=False, model = 'qwen15'):
+def main(GlobalRun=False, model = 'google'):
     if model == 'qwen05':
         Qwen05BIndexer.main()
     elif model == 'qwen15':
