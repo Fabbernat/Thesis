@@ -158,7 +158,7 @@ def test_indexer():
         'morale': 'Yes', 'back': 'Yes', 'bother': 'Yes',
         'organize': 'No', 'dash': 'No',
         'loop': 'Yes', 'resolve': 'No', 'underlay': 'Yes',
-        'submit': 'Yes', 'blood': 'No',
+        'submit': 'No', 'blood': 'No',
         'violence': 'Yes', 'lot': 'No',
     }
     microsoftReversedAnswers: dict[str, str] = {
@@ -237,8 +237,8 @@ def test_indexer():
         'union': 'No', 'cross': 'No',
         'morale': 'Yes', 'back': 'No', 'bother': 'Yes',
         'organize': 'No', 'dash': 'No',
-        'loop': 'No', 'resolve': 'Yes', 'underlay': 'No',
-        'submit': 'Yes', 'blood': 'No',
+        'loop': 'No', 'resolve': 'No', 'underlay': 'Yes',
+        'submit': 'No', 'blood': 'No',
         'violence': 'Yes', 'lot': 'No',
     }
     guids: list[int] = [
