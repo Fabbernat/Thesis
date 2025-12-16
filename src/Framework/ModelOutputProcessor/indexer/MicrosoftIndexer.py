@@ -159,7 +159,7 @@ def test_indexer():
         'organize': 'No', 'dash': 'No',
         'loop': 'Yes', 'resolve': 'No', 'underlay': 'Yes',
         'submit': 'Yes', 'blood': 'No',
-        'violence': 'No', 'lot': 'No',
+        'violence': 'Yes', 'lot': 'No',
     }
     microsoftReversedAnswers: dict[str, str] = {
         'sound': 'Yes',
