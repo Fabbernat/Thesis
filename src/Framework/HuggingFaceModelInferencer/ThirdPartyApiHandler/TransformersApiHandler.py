@@ -1,13 +1,13 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForGoogle
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString_Qwen_Microsoft, getMessagesAsString_Google
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
     from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 except Exception as e:
     from .orgs.google import tokenizeAutoModelForGoogle0
     from .orgs.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForGoogle
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString_Qwen_Microsoft, getMessagesAsString_Google
     from modelname import MODEL_NAME
     from config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 
@@ -57,7 +57,7 @@ class TransformersApiHandler:
         _dbg("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        msgs = getMessagesAsStringForQwen( questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString_Qwen_Microsoft( questions, i, NUMBER_OF_DESIRED_ANSWERS)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(
@@ -162,7 +162,7 @@ class TransformersApiHandler:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        msgs = getMessagesAsStringForGoogle(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString_Google(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         # Add an assistant message if missing
 
         _dbg("MessagesAsString:", msgs)
@@ -242,7 +242,7 @@ class TransformersApiHandler:
         _dbg("Model loaded:", type(self.model), "device_map:", getattr(self.model, "hf_device_map", None))
 
         # Build prompt — phi-mini-instruct is instruction-tuned, use same chat-template approach if available
-        msgs = getMessagesAsStringForQwen(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString_Qwen_Microsoft(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         # Some tokenizers/models don't have apply_chat_template; guard it
         try:

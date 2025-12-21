@@ -9,8 +9,8 @@ except Exception:
 
 
 
-def getMessagesAsStringForQwen(questions, i, numberOfLines=None):
-    print('getMessagesAsStringForQwen started')
+def getMessagesAsString_Qwen_Microsoft(questions, i, numberOfLines=None):
+    print('getMessagesAsString_Qwen_Microsoft started')
     try:
         if i < 0 or i >= len(numberOfLines):
             raise IndexError(f"Line index {i} out of range (0..{len(numberOfLines) - 1})")
@@ -35,7 +35,7 @@ def getMessagesAsStringForQwen(questions, i, numberOfLines=None):
 
         # questionsFileContents = ''.join(islice(questions, numberOfLines)) # ez hibásan levágja a numberOfLines-adik karakter után, sor helyett.
         questionsFileContents = ''.join(questions)
-        questionsAsList = questions.split('\n')
+        questions.split('\n')
         print('reading:', questionsFileContents)
 
     messagesAsStr = message[0]['content']+'\n---------------\n'+ message[1]['content']
@@ -53,8 +53,8 @@ def getMessagesAsStringForQwen(questions, i, numberOfLines=None):
     return message
 
 
-def getMessagesAsStringForGoogle(questions, i, numberOfLines=None):
-    print('getMessagesAsStringForGoogle started')
+def getMessagesAsString_Google(questions, i, numberOfLines=None):
+    print('getMessagesAsString_Google started')
     try:
         if i < 0 or i >= len(numberOfLines):
             raise IndexError(f"Line index {i} out of range (0..{len(numberOfLines) - 1})")
@@ -96,7 +96,7 @@ def getMessagesAsStringForGoogle(questions, i, numberOfLines=None):
     return message
 
 if __name__ == '__main__':
-    print(getMessagesAsStringForQwen("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
+    print(getMessagesAsString_Qwen_Microsoft("""Does the word "crisscross" mean the same thing in sentences "Crisscross the sheet of paper." and "Wrinkles crisscrossed her face."?
 Does the word "crisscross" mean the same thing in sentences "Wrinkles crisscrossed her face." and "Crisscross the sheet of paper."?
 """, 0))
 
