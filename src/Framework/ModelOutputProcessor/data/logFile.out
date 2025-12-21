@@ -930,3 +930,33 @@ Ambiguous pairs: 0.0 entries.
 Consistently ambiguous pairs: 0.0 entries.
 Ratio of "Yes" answers 81
 Ratio of "No" answers 119
+Fabbernat ran microsoft/phi-4-mini-instruct 2025. 12. 13. 16:32
+Answers ratios (True/all)
+Consistent pairs: 73.0 entries.
+Accurates: 125.0 entries.
+Accurate Pairs 76.0 entries.
+Consistently accurate pairs: 49.0 entries.
+Ambiguous pairs: 0.0 entries.
+Consistently ambiguous pairs: 0.0 entries.
+Ratio of "Yes" answers 81
+Ratio of "No" answers 119
+Fabbernat ran Qwen/Qwen2.5-0.5B-Instruct at 2025. 12. 21. 02:03
+Answers ratios (True/all)
+Consistent pairs: 94.0 entries.
+Accurates: 136.0 entries.
+Accurate Pairs 71.0 entries.
+Consistently accurate pairs: 65.0 entries.
+Ambiguous pairs: 0.0 entries.
+Consistently ambiguous pairs: 0.0 entries.
+Ratio of "Yes" answers 12
+Ratio of "No" answers 188
+Fabbernat ran Qwen/Qwen2.5-0.5B-Instruct at 2025. 12. 21. 02:03
+Answers ratios (True/all)
+Consistent pairs: 94.0 entries.
+Accurates: 136.0 entries.
+Accurate Pairs 71.0 entries.
+Consistently accurate pairs: 65.0 entries.
+Ambiguous pairs: 0.0 entries.
+Consistently ambiguous pairs: 0.0 entries.
+Ratio of "Yes" answers 12
+Ratio of "No" answers 188
