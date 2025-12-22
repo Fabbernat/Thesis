@@ -67,7 +67,7 @@ def getMessagesAsString_Google(questions, i, numberOfLines=None):
     selectedLine = questionsAsList[i]
 
     message = [
-        {'role': 'user', 'content': 'Answer the question with just a single `Yes` or `No`.\n---------------\n'+ str(selectedLine)},
+        {'role': 'user', 'content': INSTRUCTION + '\n---------------\n'+ str(selectedLine)},
     ]
 
     if numberOfLines is not None:
