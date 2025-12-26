@@ -165,7 +165,7 @@ def test_indexer():
         'sound': 'Yes',
         'grow': 'No',
         'audience': 'No',
-        'insufficiency': 'No',
+        'insufficiency': 'Yes',
         'batch': 'Yes',
         'extent': 'No',
         'extract': 'No',
