@@ -30,8 +30,17 @@ class TorchApiHandler:
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
+            import os
 
-            with open('baseline.in') as baselineFile:
+            # Get the directory where TorchApiHandler.py is located
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+
+            # Navigate up to the 'HuggingFaceModelInferencer' level, then down to 'data'
+            # Since TorchApiHandler is in 'ThirdPartyApiHandler', we go up one level
+            base_path = os.path.join(current_dir, '..', 'data', 'storage', 'baseline.in')
+            # Normalize the path to fix slash directions
+            file_path = os.path.abspath(base_path)
+            with open(file_path) as baselineFile:
                 fileContents = baselineFile.read()
             for index, line in enumerate(fileContents):
                 try:
