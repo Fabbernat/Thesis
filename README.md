@@ -84,8 +84,8 @@ include a word used in the same supersense.
 <img width="1912" height="1027" alt="image" src="https://github.com/user-attachments/assets/e0602229-f699-4989-88b4-95bdad915ada" />
 
 
-#### The Colab Notebook [outdated]:
-[WiC POS Tagging Word Comparison Notebook](https://colab.research.google.com/drive/1_UdMjugchWWHVrgETc9T1wsYs0R-67wh#scrollTo=9OlQSKyWfH9Y)
+#### The Google Colab Notebook used for GPU-powered run [updated: January 10, 2026.]:
+[REAL Phi_4_mini_instruct.ipynb inferrer](https://colab.research.google.com/drive/1PCGSFj5bzKXs9_k0Hfd-BZf5ko3WP-za?usp=sharing)
 
 
 

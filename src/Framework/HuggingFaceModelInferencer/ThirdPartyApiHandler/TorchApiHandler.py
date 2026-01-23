@@ -30,37 +30,51 @@ class TorchApiHandler:
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
+            import os
 
-            #for i in range(min(NUMBER_OF_DESIRED_ANSWERS, len(questions))):
-            for i in range(1):
-                self.transformersApiHandler.DoAutotokenizerFromPretrained()
+            # Get the directory where TorchApiHandler.py is located
+            current_dir = os.path.dirname(os.path.abspath(__file__))
 
-                response = self.handleModelSpecificActions(i, questions) # This takes up most of the runtime.
+            # Navigate up to the 'HuggingFaceModelInferencer' level, then down to 'data'
+            # Since TorchApiHandler is in 'ThirdPartyApiHandler', we go up one level
+            base_path = os.path.join(current_dir, '..', 'data', 'storage', 'baseline.in')
+            # Normalize the path to fix slash directions
+            file_path = os.path.abspath(base_path)
+            with open(file_path) as baselineFile:
+                fileContents = baselineFile.read()
+            for index, line in enumerate(fileContents):
+                try:
+                    self.transformersApiHandler.DoAutotokenizerFromPretrained()
+
+                    response = self.handleModelSpecificActions(index, questions) # This takes up most of the runtime.
 
 
-                #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
-                # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(elem for elem in self.convertedIdsTensorsList)
-                # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(list(self.convertedIdsTensorsList))
+                    #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
+                    # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(elem for elem in self.convertedIdsTensorsList)
+                    # response, generatedIds, tokenizer = self.transformersApiHandler.batchDecodeGenerateFinalAnswer(list(self.convertedIdsTensorsList))
 
 
-                # print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
-                # response = ' '.join([str(elem) for elem in response])
-                #
-                basePath = Path(__file__).parent
-                # writeToFile(generatedIds, basePath / "data" / "generatedIds.out")
-                # writeToFile(tokenizer, basePath / "data" / "tokenizer.out")
-                # writeToFile(self.generatedIdsTransformersTensorsList, basePath / "data" / "generatedIdsTransformersTensors.out")
-                # writeToFile(self.convertedIdsTensorsList, basePath / "data" / "convertedIdsTensors.out")
-                #
-                flat = [elem[0] for elem in response]  # extract inner strings
-                result = '\n'.join(flat)
+                    # print(f'Model\'s responses: {response} \ngenerated ids: {generatedIds} \ntokenizer: {tokenizer}')
+                    # response = ' '.join([str(elem) for elem in response])
+                    #
+                    basePath = Path(__file__).parent
+                    # writeToFile(generatedIds, basePath / "data" / "generatedIds.out")
+                    # writeToFile(tokenizer, basePath / "data" / "tokenizer.out")
+                    # writeToFile(self.generatedIdsTransformersTensorsList, basePath / "data" / "generatedIdsTransformersTensors.out")
+                    # writeToFile(self.convertedIdsTensorsList, basePath / "data" / "convertedIdsTensors.out")
+                    #
+                    flat = [elem[0] for elem in response]  # extract inner strings
+                    result = '\n'.join(flat)
 
-                # A kérdést is eltároljuk, hogy lássuk, mire érkezett a válasz
-                questionsAsList = questions.splitlines()
-                selectedLine = questionsAsList[i]
+                    # A kérdést is eltároljuk, hogy lássuk, mire érkezett a válasz
+                    questionsAsList = questions.splitlines()
+                    selectedLine = questionsAsList[index]
 
-                saveOutput(basePath, str(selectedLine + '\t' + result))
+                    saveOutput(basePath, str(selectedLine + '\t' + result))
 
+                except Exception:
+                    print('An error occured, continuing...')
+                    index -= 1
 
 
     def handleModelSpecificActions(self, i: int, questions: str):

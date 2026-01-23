@@ -1,13 +1,13 @@
 try:
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.google.google import tokenizeAutoModelForGoogle0
     from src.Framework.HuggingFaceModelInferencer.ThirdPartyApiHandler.qwen.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForGoogle
+    from src.Framework.HuggingFaceModelInferencer.MessagesAsASingleStringBuilder.Builder import getMessagesAsString_Qwen_Microsoft, getMessagesAsString_Google
     from src.Framework.HuggingFaceModelInferencer.modelname import MODEL_NAME
     from src.Framework.HuggingFaceModelInferencer.config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 except Exception as e:
     from .orgs.google import tokenizeAutoModelForGoogle0
     from .orgs.qwen import tokenizeAutoModelForQwenAndSimilar0
-    from MessagesAsASingleStringBuilder.Builder import getMessagesAsStringForQwen, getMessagesAsStringForGoogle
+    from MessagesAsASingleStringBuilder.Builder import getMessagesAsString_Qwen_Microsoft, getMessagesAsString_Google
     from modelname import MODEL_NAME
     from config import NUMBER_OF_DESIRED_ANSWERS, DEBUG_MODE
 
@@ -57,7 +57,7 @@ class TransformersApiHandler:
         _dbg("Tokenizer loaded:", self.tokenizer)
 
         # 3) Build prompt
-        msgs = getMessagesAsStringForQwen( questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString_Qwen_Microsoft( questions, i, NUMBER_OF_DESIRED_ANSWERS)
         print("MessagesAsString:", msgs)
 
         prompt = self.tokenizer.apply_chat_template(
@@ -121,6 +121,7 @@ class TransformersApiHandler:
         """
         from transformers import AutoModelForCausalLM, AutoTokenizer
         import torch
+        import os
 
         _dbg("=== GEMMA PATH STARTED ===")
         _dbg("MODEL_NAME:", MODEL_NAME)
@@ -136,7 +137,10 @@ class TransformersApiHandler:
         # If GPU present, prefer float16/revision float16 (user can change)
         try:
             if torch.cuda.is_available():
+                load_kwargs["device_map"] = "auto"
                 load_kwargs["torch_dtype"] = torch.float16
+            else:
+                load_kwargs["device_map"] = {"": "cpu"}
         except Exception:
             pass
 
@@ -148,12 +152,17 @@ class TransformersApiHandler:
             try:
                 _dbg("Compiling model with torch.compile() (Gemma can benefit). Running 2 warm-up steps recommended.")
                 # compile may speed up inference on supported PyTorch versions
-                self.model = torch.compile(self.model)  # optional; may raise on old torch
+
+
+                self.model.eval() # On CPU, torch.compile() is rarely worth it and sometimes slower.
+
+                if use_torch_compile and torch.cuda.is_available():
+                    self.model = torch.compile(self.model)
             except Exception as e:
                 _dbg("torch.compile() failed or unsupported:", e)
 
         # Build prompt using chat template for instruction models
-        msgs = getMessagesAsStringForGoogle(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString_Google(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         # Add an assistant message if missing
 
         _dbg("MessagesAsString:", msgs)
@@ -196,6 +205,7 @@ class TransformersApiHandler:
         """
         from transformers import AutoModelForCausalLM, AutoTokenizer
         import torch
+        import os
 
         _dbg("=== PHI-4 MINI PATH STARTED ===")
         _dbg("MODEL_NAME:", MODEL_NAME)
@@ -211,10 +221,19 @@ class TransformersApiHandler:
         _dbg("Tokenizer:", self.tokenizer)
 
         # Use device_map="auto" and dtype hints if GPU available (phi docs show this pattern)
-        load_kwargs = {"device_map": "auto"}
+
+        offloadFolder = os.path.expanduser("~\\hf_offload")
+        os.makedirs(offloadFolder, exist_ok=True)
+        load_kwargs = {}
         try:
             if torch.cuda.is_available():
-                load_kwargs["torch_dtype"] = torch.float16
+                load_kwargs["device_map"]= "auto"
+                load_kwargs["torch_dtype"]= torch.float16
+                load_kwargs["offload_folder"] = offloadFolder
+
+            else:
+                load_kwargs["device_map"]= {"": "cpu"}
+
         except Exception:
             pass
 
@@ -223,7 +242,7 @@ class TransformersApiHandler:
         _dbg("Model loaded:", type(self.model), "device_map:", getattr(self.model, "hf_device_map", None))
 
         # Build prompt — phi-mini-instruct is instruction-tuned, use same chat-template approach if available
-        msgs = getMessagesAsStringForQwen(questions, i, NUMBER_OF_DESIRED_ANSWERS)
+        msgs = getMessagesAsString_Qwen_Microsoft(questions, i, NUMBER_OF_DESIRED_ANSWERS)
         _dbg("MessagesAsString:", msgs)
         # Some tokenizers/models don't have apply_chat_template; guard it
         try:

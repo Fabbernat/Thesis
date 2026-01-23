@@ -83,13 +83,14 @@ def indexer(qwenStraightAnswers: dict[str, str],
         if token1 == 'No' and token2 == 'No' and not groundTruth:
             consistentlyAccuratePairsPairs += 1
 
-    return consistentPairs / length, accurates / length, accuratePairs / length, consistentlyAccuratePairsPairs / length, ambiguousPairs / length, consistentlyambiguousPairs / length, yeses, nos # # 0 és 1 közé normalizáljuk, kivéve a yeseket és a nokat
+    return consistentPairs / length, accurates / length, accuratePairs / length, consistentlyAccuratePairsPairs / length, ambiguousPairs / length, consistentlyambiguousPairs / length, yeses, nos  # # 0 és 1 közé normalizáljuk, kivéve a yeseket és a nokat
+
 
 def test_indexer():
     qwenStraightAnswers: dict[str, str] = {
         'sound': 'No', 'grow': 'No', 'audience': 'No',
         'insufficiency': 'No',
-        'batch': 'No', 'extent': 'No','extract':'No' , 'agency': 'No', 'narcolepsy': 'No',
+        'batch': 'No', 'extent': 'No', 'extract': 'No', 'agency': 'No', 'narcolepsy': 'No',
         'score': 'No', 'instill': 'No', 'amount': 'No', 'generation': 'No',
         'vagina': 'No', 'guard': 'No', 'allowance': 'No', 'site': 'No', 'eclat': 'No',
         'compel': 'No', 'inwardness': 'No', 'height': 'Yes', 'fall': 'No',
@@ -138,11 +139,11 @@ def test_indexer():
         'construction': 'No', 'mate': 'No', 'sewer': 'No', 'origin': 'No',
         'manner': 'No', 'model': 'No', 'bank': 'No',
         'deflate':'No', 'local':'No',
-        'drive': 'No','have2':'No',
+        'drive': 'No','have':'No',
         'inspire': 'No','afterthought':'No',
         'property': 'No','awareness':'No',
         'prefer': 'Yes','bend':'No','mark':'No',
-        'have1': 'No','rounding':'No',
+        'possess': 'No','rounding':'No',
         'steamroller': 'No','zero':'No','nest':'No',
         'land': 'No','deliberation':'No',
         'consist': 'No','restraint ':'No','feedstock':'No',
