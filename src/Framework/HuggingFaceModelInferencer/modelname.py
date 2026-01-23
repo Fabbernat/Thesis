@@ -1,6 +1,6 @@
 supportedModels = [
-    'Qwen/Qwen2.5-1.5B-Instruct',
     'Qwen/Qwen2.5-0.5B-Instruct',
+    'Qwen/Qwen2.5-1.5B-Instruct',
     'Qwen/Qwen2.5-0.5B-Instruct-AWQ',
     'Qwen/Qwen2.5-0.5B-Instruct-GPTQ-Int4', 'Qwen/Qwen2.5-0.5B-Instruct-GPTQ-Int8',
 ]  # tested models, that will grantedly work
@@ -32,7 +32,7 @@ googleModels = [
 ]
 
 microsoftModels = [
-    'microsoft/Phi-4-mini-instruct', # This works well
+    'microsoft/Phi-4-mini-instruct',
     'microsoft/phi-4'
 ]
 
@@ -55,9 +55,10 @@ def main():
 if __name__ == "__main__":
     main()
 
-MODEL_NAME = supportedModels[1] # A kísérlet 1. fele, Qwen/Qwen2.5-0.5B-Instruct
-# MODEL_NAME = googleModels[0] # A kísérlet 2. fele, google/gemma-2-2b-it
-# MODEL_NAME = supportedModels[0] # Extra, a kísérlet 3. fele
-# MODEL_NAME = microsoftModels[0] # Extra, a kísérlet 4. fele
+# I used these 4 models for the experiment
+MODEL_NAME = supportedModels[0] # Qwen/Qwen2.5-0.5B-Instruct
+# MODEL_NAME = supportedModels[1] # Qwen/Qwen2.5-1.5B-Instruct
+# MODEL_NAME = googleModels[0] # google/gemma-2-2b-it
+# MODEL_NAME = microsoftModels[0] # microsoft/Phi-4-mini-instruct
 MODEL_NAME = MODEL_NAME.strip().lower()
 
