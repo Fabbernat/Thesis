@@ -5339,7 +5339,7 @@ Answer the question with just a single `Yes` or `No`.
 s
 Answer the question with just a single `Yes` or `No`.
 ---------------
- 
+
 Answer the question with just a single `Yes` or `No`.
 ---------------
 t
@@ -5351,7 +5351,7 @@ Answer the question with just a single `Yes` or `No`.
 e
 Answer the question with just a single `Yes` or `No`.
 ---------------
- 
+
 Answer the question with just a single `Yes` or `No`.
 ---------------
 w
@@ -5378,7 +5378,7 @@ Answer the question with just a single `Yes` or `No`.
 s
 Answer the question with just a single `Yes` or `No`.
 ---------------
- 
+
 Answer the question with just a single `Yes` or `No`.
 ---------------
 t
@@ -5390,7 +5390,7 @@ Answer the question with just a single `Yes` or `No`.
 e
 Answer the question with just a single `Yes` or `No`.
 ---------------
- 
+
 Answer the question with just a single `Yes` or `No`.
 ---------------
 w
@@ -5406,3 +5406,6 @@ Does the word "audience" mean the same thing in sentences "Someone in the audien
 Answer the question with just a single `Yes` or `No`.
 ---------------
 Does the word "insufficiency" mean the same thing in sentences "The troops went hungry because of the insufficiency of their supplies." and "Pointed out the insufficiencies in my report."?
+Answer the question with just a single `Yes` or `No`.
+---------------
+Does the word "defeat" mean the same thing in sentences "It was a narrow defeat." and "The army's only defeat."?
