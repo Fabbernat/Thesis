@@ -41,12 +41,13 @@ class TorchApiHandler:
             # Normalize the path to fix slash directions
             file_path = os.path.abspath(base_path)
             with open(file_path) as baselineFile:
-                fileContents = baselineFile.read()
-            for index, line in enumerate(fileContents):
+                fileContents = baselineFile.read().splitlines()
+            safeIndex = 0
+            for prompt in fileContents:
                 try:
                     self.transformersApiHandler.DoAutotokenizerFromPretrained()
-
-                    response = self.handleModelSpecificActions(index, questions) # This takes up most of the runtime.
+                    print('Safe index:', safeIndex, 'Prompt:', prompt, 'Questions:', questions)
+                    response = self.handleModelSpecificActions(safeIndex, prompt) # This takes up most of the runtime.
 
 
                     #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
@@ -71,10 +72,10 @@ class TorchApiHandler:
                     selectedLine = questionsAsList[index]
 
                     saveOutput(basePath, str(selectedLine + '\t' + result))
-
+                    safeIndex += 1
                 except Exception:
                     print('An error occured, continuing...')
-                    index -= 1
+                    continue
 
 
     def handleModelSpecificActions(self, i: int, questions: str):

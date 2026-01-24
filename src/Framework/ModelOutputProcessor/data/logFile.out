@@ -990,3 +990,13 @@ Ambiguous pairs: 0.0 entries.
 Consistently ambiguous pairs: 0.0 entries.
 Ratio of "Yes" answers 50
 Ratio of "No" answers 150
+Fabbernat ran microsoft/phi-4-mini-instruct 2026. 01. 14. 11:38
+Answers ratios (True/all)
+Consistent pairs: 82.0 entries.
+Accurates: 148.0 entries.
+Accurate Pairs 83.0 entries.
+Consistently accurate pairs: 65.0 entries.
+Ambiguous pairs: 0.0 entries.
+Consistently ambiguous pairs: 0.0 entries.
+Ratio of "Yes" answers 50
+Ratio of "No" answers 150
