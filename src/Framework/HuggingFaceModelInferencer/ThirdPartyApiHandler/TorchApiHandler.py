@@ -30,24 +30,16 @@ class TorchApiHandler:
         print('TorchApiHandler.handleRequest() started')
         with torch.no_grad():
             self.transformersApiHandler = TransformersApiHandler()
-            import os
 
-            # Get the directory where TorchApiHandler.py is located
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-
-            # Navigate up to the 'HuggingFaceModelInferencer' level, then down to 'data'
-            # Since TorchApiHandler is in 'ThirdPartyApiHandler', we go up one level
-            base_path = os.path.join(current_dir, '..', 'data', 'storage', 'baseline.in')
-            # Normalize the path to fix slash directions
-            file_path = os.path.abspath(base_path)
-            with open(file_path) as baselineFile:
-                fileContents = baselineFile.read().splitlines()
+            #for i in range(min(NUMBER_OF_DESIRED_ANSWERS, len(questions))):
+            numberOfIterations = int(input('How many prompts do you have? Please input the number of generations you want. '))
             safeIndex = 0
-            for prompt in fileContents:
+            while safeIndex < numberOfIterations:
                 try:
                     self.transformersApiHandler.DoAutotokenizerFromPretrained()
-                    print('Safe index:', safeIndex, 'Prompt:', prompt, 'Questions:', questions)
-                    response = self.handleModelSpecificActions(safeIndex, prompt) # This takes up most of the runtime.
+
+                    print('Safe index:', safeIndex, 'Questions:', questions)
+                    response = self.handleModelSpecificActions(safeIndex, questions) # This takes up most of the runtime.
 
 
                     #  This line uses a generator expression. batchDecodeGenerateFinalAnswer prints convertedTensors and then calls self.tokenizer.batch_decode(convertedTensors, ...). Pass a list instead
@@ -69,12 +61,13 @@ class TorchApiHandler:
 
                     # A kérdést is eltároljuk, hogy lássuk, mire érkezett a válasz
                     questionsAsList = questions.splitlines()
-                    selectedLine = questionsAsList[index]
+                    selectedLine = questionsAsList[i]
 
                     saveOutput(basePath, str(selectedLine + '\t' + result))
                     safeIndex += 1
-                except Exception:
-                    print('An error occured, continuing...')
+                except Exception as e:
+                    print('An error occured, restarting from last stable state...')
+                    print('Error message:', e)
                     continue
 
 
