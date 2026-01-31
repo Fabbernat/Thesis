@@ -2,7 +2,7 @@ modelSize = 0.5 # 0.5 for Qwen/Qwen2.5-0.5B-Instruct, 1.5 for Qwen/Qwen2.5-1.5B-
 
 def indexer(qwenStraightAnswers: dict[str, str],
             qwenReversedAnswers: dict[str, str],
-            guids: set[int],
+            guids: list[int],
             goldStandard: list[bool]):
     """"""
     keys = list(qwenStraightAnswers.keys())
@@ -88,7 +88,6 @@ def indexer(qwenStraightAnswers: dict[str, str],
 
 def test_indexer():
     qwenStraightAnswers: dict[str, str] = {
-        'defeat':'No',
         'sound': 'No', 'grow': 'No', 'audience': 'No',
         'insufficiency': 'No',
         'batch': 'No', 'extent': 'No', 'extract': 'No', 'agency': 'No', 'narcolepsy': 'No',
@@ -125,7 +124,6 @@ def test_indexer():
         'violence': 'No','lot':'No',
     }
     qwenReversedAnswers: dict[str, str] = {
-        'defeat': 'No',
         'sound': 'No', 'grow': 'No', 'audience': 'No', 'insufficiency': 'No',
         'batch': 'No', 'extent': 'No', 'extract': 'No', 'agency': 'No',
         'narcolepsy': 'Yes', 'score': 'No', 'instill': 'No', 'amount': 'No',
@@ -162,8 +160,7 @@ def test_indexer():
         'submit': 'No','blood':'No',
         'violence': 'No','lot':'No',
     }
-    guids: set[int] = {
-        0,
+    guids: list[int] = [
         137,
         399,
         1041,
@@ -264,7 +261,7 @@ def test_indexer():
         300,
         357,
         387,
-        }
+    ]
 
     print(len(qwenStraightAnswers), len(qwenReversedAnswers), len(guids))
 

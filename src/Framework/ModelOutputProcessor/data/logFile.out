@@ -1000,3 +1000,13 @@ Ambiguous pairs: 0.0 entries.
 Consistently ambiguous pairs: 0.0 entries.
 Ratio of "Yes" answers 50
 Ratio of "No" answers 150
+Fabbernat ran Qwen/Qwen2.5-0.5B-Instruct at 2026. 01. 31. 12:46
+Answers ratios (True/all)
+Consistent pairs: 93.0 entries.
+Accurates: 135.0 entries.
+Accurate Pairs 70.0 entries.
+Consistently accurate pairs: 65.0 entries.
+Ambiguous pairs: 4.0 entries.
+Consistently ambiguous pairs: 0.0 entries.
+Ratio of "Yes" answers 12
+Ratio of "No" answers 186
