@@ -7,14 +7,14 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
 - Any\* [Hugging Face](https://huggingface.co/models) model
 ### Output: 
-- Detailed statistics and analytics of the model's answers to the input.
+- Detailed statistics and analytics of the model's answers to the input. Unfortunately no plots yet, but I'm working on automatic plotting the results using [TikZ](https://tikz.net/) right now.
 
 \* almost any, qwen and google models are the most compatible. You need to make your own scripts to test unsupported models. The framework has been thoroughly tested on 
 1. [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work.
 2. [google/gemma-2-2b-it](https://huggingface.co/google/gemma-2-2b-it) has been tested a lot too, so this and similar models will work. Note: As gemma is a [gated model](https://huggingface.co/docs/hub/en/models-gated), you'll need to log in to use it.
 
 ### How to run the app?
-##### In PowerShell
+##### In PowerShell ( or your favorite terminal that supports `git` and `pip`)
 1. clone the repository to a folder e.g.
    ```powershell
    cd ~\PycharmProjects
