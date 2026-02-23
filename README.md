@@ -5,7 +5,7 @@ You can test the semantical sentence-understanding capabilities of **any\* Huggi
 [src/Framework module](https://github.com/Fabbernat/Thesis/tree/master/src/Framework)
 ### Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
-- Any [Hugging Face](https://huggingface.co/models) model
+- Any\* [Hugging Face](https://huggingface.co/models) model
 ### Output: 
 - Detailed statistics and analytics of the model's answers to the input.
 
