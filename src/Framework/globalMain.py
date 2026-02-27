@@ -10,6 +10,6 @@ def main():
     except AttributeError as ae:
         print(f'AttributeError: {ae}')
     except Exception as e:
-        print(f'An exception occurred: {e}.\nRun the three modules one by one instead.')
+        print(f'Sorry, this is not working at moment, but the devs know about this issue. Write a mail to job.fabbernat@gmail.com to make them hurry! \n Exception occurred: {e}.\nRun the three modules one by one instead.')
 if __name__ == "__main__":
     main()
