@@ -1,7 +1,10 @@
+⚠️ Parts of the research description are written in Hungarian, as they originate from the Bachelor's thesis documentation.  
+English explanations are provided alongside them for international readers.
+
 # My Bachelor's Thesis: Analyzing the Consistency of Semantical Capabilities of Large Language Models - a Word-in-Context Benchmark Evaluation Framework and Utility Library
 
 This repository contains the evaluation framework used in my Bachelor's thesis to evaluate the **semantic consistency of Large Language Models** using the **Word-in-Context (WiC)** benchmark.
-It allows researchers to test the semantical sentence-understanding capabilities of **any\* Hugging Face language model** and generate detailed statistics about its semantic understanding performance.
+It allows researchers to test the semantic understanding capabilities of **any\* Hugging Face language model** and generate detailed statistics about its semantic understanding performance.
 
 ## Features
 
@@ -136,19 +139,36 @@ include a word used in the same supersense.
 
 <img width="629" height="351" alt="image" src="https://github.com/user-attachments/assets/667d3019-dfe9-43ba-9e20-bc0e94574f29" />
 
+**English:**  
+Comparison of the number of correct predictions made by four models on the 200 individual questions (100 word pairs), measured against the gold-standard labels.
+
+**Magyar:** 
 Négy modell pontos egyenkénti predikcióinak (gold standard címkékkel való egyezések számának) összehasonlítása a 200 kérdésen (100 kérdéspáron).
 
 <img width="549" height="342" alt="image" src="https://github.com/user-attachments/assets/c5f36ff8-caf9-4736-8125-508daed081de" />
 
+**English:**  
+Number of consistent, partially correct, and fully correct predictions made by four models across the 100 word pairs.  
+The number of *fully correct* pairs is the intersection of the *consistent* and *partially correct* sets.
+
+**Magyar:**  
 Négy modell konzisztens, részben és teljesen pontos párjainak száma a 100 kérdéspáron.
-A "teljesen pontos" párok száma a "konzisztens" és a "részben pontos" párok matematikai metszete.
+A *teljesen pontos* párok száma a *konzisztens* és a *részben pontos* párok matematikai metszete.
 
 <img width="600" height="511" alt="image" src="https://github.com/user-attachments/assets/a93b0c37-04a5-49eb-87c5-924883422659" />
 
+**English:**  
+Distribution of „Yes” and „No” predictions made by the four models across the 200 questions, compared to the expected label distribution.
+
+**Magyar:**
 A négy modell „Yes”-„No” válaszainak eloszlása a 200 egyenkénti kérdésre, összevetve a címkék elvárt eloszlásával.
 
 <img width="442" height="266" alt="image" src="https://github.com/user-attachments/assets/45ae62f4-7776-45ca-b2d2-c4de3b426e5b" />
 
+**English:**  
+Absolute difference between the models' „Yes”-„No” prediction distribution and the expected label distribution.
+
+**Magyar:**
 A négy modell „Yes”-„No” válaszainak eloszlásának különbözete (különbségének abszolút értéke) az elvárt eloszláshoz képest.
 
 #### The Google Colab Notebook used for GPU-powered run [updated: January 10, 2026.]:
