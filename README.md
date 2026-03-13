@@ -38,8 +38,11 @@ The framework consists of three stages:
   src/
    └ Framework/
       └ ModelInputPreparer/
+        └ main.py
       ├ HuggingFaceModelInferencer/
+        └ main.py
       ├ ModelOutputProcessor/
+        └ main.py
       └ globalMain.py
 ```
 
