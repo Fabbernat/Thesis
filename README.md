@@ -46,6 +46,21 @@ The framework consists of three stages:
       └ globalMain.py
 ```
 
+## Installation
+
+Requirements:
+
+- Python 3.10+
+- pip
+- git
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Fabbernat/Thesis
+cd Thesis
+```
+
 ### Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
 - Any\* [Hugging Face](https://huggingface.co/models) model
