@@ -146,6 +146,8 @@ Comparison of the number of correct predictions made by four models on the 200 i
 **Magyar:** 
 Négy modell pontos egyenkénti predikcióinak (gold standard címkékkel való egyezések számának) összehasonlítása a 200 kérdésen (100 kérdéspáron).
 
+
+
 <img width="549" height="342" alt="image" src="https://github.com/user-attachments/assets/c5f36ff8-caf9-4736-8125-508daed081de" />
 
 **English:**  
@@ -156,6 +158,8 @@ The number of *fully correct* pairs is the intersection of the *consistent* and 
 Négy modell konzisztens, részben és teljesen pontos párjainak száma a 100 kérdéspáron.
 A *teljesen pontos* párok száma a *konzisztens* és a *részben pontos* párok matematikai metszete.
 
+
+
 <img width="600" height="511" alt="image" src="https://github.com/user-attachments/assets/a93b0c37-04a5-49eb-87c5-924883422659" />
 
 **English:**  
@@ -164,6 +168,8 @@ Distribution of „Yes” and „No” predictions made by the four models acros
 **Magyar:**
 A négy modell „Yes”-„No” válaszainak eloszlása a 200 egyenkénti kérdésre, összevetve a címkék elvárt eloszlásával.
 
+
+
 <img width="442" height="266" alt="image" src="https://github.com/user-attachments/assets/45ae62f4-7776-45ca-b2d2-c4de3b426e5b" />
 
 **English:**  
@@ -171,6 +177,8 @@ Absolute difference between the models' „Yes”-„No” prediction distributi
 
 **Magyar:**
 A négy modell „Yes”-„No” válaszainak eloszlásának különbözete (különbségének abszolút értéke) az elvárt eloszláshoz képest.
+
+
 
 #### The Google Colab Notebook used for GPU-powered run [updated: January 10, 2026.]:
 [REAL Phi_4_mini_instruct.ipynb inferrer](https://colab.research.google.com/drive/1PCGSFj5bzKXs9_k0Hfd-BZf5ko3WP-za?usp=sharing)
