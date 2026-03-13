@@ -61,6 +61,40 @@ git clone https://github.com/Fabbernat/Thesis
 cd Thesis
 ```
 
+##### In PowerShell ( or your favorite terminal that supports `git` and `pip`)
+1. clone the repository to a folder e.g.
+
+```powershell
+cd ~\PycharmProjects
+git clone https://github.com/Fabbernat/Thesis
+```
+Install required packages (may vary based on the chosen model)
+```powershell
+cd Thesis
+pip install torch transformers accelerate huggingface_hub
+```
+
+Then run the modules one by one:
+```powershell
+py -3.13 -m src.Framework.ModelInputPreparer.main
+
+py -3.13 -m src.Framework.HuggingFaceModelInferencer.main
+
+py -3.13 -m src.Framework.ModelOutputProcessor.main
+```
+Or run all three:
+```powershell
+py -3.13 -m src.Framework.globalMain
+```
+
+##### In PyCharm
+1. Clone the Repo. Python interpreter needed. It is recommended to use PyCharm
+2. navigate to `src/Framework/ModelInputPreparer/main.py` and run `main()` (in PyCharm just click the green triangle)
+3. You see the results in the `.out` files
+4. do the same with the `HuggingFaceModelInferencer` and the `ModelOutputProcessor` modules, or just run the `src/Framework/globalMain.py` to execute all three modules at once
+5. Check the results in the .out files
+6. That's it!
+
 ### Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
 - Any\* [Hugging Face](https://huggingface.co/models) model
@@ -71,39 +105,6 @@ cd Thesis
 1. [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), so this and [similar models](https://huggingface.co/collections/Qwen/qwen25-66e81a666513e518adb90d9e) will grantedly work.
 2. [google/gemma-2-2b-it](https://huggingface.co/google/gemma-2-2b-it) has been tested a lot too, so this and similar models will work. Note: As gemma is a [gated model](https://huggingface.co/docs/hub/en/models-gated), you'll need to log in to use it.
 
-### How to run the app?
-##### In PowerShell ( or your favorite terminal that supports `git` and `pip`)
-1. clone the repository to a folder e.g.
-   ```powershell
-   cd ~\PycharmProjects
-   git clone https://github.com/Fabbernat/Thesis
-   ```
-   Install required packages (may vary based on the chosen model)
-   ```powershell
-   cd Thesis
-   pip install torch transformers accelerate huggingface_hub
-   ```
-   
-   Then run the modules one by one:
-    ```powershell
-   py -3.13 -m src.Framework.ModelInputPreparer.main
-    
-   py -3.13 -m src.Framework.HuggingFaceModelInferencer.main
-
-   py -3.13 -m src.Framework.ModelOutputProcessor.main
-    ```
-    Or run all three:
-    ```powershell
-   py -3.13 -m src.Framework.globalMain
-    ```
-
-##### In PyCharm
-1. Clone the Repo. Python interpreter needed. It is recommended to use PyCharm
-2. navigate to `src/Framework/ModelInputPreparer/main.py` and run `main()` (in PyCharm just click the green triangle)
-3. You see the results in the `.out` files
-4. do the same with the `HuggingFaceModelInferencer` and the `ModelOutputProcessor` modules, or just run the `src/Framework/globalMain.py` to execute all three modules at once
-5. Check the results in the .out files
-6. That's it!
 
 ## The paper [Overleaf Project]:
 [Analyzing the Consistency of Semantical Capabilities of Large Language Models](https://www.overleaf.com/read/pfzywbczdsfb#057a56)
