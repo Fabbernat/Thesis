@@ -1,5 +1,20 @@
 # My Bachelor's Thesis: Analyzing the Consistency of Semantical Capabilities of Large Language Models - a Word-in-Context Benchmark Evaluation Framework and Utility Library
-You can test the semantical sentence-understanding capabilities of **any\* Hugging Face model**
+
+This repository contains the evaluation framework used in my Bachelor's thesis to evaluate the **semantic consistency of Large Language Models** using the **Word-in-Context (WiC)** benchmark.
+It allows researchers to test the semantical sentence-understanding capabilities of **any\* Hugging Face language model** and generate detailed statistics about its semantic understanding performance.
+
+## Features
+
+- Evaluate Hugging Face language models on the **Word-in-Context (WiC)** benchmark
+- Modular evaluation pipeline
+- Automatic dataset preparation
+- Model inference using Hugging Face Transformers
+- Detailed evaluation statistics
+- Designed for **reproducible research**
+
+Planned features:
+- automatic result plotting using **TikZ**
+- extended model compatibility
 
 # [src/Framework](https://github.com/Fabbernat/Thesis/tree/master/src/Framework) - The module where it happens
 [src/Framework module](https://github.com/Fabbernat/Thesis/tree/master/src/Framework)
