@@ -75,14 +75,20 @@ include a word used in the same supersense.
 
 #### Research results (Hungarian) [updated: March 13, 2026.]:
 
-<img width="549" height="342" alt="image" src="https://github.com/user-attachments/assets/c5f36ff8-caf9-4736-8125-508daed081de" />
-
 <img width="629" height="351" alt="image" src="https://github.com/user-attachments/assets/667d3019-dfe9-43ba-9e20-bc0e94574f29" />
+Négy modell pontos egyenkénti predikcióinak (gold standard címkékkel való egyezések számának) összehasonlítása a 200
+kérdésen (100 kérdéspár).
+
+<img width="549" height="342" alt="image" src="https://github.com/user-attachments/assets/c5f36ff8-caf9-4736-8125-508daed081de" />
+Négy modell konzisztens, részben és teljesen pontos párjainak száma a 100 kérdéspáron.
+A "teljesen pontos" párok száma a "konzisztens" és a "részben pontos" párok matematikai metszete.
 
 <img width="600" height="511" alt="image" src="https://github.com/user-attachments/assets/a93b0c37-04a5-49eb-87c5-924883422659" />
+A négy modell „Yes”-„No” válaszainak eloszlása a 200 egyenkénti kérdésre, összevetve a címkék elvárt eloszlásával.
 
 <img width="442" height="266" alt="image" src="https://github.com/user-attachments/assets/45ae62f4-7776-45ca-b2d2-c4de3b426e5b" />
-
+A négy modell „Yes”-„No” válaszainak eloszlásának különbözete (különbségének
+abszolút értéke) az elvárt eloszláshoz képest.
 
 #### The Google Colab Notebook used for GPU-powered run [updated: January 10, 2026.]:
 [REAL Phi_4_mini_instruct.ipynb inferrer](https://colab.research.google.com/drive/1PCGSFj5bzKXs9_k0Hfd-BZf5ko3WP-za?usp=sharing)
