@@ -73,15 +73,15 @@ in two different supersenses and the positive ones
 include a word used in the same supersense.
 
 
-#### Example results (Hungarian):
-<img width="792" height="468" alt="image" src="https://github.com/user-attachments/assets/e6246427-a2be-4bcd-93b7-f074731334ec" />
-<img width="785" height="332" alt="image" src="https://github.com/user-attachments/assets/34233d85-9625-4630-8f0f-0890e840a8e0" />
-<img width="793" height="487" alt="image" src="https://github.com/user-attachments/assets/255ff9fe-f4ce-4d28-9fae-e69a21c2531a" />
+#### Research results (Hungarian) [updated: March 13, 2026.]:
 
+<img width="549" height="342" alt="image" src="https://github.com/user-attachments/assets/c5f36ff8-caf9-4736-8125-508daed081de" />
 
+<img width="629" height="351" alt="image" src="https://github.com/user-attachments/assets/667d3019-dfe9-43ba-9e20-bc0e94574f29" />
 
+<img width="600" height="511" alt="image" src="https://github.com/user-attachments/assets/a93b0c37-04a5-49eb-87c5-924883422659" />
 
-<img width="1912" height="1027" alt="image" src="https://github.com/user-attachments/assets/e0602229-f699-4989-88b4-95bdad915ada" />
+<img width="442" height="266" alt="image" src="https://github.com/user-attachments/assets/45ae62f4-7776-45ca-b2d2-c4de3b426e5b" />
 
 
 #### The Google Colab Notebook used for GPU-powered run [updated: January 10, 2026.]:
