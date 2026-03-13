@@ -38,7 +38,7 @@ The framework consists of three stages:
 
 - Processes the outputs and computes evaluation statistics.
 
-```powershell
+```python
   src/
    └ Framework/
       └ ModelInputPreparer/
@@ -68,18 +68,18 @@ cd Thesis
 ##### In PowerShell ( or your favorite terminal that supports `git` and `pip`)
 1. clone the repository to a folder e.g.
 
-```powershell
+```python
 cd ~\PycharmProjects
 git clone https://github.com/Fabbernat/Thesis
 ```
 Install required packages (may vary based on the chosen model)
-```powershell
+```python
 cd Thesis
 pip install torch transformers accelerate huggingface_hub
 ```
 
 Then run the modules one by one:
-```powershell
+```python
 py -3.13 -m src.Framework.ModelInputPreparer.main
 
 py -3.13 -m src.Framework.HuggingFaceModelInferencer.main
@@ -87,7 +87,7 @@ py -3.13 -m src.Framework.HuggingFaceModelInferencer.main
 py -3.13 -m src.Framework.ModelOutputProcessor.main
 ```
 Or run all three:
-```powershell
+```python
 py -3.13 -m src.Framework.globalMain
 ```
 
