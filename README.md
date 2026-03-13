@@ -20,6 +20,7 @@ Planned features:
 - extended model compatibility
 
 # [src/Framework](https://github.com/Fabbernat/Thesis/tree/master/src/Framework) - The module where it happens
+[link](https://github.com/Fabbernat/Thesis/tree/master/src/Framework)
 
 ## Evaluation Pipeline
 
