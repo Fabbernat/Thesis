@@ -34,12 +34,14 @@ The framework consists of three stages:
 
 - Processes the outputs and computes evaluation statistics.
 
+```powershell
   src/
    └ Framework/
       └ ModelInputPreparer/
       ├ HuggingFaceModelInferencer/
       ├ ModelOutputProcessor/
       └ globalMain.py
+```
 
 ### Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
