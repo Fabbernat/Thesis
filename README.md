@@ -17,7 +17,30 @@ Planned features:
 - extended model compatibility
 
 # [src/Framework](https://github.com/Fabbernat/Thesis/tree/master/src/Framework) - The module where it happens
-[src/Framework module](https://github.com/Fabbernat/Thesis/tree/master/src/Framework)
+
+## Evaluation Pipeline
+
+The framework consists of three stages:
+
+1️⃣ **ModelInputPreparer**
+
+- Converts WiC dataset records into prompts suitable for LLM inference.
+
+2️⃣ **HuggingFaceModelInferencer**
+
+- Runs the chosen Hugging Face model on the prepared inputs.
+
+3️⃣ **ModelOutputProcessor**
+
+- Processes the outputs and computes evaluation statistics.
+
+  src/
+   └ Framework/
+      └ ModelInputPreparer/
+      ├ HuggingFaceModelInferencer/
+      ├ ModelOutputProcessor/
+      └ globalMain.py
+
 ### Input:
 - Any amount of records from the [Word in Context dataset](https://pilehvar.github.io/wic/) (or records in the same format, of course 🙂)
 - Any\* [Hugging Face](https://huggingface.co/models) model
